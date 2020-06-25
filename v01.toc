@@ -1,0 +1,36 @@
+\babel@toc {greek}{}
+\babel@toc {greek}{}
+\babel@toc {greek}{}
+\contentsline {subparagraph}{}{{\fontencoding {OT1}\selectfont v}}% 
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subparagraph}{}{{\fontencoding {OT1}\selectfont viii}}% 
+\babel@toc {greek}{}
+\babel@toc {greek}{}
+\contentsline {section}{\numberline {1}\IeC {\textEpsilon }\IeC {\textiota }\IeC {\textsigma }\IeC {\textalpha }\IeC {\textgamma }\IeC {\textomega }\IeC {\textgamma }\IeC {\ensuregreek {\acctonos \texteta }}}{1}% 
+\contentsline {subsection}{\numberline {1.1}\IeC {\textPi }\IeC {\textrho }\IeC {\ensuregreek {\acctonos \textomicron }}\IeC {\textbeta }\IeC {\textlambda }\IeC {\texteta }\IeC {\textmu }\IeC {\textalpha } \IeC {\textendash } \IeC {\textSigma }\IeC {\texteta }\IeC {\textmu }\IeC {\textalpha }\IeC {\textnu }\IeC {\texttau }\IeC {\textiota }\IeC {\textkappa }\IeC {\ensuregreek {\acctonos \textomicron }}\IeC {\texttau }\IeC {\texteta }\IeC {\texttau }\IeC {\textalpha } \IeC {\texttau }\IeC {\textomicron }\IeC {\textupsilon } \IeC {\texttheta }\IeC {\ensuregreek {\acctonos \textepsilon }}\IeC {\textmu }\IeC {\textalpha }\IeC {\texttau }\IeC {\textomicron }\IeC {\textvarsigma }}{1}% 
+\contentsline {subparagraph}{}{1}% 
+\contentsline {subsection}{\numberline {1.2}\IeC {\textSigma }\IeC {\textkappa }\IeC {\textomicron }\IeC {\textpi }\IeC {\ensuregreek {\acctonos \textomicron }}\IeC {\textvarsigma } \IeC {\textendash } \IeC {\textSigma }\IeC {\texttau }\IeC {\ensuregreek {\acctonos \textomicron }}\IeC {\textchi }\IeC {\textomicron }\IeC {\textiota }}{2}% 
+\contentsline {subparagraph}{}{2}% 
+\contentsline {subsection}{\numberline {1.3}\IeC {\textEpsilon }\IeC {\textrho }\IeC {\textomega }\IeC {\texttau }\IeC {\ensuregreek {\acctonos \texteta }}\IeC {\textmu }\IeC {\textalpha }\IeC {\texttau }\IeC {\textalpha } \IeC {\textendash } \IeC {\textUpsilon }\IeC {\textpi }\IeC {\textomicron }\IeC {\texttheta }\IeC {\ensuregreek {\acctonos \textepsilon }}\IeC {\textsigma }\IeC {\textepsilon }\IeC {\textiota }\IeC {\textvarsigma } ( \IeC {\textepsilon }\IeC {\ensuregreek {\acctonos \textalpha }}\IeC {\textnu } \IeC {\textupsilon }\IeC {\textpi }\IeC {\ensuregreek {\acctonos \textalpha }}\IeC {\textrho }\IeC {\textchi }\IeC {\textomicron }\IeC {\textupsilon }\IeC {\textnu } )}{2}% 
+\contentsline {subsection}{\numberline {1.4}\IeC {\textSigma }\IeC {\textupsilon }\IeC {\textnu }\IeC {\textepsilon }\IeC {\textiota }\IeC {\textsigma }\IeC {\textphi }\IeC {\textomicron }\IeC {\textrho }\IeC {\ensuregreek {\acctonos \textalpha }}}{2}% 
+\contentsline {subparagraph}{}{2}% 
+\contentsline {subsection}{\numberline {1.5}\IeC {\textBeta }\IeC {\textalpha }\IeC {\textsigma }\IeC {\textiota }\IeC {\textkappa }\IeC {\ensuregreek {\acctonos \texteta }} \IeC {\textOmicron }\IeC {\textrho }\IeC {\textomicron }\IeC {\textlambda }\IeC {\textomicron }\IeC {\textgamma }\IeC {\ensuregreek {\acctonos \textiota }}\IeC {\textalpha } ( \IeC {\textepsilon }\IeC {\ensuregreek {\acctonos \textalpha }}\IeC {\textnu } \IeC {\textupsilon }\IeC {\textpi }\IeC {\ensuregreek {\acctonos \textalpha }}\IeC {\textrho }\IeC {\textchi }\IeC {\textepsilon }\IeC {\textiota })}{2}% 
+\contentsline {subsection}{\numberline {1.6}\IeC {\textDelta }\IeC {\textiota }\IeC {\ensuregreek {\acctonos \textalpha }}\IeC {\textrho }\IeC {\texttheta }\IeC {\textrho }\IeC {\textomega }\IeC {\textsigma }\IeC {\texteta } \IeC {\texttau }\IeC {\texteta }\IeC {\textvarsigma } \IeC {\textmu }\IeC {\textepsilon }\IeC {\textlambda }\IeC {\ensuregreek {\acctonos \textepsilon }}\IeC {\texttau }\IeC {\texteta }\IeC {\textvarsigma }}{2}% 
+\contentsline {subparagraph}{}{2}% 
+\contentsline {section}{\numberline {2}\IeC {\textBeta }\IeC {\textiota }\IeC {\textbeta }\IeC {\textlambda }\IeC {\textiota }\IeC {\textomicron }\IeC {\textgamma }\IeC {\textrho }\IeC {\textalpha }\IeC {\textphi }\IeC {\textiota }\IeC {\textkappa }\IeC {\ensuregreek {\acctonos \texteta }} \IeC {\textEpsilon }\IeC {\textpi }\IeC {\textiota }\IeC {\textsigma }\IeC {\textkappa }\IeC {\ensuregreek {\acctonos \textomicron }}\IeC {\textpi }\IeC {\texteta }\IeC {\textsigma }\IeC {\texteta } \IeC {\textendash } \IeC {\textTheta }\IeC {\textepsilon }\IeC {\textomega }\IeC {\textrho }\IeC {\texteta }\IeC {\texttau }\IeC {\textiota }\IeC {\textkappa }\IeC {\ensuregreek {\acctonos \textomicron }} \IeC {\textUpsilon }\IeC {\textpi }\IeC {\ensuregreek {\acctonos \textomicron }}\IeC {\textbeta }\IeC {\textalpha }\IeC {\texttheta }\IeC {\textrho }\IeC {\textomicron }}{3}% 
+\contentsline {subparagraph}{}{3}% 
+\contentsline {section}{\numberline {3}\IeC {\textMu }\IeC {\textepsilon }\IeC {\texttheta }\IeC {\textomicron }\IeC {\textdelta }\IeC {\textomicron }\IeC {\textlambda }\IeC {\textomicron }\IeC {\textgamma }\IeC {\ensuregreek {\acctonos \textiota }}\IeC {\textalpha }}{4}% 
+\contentsline {subparagraph}{}{4}% 
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {greek}{}
+\contentsline {section}{\numberline {4}\IeC {\textEpsilon }\IeC {\textpi }\IeC {\ensuregreek {\acctonos \textiota }}\IeC {\textlambda }\IeC {\textomicron }\IeC {\textgamma }\IeC {\textomicron }\IeC {\textvarsigma }}{5}% 
+\contentsline {subparagraph}{}{5}% 
+\contentsline {subsection}{\numberline {4.1}\IeC {\textSigma }\IeC {\ensuregreek {\acctonos \textupsilon }}\IeC {\textnu }\IeC {\textomicron }\IeC {\textpsi }\IeC {\texteta } \IeC {\textkappa }\IeC {\textalpha }\IeC {\textiota } \IeC {\textsigma }\IeC {\textupsilon }\IeC {\textmu }\IeC {\textpi }\IeC {\textepsilon }\IeC {\textrho }\IeC {\ensuregreek {\acctonos \textalpha }}\IeC {\textsigma }\IeC {\textmu }\IeC {\textalpha }\IeC {\texttau }\IeC {\textalpha }}{5}% 
+\contentsline {subparagraph}{}{5}% 
+\contentsline {subsection}{\numberline {4.2}\IeC {\ensuregreek {\acctonos \textOmicron }}\IeC {\textrho }\IeC {\textiota }\IeC {\textalpha } \IeC {\textkappa }\IeC {\textalpha }\IeC {\textiota } \IeC {\textpi }\IeC {\textepsilon }\IeC {\textrho }\IeC {\textiota }\IeC {\textomicron }\IeC {\textrho }\IeC {\textiota }\IeC {\textsigma }\IeC {\textmu }\IeC {\textomicron }\IeC {\ensuregreek {\acctonos \textiota }} \IeC {\texttau }\IeC {\texteta }\IeC {\textvarsigma } \IeC {\ensuregreek {\acctonos \textepsilon }}\IeC {\textrho }\IeC {\textepsilon }\IeC {\textupsilon }\IeC {\textnu }\IeC {\textalpha }\IeC {\textvarsigma }}{5}% 
+\contentsline {subsection}{\numberline {4.3}\IeC {\textMu }\IeC {\textepsilon }\IeC {\textlambda }\IeC {\textlambda }\IeC {\textomicron }\IeC {\textnu }\IeC {\texttau }\IeC {\textiota }\IeC {\textkappa }\IeC {\ensuregreek {\acctonos \textepsilon }}\IeC {\textvarsigma } \IeC {\textEpsilon }\IeC {\textpi }\IeC {\textepsilon }\IeC {\textkappa }\IeC {\texttau }\IeC {\ensuregreek {\acctonos \textalpha }}\IeC {\textsigma }\IeC {\textepsilon }\IeC {\textiota }\IeC {\textvarsigma }}{5}% 
+\contentsline {subparagraph}{}{5}% 
+\babel@toc {greek}{}
+\babel@toc {english}{}
