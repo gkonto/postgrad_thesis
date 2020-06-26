@@ -239,9 +239,9 @@ int main(void) {
 
 Οταν το κύριο νήμα  εισέρχεται στο μπλοκ παράλληλου κώδικα (\en{parallel region}), τότε δημιουργούνται περισσότερα νήματα και το μπλοκ αυτό εκτελείται παράλληλα. Οταν ολοκληρωθεί ο υπολογισμός της παράλληλης περιοχής, όλα τα νήματα τερματίζουν και συνεχίζει μόνο το κύριο νήμα μέχρι να βρεθεί κάποιο άλλο μπλοκ παράλληλου κώδικα (\en{fork-join} μοντέλο)\cite{pdplab}. Το κύριο νήμα είναι υπεύθυνο για την δημιουργία επιπλέον νημάτων για τη συνολική εκτέλεση. Τα νήματα που είναι ενεργά σε μια παράλληλη περιοχή αναφέρονται ως \en{"}ομάδα”(\en{thread team}). Πολλές ομάδες μπορεί να είναι ενεργές ταυτόχρονα\cite{ompblaise}.
 
-\begin{figure}[htbp]
-\includegraphics[width=0.15\textwidth]{figure1}
-\captionsetup{justification=raggedright, singlelinecheck=false}
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{fork_join}
+\captionsetup{justification=centering, singlelinecheck=false}
 \caption{Κύριο νήμα και ομάδες νημάτων}
 \label{fig:fork_join}
 \end{figure}
