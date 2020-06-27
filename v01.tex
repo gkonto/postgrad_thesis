@@ -7,12 +7,14 @@
 \usepackage{graphicx}
 \usepackage{amssymb}
 \usepackage{listings}
+\usepackage{wrapfig}
 \usepackage{xcolor}
 \usepackage[main=greek, english]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[labelfont=bf]{caption}
 \usepackage{kerkis}
 \usepackage{url}
+\usepackage{multicol}
 \usepackage[titles]{tocloft}
 \usepackage[top=2.5cm, bottom=2.5cm, left=2.8cm, right=3cm]{geometry}
 
@@ -24,8 +26,10 @@
 
 \renewcommand\lstlistingname{\el{Συμβ.}}
 \renewcommand\lstlistlistingname{Λίστα Συμβολισμών}
+\setlength{\columnsep}{1cm}
 
 \graphicspath{ {./images/} }
+\setcounter{secnumdepth}{4}
 
 
 
@@ -247,6 +251,89 @@ int main(void) {
 \end{figure}
 
 \clearpage
+\subsection{Αλληλεπίδραση νημάτων και περιβάλλοντος δεδομένων}
+\subparagraph{}
+Η εκτέλεση του προγράμματος ξεκινάει από το κύριο νήμα το οποίο έχει συσχετιστεί με ένα περιβάλλον εκτέλεσης. Το περιβάλλον εκτέλεσης για ένα νήμα είναι ο χώρος διεύθυνσης μνήμης που περιέχει όλες τις μεταβλητές του προγράμματος, περιλαμβανομένων των \en{global} μεταβλητών, των μεταβλητών που είναι αποθηκευμένες στη \en{stack} και αυτών που είναι αποθηκευμένες στη \en{heap}\cite{book2}. 
+
+Στο μοντέλο μνήμης \en{OpenMP}, υπάρχουν δύο διαφορετικοί βασικοί τύποι μνήμης: η ιδιωτική(\en{private}) και η κοινόχρηστη(\en{shared}).  Όλα τα νήματα έχουν πρόσβαση σε μεταβλητές που είναι αποθηκευμένες στην κοινόχρηστη μνήμη\cite{thenextstep7}.
+
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{private_shared}
+\captionsetup{justification=centering, singlelinecheck=false}
+\caption{Μοντέλο μνήμης \en{OpenMP}}
+\label{fig:private_shared}
+\end{figure}
+
+\subsubsection{Ιδιωτική μνήμη}
+\subparagraph{}
+Κάθε νήμα έχει ιδιωτική μνήμη στην οποία έχει πρόσβαση και μπορεί να την τροποποίηση, αλλά δε μπορεί να έχει πρόσβαση στην ιδιωτική μνήμη άλλου νήματος. Η διάρκεια ζωής μιας μεταβλητής στην ιδιωτική μνήμη είναι περιορισμένη και διαρκεί όσο εκτελείται ο παράλληλος κώδικας. Προεπιλεγμένα, η ιδιωτική μεταβλητή δεν είναι αρχικοποιημένη στην αρχή της παράλληλης περιοχής\cite{thenextstep9}.
+
+\clearpage
+\subsubsection{Κοινόχρηστη μνήμη}
+\subparagraph{}
+Εκτός από την ιδιωτική μνήμη, κάθε νήμα έχει πρόσβαση και σε ένα άλλο είδος μνήμης, την  κοινόχρηστη. Σε αντίθεση με την ιδιωτική, υπάρχει μόνο μία κοινόχρηστη μνήμη κατα τη διάρκεια εκτέλεσης του προγράμματος, και είναι προσπελάσιμη απο όλα τα νήματα. Ετσι, κάθε νήμα έχει την δυνατότητα τροποποίησης οποιασδήποτε μεταβλητής βρίσκεται στη κοινόχρηστη μνήμη.
+Η ταυτόχρονη προσπέλαση κοινόχρηστης μνήμης από διαφορετικά νήματα, προκαλεί τα παρακάτω προβλήματα:
+
+\paragraph{\en{Race Condition}}
+
+\begin{center}
+	\begin{minipage}[t]{0.45\linewidth}
+Εμφανίζεται στις περιπτώσεις όπου μια συνάρτηση χρησιμοποιεί δεδομένα από της κοινόχρηστης μνήμης. 
+Αν η συνάρτηση καλείται παράλληλα, πολλά νήματα ενδέχεται να τροποποιήσουν ταυτόχρονα την ίδια διεύθυνση μνήμης. Το φαινόμενο αυτό ονομάζεται race condition και η απλούστερη λύση του ειναι η δημιουργία ιδιωτικού αντίγραφου για κάθε νήμα. Με αυτό τον τρόπο, πολλά νήματα μπορούν ταυτόχρονα να τροποποιούν δεδομένα που βρίσκονται σε διαφορετικές θέσεις μνήμης.
+	\end{minipage}
+	\qquad
+	\begin{minipage}[t]{0.47\linewidth}
+		\selectlanguage{english}
+		\begin{lstlisting}[tabsize=2, basicstyle=\small, language=C++, caption={\el{Παράδειγμα κώδικα με} race condition}, frame=tb]
+#include <omp.h>
+
+int main(void) {	
+	int sum = 0;
+
+	#pragma omp parallel for
+	for (int i = 0;  i < 100; ++i) {
+		sum += i;		
+	}
+}
+\end{lstlisting}
+\selectlanguage{english}
+	\end{minipage}
+\end{center}
+\clearpage
+\paragraph{\en{False Sharing}}
+\subparagraph{}
+\begin{wrapfigure}{r}{0.6\textwidth} % this figure will be at the right
+	\centering
+	\includegraphics[width=0.6\textwidth]{false_sharing_2}
+	\captionsetup{justification=centering, singlelinecheck=false}
+	\caption{\en{False sharing (1/3)}}
+\label{fig:false_sharing_2}
+\end{wrapfigure}
+
+Το \en{false sharing} ειναι ενα συχνό πρόβλημα στην παράλληλη επεξεργασία κοινόχρηστης μνήμης. Εμφανίζεται όταν δυο ή περισσότεροι πυρήνες κρατούν ένα αντίγραφο της ίδιας γραμμής προσωρινής μνήμης. 
+\ \\
+\ \\
+\ \\
+\begin{wrapfigure}{l}{0.55\textwidth}
+	\centering
+	\includegraphics[width=0.55\textwidth]{false_sharing_3}
+	\captionsetup{justification=centering, singlelinecheck=false}
+	\caption{\en{False sharing (2/3)}}
+\label{fig:false_sharing_3}
+\end{wrapfigure}
+
+Οταν ένας πυρήνας τροποποιεί μια μεταβλητή, η γραμμή της μνήμης που βρίσκεται η μεταβλητή ακυρώνεται σε άλλους πυρήνες. Παρόλο που ένας πυρήνας μπορεί να μή τροποποιεί της συγκεκριμένη θέση μνήμης, μπορεί να χρησιμοποιεί ένα αλλο στοιχείο δεδομένων στην ίδια γραμμή μνήμης. 
+\clearpage
+\begin{wrapfigure}{l}{0.6\textwidth}
+	\centering
+	\includegraphics[width=0.6\textwidth]{false_sharing_4}
+	\captionsetup{justification=centering, singlelinecheck=false}
+	\caption{\en{False sharing (3/3)}}
+\label{fig:false_sharing_4}
+\end{wrapfigure}
+Ο δεύτερος πυρήνας θα πρέπει να φορτώσει εκ νέου τη γραμμή προτού αποκτήσει ξανά πρόσβαση στα δικά της δεδομένα. Η χρήση της κοινόχρηστης μνήμης μπορεί να επηρεάσει την απόδοση του προγράμματος[12].
+Λύση στο πρόβλημα του false sharing, αποτελεί η εισαγώγή τεχνιτού κενού (padding) ανάμεσα στα στοιχεία ενός array.
+
 \section{Μεθοδολογία}
 \subparagraph{}
 Αυτό το μέρος της εργασίας ασχολείται με τον πραγματικό ερευνητικό σχεδιασμό που θα ακολουθηθεί. Μία σύντομη ανασκόπηση των εναλλακτικών λύσεων και των αντίστοιχων πλεονεκτημάτων και μειονεκτημάτων τους θα πρέπει να παρουσιαστεί και η επιλογή μιας συγκεκριμένης προσέγγισης θα πρέπει να εξεταστεί καλά και να συνδεθεί με το(α) πρόβλημα(τα) που εξετάζεται(ονται). Οι δευτερεύουσες και οι βασικές πηγές των στοιχείων θα πρέπει να καθοριστούν και η χρήση τους θα πρέπει να εξεταστεί και να δικαιολογηθεί. Σε έρευνες πεδίου θα πρέπει να διατυπωθούν καθαρά  ο τρόπος συλλογής των στοιχείων, η επιλογή του πληθυσμού που θα ερευνηθεί και η δειγματοληπτική διαδικασία που θα ακολουθηθεί. Οι μετρήσεις που χρησιμοποιήθηκαν θα πρέπει επίσης να δικαιολογηθούν και θα πρέπει να γίνει μια περιγραφή του εργαλείου συλλογής στοιχείων.
