@@ -6,7 +6,6 @@
 *.lof
 *.log
 *.lot
-*.pdf
 *.synctex.gz
 *.tex
 *.toc
