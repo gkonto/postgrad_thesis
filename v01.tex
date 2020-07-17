@@ -1079,15 +1079,7 @@ singlelinecheck=false
 
 Ο δείκτης συσκευής \emph{\en{(device pointer)}} είναι ένας δείκτης που αποθηκεύεται στον εξυπηρετητή και περιέχει την διεύθυνση μνήμης στο περιβάλλον δεδομένων του επιταχυντή.
 
-\selectlanguage{english}
-\begin{lstlisting}[language=C++, caption={\el{Παράδειγμα} taskwait} , frame=tlrb]{Name}
-	int tar_device = omp_get_default_device();
-	char *device_ptr = omp_target_alloc(tar_device, n);
-	#pragma omp target is_device_ptr(device_ptr)
-	for (int i=0; i<k; i++)
-		*device_ptr++ = 0;
-\end{lstlisting}
-\selectlanguage{greek}
+
 
 
 \clearpage
