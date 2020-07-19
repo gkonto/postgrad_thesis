@@ -1080,10 +1080,47 @@ singlelinecheck=false
 Ο δείκτης συσκευής \emph{\en{(device pointer)}} είναι ένας δείκτης που αποθηκεύεται στον εξυπηρετητή και περιέχει την διεύθυνση μνήμης στο περιβάλλον δεδομένων του επιταχυντή.
 
 
+\selectlanguage{english}
+\begin{lstlisting}[language=C++, caption={\el{Παράδειγμα} taskwait} , frame=tlrb]{Name}
+int device = omp_get_default_device();
+char *device_ptr = omp_target_alloc(n, device);
+#pragma omp target is_device_ptr (device_ptr)
+for (int j=0; j<n ; j++)
+	*device_ptr++ = 0;
+\end{lstlisting}
+\selectlanguage{greek}
+Εχω θέμα το \en{add vector doubles c10}.
+\clearpage
+
+
+\subsubsection{Η οδηγία \en{target}}
+\subparagraph{}
+Σκοπός της οδηγίας \en{target} είναι η μεταφορά και εκτέλεση ενός τμήματος κώδικα στον επιταχυντή. 
+
+\selectlanguage{english}
+\begin{lstlisting}[language=C++, caption={\el{Παράδειγμα εκτέλεσης στον επιταχυντή} } , frame=tlrb]{Name}
+void test() {
+	int flag = 0;
+	#pragma omp target map(flag)
+	{
+		if (!omp_is_initial_device()) {
+			flag = 1;
+		} else {
+			flag = 2;
+		}
+	}
+	if (flag == 1) {
+		printf("Running on accelerator\n");
+	} else if (flag == 2) {
+		printf("Running on host\n");
+	}
+}
+\end{lstlisting}
+\selectlanguage{greek}
+
 
 
 \clearpage
-
 \section{Υλοποιημένα παραδείγματα}
 \subparagraph{}
 Οι ενότητες που ακολουθούν αφορούν την επίλυση προβλημάτων με διαφορετικές μεθόδους επίλυσης. Τα προβλήματα συγκεντρώθηκαν και επιλύθηκαν με στόχο την σύγκριση των αποτελεσμάτων και την εξαγωγή συμπερασμάτων.Ο πηγαίος των προβλημάτων βρίσκεται στο παρακάτω \en{link} $$\href{https://github.com/gkonto/openmp/}{\en{https://github.com/gkonto/openmp/}}$$
