@@ -1,0 +1,55 @@
+\ProvidesPackage{custom_package}
+\usepackage{fullpage}
+\usepackage[titletoc,toc,page]{appendix}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{blindtext}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage[table]{xcolor}
+\usepackage{wrapfig}
+\usepackage{xcolor}
+\usepackage[main=greek, english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[labelfont=bf]{caption}
+\usepackage{kerkis}
+\usepackage{url}
+\usepackage{multicol}
+\usepackage[titles]{tocloft}
+\usepackage[top=2.5cm, bottom=2.5cm, left=2.8cm, right=3cm]{geometry}
+\usepackage{pgfplots}
+\usepackage{hyperref}
+
+\pgfplotsset{width=15cm ,compat=1.9}
+\usepgfplotslibrary{external}
+\tikzexternalize[prefix=diagrams/]
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+
+\renewcommand\cftsecfont{\normalfont}
+\renewcommand\cftsecpagefont{\normalfont}
+
+\newcommand{\en}[1]{\foreignlanguage{english}{#1}}
+\newcommand{\el}[1]{\selectlanguage{greek}{#1}\selectlanguage{english}}
+
+\renewcommand\lstlistingname{\el{Συμβ.}}
+\renewcommand\lstlistlistingname{Λίστα Συμβολισμών}
+\setlength{\columnsep}{1cm}
+
+\graphicspath{ {./images/} }
+\setcounter{secnumdepth}{4}
+
+
+
+\titlespacing*{\subsection}
+{0pt}{2.5ex plus 1ex minus .2ex}{0.3ex plus .2ex}
+\titlespacing*{\subsubsection}
+{0pt}{2.5ex plus 1ex minus .2ex}{0.3ex plus .2ex}
+\pagenumbering{gobble}
