@@ -192,6 +192,7 @@ nowait
 \end{lstlisting}
 \selectlanguage{greek}
 
+
 \paragraph{Οδηγία \emph{\en{flush}}}
 \subparagraph{}
 Η οδηγία \emph{\en{flush}} προσδιορίζει ένα σημείο στο οποίο ο μεταγλωττιστής διασφάλίζει οτι όλα τα νήματα μιας ομάδας στην παράλληλη περιοχή είναι συγχρονισμένα σχετικά με τις τιμές που υπάρχουν σε συγκεκριμένες μεταβλητές.
@@ -205,6 +206,22 @@ nowait
 \item{Έξοδος από την οδηγία \emph{\en{omp single}}}
 \end{itemize}
 
+\selectlanguage{english}
+\begin{lstlisting}[language=C++, caption={\el{Σύνταξη οδηγίας} flush} , frame=tlrb]{Name} 
+#pragma omp flush [memory-order-clause] [(list)] new-line
+
+\end{lstlisting}
+
+\selectlanguage{greek}
+
+\subparagraph{Οδηγία \emph{\en{master}}}
+\subparagraph{}
+Η οδηγία \emph{\en{master}} καθορίζει μια περιοχή κώδικα της παράλληλης περιοχής που εκτελείται μόνο από το κύριο νήμα.
+Στην οδηγία αυτή δεν υπονοείται φράγμα ούτε στην είσοδο αλλά ούτε και στην έξοδο της περιοχής\cite{ibm_master}.
+
+
+      
+      
 \subsubsection{Φράσεις - \en{Clauses}}
 \subparagraph{}
 Δεδομένου οτι το \emph{\en{OpenMP}} είναι ένα μοντέλο προγραμματισμού κοινής μνήμης, οι περισσότερες μεταβλητές στον κώδικα \emph{\en{OpenMP}} είναι ορατές σε όλα τα νήματα από προεπιλογή. Οι ιδιωτικές μεταβλητές χρησιμοποιούνται για να αποφευχθούν φαινόμενα  \emph{\en{race conditions}} και υπάρχει ανάγκη μεταβίβασης τιμών μεταξύ σειριακού κώδικα και παράλληλης περιοχής με συγκεκριμένες ιδιότητες. Η διαχείριση των δεδομένων επιτυγχάνεται με τη χρήση φράσεων \emph{\en{(clauses)}}. 
@@ -407,12 +424,35 @@ T4|                             *********                ********
 \end{figure}
 
 
-\paragraph{Αλλες φράσεις}
+\subsubsection{Μεταβλητές Περιβάλλοντος}
+\subparagraph{}
+Αυτή η παράγραφος αναφέρεται επιγραμματικά στις μεταβλητές περιβάλλοντος που καθορίζουν τις ρυθμίσεις των \emph{\en{ICV (Internal Control Variables)}} που επηρεάζουν την εκτέλεση των προγραμμάτων. Τα ονόματα των μεταβλητών περιβάλλοντος πρέπει να είναι κεφαλαία. Η τροποποίηση των μεταβλητών κατά τη διάρκεια εκτέλεσης του προγράμματος δεν είναι εφικτή, και αγνοείται απο το \emph{\en{OpenMP}}. Παρόλα αυτά, μερικές μπορούν να τροποποιηθούν κατα την εκτέλεση μέσω της χρήσης των αντίστοιχων οδηγίων της διεπαφής\cite{environmental_var}.
+
+\begin{itemize}
+	\item{\emph{\en{OMP\_SCHEDULE}}}
+	\item{\emph{\en{OMP\_NUM\_THREADS}}}
+	\item{\emph{\en{OMP\_DYNAMIC}}}
+	\item{\emph{\en{OMP\_PROC\_BIND}}}
+	\item{\emph{\en{OMP\_PLACES}}}
+	\item{\emph{\en{OMP\_STACKSIZE}}}
+	\item{\emph{\en{OMP\_WAIT\_POLICY}}}
+	\item{\emph{\en{OMP\_MAX\_ACTIVE\_LEVELS}}}
+	\item{\emph{\en{OMP\_NESTED}}}
+	\item{\emph{\en{OMP\_THREAD\_LIMIT}}}
+	\item{\emph{\en{OMP\_CANCELLATION}}}
+	\item{\emph{\en{OMP\_DISPLAY\_ENV}}}
+	\item{\emph{\en{OMP\_DISPLAY\_AFFINITY}}}
+	\item{\emph{\en{OMP\_AFFINITY\_FORMAT}}}
+	\item{\emph{\en{OMP\_DEFAULT\_DEVICE}}}
+	\item{\emph{\en{OMP\_MAX\_TASK\_PRIORITY}}}
+	\item{\emph{\en{OMP\_TARGET\_OFFLOAD}}}
+	\item{\emph{\en{OMP\_TOOL}}}
+	\item{\emph{\en{OMP\_TOOL\_LIBRARIES}}}
+	\item{\emph{\en{OMP\_DEBUG}}}
+	\item{\emph{\en{OMP\_ALLOCATOR}}}
+\end{itemize}
+
+\subsubsection{\emph{\en{Runtime Functions}}}
 \subparagraph{}
 
-\subparagraph{Φράσεις \en{master}}
-\subparagraph{}
-      Εκτελείται μόνο από το κύριο νήμα. Δεν υπάρχει υπονοούμενο barrier. Τα υπόλοιπα νήματα θα συνεχίσουν τους υπολογισμούς.
-
-{\Large TODO mporo na valo ena kefalaio gia ENVIRONMENTAL VALUES \\
-TODO  Μπορώ να βάλω ενα κεφάλειο για τα runtime functions.}
+TODO  Μπορώ να βάλω ενα κεφάλειο για τα runtime functions.
