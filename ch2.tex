@@ -428,31 +428,81 @@ T4|                             *********                ********
 \subparagraph{}
 Αυτή η παράγραφος αναφέρεται επιγραμματικά στις μεταβλητές περιβάλλοντος που καθορίζουν τις ρυθμίσεις των \emph{\en{ICV (Internal Control Variables)}} που επηρεάζουν την εκτέλεση των προγραμμάτων. Τα ονόματα των μεταβλητών περιβάλλοντος πρέπει να είναι κεφαλαία. Η τροποποίηση των μεταβλητών κατά τη διάρκεια εκτέλεσης του προγράμματος δεν είναι εφικτή, και αγνοείται απο το \emph{\en{OpenMP}}. Παρόλα αυτά, μερικές μπορούν να τροποποιηθούν κατα την εκτέλεση μέσω της χρήσης των αντίστοιχων οδηγίων της διεπαφής\cite{environmental_var}.
 
-\begin{itemize}
-	\item{\emph{\en{OMP\_SCHEDULE}}}
-	\item{\emph{\en{OMP\_NUM\_THREADS}}}
-	\item{\emph{\en{OMP\_DYNAMIC}}}
-	\item{\emph{\en{OMP\_PROC\_BIND}}}
-	\item{\emph{\en{OMP\_PLACES}}}
-	\item{\emph{\en{OMP\_STACKSIZE}}}
-	\item{\emph{\en{OMP\_WAIT\_POLICY}}}
-	\item{\emph{\en{OMP\_MAX\_ACTIVE\_LEVELS}}}
-	\item{\emph{\en{OMP\_NESTED}}}
-	\item{\emph{\en{OMP\_THREAD\_LIMIT}}}
-	\item{\emph{\en{OMP\_CANCELLATION}}}
-	\item{\emph{\en{OMP\_DISPLAY\_ENV}}}
-	\item{\emph{\en{OMP\_DISPLAY\_AFFINITY}}}
-	\item{\emph{\en{OMP\_AFFINITY\_FORMAT}}}
-	\item{\emph{\en{OMP\_DEFAULT\_DEVICE}}}
-	\item{\emph{\en{OMP\_MAX\_TASK\_PRIORITY}}}
-	\item{\emph{\en{OMP\_TARGET\_OFFLOAD}}}
-	\item{\emph{\en{OMP\_TOOL}}}
-	\item{\emph{\en{OMP\_TOOL\_LIBRARIES}}}
-	\item{\emph{\en{OMP\_DEBUG}}}
-	\item{\emph{\en{OMP\_ALLOCATOR}}}
-\end{itemize}
+\begin{table}[htbp]
+\captionsetup{justification=raggedright,
+singlelinecheck=false
+}
+\caption{Πίνακας μεταβλητών περιβάλλοντος.}
+\def\arraystretch{1.5}
+\begin{tabular}{| p{0.5\textwidth} | p{0.5\textwidth}|}
+
+\emph{\en{OMP\_SCHEDULE}} & \emph{\en{OMP\_NUM\_THREADS}} \\
+\hline
+ \emph{\en{OMP\_DYNAMIC}} & \emph{\en{OMP\_PROC\_BIND}}\\
+\hline
+ \emph{\en{OMP\_WAIT\_POLICY}} & \emph{\en{OMP\_NESTED}} \\
+\hline
+\emph{\en{OMP\_THREAD\_LIMIT}} & \emph{\en{OMP\_MAX\_ACTIVE\_LEVELS}} \\
+\hline
+\emph{\en{OMP\_CANCELLATION}} & \emph{\en{OMP\_DISPLAY\_ENV}} \\
+\hline
+\emph{\en{OMP\_DISPLAY\_AFFINITY}} & \emph{\en{OMP\_AFFINITY\_FORMAT}} \\
+\hline
+\emph{\en{OMP\_DEFAULT\_DEVICE}} & \emph{\en{OMP\_MAX\_TASK\_PRIORITY}} \\
+\hline
+\emph{\en{OMP\_TARGET\_OFFLOAD}} & \emph{\en{OMP\_TOOL}} \\
+\hline
+\emph{\en{OMP\_TOOL\_LIBRARIES}} & \emph{\en{OMP\_DEBUG}} \\
+\hline
+\emph{\en{OMP\_ALLOCATORS}} &  \\
+\hline
+\end{tabular}
+\end{table}
+
 
 \subsubsection{\emph{\en{Runtime Functions}}}
 \subparagraph{}
 
-TODO  Μπορώ να βάλω ενα κεφάλειο για τα runtime functions.
+Σκοπός της παρούσας παραγράφου είναι η περιληπτική περιγραφή των ενσωματωμένων ρουτίνων της βιβλιοθήκης \emph{\en{OpenMP}}, για λόγους πληρότητας κειμένου.
+Η κεφαλίδα \emph{\en{<omp.h>}}, περιλαμβάνει ένα σύνολο ρουτίνων που χωρίζονται σε τρεις μεγάλες κατηγορίες: Τις ρουτίνες ελέγχου περιβάλλοντος εκτέλεσης που χρησιμοποιούνται για τον συντονισμό των νημάτων και της εκτέλεσης της παράλληλης περιοχής, τις ρουτίνες κλειδώματος τον νημάτων που χρησιμοποιούνται για τον συγχρονισμό της πρόσβασης των δεδομένων, τις ρουτίνες καταμέτρησης χρόνου.
+\ \\
+
+\begin{table}[htbp]
+\captionsetup{justification=raggedright,
+singlelinecheck=false
+}
+\caption{Πίνακας ενσωματωμένων ρουτίνων}
+\def\arraystretch{1.5}
+\begin{tabular}{| p{0.5\textwidth} | p{0.5\textwidth}|}
+\hline
+\textbf{Ρουτίνες περιβάλλοντος εκτέλεσης} \cellcolor[HTML]{D0D0D0} & \textbf{Ρουτίνες κλειδώματος} \cellcolor[HTML]{D0D0D0} \\
+\hline
+ \emph{\en{omp\_set\_num\_threads}} & \emph{\en{omp\_init\_lock}} \\
+\hline
+\emph{\en{omp\_get\_num\_threads}}  & \emph{\en{omp\_destroy\_lock}} \\
+\hline
+\emph{\en{omp\_get\_max\_threads}}  &  \emph{\en{omp\_set\_lock}}\\
+\hline
+\emph{\en{omp\_get\_thread\_num}} &  \emph{\en{omp\_unset\_lock}}\\
+\hline
+ \emph{\en{omp\_get\_num\_procs}} & \emph{\en{omp\_test\_lock}} \\
+\hline
+\emph{\en{omp\_in\_parallel}}     & \emph{\en{omp\_init\_nest\_lock}}\\
+\hline
+ \emph{\en{omp\_set\_dynamic}}    & \emph{\en{omp\_destroy\_nest\_lock}} \\
+\hline
+ \emph{\en{omp\_get\_dynamic}}    & \emph{\en{omp\_set\_nest\_lock}} \\
+\hline
+ \emph{\en{omp\_set\_nested}}     &  \emph{\en{omp\_unset\_nest\_lock}}\\
+\hline
+
+\hline
+      \multicolumn{2}{|c|}{\textbf{Ρουτίνες καταμέτρησης χρόνου}  \cellcolor[HTML]{D0D0D0}}\\
+ \hline
+\emph{\en{omp\_get\_wtime }}    & \emph{\en{omp\_get\_wtick }} \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
