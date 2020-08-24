@@ -1,51 +1,6 @@
-\subsection{Αναφορά αρχιτεκτονικής μηχανήματος}
-\subparagraph{}
-\ \\
-Τα προβλήματα που ακολουθούν εκτελέστηκαν σε μηχάνημα λειτουργικό \emph{\en{linux}} και μεταγλωττιστή \emph{\en{gcc}}. Τα χαρακτηριστικά υλικού εμφανίζονται στον παρακάτω πίνακα:
-
-\selectlanguage{greek}
-\begin{center}
-\begin{table}[htbp]
-\centering
-\captionsetup{justification=raggedright,
-singlelinecheck=false
-}
-\caption{Χαρακτηριστικά Μηχανήματος Εκτέλεσης}
-\def\arraystretch{1.5}
-\begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth}|}
-\hline
- \en{\textbf{Architecture}}  \cellcolor[HTML]{D0D0D0} & \en{x86\_64}  \\
-\hline
- \en{\textbf{CPU op-mode(s)}} \cellcolor[HTML]{D0D0D0} & \en{32-bit, 64-bit} \\
-\hline
- \en{\textbf{CPU(s)}} \cellcolor[HTML]{D0D0D0}  & 16\\
-\hline
- \en{\textbf{Thread(s) per core}} \cellcolor[HTML]{D0D0D0} & 1 \\
-\hline
- \en{\textbf{Core(s) per socket}} \cellcolor[HTML]{D0D0D0} & 8\\
-\hline
- \en{\textbf{Socket(s)}} \cellcolor[HTML]{D0D0D0} & 2 \\
-\hline
- \en{\textbf{NUMA node(s)}} \cellcolor[HTML]{D0D0D0} & 4\\
-\hline
- \en{\textbf{Model name}} \cellcolor[HTML]{D0D0D0}  &  \en{AMD Opteron(tm) Processor 6128 HE}\\
-\hline
-\en{\textbf{L1d cache}} \cellcolor[HTML]{D0D0D0} &  \en{64K} \\
-\hline
-\en{\textbf{L2 cache}} \cellcolor[HTML]{D0D0D0} & \en{512K}  \\
-\hline
-\en{\textbf{L3 cache}} \cellcolor[HTML]{D0D0D0} & \en{5118K}  \\
-\hline
- \en{\textbf{Memory}} \cellcolor[HTML]{D0D0D0} & 16036\\
-\hline
-\end{tabular}
-\end{table}
-\end{center}
-
-\clearpage
 \subsection{Παράδειγμα διπλασιασμού τιμών στοιχείων πίνακα}
 \subparagraph{}
-Σε αυτό το παράδειγμα γίνεται ανάλυση του προβλήματος τροποποίησης τιμών ενός διανύσματος. Μελετάται η επίδοση κάθε εναλλακτικής λύσης και σχολιάζονται εργαλεία που αναφέρθηκαν στα προηγούμενα κεφάλαια. Χρησιμοποιείται ένα διάνυσμα μεταβαλλόμενου μεγέθους για κάθε επίλυση, το οποίο αρχικοποιείται στον εξυπηρετητή με τον παρακάτω τρόπο.
+Σε αυτό το παράδειγμα γίνεται ανάλυση του προβλήματος τροποποίησης τιμών ενός διανύσματος. Μελετάται η επίδοση κάθε εναλλακτικής λύσης και σχολιάζονται εργαλεία που αναφέρθηκαν στα προηγούμενα κεφάλαια. Χρησιμοποιείται ένα διάνυσμα μεταβαλλόμενου μεγέθους για κάθε επίλυση, το οποίο αρχικοποιείται με τον παρακάτω τρόπο.
 \selectlanguage{english}
 \begin{lstlisting}[language=C++, caption={\el{Αρχικοποίηση τιμών διανύσματος}} , frame=tlrb]{Name}
 void fill_array(int *arr, size_t size) {
@@ -59,7 +14,7 @@ void fill_array(int *arr, size_t size) {
 Για την επαλήθευση σωστού αποτελέσματος, χρησιμοποιείται η παρακάτω ρουτίνα, που καλείται μετά την εκτέλεση του διπλασιασμού:
 \ \\
 \selectlanguage{english}
-\begin{lstlisting}[language=C++, caption={\el{Αρχικοποίηση τιμών διανύσματος}} , frame=tlrb]{Name}
+\begin{lstlisting}[language=C++, caption={\el{Ρουτίνα ελέγχου αποτελεσμάτων}} , frame=tlrb]{Name}
 void verify(int *arr, size_t size) {
 	for (size_t k = 0; k < size; ++k) {
 		if (arr[k] != k * 2) {
@@ -76,16 +31,16 @@ void verify(int *arr, size_t size) {
 \end{lstlisting}
 \selectlanguage{greek}
 \ \\
-Η μεταγλώττιση του κώδικα έγινε με μεταγλωττιστή \emph{\en{g++-7}} και τις επιλογές:$-Wall -o exec -O0$. Οι παραλλαγές εκτέλεσης του προβλήματος χωρίζονται σε δύο κατηγορίες, σε αυτές που απαιτείται αντιγραφή δεδομένων από τον εξυπηρετητή στον επιταχυντή, και από αυτές που δεσμεύουν μνήμη απευθείας στον επιταχυντή.
+Η μεταγλώττιση του κώδικα έγινε με μεταγλωττιστή \emph{\en{g++-7}} και τις επιλογές:$-Wall -O0$. Οι παραλλαγές εκτέλεσης του προβλήματος χωρίζονται σε δύο κατηγορίες, σε αυτές που απαιτείται αντιγραφή δεδομένων από τον εξυπηρετητή στη συσκευή στόχου και από αυτές που δεσμεύουν μνήμη απευθείας στον επιταχυντή.
 
 \clearpage
 \subsubsection{Σειριακή εκτέλεση}
+\label{sec:ch42_serial}
 \subparagraph{}
-\ \\
-Στο σειριακό υπολογισμό, το πρόγραμμα εκτελείται από ένα μοναδικό νήμα, χωρίς βελτιστοποίηση παραλληλισμού. Στη συγκεκριμένη περίπτωση, καλείται μια ρουτίνα που δέχεται ως όρισμα ένα μοναδιαίο πίνακα με ακέραιους αριθμούς και ένας αριθμός που υποδηλώνει το μέγεθος αυτού του πίνακα. Η ρουτίνα είναι η εξής:
+Στο σειριακό υπολογισμό, το πρόγραμμα εκτελείται από ένα μοναδικό νήμα, χωρίς βελτιστοποίηση παραλληλισμού. Στη συγκεκριμένη περίπτωση, καλείται μια ρουτίνα που δέχεται ως όρισμα ένα μοναδιαίο πίνακα με ακέραιους αριθμούς και έναν αριθμό που υποδηλώνει το μέγεθος αυτού του πίνακα, όπως φαίνεται παρακάτω:
 \ \\
 \selectlanguage{english}
-\begin{lstlisting}[language=C++, caption={\el{Αρχικοποίηση τιμών διανύσματος}} , frame=tlrb]{Name}
+\begin{lstlisting}[language=C++, caption={\el{Ρουτίνα σειριακής υλοποίησης}} , frame=tlrb]{Name}
 void double_elements(int *A, size_t size) {
     for (size_t i = 0; i < size; ++i) {
             A[i] = A[i] * 2;
@@ -118,20 +73,25 @@ singlelinecheck=false
 \hline
 300000000 & 2.968 \\
 \hline
+400000000 & 4.935 \\
+\hline
 \end{tabular}
 \end{table}
 
-\clearpage
-\subsubsection{Υλοποιήσεις που απαιτούν αντιγραφή μνήμης}
-\subparagraph{}
-Τα παραδείγματα που ακολουθούν αφορούν υλοποίηση του προβλήματος με μεθόδους που απαιτούν αντιγραφή δεδομένων ανάμεσα στον εξυπηρετητή και στον επιταχυντή. Για την αντιγραφή των δεδομένων χρησιμοποιούνται οι φράσεις που υποστηρίζονται από την οδηγία \emph{\en{map}} και αναφέρθηκαν στα προηγούμενα κεφάλαια.
+\subparagraph{Σχόλιο:}\ \\
+\emph{Τα αποτελέσματα της σειριακής εκτέλεσης θα χρησιμοποιηθούν ως σημείο αναφοράς για τη σύγκριση με τις υπόλοιπες παραλλαγές παράλληλης εκτέλεσης του προβλήματος.}
 
-\paragraph{Παραλλαγή 1η}
+\clearpage
+\subsubsection{Υλοποιήσεις που απαιτούν αντιστοίχιση μνήμης}
+\subparagraph{}
+Τα παραδείγματα που ακολουθούν αφορούν υλοποίηση του προβλήματος με μεθόδους παραλληλοποίησης που απαιτούν αντιστοίχιση δεδομένων ανάμεσα στον εξυπηρετητή και στον επιταχυντή. Για την αντιγραφή των δεδομένων χρησιμοποιούνται οι φράσεις που υποστηρίζονται από την οδηγία \textbf{\emph{\en{map}}} και αναφέρθηκαν στα προηγούμενα κεφάλαια.
+
+\paragraph{Παραλλαγή 1\textsuperscript{η}}
 \subparagraph{}
 Για τον υπολογισμό, η ρουτίνα που εκτελέστηκε ήταν η εξής:
 
 \selectlanguage{english}
-\begin{lstlisting}[language=C++, caption={\el{Αρχικοποίηση τιμών διανύσματος}} , frame=tlrb]{Name}
+\begin{lstlisting}[language=C++, caption={\el{Ρουτίνα υλοποίησης στη συσκευή στόχου}} , frame=tlrb]{Name}
 void double_elements(int *A, size_t size) {
 #pragma omp target map(A[:size] )
     for (size_t i = 0; i < size; ++i) {
@@ -159,21 +119,26 @@ singlelinecheck=false
 \hline
 \end{tabular}
 \end{table}
-\ \\
-\paragraph{Παραλλαγή 2η}
+
+
+\subparagraph{Σχόλιο:}\ \\
+Παρατηρείται μεγάλο ποσοστό αύξησης του χρόνου εκτέλεσης σε σύγκριση με τη σειριακή εκτέλεση. Η συγκρεκριμένη εκτέλεση δε γίνεται παράλληλα, καθώς η εντολή \emph{\en{pragma omp target map}} υποδηλώνει την δημιουργία διεργασίας που θα εκτελεστεί στη συσκευή στόχου, χωρίς όμως δίνεται εντολή για διαμοιρασμού του βρόγχου σε ομάδες νημάτων. Επομένως, η εκτέλεση γίνεται πιθανότατα από ένα νήμα. Αιτία της μεγάλης αύξησης του χρόνου εκτέλεσης αποτελεί και η διαδικασία αντιστοίχισης των δεδομένων ανάμεσα στις δυο συσκευές κατά την είσοδο στη διεργασία αλλά και κατά την εξοδό της.
+
+\clearpage
+\paragraph{Παραλλαγή 2\textsuperscript{η}}
 \subparagraph{}
 Για τον υπολογισμό, η ρουτίνα που εκτελέστηκε ήταν η εξής:
 
 \selectlanguage{english}
-\begin{lstlisting}[language=C++, caption={\el{Αρχικοποίηση τιμών διανύσματος}} , frame=tlrb]{Name}
+\begin{lstlisting}[language=C++, caption={\el{Ρουτίνα 2ης υλοποίησης προβλήματος}} , frame=tlrb]{Name}
 void double_elements(int *A, size_t size) {
-#pragma omp target map(A[:size], flag)
+	#pragma omp target map(A[:size])
 	{
 		#pragma omp parallel for
 		for (size_t i = 0; i < size; ++i) {
-        	A[i] = A[i] * 2;
-	    }
-    }
+			A[i] = A[i] * 2;
+		}
+	}
 }
 \end{lstlisting}
 \selectlanguage{greek}
@@ -187,26 +152,30 @@ singlelinecheck=false
 \begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth}|}
  \textbf{Αριθμός στοιχείων πίνακα\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος εκτέλεσης (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
 \hline
-100000 & 0.885 \\
+100000 &  0.850\\
 \hline
-1000000 & 0.971 \\
+1000000 &  0.984\\
 \hline
-10000000 & 2.153 \\
+10000000 & 2.116 \\
 \hline
-100000000 & 13.566 \\
+100000000 &  13.548\\
 \hline
 \end{tabular}
 \end{table}
 
-\ \\
-\paragraph{Παραλλαγή 3η}
+\subparagraph{Σχόλιο:}\ \\
+Παρατηρούνται αυξημένες χρονικές επιδόσεις στην εκτέλεση του προβλήματος σε σύγκριση με τη σειριακή εκτέλεση, αλλα πολύ καλύτερες σε σύγκριση με την εκτέλεση της Παραλλαγής 1. 
+Η συγκεκριμένη εκτέλεση, υλοποιείται ως διεργασία που θα εκτελεστεί απο ένα μοναδικό νήμα στη συσκευή στόχου, αλλά στη συνέχεια δημιουργείται βρόγχος διαμοιραζόμενης διεργασίας. Έτσι, βελτιώνονται οι επιδόσεις σε σύγκριση με την Παραλλαγή 1.
+
+\clearpage
+\paragraph{Παραλλαγή 3\textsuperscript{η}}
 \subparagraph{}
 Για τον υπολογισμό, η ρουτίνα που εκτελέστηκε ήταν η εξής:
 
 \selectlanguage{english}
-\begin{lstlisting}[language=C++, caption={\el{Αρχικοποίηση τιμών διανύσματος}} , frame=tlrb]{Name}
+\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση ρουτίνας παραλλαγής 3}} , frame=tlrb]{Name}
 void double_elements(int *A, size_t size) {
-#pragma omp target parallel map(A[:size], flag)
+	#pragma omp target parallel map(A[:size])
 	{
 		for (size_t i = 0; i < size; ++i) {
         	A[i] = A[i] * 2;
@@ -216,7 +185,6 @@ void double_elements(int *A, size_t size) {
 \end{lstlisting}
 
 \selectlanguage{greek}
-
 \begin{table}[htbp]
 \centering
 \captionsetup{justification=raggedright,
@@ -227,32 +195,134 @@ singlelinecheck=false
 \begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth}|}
  \textbf{Αριθμός στοιχείων πίνακα\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος εκτέλεσης (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
 \hline
-100000 & 0.885 \\
+100000 &  0.969\\
 \hline
-1000000 & 0.971 \\
+1000000 &  1.88\\
 \hline
-10000000 & 2.153 \\
-\hline
-100000000 & 13.566 \\
+10000000 & 10.463 \\
 \hline
 \end{tabular}
 \end{table}
+
+\subparagraph{Σχόλιο: }\ \\
+Πρόκειται για μια λάθος υλοποίηση του προβλήματος που τα αποτελέσματα της μοιάζουν με αυτά της Παραλλαγής 1. Στη συγκεκριμένη περίπτωση η οδηγία \emph{\en{pragma omp target parallel map(A[:size])}} ορίζει οτι η εκτέλεση θα γίνει στη συσκευή στόχου από πολλά νήματα. Χωρίς όμως να διαμοιράζεται η διεργασία. Ετσι, θα γίνει πολλές φορές ο ίδιο υπολογισμός από πολλαπλά νήματα. 
+
+\clearpage
+\paragraph{Παραλλαγή 4\textsuperscript{η}}
+\subparagraph{}
+Για τον υπολογισμό, η ρουτίνα που εκτελέστηκε ήταν η εξής:
+
+\selectlanguage{english}
+\begin{lstlisting}[language=C++, caption={\el{Αρχικοποίηση τιμών διανύσματος}} , frame=tlrb]{Name}
+void double_elements(int *A, size_t size) {
+	#pragma omp target parallel for simd map(A[:size])
+	for (size_t i = 0; i < size; ++i) {
+		A[i] = A[i] * 2;
+	}
+}
+\end{lstlisting}
+\selectlanguage{greek}
+\begin{table}[htbp]
+\centering
+\captionsetup{justification=raggedright,
+singlelinecheck=false
+}
+\caption{ Καταγραφή χρόνων εκτέλεσης παραδειγμάτων}
+\def\arraystretch{1.5}
+\begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth}|}
+ \textbf{Αριθμός στοιχείων πίνακα\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος εκτέλεσης (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
+\hline
+100000 & 0.951 \\
+\hline
+1000000 & 1.001\\
+\hline
+10000000 &  2.195\\
+\hline
+100000000 &  13.049\\
+\hline
+\end{tabular}
+\end{table}
+
+
+\subparagraph{Σχόλιο: }\ \\
+Αποτελεί τη σωστή έκδοση της παραλλαγής 3. Τα αποτελέσματα της μοιάζουν με αυτά της παραλλαγής 2. Ωστόσο, το \emph{\en{OpenMP}} αναφέρει ότι η "ένωση" οδηγιών σε μία μπορεί να βοηθήσει τον μεταγλωττιστή για καλύτερη βελτιστοποίηση. Παρόλα αυτά, τα αποτελέσματα δε δείχνουν χρονική διαφορά ανάμεσα στις δυο παραλλαγές.
+
+\clearpage
+\paragraph{Παραλλαγή 5\textsuperscript{η}}
+\subparagraph{}
+Για τον υπολογισμό, η ρουτίνα που εκτελέστηκε ήταν η εξής:
+
+\selectlanguage{english}
+\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής 5}} , frame=tlrb]{Name}
+void double_elements(int *A, size_t size) {
+	#pragma omp target parallel simd map(A[:size])
+	{
+		for (size_t i = 0; i < size; ++i) {
+        	A[i] = A[i] * 2;
+	    }
+	}
+}
+\end{lstlisting}
+\selectlanguage{greek}
+
+\subparagraph{Σχόλιο}\ \\
+Η μεταγλώττιση του παραπάνω κώδικα δεν επιτρέπεται, καθώς το \emph{\en{OpenMP}} απαιτεί η οδηγία \emph{\en{simd}} να ακολουθείται απευθείας απο βρόγχο επανάληψης και όχι απο αγκύλες.
+
+\ \\
+\newpage
+\paragraph{Παραλλαγή 6\textsuperscript{η}}
+\subparagraph{}
+Για τον υπολογισμό, η ρουτίνα που εκτελέστηκε ήταν η εξής:
+
+\selectlanguage{english}
+\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής 6}} , frame=tlrb]{Name}
+void double_elements(int *A, size_t size) {
+#pragma omp target teams distribute map(A[:size])
+	for (size_t i = 0; i < size; ++i) {
+		A[i] = A[i] * 2;
+	}
+}
+\end{lstlisting}
+\selectlanguage{greek}
+\begin{table}[htbp]
+\centering
+\captionsetup{justification=raggedright,
+singlelinecheck=false
+}
+\caption{ Καταγραφή χρόνων εκτέλεσης παραδειγμάτων}
+\def\arraystretch{1.5}
+\begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth}|}
+ \textbf{Αριθμός στοιχείων πίνακα\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος εκτέλεσης (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
+\hline
+100000 &  0.894\\
+\hline
+1000000 & 0.863\\
+\hline
+10000000 & 1.104\\
+\hline
+100000000 & 3.281\\
+\hline
+200000000 &  6.634\\
+\hline
+\end{tabular}
+\end{table}
+
+\subparagraph{Σχόλιο}\ \\
+H οδηγία \emph{\en{distribute}} διαμοιράζει τις επαναλήψεις του βρόγχου σε νήματα με το βέλτιστο τρόπο σε σύγκριση με την οδηγία \emph{\en{parallel for}}. Οι επιδόσεις είναι καλύτερες απο όλες τις υπόλοιπες όταν η εκτέλεση γίνεται στη συσκευή στόχου.
 
 
 \clearpage
-\paragraph{Παραλλαγή 4η}
+\paragraph{Παραλλαγή 7\textsuperscript{η}}
 \subparagraph{}
 Για τον υπολογισμό, η ρουτίνα που εκτελέστηκε ήταν η εξής:
 
 \selectlanguage{english}
-\begin{lstlisting}[language=C++, caption={\el{Αρχικοποίηση τιμών διανύσματος}} , frame=tlrb]{Name}
+\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής 7}} , frame=tlrb]{Name}
 void double_elements(int *A, size_t size) {
-#pragma omp target parallel for simd map(A[:size], flag)
-	{
-		for (size_t i = 0; i < size; ++i) {
-        	A[i] = A[i] * 2;
-	    }
-    }
+#pragma omp target teams distribute parallel for map(A[:size])
+	for (size_t i = 0; i < size; ++i) {
+		A[i] = A[i] * 2;
+	}
 }
 \end{lstlisting}
 \selectlanguage{greek}
@@ -266,111 +336,40 @@ singlelinecheck=false
 \begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth}|}
  \textbf{Αριθμός στοιχείων πίνακα\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος εκτέλεσης (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
 \hline
-100000 & 0.885 \\
+100000 &  0.943\\
 \hline
-1000000 & 0.971 \\
+1000000 & 0.837\\
 \hline
-10000000 & 2.153 \\
+10000000 & 0.915\\
 \hline
-100000000 & 13.566 \\
+100000000 &  1.456\\
 \hline
-\end{tabular}
-\end{table}
-
-
-
-\paragraph{Παραλλαγή 5η}
-\subparagraph{}
-Για τον υπολογισμό, η ρουτίνα που εκτελέστηκε ήταν η εξής:
-
-\selectlanguage{english}
-\begin{lstlisting}[language=C++, caption={\el{Αρχικοποίηση τιμών διανύσματος}} , frame=tlrb]{Name}
-void double_elements(int *A, size_t size) {
-#pragma omp target parallel simd map(A[:size], flag)
-	{
-		for (size_t i = 0; i < size; ++i) {
-        	A[i] = A[i] * 2;
-	    }
-    }
-}
-\end{lstlisting}
-\selectlanguage{greek}
-
-\begin{table}[htbp]
-\centering
-\captionsetup{justification=raggedright,
-singlelinecheck=false
-}
-\caption{ Καταγραφή χρόνων εκτέλεσης παραδειγμάτων}
-\def\arraystretch{1.5}
-\begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth}|}
- \textbf{Αριθμός στοιχείων πίνακα\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος εκτέλεσης (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
+200000000 & 2.085\\
 \hline
-100000 & 0.885 \\
-\hline
-1000000 & 0.971 \\
-\hline
-10000000 & 2.153 \\
-\hline
-100000000 & 13.566 \\
+300000000 & 2.733\\
 \hline
 \end{tabular}
 \end{table}
 
+\subparagraph{Σχόλιο}
 \ \\
-\newpage
-\paragraph{Παραλλαγή 6η}
-\subparagraph{}
-Για τον υπολογισμό, η ρουτίνα που εκτελέστηκε ήταν η εξής:
+Η διεργασία διαμοιράζεται σε ομάδες νημάτων, όπου κάθε ομάδα αποτελείται από περισσότερα απο ένα νήματα. Παρατηρείται σημαντική βελτίωση του χρόνου εκτέλεσης. 
 
-\selectlanguage{english}
-\begin{lstlisting}[language=C++, caption={\el{Αρχικοποίηση τιμών διανύσματος}} , frame=tlrb]{Name}
-void double_elements(int *A, size_t size) {
-#pragma omp target teams distribute map(A[:size], flag)
-	{
-		for (size_t i = 0; i < size; ++i) {
-        	A[i] = A[i] * 2;
-	    }
-    }
-}
-\end{lstlisting}
-\selectlanguage{greek}
-\begin{table}[htbp]
-\centering
-\captionsetup{justification=raggedright,
-singlelinecheck=false
-}
-\caption{ Καταγραφή χρόνων εκτέλεσης παραδειγμάτων}
-\def\arraystretch{1.5}
-\begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth}|}
- \textbf{Αριθμός στοιχείων πίνακα\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος εκτέλεσης (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
-\hline
-100000 & 0.885 \\
-\hline
-1000000 & 0.971 \\
-\hline
-10000000 & 2.153 \\
-\hline
-100000000 & 13.566 \\
-\hline
-\end{tabular}
-\end{table}
 \clearpage
-\paragraph{Παραλλαγή 7η}
+\paragraph{Παραλλαγή 8\textsuperscript{η}}
 \subparagraph{}
 Για τον υπολογισμό, η ρουτίνα που εκτελέστηκε ήταν η εξής:
 
 \selectlanguage{english}
 \begin{lstlisting}[language=C++, caption={\el{Αρχικοποίηση τιμών διανύσματος}} , frame=tlrb]{Name}
 void double_elements(int *A, size_t size) {
-#pragma omp target teams distribute parallel for map(A[:size], flag)
-	{
-		for (size_t i = 0; i < size; ++i) {
-        	A[i] = A[i] * 2;
-	    }
-    }
+	#pragma omp target teams distribute simd map(A[:size])
+	for (size_t i = 0; i < size; ++i) {
+    	A[i] = A[i] * 2;
+	}
 }
 \end{lstlisting}
+
 \selectlanguage{greek}
 \begin{table}[htbp]
 \centering
@@ -382,70 +381,31 @@ singlelinecheck=false
 \begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth}|}
  \textbf{Αριθμός στοιχείων πίνακα\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος εκτέλεσης (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
 \hline
-100000 & 0.885 \\
+100000 &  0.978\\
 \hline
-1000000 & 0.971 \\
+1000000 &  0.845\\
 \hline
-10000000 & 2.153 \\
+10000000 & 1.125\\
 \hline
-100000000 & 13.566 \\
+100000000 & 3.750\\
+\hline
+200000000 &  6.616\\
 \hline
 \end{tabular}
 \end{table}
 
-\paragraph{Παραλλαγή 8η}
+\clearpage
+\paragraph{Παραλλαγή 9\textsuperscript{η}}
 \subparagraph{}
 Για τον υπολογισμό, η ρουτίνα που εκτελέστηκε ήταν η εξής:
 
 \selectlanguage{english}
 \begin{lstlisting}[language=C++, caption={\el{Αρχικοποίηση τιμών διανύσματος}} , frame=tlrb]{Name}
 void double_elements(int *A, size_t size) {
-#pragma omp target teams distribute simd map(A[:size], flag)
-	{
-		for (size_t i = 0; i < size; ++i) {
-        	A[i] = A[i] * 2;
-	    }
-    }
-}
-\end{lstlisting}
-
-\newpage
-\selectlanguage{greek}
-\begin{table}[htbp]
-\centering
-\captionsetup{justification=raggedright,
-singlelinecheck=false
-}
-\caption{ Καταγραφή χρόνων εκτέλεσης παραδειγμάτων}
-\def\arraystretch{1.5}
-\begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth}|}
- \textbf{Αριθμός στοιχείων πίνακα\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος εκτέλεσης (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
-\hline
-100000 &  \\
-\hline
-1000000 &  \\
-\hline
-10000000 &  \\
-\hline
-100000000 &  \\
-\hline
-\end{tabular}
-\end{table}
-
-\ \\
-\paragraph{Παραλλαγή 9η}
-\subparagraph{}
-Για τον υπολογισμό, η ρουτίνα που εκτελέστηκε ήταν η εξής:
-
-\selectlanguage{english}
-\begin{lstlisting}[language=C++, caption={\el{Αρχικοποίηση τιμών διανύσματος}} , frame=tlrb]{Name}
-void double_elements(int *A, size_t size) {
-#pragma omp target teams distribute parallel for simd map(A[:size], flag)
-	{
-		for (size_t i = 0; i < size; ++i) {
-        	A[i] = A[i] * 2;
-	    }
-    }
+#pragma omp target teams distribute parallel for simd map(A[:size])
+	for (size_t i = 0; i < size; ++i) {
+    	A[i] = A[i] * 2;
+	}
 }
 \end{lstlisting}
 \selectlanguage{greek}
@@ -459,21 +419,28 @@ singlelinecheck=false
 \begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth}|}
  \textbf{Αριθμός στοιχείων πίνακα\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος εκτέλεσης (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
 \hline
-100000 & 0.885 \\
+100000 &  0.933\\
 \hline
-1000000 & 0.971 \\
+1000000 & 0.831\\
 \hline
-10000000 & 2.153 \\
+10000000 & 0.903\\
 \hline
-100000000 & 13.566 \\
+100000000 & 1.44\\
+\hline
+200000000 & 3.211\\
+\hline
+300000000 & 3.135\\
+\hline
+400000000 & 5.68\\
 \hline
 \end{tabular}
 \end{table}
 
 \newpage
+\clearpage
 \subsubsection{Υλοποιήσεις που δεσμεύουν μνήμη απευθείας στον επιταχυντή}
 \subparagraph{}
-Στις υλοποιήσεις αυτής της ενότητας δεν απαιτείται αντιγραφή δεδομένων μνήμης ανάμεσα στα περιβάλλοντα δεδομένων του επιταχυντή και του εξυπηρετητή, καθώς η μνήμη δεσμεύεται απευθείας στον επιταχυντή μέσω της οδηγίας \emph{\en{omp\_target\_alloc}}. Σε αυτή την εκτέλεση, δεσμεύεται μνήμη για το διάνυσμα απευθείας στη συσκευή στόχου. Με αυτό τον τρόπο αποφεύγονται εργασίες αντιγραφής ανάμεσα στα δύο μέσα.
+Στις υλοποιήσεις αυτής της ενότητας δεν απαιτείται αντιστοίχιση δεδομένων μνήμης ανάμεσα στα περιβάλλοντα δεδομένων του επιταχυντή και του εξυπηρετητή, καθώς η μνήμη δεσμεύεται απευθείας στη συσκευή στόχου μέσω της οδηγίας \emph{\en{\textbf{omp\_target\_alloc}}}. Με αυτό τον τρόπο αποφεύγονται εργασίες αντιγραφής ανάμεσα στα δύο μέσα.
 \ \\
 \selectlanguage{english}
 \begin{lstlisting}[language=C++, caption={\el{Κώδικας αρχικοποίησης διανύσματος στη συσκευή στόχου και επαλήθευση ομαλής εκτέλεσης}} , frame=tlrb]{Name}
@@ -495,32 +462,36 @@ singlelinecheck=false
     double_elements(a, o.size);
     auto end = omp_get_wtime();
     std::cout << "Starting verification" << std::endl;
-#pragma omp target is_device_ptr(a)
+#pragma omp target is_device_ptr(a) map(flag)
     for (size_t i = 0; i < o.size; ++i) {
             if (a[i] != i * 2) {
-                    exit(1);
+                    flag = 1;
             }
     }
+    
+     if (flag) {
+            std::cout << "FAILED VERIFICATION !" << std::endl;
+    } else {
+            std::cout << "Successful verification" << std::endl;
+    }
+
     std::cout << "Successful verification" << std::endl;
     omp_target_free(a, device);
 \end{lstlisting}
 \selectlanguage{greek}
 
 \clearpage
-\paragraph{Παραλλαγή 11η}
+\paragraph{Παραλλαγή 10\textsuperscript{η}}
 \subparagraph{}
 Για τον υπολογισμό, η ρουτίνα που εκτελέστηκε ήταν η εξής:
 
 \selectlanguage{english}
-\begin{lstlisting}[language=C++, caption={\el{Εκτέλεση υπολογισμών}} , frame=tlrb]{Name}
+\begin{lstlisting}[language=C++, caption={\el{Ρουτίνας παραλλαγής 10}} , frame=tlrb]{Name}
 void double_elements(int *A, size_t size) {
-#pragma omp target is_device_ptr(A)
-        {
-        #pragma omp parallel for
-                for (size_t i = 0; i < size; ++i) {
-                        A[i] = A[i] * 2;
-                }
-        }
+	#pragma omp target parallel for is_device_ptr(A)
+	for (size_t i = 0; i < size; ++i) {
+		A[i] = A[i] * 2;
+	}
 }
 \end{lstlisting}
 \selectlanguage{greek}
@@ -535,58 +506,27 @@ singlelinecheck=false
 \begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth}|}
  \textbf{Αριθμός στοιχείων πίνακα\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος εκτέλεσης (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
 \hline
-100000 & 0.016400 \\
+100000 & 0.018\\
 \hline
-1000000 & 0.118455 \\
+1000000 &  0.156\\
 \hline
-10000000 & 1.179038 \\
+10000000 &  1.249\\
 \hline
-100000000 & 11.780315 \\
+100000000 &  11.791\\
 \hline
 \end{tabular}
 \end{table}
 
+\subparagraph{Σχόλιο:}
+Παρουσιάζονται χαμηλές επιδόσεις. Παρατηρείται πως η δημιουργία διεργασίας στη συσκευή προορισμού, δηλαδη η δημιουργία αρχικού νήματος και η μετέπειτα παραλληλοποίηση μέσω \emph{\en{pragma omp parallel}} δεν αποτελεί αποτελεσματική λύση. Αίτιο της φτωχής απόδοσης ενδέχεται να είναι το \emph{\en{false sharing}}.
 
-
-
-\paragraph{Παραλλαγή 12η}
+\clearpage
+\paragraph{Παραλλαγή 11\textsuperscript{η}}
 \subparagraph{}
 Για τον υπολογισμό, η ρουτίνα που εκτελέστηκε ήταν η εξής:
 
 \selectlanguage{english}
-\begin{lstlisting}[language=C++, caption={\el{Εκτέλεση υπολογισμών}} , frame=tlrb]{Name}
-void double_elements(int *A, size_t size) {
-#pragma omp target parallel for is_device_ptr(A)
-        for (size_t i = 0; i < size; ++i) {
-                A[i] = A[i] * 2;
-        }
-}
-
-\end{lstlisting}
-
-\newpage
-
-\selectlanguage{greek}
-\begin{table}[htbp]
-\centering
-\captionsetup{justification=raggedright,
-singlelinecheck=false
-}
-\caption{ Καταγραφή χρόνων εκτέλεσης παραδειγμάτων}
-\def\arraystretch{1.5}
-\begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth}|}
- \textbf{Αριθμός στοιχείων πίνακα\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος εκτέλεσης (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
-\hline
-
-\end{tabular}
-\end{table}
-
-\paragraph{Παραλλαγή 13η}
-\subparagraph{}
-Για τον υπολογισμό, η ρουτίνα που εκτελέστηκε ήταν η εξής:
-
-\selectlanguage{english}
-\begin{lstlisting}[language=C++, caption={\el{Εκτέλεση υπολογισμών}} , frame=tlrb]{Name}
+\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής 11}} , frame=tlrb]{Name}
 void double_elements(int *A, size_t size) {
 #pragma omp target teams distribute is_device_ptr(A)
         for (size_t i = 0; i < size; ++i) {
@@ -607,25 +547,26 @@ singlelinecheck=false
 \begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth}|}
  \textbf{Αριθμός στοιχείων πίνακα\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος εκτέλεσης (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
 \hline
-100000 &  \\
+100000 & 0.008\\
 \hline
-1000000 &  \\
+1000000 &  0.031\\
 \hline
-10000000 &  \\
+10000000 & 0.25\\
 \hline
-100000000 &  \\
+100000000 & 2.001\\
 \hline
-200000000 &  \\
+200000000 & 3.963\\
 \hline
 \end{tabular}
 \end{table}
 
-\paragraph{Παραλλαγή 14η}
+\clearpage
+\paragraph{Παραλλαγή 12\textsuperscript{η}}
 \subparagraph{}
 Για τον υπολογισμό, η ρουτίνα που εκτελέστηκε ήταν η εξής:
 
 \selectlanguage{english}
-\begin{lstlisting}[language=C++, caption={\el{Εκτέλεση υπολογισμών}} , frame=tlrb]{Name}
+\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση ρουτίνας παραλλαγής 12}} , frame=tlrb]{Name}
 void double_elements(int *A, size_t size) {
 #pragma omp target teams distribute parallel for is_device_ptr(A)
         for (size_t i = 0; i < size; ++i) {
@@ -645,22 +586,23 @@ singlelinecheck=false
 \begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth}|}
  \textbf{Αριθμός στοιχείων πίνακα\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος εκτέλεσης (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
 \hline
-100000 &  \\
+100000 &  0.006\\
 \hline
-1000000 &  \\
+1000000 & 0.009\\
 \hline
-10000000 &  \\
+10000000 &  0.042\\
 \hline
-100000000 &  \\
+100000000 & 0.322\\
 \hline
-200000000 &  \\
+200000000 & 0.616\\
 \hline
-300000000 &  \\
+300000000 &  0.948\\
 \hline
 \end{tabular}
 \end{table}
 
-\paragraph{Παραλλαγή 15η}
+\clearpage
+\paragraph{Παραλλαγή 13\textsuperscript{η}}
 \subparagraph{}
 Για τον υπολογισμό, η ρουτίνα που εκτελέστηκε ήταν η εξής:
 
@@ -686,24 +628,24 @@ singlelinecheck=false
 \begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth}|}
  \textbf{Αριθμός στοιχείων πίνακα\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος εκτέλεσης (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
 \hline
-100000 &  \\
+100000 &  0.008\\
 \hline
-1000000 &  \\
+1000000 & 0.031\\
 \hline
-10000000 &  \\
+10000000 &  0.248\\
 \hline
-100000000 &  \\
+100000000 &  1.994\\
 \hline
-200000000 &  \\
+200000000 &  3.93\\
 \hline
-300000000 &  \\
+300000000 &  5.923\\
 \hline
 \end{tabular}
 \end{table}
 
 
 \newpage
-\paragraph{Παραλλαγή 16η}
+\paragraph{Παραλλαγή 14\textsuperscript{η}}
 \subparagraph{}
 Για τον υπολογισμό, η ρουτίνα που εκτελέστηκε ήταν η εξής:
 
@@ -721,6 +663,7 @@ void double_elements(int *A, size_t size) {
 
 \begin{center}
 \begin{table}[htbp]
+\centering
 \captionsetup{justification=raggedright,
 singlelinecheck=false
 }
@@ -729,27 +672,42 @@ singlelinecheck=false
 \begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth}|}
  \textbf{Αριθμός στοιχείων πίνακα\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος εκτέλεσης (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
 \hline
-100000 &  \\
+100000 & 0.006\\
 \hline
-1000000 &  \\
+1000000 & 0.009\\
 \hline
-10000000 &  \\
+10000000 & 0.042\\
 \hline
-100000000 &  \\
+100000000 & 0.322\\
 \hline
-200000000 &  \\
+200000000 & 0.615\\
 \hline
-300000000 &  \\
+300000000 &  0.947\\
+\hline
+400000000 &  1.22\\
 \hline
 \end{tabular}
 \end{table}
 \end{center}
 
-\subsubsection{Αποτελέσματα και σχόλια}
+\subparagraph{Σχόλιο}\ \\
+Η συγκεκριμένη εκτέλεση καταγράφει τις καλύτερες επιδόσεις από όλες τις υπόλοιπες. Ή υλοποίησή της έγινε με παραλληλοποίηση βρόγχου επανάληψης στη συσκευή προορισμού, με δεδομένα που βρίσκονται αποθηκευμένα σε αυτή. Οι επιδόσεις είναι εμφανώς καλύτερες σε σύγκριση με τη σειριακή εκτέλεση, ενώ η οδηγία διανυσματικοποίησης \emph{\en{simd}} δεν επηρεάζει στη βελτίωση του χρόνου.
+
+\newpage
+\subsubsection{Συγκρίσεις με γραφική απεικόνιση}
 \subparagraph{}
+
+\paragraph{\emph{Σειριακή} \en{VS} \emph{Παραλλαγή 14}}
+\subparagraph{}
+Στο παρακάτω διάγραμμα συγκρίνεται η σειριακή εκτέλεση, με την καλύτερη επίδοση που επετεύχθει.
+Πρόκειται για την παραλλαγή 14, η οποία παρουσιάζει παρόμοιες επιδόσεις με την 12.
+Η μοναδική διαφορά ανάμεσα στις δυο παραλλαγές είναι ότι στη παραλλαγή 12, δεν υπάρχει η οδηγία διανυσματικοποίησης \emph{\en{\textbf{simd}}}.\ \\ 
+\ \\
+
 \begin{tikzpicture}
+\centering
 \begin{axis}[
-    title={Τίτλος},
+   % title={Τίτλος},
     xlabel={Αριθμός στοιχείων διανύσματος},
     legend cell align = {left},
     ylabel={Χρόνος εκτέλεσης \emph{\en{sec}}},
@@ -759,71 +717,255 @@ singlelinecheck=false
     ytick={0,1,2,3,4,5},
     legend pos= outer north east,
     ymajorgrids=true,
-    width = 0.65\textwidth,
+    width = 0.60\textwidth,
     grid style=dashed,
 ]
-
 \addplot[
     color=blue,
     mark=triangle,
     ]
     coordinates {
-    (100000,0.00244)(1000000, 0.009742)(10000000, 0.098103)(100000000, 0.98088)(100000000, 0.981602)(200000000, 1.978147) (300000000, 2.968849)
+    (100000,0.002)
+    (1000000, 0.009742)
+    (10000000, 0.098103)
+    (100000000, 0.98088)
+    (200000000, 1.978147) 
+    (300000000, 2.968849)
     };
     \addlegendentry{Σειριακή}
     
     \addplot[
     color=red,
-    mark=square,
-    ]
-    coordinates {
-    (100000,0.971228)(1000000, 1.838727)(10000000,10.177887)
-    };
-    \addlegendentry{Εκτέλεση 4.1.2.1}
-        
-    \addplot[
-    color=green,
-    mark=square,
-    ]
-    coordinates {
-    (100000,0.885608)(1000000, 0.971478)(10000000, 2.153557)(100000000, 13.566249)
-    };
-    \addlegendentry{Εκτέλεση 4.1.2.2}
-    
-        \addplot[
-    color=black,
     mark=*,
     ]
     coordinates {
-    (100000,0.016400)(1000000, 0.118455)(10000000, 1.179038)(100000000, 11.780315)
+    (100000,0.006)
+    (1000000, 0.00974)
+    (10000000, 0.0417)
+    (100000000, 0.322)
+    (200000000, 0.615) 
+    (300000000, 0.947)
     };
-    \addlegendentry{Παραλλαγή 11η}
-    
-\addplot[
-    color=black,
-    mark=x,
-    ]
-    coordinates {
-    (100000,0.006752)(1000000, 0.029761)(10000000, 0.202267)(100000000, 1.984212)(200000000, 3.934013)
-    };
-    \addlegendentry{Εκτέλεση 4.1.3.2}
-    
-    \addplot[
-    color=purple,
-    mark=square,
-    ]
-    coordinates {
-    (100000,0.004939)(1000000, 0.008046)(10000000,0.032330 )(100000000,0.299236 )(200000000, 0.631952)(300000000,0.954900)
-    };
-    \addlegendentry{Εκτέλεση 4.1.3.3}
-    
-        \addplot[
-    color=cyan,
-    mark=square,
-    ]
-    coordinates {
-    (100000,0.006792)(1000000, 0.029622)(10000000,0.201454 )(100000000, 1.977574)(200000000, 3.920045)(300000000,5.908174)
-    };
-    \addlegendentry{Εκτέλεση 4.1.3.4}
+    \addlegendentry{Παραλλαγή 14}
 \end{axis}
 \end{tikzpicture}
+
+Παρατηρείται ότι η απόδοση των δυο παραλλαγών δεν επηρεάζεται από το μέγεθος του διανύσματος που αντιστοιχίζεται.
+\ \\
+\begin{center}
+\begin{tikzpicture}
+\centering
+\centering
+\begin{axis}[
+    title={\textbf{Ποσοστό αύξησης χρόνου εκτέλεσης}},
+    xlabel={Αριθμός στοιχείων διανύσματος},
+    legend cell align = {left},
+    ylabel={Ποσοστό αύξησης χρόνου (\%)},
+    xmin=100000, xmax=300000000,
+    ymin=0, ymax=100,
+    xtick={100000, 100000000, 200000000, 300000000},
+    ytick={ 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
+    legend pos= outer north east,
+    ymajorgrids=true,
+    width = 0.50\textwidth,
+    grid style=dashed,
+]
+\addplot[
+    color=blue,
+    mark=triangle,
+    ]
+    coordinates {
+    (10000000,57.49)
+    (100000000,67.17)
+    (200000000, 68.91)
+    (300000000, 68.10)
+    };
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\newpage
+\paragraph{Παραλλαγή \emph{8 \en{VS} 13}}
+\subparagraph{}
+Συγκρίνονται παραλλαγές που μοναδική διαφορά έχουν τον τρόπο διαχείρισης των δεδομένων που μεταφέρονται ανάμεσα στις δυο συσκευές.
+Στην πρώτη περίπτωση, γίνεται αντιστοίχιση του διανύσματος με τη χρήση οδηγίας \emph{\en{textbf{map}}}, ενώ στη δεύτερη η δέσμευση μνήμης γίνεται απευθείας στη συσκευή προορισμού, γιαύτό δεν απαιτείται αντιστοίχιση.
+\ \\ 
+
+\begin{tikzpicture}
+\centering
+\begin{axis}[
+    title={Σύγκριση Παραλλαγών},
+    xlabel={Αριθμός στοιχείων διανύσματος},
+    legend cell align = {left},
+    ylabel={Χρόνος εκτέλεσης \emph{\en{sec}}},
+    xmin=100000, xmax=300000000,
+    ymin=0, ymax=7,
+    xtick={100000,100000000, 200000000, 300000000},
+    ytick={0,1,2,3,4,5, 6, 7},
+    legend pos= outer north east,
+    ymajorgrids=true,
+    width = 0.65\textwidth,
+    grid style=dashed,
+]
+\addplot[
+    color=blue,
+    mark=triangle,
+    ]
+    coordinates {
+    (100000, 0.977)
+    (1000000, 0.845)
+    (10000000, 1.125)
+    (100000000, 3.75)
+    (200000000, 6.616)
+    (300000000, 9.671)
+    };
+    \addlegendentry{Παραλλαγή 8}
+    
+    \addplot[
+    color=red,
+    mark=*,
+    ]
+    coordinates {
+    (100000, 0.0078)
+    (1000000, 0.031)
+    (10000000, 0.248)
+    (100000000, 1.994)
+    (200000000, 3.93)
+    (300000000, 5.923)
+    };
+    \addlegendentry{Παραλλαγή 13}
+
+\end{axis}
+\end{tikzpicture}
+\ \\
+\ \\
+Παρατηρείται ότι η απόδοση των δυο παραλλαγών επηρεάζεται από το μέγεθος του διανύσματος που αντιστοιχίζεται.
+\ \\
+\begin{center}
+\begin{tikzpicture}
+\centering
+\centering
+\begin{axis}[
+    title={\textbf{Ποσοστό αύξησης χρόνου εκτέλεσης}},
+    xlabel={Αριθμός στοιχείων διανύσματος},
+    legend cell align = {left},
+    ylabel={Ποσοστό αύξησης χρόνου (\%)},
+    xmin=100000, xmax=300000000,
+    ymin=0, ymax=100,
+    xtick={100000, 100000000, 200000000, 300000000},
+    ytick={0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
+    legend pos= outer north east,
+    ymajorgrids=true,
+    width = 0.50\textwidth,
+    grid style=dashed,
+]
+\addplot[
+    color=blue,
+    mark=triangle,
+    ]
+    coordinates {
+    (100000, 99.20)
+    (1000000, 96.34)
+    (10000000, 77.95)
+    (100000000,46.83)
+    (200000000, 40.599)
+    (300000000, 38.755)
+    };
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\newpage
+
+\paragraph{Παραλλαγή \emph{9 \en{vs} 14}}
+\subparagraph{}
+Συγκρίνονται παραλλαγές που μοναδική διαφορά έχουν τον τρόπο διαχείρισης των δεδομένων που μεταφέρονται ανάμεσα στις δυο συσκευές.
+Στην πρώτη περίπτωση, γίνεται αντιστοίχιση του διανύσματος με τη χρήση οδηγίας \emph{\en{textbf{map}}}, ενώ στη δεύτερη η δέσμευση μνήμης γίνεται απευθείας στη συσκευή προορισμού, γιαύτό δεν απαιτείται αντιστοίχιση.
+\ \\ 
+
+\begin{tikzpicture}
+\centering
+\begin{axis}[
+    title={\textbf{Σύγκριση Παραλλαγών}},
+    xlabel={Αριθμός στοιχείων διανύσματος},
+    legend cell align = {left},
+    ylabel={Χρόνος εκτέλεσης \emph{\en{sec}}},
+    xmin=100000, xmax=300000000,
+    ymin=0, ymax=7,
+    xtick={100000,100000000, 200000000, 300000000},
+    ytick={0,1,2,3,4,5, 6, 7},
+    legend pos= outer north east,
+    ymajorgrids=true,
+    width = 0.65\textwidth,
+    grid style=dashed,
+]
+\addplot[
+    color=blue,
+    mark=triangle,
+    ]
+    coordinates {
+    (100000, 0.933)
+    (1000000, 0.8312)
+    (10000000, 0.903)
+    (100000000, 1.44)
+    (200000000, 3.21)
+    (300000000, 3.13)
+    (400000000, 5.68)
+    };
+    \addlegendentry{Παραλλαγή 9}
+    
+    \addplot[
+    color=red,
+    mark=*,
+    ]
+    coordinates {
+    (100000, 0.006)
+    (1000000, 0.0094)
+    (10000000, 0.0417)
+    (100000000, 0.322)
+    (200000000, 0.615)
+    (300000000, 0.947)
+    (400000000, 1.228)
+    };
+    \addlegendentry{Παραλλαγή 14}
+
+\end{axis}
+\end{tikzpicture}
+\ \\
+\ \\
+Παρατηρείται ότι η απόδοση των δυο παραλλαγών επηρεάζεται από το μέγεθος του διανύσματος που αντιστοιχίζεται.
+\ \\
+\begin{center}
+\begin{tikzpicture}
+\centering
+\centering
+\begin{axis}[
+    title={\textbf{Ποσοστό αύξησης χρόνου εκτέλεσης}},
+    xlabel={Αριθμός στοιχείων διανύσματος},
+    legend cell align = {left},
+    ylabel={Ποσοστό αύξησης χρόνου (\%)},
+    xmin=100000, xmax=400000000,
+    ymin=0, ymax=100,
+    xtick={100000, 100000000, 200000000, 300000000, 400000000},
+    ytick={0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
+    legend pos= outer north east,
+    ymajorgrids=true,
+    width = 0.50\textwidth,
+    grid style=dashed,
+]
+\addplot[
+    color=blue,
+    mark=triangle,
+    ]
+    coordinates {
+    (100000, 99.357)
+    (1000000, 98.87)
+    (10000000,95.382)
+    (100000000,77.64)
+    (200000000, 80.8411)
+    (300000000, 69.74)
+	(400000000, 78.38)
+
+    };
+\end{axis}
+\end{tikzpicture}
+\end{center}

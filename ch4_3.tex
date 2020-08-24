@@ -1,0 +1,440 @@
+\subsection{Παράδειγμα πολλαπλασιασμού πινάκων}
+\subparagraph{}
+Ο πολλαπλασιασμός πινάκων αποτελεί έναν από τους πιο κλασικούς αλγόριθμους στον προγραμματισμό και σε αυτό το παράδειγμα μελετάται η παράλληλη υλοποίησή του. Μελετώνται οι χρονικές επιδόσεις πολλαπλασιασμού πικάνων διαφόρων διαστάσεων και συγκρίνονται μεταξύ τους. Η αρχικοποίηση των πινάκων γίνεται με τυχαία νούμερα που οι τιμές τους βρίσκονται στο εύρος [-10, 10].
+
+\selectlanguage{english}
+\begin{lstlisting}[language=C++, caption={\el{Αρχικοποίηση τιμών διανύσματος}} , frame=tlrb]{Name}
+void fill_random_1d(int *mat, int width, int height) {
+        for (int row = 0; row < height; row++) {
+                for (int col = 0; col < width; ++col) {
+                        mat[col + row*width] = rand() % 20 - 10;
+                }
+        }
+}
+\end{lstlisting}
+\selectlanguage{greek}
+
+Η μεταγλώττιση του κώδικα έγινε με μεταγλωττιστή \emph{\en{g++-7}} και τις επιλογές:$-Wall -o exec -O0$.
+
+\clearpage
+\subsubsection{Σειριακή εκτέλεση}
+\subparagraph{}
+
+Στο παράδειγμα, υλοποιείται ένας από τους απλούστερους αλγορίθμους πολλαπλασιασμού πινάκων, που αποτελείται από ένα τριπλό βρόγχο επανάληψης όπως φαίνεται στο παρακάτω τμήμα κώδικα:
+\ \\
+\selectlanguage{english}
+\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση σειριακού αλγορίθμου}} , frame=tlrb]{Name}
+int matmul_1d(int *a, int r1, int c1,
+                int *b, int r2, int c2,
+                int *c, int r3, int c3)
+{
+	if (c1 != r2) return 1;
+
+    for (int i = 0; i < r1; ++i) {
+		for (int j = 0; j < c2; ++j) {
+        	int temp = 0;
+			for (int k = 0; k < c1; ++k) {
+            		temp += a[k + i*c1] * b[j + k*c2];
+			}
+			c[j + i * c3] = temp;
+		}
+	}
+	return 0;
+}
+
+\end{lstlisting}
+\selectlanguage{greek}
+
+\begin{table}[htbp]
+\centering
+\captionsetup{justification=raggedright,
+singlelinecheck=false
+}
+\caption{ \emph{Καταγραφή χρόνων εκτέλεσης παραδειγμάτων}}
+\def\arraystretch{1.5}
+\begin{tabular}{ | p{0.35\textwidth} | p{0.35\textwidth}| }
+ \textbf{Διαστάσεις Πινάκων\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος Υπολογισμού (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
+\hline
+[900 ,   900] * [900  ,  900] & 12.611\\
+\hline
+[100 , 60000] * [60000,  100] & 12.284\\
+\hline
+[3000,   100] * [100  , 3000] & 13.173\\
+\hline
+\end{tabular}
+\end{table}
+
+\paragraph{Σχόλιο:}
+\subparagraph{}
+Υπάρχει πλειθώρα σειριακών αλγορίθμων με καλύτερες επιδόσεις.
+Ωστόσο, ο συγκεκριμένος βοηθάει στην εύκολη κατανοήση και τη δημιουργία παράλληλων εκδόσεων, λόγω του διπλού βρόγχου επανάληψης. Οι χρονικές καταγραφές των τριών πινάκων θα χρησιμοποιηθούν ως σημείο σύγκρισης με τις υπόλοιπες υλοποιήσεις.
+
+\clearpage
+\subsubsection{Παραλλαγή 1\textsuperscript{η}}
+\subparagraph{}
+Στη συγκεκριμένη παραλλαγή εφαρμόζεται παραλληλοποίηση με τη χρήση της οδηγίας \textbf{\emph{\en{pragma omp parallel for}}}. 
+\selectlanguage{english}
+\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής 1}} , frame=tlrb]{Name}
+void matmul_1d(int *a, int r1, int c1,
+                int *b, int r2, int c2,
+                int *c, int r3, int c3)
+{
+        if (c1 != r2) return 1;
+        
+#pragma omp parallel for
+        for (int i = 0; i < r1; ++i) {
+                for (int j = 0; j < c2; ++j) {
+                        int temp = 0;
+                        for (int k = 0; k < c1; ++k) {
+                                temp += a[k + i*c1] * b[j + k*c2];
+                        }
+
+                        c[j + i * c3] = temp;
+                }
+        }
+        return 0;
+}
+\end{lstlisting}
+\selectlanguage{greek}
+
+\begin{table}[htbp]
+\centering
+\captionsetup{justification=raggedright,
+singlelinecheck=false
+}
+\caption{ \emph{Καταγραφή χρόνων εκτέλεσης παραδειγμάτων}}
+\def\arraystretch{1.5}
+\begin{tabular}{| p{0.35\textwidth} | p{0.35\textwidth}|}
+ \textbf{Διαστάσεις Πινάκων\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος Υπολογισμού (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
+\hline
+[900 900] * [900 900] & 0.821 \\
+\hline
+[1400 1400] * [1400 1400] & 4.113\\
+\hline
+[1500 1500] * [1500 1500] & 5.711\\
+\hline
+[100 60000] * [60000 100] & 1.452\\
+\hline
+[3000 100] * [100 3000] & 0.861 \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\paragraph{Σχόλιο:}
+\subparagraph{}
+Η χρήση της οδηγίας παραλληλοποίησης
+\textbf{\emph{\en{pragma omp parallel for}}}
+οδηγεί σε έως και 15 φορές ταχύτερο υπολογισμό στο ίδιο μέγεθος προβλήματος.
+ 
+\clearpage
+\subsubsection{Παραλλαγή 2\textsuperscript{η}}
+\subparagraph{}
+Σε αυτή την παραλλαγή χρησιμοποιείται πάλι η οδηγία\textbf{\emph{\en{pragma omp parallel for}}}, όμως εισάγεται και η φράση \textbf{\emph{\en{collapse}}} που χρησιμοποιείται σε περιπτώσεις ένθετων βρόγχων, όπως στο συγκεκριμένο πρόβλημα.
+\selectlanguage{english}
+\begin{lstlisting}[language=C++, caption={\el{Αρχικοποίηση τιμών διανύσματος}} , frame=tlrb]{Name}
+void matmul_1d(int *a, int r1, int c1,
+                int *b, int r2, int c2,
+                int *c, int r3, int c3)
+{
+        if (c1 != r2) return 1;
+
+#pragma omp parallel for collapse(2)
+        for (int i = 0; i < r1; ++i) {
+                for (int j = 0; j < c2; ++j) {
+                        int temp = 0;
+                        for (int k = 0; k < c1; ++k) {
+                                temp += a[k + i*c1] * b[j + k*c2];
+                        }
+
+                        c[j + i * c3] = temp;
+                }
+        }
+        return 0;
+}
+\end{lstlisting}
+\selectlanguage{greek}
+
+\begin{table}[htbp]
+\centering
+\captionsetup{justification=raggedright,
+singlelinecheck=false
+}
+\caption{\emph{Καταγραφή χρόνων εκτέλεσης παραδειγμάτων}}
+\def\arraystretch{1.5}
+\begin{tabular}{| p{0.35\textwidth} | p{0.35\textwidth}|}
+ \textbf{Διαστάσεις Πινάκων\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος Υπολογισμού (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
+\hline 
+[900 900] * [900 900] & 0.795\\
+\hline
+[1400  1400] * [1400 1400] & 3.879\\
+\hline
+[1500 1500] * [1500 1500] & 5.301\\
+\hline
+[100 60000] * [60000 100] &  2.080\\
+\hline
+[3000 100] * [100 3000] & 0.829\\
+\hline
+\end{tabular}
+\end{table}
+
+
+\paragraph{Σχόλιο:}
+\subparagraph{}
+Η χρήση της φράσης \textbf{\emph{\en{collapse}}} οδηγεί σε μικρή βελτίωση της επίδοσης σε σχέση με την παραλλαγή 1.
+
+
+\clearpage
+\subsubsection{Παραλλαγή 3\textsuperscript{η}}
+\subparagraph{}
+Στη συγκρεκριμένη παραλλαγή εφαρμόζεται \emph{\en{offloading}}, δηλαδή ο αλγόριθμος μεταφέρεται για να εκτελεστεί στη συσκευή της κάρτας γραφικών μέσω της οδηγίας \textbf{\emph{\en{pragma omp target}}}.
+
+\selectlanguage{english}
+\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής 3}} , frame=tlrb]{Name}
+void matmul_1d(int *a, int r1, int c1,
+                int *b, int r2, int c2,
+                int *c, int r3, int c3)
+{
+        if (c1 != r2) return 1;
+
+        int a_s = r1 * c1, b_s = r2 * c2, c_s = r3 * c3;
+        
+#pragma omp target teams distribute parallel for simd\
+	map(a[:a_s], b[:b_s], c[:c_s])
+        for (int i = 0; i < r1; ++i) {
+                for (int j = 0; j < c2; ++j) {
+                        int temp = 0;
+                        for (int k = 0; k < c1; ++k) {
+                                temp += a[k + i*c1] * b[j + k*c2];
+                        }
+                        c[j + i * c3] = temp;
+                }
+        }
+        return 0;
+}
+\end{lstlisting}
+\selectlanguage{greek}
+
+\begin{table}[htbp]
+\centering
+\captionsetup{justification=raggedright,
+singlelinecheck=false
+}
+\caption{\emph{Καταγραφή χρόνων εκτέλεσης παραδειγμάτων}}
+\def\arraystretch{1.5}
+\begin{tabular}{| p{0.35\textwidth} | p{0.35\textwidth}|}
+ \textbf{Διαστάσεις Πινάκων\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος Υπολογισμού (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
+\hline 
+[900 900] * [900 900] & 2.931\\
+\hline
+[1400 1400] * [1400 1400] & 8.120\\
+\hline
+[1500 1500] * [1500 1500] & 9.477\\
+\hline
+[100 60000] * [60000 100] &  5.975\\
+\hline
+[3000 100] * [100 3000] & 3.032\\
+\hline
+\end{tabular}
+\end{table}
+
+\clearpage
+\subsubsection{Παραλλαγή 4\textsuperscript{η}}
+\subparagraph{}
+Μοναδική διαφορά με τη προηγούμενη παραλλαγή είναι οτι σε αυτή την περίπτωση χρησιμοποιούνται οι φράσεις \textbf{\emph{\en{from, to}}} για να συγκριθεί ο χρόνος που απαιτείται για τη μεταφορά των δεδομένων ανάμεσα στις δυο συσκευές. Στη συγκεκριμένη παραλλαγή, σε αντίθεση με τη προηγούμενη, γίνονται μόνο οι απαιτούμενες ενέργειες αντιγραφής των δεδομένων.
+\selectlanguage{english}
+\begin{lstlisting}[language=C++, caption={\el{Αρχικοποίηση τιμών διανύσματος}} , frame=tlrb]{Name}
+void matmul_1d(int *a, int r1, int c1,
+                int *b, int r2, int c2,
+                int *c, int r3, int c3)
+{
+        if (c1 != r2)  return 1;
+
+        int a_size = r1 * c1, b_s = r2 * c2, c_s = r3 * c3;
+
+#pragma omp target teams distribute parallel for simd\
+                        map(to:a[:a_size], b[:b_size])\
+                        map(from:c[:c_size])
+        for (int i = 0; i < r1; ++i) {
+                for (int j = 0; j < c2; ++j) {
+                        int temp = 0;
+                        for (int k = 0; k < c1; ++k) {
+                                temp += a[k + i*c1] * b[j + k*c2];
+                        }
+
+                        c[j + i * c3] = temp;
+                }
+        }
+        return 0;
+}
+\end{lstlisting}
+\selectlanguage{greek}
+
+\begin{table}[htbp]
+\centering
+\captionsetup{justification=raggedright,
+singlelinecheck=false
+}
+\caption{\emph{Καταγραφή χρόνων εκτέλεσης παραδειγμάτων}}
+\def\arraystretch{1.5}
+\begin{tabular}{| p{0.35\textwidth} | p{0.35\textwidth}|}
+ \textbf{Διαστάσεις Πινάκων\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος Υπολογισμού (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
+\hline 
+[900 900] * [900 900] & 2.94  \\
+\hline
+[1400 1400] * [1400 1400] & 8.19 	\\
+\hline
+[1500 1500] * [1500 1500] & 9.43\\
+\hline
+[100 60000] * [60000 100] &  5.89\\
+\hline
+[3000 100] * [100 3000] & 3.035 \\
+\hline
+\end{tabular}
+\end{table}
+
+\clearpage
+\subsubsection{Παραλλαγή 5\textsuperscript{η}}
+\subparagraph{}
+Η παραλλαγή αυτή μοιάζει με τις δύο προηγούμενες. Η διαφορά είναι οτι τα δεδομένα αποθηκεύονται απευθείας στη μνήμη της κάρτας γραφικών μέσω της οδηγίας \textbf{\emph{\en{is\_device\_ptr}}}. Ετσι, δεν απαιτείται αντιστοίχιση δεδομένων ανάμεσα στις δυο συσκευές με τη χρήση της οδηγίας \emph{\en{map}}.
+\selectlanguage{english}
+\begin{lstlisting}[language=C++, caption={\el{Αρχικοποίηση τιμών διανύσματος}} , frame=tlrb]{Name}
+void matmul_1d(int *a, int r1, int c1,
+                int *b, int r2, int c2,
+                int *c, int r3, int c3)
+{
+        if (c1 != r2) return 1;
+
+#pragma omp target teams distribute parallel for simd\
+        is_device_ptr(a) is_device_ptr(b)\
+        is_device_ptr(c)
+        for (int i = 0; i < r1; ++i) {
+                for (int j = 0; j < c2; ++j) {
+                        int temp = 0;
+                        for (int k = 0; k < c1; ++k) {
+                                temp += a[k + i*c1] * b[j + k*c2];
+                        }
+                        c[j + i * c3] = temp;
+                }
+        }
+}
+\end{lstlisting}
+\selectlanguage{greek}
+
+\begin{table}[htbp]
+\centering
+\captionsetup{justification=raggedright,
+singlelinecheck=false
+}
+\caption{\emph{Καταγραφή χρόνων εκτέλεσης παραδειγμάτων}}
+\def\arraystretch{1.5}
+\begin{tabular}{| p{0.35\textwidth} | p{0.35\textwidth}|}
+ \textbf{Διαστάσεις Πινάκων\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος Υπολογισμού (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
+ \hline
+ [900 900] * [900 900] & 2.045\\
+ \hline
+ [1400 1400] * [1400 1400] & 7.33\\
+\hline
+[1500 1500] * [1500 1500] & 8.47\\
+\hline
+[100 60000] * [60000 100] & 4.99\\
+\hline
+[3000 100] * [100 3000] & \en{Could not allocate memory} \\
+\hline
+\end{tabular}
+\end{table}
+
+\paragraph{Σχόλιο:}
+\subparagraph{}
+
+Ο πολλαπλασιασμός πινάκων με μέγεθος Α[3000 100] και Β[100 3000] έχει οδηγεί σε αδυναμία εκτέλεσης. Αντίθετα, ο υπολογισμός Α[100 60000] και Β[60000 100] γίνεται κανονικά.
+
+\newpage
+\subsubsection{Συγκρίσεις με γραφική απεικόνιση}
+\subparagraph{}
+
+
+%%%<
+%%%>
+\begin{comment}
+%:Title: Bar plot
+%:Tags: 2D;Bar plots;Manual
+%:Author: Christian FeuersÃ¤nger
+%:Slug: bar-plot
+
+%Bar plots place horizontal or vertical bars at coordinates. %Multiple bar plots
+%in one axis can be stacked on top of each other or aligned next to each other.
+
+%The code is from the PGFPlots 1.10 manual: "4.5.4 Bar Plots".
+\end{comment}
+\begin{tikzpicture}
+\begin{axis}[
+    ybar,
+    enlargelimits=0.15,
+    legend style={at={(0.5,-0.25)},
+      anchor=north,legend columns=-1,
+      },
+    ylabel={Χρόνος υπολογισμού \emph{\en{(sec)}}},
+    x tick label style={rotate=30,anchor=east},
+    symbolic x coords={
+   					 [900 900 900],
+					[1400 1400 1400],
+					[1500 1500 1500],
+                    [100 600000 100],
+                    [3000 100 3000]
+     },
+    xtick=data,
+    ]
+    
+   
+\addplot coordinates { ([900 900 900], 0.821)
+					   ([1400 1400 1400], 4.133)
+					   ([1500 1500 1500], 5.711)
+					   ([100 600000 100], 1.452)
+					   ([3000 100 3000], 0.861)
+
+					   };
+\addplot coordinates {([900 900 900], 0.795) 
+                      ([1400 1400 1400], 3.879)
+                      ([1500 1500 1500], 5.301)
+                      ([100 600000 100], 2.080)
+				      ([3000 100 3000], 0.829)
+                      };
+\addplot coordinates {([900 900 900], 2.931) 
+                      ([1400 1400 1400], 8.120)
+                      ([1500 1500 1500], 9.477)
+                      ([100 600000 100], 5.975)
+					   ([3000 100 3000], 3.032)
+
+
+                      };
+\addplot coordinates {([900 900 900], 2.94)
+                      ([1400 1400 1400], 8.19)
+                      ([1500 1500 1500], 9.43)
+                      ([100 600000 100], 5.89)
+					   ([3000 100 3000], 3.035)
+
+                      };
+\addplot coordinates {([900 900 900], 2.045) 
+                      ([1400 1400 1400], 7.33)
+                      ([1500 1500 1500], 8.47)
+                      ([100 600000 100], 4.99)
+
+                      };
+
+
+%\addplot coordinates {(tool8,7) (tool9,9) (tool10,4)};
+%\addplot coordinates {(tool8,4) (tool9,4) (tool10,4)};
+%\addplot coordinates {(tool8,1) (tool9,1) (tool10,1)};
+%\legend{used,understood,not understood}
+%\legend{used,understood,not understood}
+\legend{Παραλλαγή 1, Παραλλαγή 2, Παραλλαγή 3, Παραλλαγή 4, Παραλλαγή 5}
+
+\end{axis}
+\end{tikzpicture}
+
+Από το παραπάνω διάγραμμα εξάγονται τα παρακάτω συμπεράσματα:
+\begin{itemize}
+\item{H απόδοση του αλγορίθμου με χρήση της οδηγίας \emph{\en{pragma omp parallel}} οδηγεί σε ταχύτερη επίλυση των υπολογισμών, με μεγάλη διαφορά σε σύγκριση με οποιαδήποτε επίλυση στη συσκευή της κάρτας γραφικών.}
+\item{Η φράση \emph{\en{collapse}} δε συμβάλλει ιδιαίτερα στην βελτίωση της απόδοσης του αλγοριθμου.}
+\end{itemize}
