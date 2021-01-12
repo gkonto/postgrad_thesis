@@ -1,0 +1,4782 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.6.29) (preloaded format=pdflatex 2020.9.12)  12 JAN 2021 00:45
+entering extended mode
+**d:/Users/gkonto/GitHub/postgrad_thesis/v01.tex
+(d:/Users/gkonto/GitHub/postgrad_thesis/v01.tex
+LaTeX2e <2020-02-02> patch level 5
+L3 programming layer <2020-06-18> (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
+Document Class: article 2019/12/20 v1.4l Standard LaTeX document class
+(C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/base\size12.clo
+File: size12.clo 2019/12/20 v1.4l Standard LaTeX file (size option)
+)
+\c@part=\count167
+\c@section=\count168
+\c@subsection=\count169
+\c@subsubsection=\count170
+\c@paragraph=\count171
+\c@subparagraph=\count172
+\c@figure=\count173
+\c@table=\count174
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen134
+) (d:/Users\gkonto\GitHub\postgrad_thesis\custom_package.sty
+Package: custom_package 
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/preprint\fullpage.sty
+Package: fullpage 1999/02/23 1.1 (PWD)
+\FP@margin=\skip49
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/appendix\appendix.sty
+Package: appendix 2020/02/08 v1.2c extra appendix facilities
+\c@@pps=\count175
+\c@@ppsavesec=\count176
+\c@@ppsaveapp=\count177
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/setspace\setspace.sty
+Package: setspace 2011/12/19 v6.7a set line spacing
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/titlesec\titlesec.sty
+Package: titlesec 2019/10/16 v2.13 Sectioning titles
+\ttl@box=\box45
+\beforetitleunit=\skip50
+\aftertitleunit=\skip51
+\ttl@plus=\dimen135
+\ttl@minus=\dimen136
+\ttl@toksa=\toks15
+\titlewidth=\dimen137
+\titlewidthlast=\dimen138
+\titlewidthfirst=\dimen139
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/blindtext\blindtext.sty
+Package: blindtext 2012/01/06 V2.0 blindtext-Package
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/tools\xspace.sty
+Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
+)
+\c@blindtext=\count178
+\c@Blindtext=\count179
+\c@blind@countparstart=\count180
+\blind@countxx=\count181
+\blindtext@numBlindtext=\count182
+\blind@countyy=\count183
+\c@blindlist=\count184
+\c@blindlistlevel=\count185
+\c@blindlist@level=\count186
+\blind@listitem=\count187
+\c@blind@listcount=\count188
+\c@blind@levelcount=\count189
+\blind@mathformula=\count190
+\blind@Mathformula=\count191
+\c@blind@randomcount=\count192
+\c@blind@randommax=\count193
+\c@blind@pangramcount=\count194
+\c@blind@pangrammax=\count195
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
+Package: graphicx 2019/11/30 v1.2a Enhanced LaTeX Graphics (DPC,SPQR)
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks16
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
+Package: graphics 2019/11/30 v1.4a Standard LaTeX Graphics (DPC,SPQR)
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 105.
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen140
+\Gin@req@width=\dimen141
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\@emptytoks=\toks17
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
+\lst@mode=\count196
+\lst@gtempboxa=\box46
+\lst@token=\toks18
+\lst@length=\count197
+\lst@currlwidth=\dimen142
+\lst@column=\count198
+\lst@pos=\count199
+\lst@lostspace=\dimen143
+\lst@width=\dimen144
+\lst@newlines=\count266
+\lst@lineno=\count267
+\lst@maxwidth=\dimen145
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
+File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
+\c@lstnumber=\count268
+\lst@skipnumbers=\count269
+\lst@framebox=\box47
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cfg
+File: listings.cfg 2020/03/24 1.8d listings configuration
+))
+Package: listings 2020/03/24 1.8d (Carsten Heinz)
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
+Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/colortbl\colortbl.sty
+Package: colortbl 2020/01/04 v1.0e Color table columns (DPC)
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
+Package: array 2019/08/31 v2.4l Tabular extension package (FMi)
+\col@sep=\dimen146
+\ar@mcellbox=\box48
+\extrarowheight=\dimen147
+\NC@list=\toks19
+\extratabsurround=\skip52
+\backup@length=\skip53
+\ar@cellbox=\box49
+)
+\everycr=\toks20
+\minrowclearance=\skip54
+)
+\rownum=\count270
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
+Package xcolor Info: Model `RGB' extended on input line 1364.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/wrapfig\wrapfig.sty
+\wrapoverhang=\dimen148
+\WF@size=\dimen149
+\c@WF@wrappedlines=\count271
+\WF@box=\box50
+\WF@everypar=\toks21
+Package: wrapfig 2003/01/31  v 3.6
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/babel\babel.sty
+Package: babel 2020/06/10 3.45 The Babel package
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/babel\babel.def
+File: babel.def 2020/06/10 3.45 Babel common definitions
+\babel@savecnt=\count272
+\U@D=\dimen150
+\l@babelnohyphens=\language79
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/babel\txtbabel.def)
+\bbl@readstream=\read2
+)
+\bbl@dirlevel=\count273
+
+*************************************
+* Local config file bblopts.cfg used
+*
+(C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/arabi\bblopts.cfg
+File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of babel
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/babel-english\english.ldf
+Language: english 2017/06/06 v3.3r English support from the babel system
+Package babel Info: \l@canadian = using hyphenrules for english
+(babel)             (\language0) on input line 102.
+Package babel Info: \l@australian = using hyphenrules for ukenglish
+(babel)             (\language73) on input line 105.
+Package babel Info: \l@newzealand = using hyphenrules for ukenglish
+(babel)             (\language73) on input line 108.
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/babel-greek\greek.ldf
+Language: greek 2020/03/17 v1.9j Greek support for the babel system
+\bbl@monogreek=\count274
+\bbl@polygreek=\count275
+\bbl@ancientgreek=\count276
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/greek-fontenc\lgrenc.def
+File: lgrenc.def 2019/07/09 v0.13.3 LGR Greek font encoding definitions
+Now handling font encoding LGR ...
+... processing UTF-8 mapping file for font encoding LGR
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/greek-inputenc\lgrenc.dfu
+File: lgrenc.dfu 2019/07/11 1.7 UTF-8 support for Greek
+   defining Unicode char U+00A8 (decimal 168)
+   defining Unicode char U+00AB (decimal 171)
+   defining Unicode char U+00AF (decimal 175)
+   defining Unicode char U+00B4 (decimal 180)
+   defining Unicode char U+00B7 (decimal 183)
+   defining Unicode char U+00BB (decimal 187)
+   defining Unicode char U+0259 (decimal 601)
+   defining Unicode char U+02D8 (decimal 728)
+   defining Unicode char U+0374 (decimal 884)
+   defining Unicode char U+0375 (decimal 885)
+   defining Unicode char U+037A (decimal 890)
+   defining Unicode char U+037E (decimal 894)
+   defining Unicode char U+0384 (decimal 900)
+   defining Unicode char U+0385 (decimal 901)
+   defining Unicode char U+0386 (decimal 902)
+   defining Unicode char U+0387 (decimal 903)
+   defining Unicode char U+0388 (decimal 904)
+   defining Unicode char U+0389 (decimal 905)
+   defining Unicode char U+038A (decimal 906)
+   defining Unicode char U+038C (decimal 908)
+   defining Unicode char U+038E (decimal 910)
+   defining Unicode char U+038F (decimal 911)
+   defining Unicode char U+0390 (decimal 912)
+   defining Unicode char U+0391 (decimal 913)
+   defining Unicode char U+0392 (decimal 914)
+   defining Unicode char U+0393 (decimal 915)
+   defining Unicode char U+0394 (decimal 916)
+   defining Unicode char U+0395 (decimal 917)
+   defining Unicode char U+0396 (decimal 918)
+   defining Unicode char U+0397 (decimal 919)
+   defining Unicode char U+0398 (decimal 920)
+   defining Unicode char U+0399 (decimal 921)
+   defining Unicode char U+039A (decimal 922)
+   defining Unicode char U+039B (decimal 923)
+   defining Unicode char U+039C (decimal 924)
+   defining Unicode char U+039D (decimal 925)
+   defining Unicode char U+039E (decimal 926)
+   defining Unicode char U+039F (decimal 927)
+   defining Unicode char U+03A0 (decimal 928)
+   defining Unicode char U+03A1 (decimal 929)
+   defining Unicode char U+03A3 (decimal 931)
+   defining Unicode char U+03A4 (decimal 932)
+   defining Unicode char U+03A5 (decimal 933)
+   defining Unicode char U+03A6 (decimal 934)
+   defining Unicode char U+03A7 (decimal 935)
+   defining Unicode char U+03A8 (decimal 936)
+   defining Unicode char U+03A9 (decimal 937)
+   defining Unicode char U+03AA (decimal 938)
+   defining Unicode char U+03AB (decimal 939)
+   defining Unicode char U+03AC (decimal 940)
+   defining Unicode char U+03AD (decimal 941)
+   defining Unicode char U+03AE (decimal 942)
+   defining Unicode char U+03AF (decimal 943)
+   defining Unicode char U+03B0 (decimal 944)
+   defining Unicode char U+03B1 (decimal 945)
+   defining Unicode char U+03B2 (decimal 946)
+   defining Unicode char U+03B3 (decimal 947)
+   defining Unicode char U+03B4 (decimal 948)
+   defining Unicode char U+03B5 (decimal 949)
+   defining Unicode char U+03B6 (decimal 950)
+   defining Unicode char U+03B7 (decimal 951)
+   defining Unicode char U+03B8 (decimal 952)
+   defining Unicode char U+03B9 (decimal 953)
+   defining Unicode char U+03BA (decimal 954)
+   defining Unicode char U+03BB (decimal 955)
+   defining Unicode char U+03BC (decimal 956)
+   defining Unicode char U+03BD (decimal 957)
+   defining Unicode char U+03BE (decimal 958)
+   defining Unicode char U+03BF (decimal 959)
+   defining Unicode char U+03C0 (decimal 960)
+   defining Unicode char U+03C1 (decimal 961)
+   defining Unicode char U+03C2 (decimal 962)
+   defining Unicode char U+03C3 (decimal 963)
+   defining Unicode char U+03C4 (decimal 964)
+   defining Unicode char U+03C5 (decimal 965)
+   defining Unicode char U+03C6 (decimal 966)
+   defining Unicode char U+03C7 (decimal 967)
+   defining Unicode char U+03C8 (decimal 968)
+   defining Unicode char U+03C9 (decimal 969)
+   defining Unicode char U+03CA (decimal 970)
+   defining Unicode char U+03CB (decimal 971)
+   defining Unicode char U+03CC (decimal 972)
+   defining Unicode char U+03CD (decimal 973)
+   defining Unicode char U+03CE (decimal 974)
+   defining Unicode char U+03D0 (decimal 976)
+   defining Unicode char U+03D1 (decimal 977)
+   defining Unicode char U+03D5 (decimal 981)
+   defining Unicode char U+03D6 (decimal 982)
+   defining Unicode char U+03D8 (decimal 984)
+   defining Unicode char U+03D9 (decimal 985)
+   defining Unicode char U+03DA (decimal 986)
+   defining Unicode char U+03DB (decimal 987)
+   defining Unicode char U+03DC (decimal 988)
+   defining Unicode char U+03DD (decimal 989)
+   defining Unicode char U+03DF (decimal 991)
+   defining Unicode char U+03E0 (decimal 992)
+   defining Unicode char U+03E1 (decimal 993)
+   defining Unicode char U+03F0 (decimal 1008)
+   defining Unicode char U+03F1 (decimal 1009)
+   defining Unicode char U+03F4 (decimal 1012)
+   defining Unicode char U+03F5 (decimal 1013)
+   defining Unicode char U+1F00 (decimal 7936)
+   defining Unicode char U+1F01 (decimal 7937)
+   defining Unicode char U+1F02 (decimal 7938)
+   defining Unicode char U+1F03 (decimal 7939)
+   defining Unicode char U+1F04 (decimal 7940)
+   defining Unicode char U+1F05 (decimal 7941)
+   defining Unicode char U+1F06 (decimal 7942)
+   defining Unicode char U+1F07 (decimal 7943)
+   defining Unicode char U+1F08 (decimal 7944)
+   defining Unicode char U+1F09 (decimal 7945)
+   defining Unicode char U+1F0A (decimal 7946)
+   defining Unicode char U+1F0B (decimal 7947)
+   defining Unicode char U+1F0C (decimal 7948)
+   defining Unicode char U+1F0D (decimal 7949)
+   defining Unicode char U+1F0E (decimal 7950)
+   defining Unicode char U+1F0F (decimal 7951)
+   defining Unicode char U+1F10 (decimal 7952)
+   defining Unicode char U+1F11 (decimal 7953)
+   defining Unicode char U+1F12 (decimal 7954)
+   defining Unicode char U+1F13 (decimal 7955)
+   defining Unicode char U+1F14 (decimal 7956)
+   defining Unicode char U+1F15 (decimal 7957)
+   defining Unicode char U+1F18 (decimal 7960)
+   defining Unicode char U+1F19 (decimal 7961)
+   defining Unicode char U+1F1A (decimal 7962)
+   defining Unicode char U+1F1B (decimal 7963)
+   defining Unicode char U+1F1C (decimal 7964)
+   defining Unicode char U+1F1D (decimal 7965)
+   defining Unicode char U+1F20 (decimal 7968)
+   defining Unicode char U+1F21 (decimal 7969)
+   defining Unicode char U+1F22 (decimal 7970)
+   defining Unicode char U+1F23 (decimal 7971)
+   defining Unicode char U+1F24 (decimal 7972)
+   defining Unicode char U+1F25 (decimal 7973)
+   defining Unicode char U+1F26 (decimal 7974)
+   defining Unicode char U+1F27 (decimal 7975)
+   defining Unicode char U+1F28 (decimal 7976)
+   defining Unicode char U+1F29 (decimal 7977)
+   defining Unicode char U+1F2A (decimal 7978)
+   defining Unicode char U+1F2B (decimal 7979)
+   defining Unicode char U+1F2C (decimal 7980)
+   defining Unicode char U+1F2D (decimal 7981)
+   defining Unicode char U+1F2E (decimal 7982)
+   defining Unicode char U+1F2F (decimal 7983)
+   defining Unicode char U+1F30 (decimal 7984)
+   defining Unicode char U+1F31 (decimal 7985)
+   defining Unicode char U+1F32 (decimal 7986)
+   defining Unicode char U+1F33 (decimal 7987)
+   defining Unicode char U+1F34 (decimal 7988)
+   defining Unicode char U+1F35 (decimal 7989)
+   defining Unicode char U+1F36 (decimal 7990)
+   defining Unicode char U+1F37 (decimal 7991)
+   defining Unicode char U+1F38 (decimal 7992)
+   defining Unicode char U+1F39 (decimal 7993)
+   defining Unicode char U+1F3A (decimal 7994)
+   defining Unicode char U+1F3B (decimal 7995)
+   defining Unicode char U+1F3C (decimal 7996)
+   defining Unicode char U+1F3D (decimal 7997)
+   defining Unicode char U+1F3E (decimal 7998)
+   defining Unicode char U+1F3F (decimal 7999)
+   defining Unicode char U+1F40 (decimal 8000)
+   defining Unicode char U+1F41 (decimal 8001)
+   defining Unicode char U+1F42 (decimal 8002)
+   defining Unicode char U+1F43 (decimal 8003)
+   defining Unicode char U+1F44 (decimal 8004)
+   defining Unicode char U+1F45 (decimal 8005)
+   defining Unicode char U+1F48 (decimal 8008)
+   defining Unicode char U+1F49 (decimal 8009)
+   defining Unicode char U+1F4A (decimal 8010)
+   defining Unicode char U+1F4B (decimal 8011)
+   defining Unicode char U+1F4C (decimal 8012)
+   defining Unicode char U+1F4D (decimal 8013)
+   defining Unicode char U+1F50 (decimal 8016)
+   defining Unicode char U+1F51 (decimal 8017)
+   defining Unicode char U+1F52 (decimal 8018)
+   defining Unicode char U+1F53 (decimal 8019)
+   defining Unicode char U+1F54 (decimal 8020)
+   defining Unicode char U+1F55 (decimal 8021)
+   defining Unicode char U+1F56 (decimal 8022)
+   defining Unicode char U+1F57 (decimal 8023)
+   defining Unicode char U+1F59 (decimal 8025)
+   defining Unicode char U+1F5B (decimal 8027)
+   defining Unicode char U+1F5D (decimal 8029)
+   defining Unicode char U+1F5F (decimal 8031)
+   defining Unicode char U+1F60 (decimal 8032)
+   defining Unicode char U+1F61 (decimal 8033)
+   defining Unicode char U+1F62 (decimal 8034)
+   defining Unicode char U+1F63 (decimal 8035)
+   defining Unicode char U+1F64 (decimal 8036)
+   defining Unicode char U+1F65 (decimal 8037)
+   defining Unicode char U+1F66 (decimal 8038)
+   defining Unicode char U+1F67 (decimal 8039)
+   defining Unicode char U+1F68 (decimal 8040)
+   defining Unicode char U+1F69 (decimal 8041)
+   defining Unicode char U+1F6A (decimal 8042)
+   defining Unicode char U+1F6B (decimal 8043)
+   defining Unicode char U+1F6C (decimal 8044)
+   defining Unicode char U+1F6D (decimal 8045)
+   defining Unicode char U+1F6E (decimal 8046)
+   defining Unicode char U+1F6F (decimal 8047)
+   defining Unicode char U+1F70 (decimal 8048)
+   defining Unicode char U+1F71 (decimal 8049)
+   defining Unicode char U+1F72 (decimal 8050)
+   defining Unicode char U+1F73 (decimal 8051)
+   defining Unicode char U+1F74 (decimal 8052)
+   defining Unicode char U+1F75 (decimal 8053)
+   defining Unicode char U+1F76 (decimal 8054)
+   defining Unicode char U+1F77 (decimal 8055)
+   defining Unicode char U+1F78 (decimal 8056)
+   defining Unicode char U+1F79 (decimal 8057)
+   defining Unicode char U+1F7A (decimal 8058)
+   defining Unicode char U+1F7B (decimal 8059)
+   defining Unicode char U+1F7C (decimal 8060)
+   defining Unicode char U+1F7D (decimal 8061)
+   defining Unicode char U+1F80 (decimal 8064)
+   defining Unicode char U+1F81 (decimal 8065)
+   defining Unicode char U+1F82 (decimal 8066)
+   defining Unicode char U+1F83 (decimal 8067)
+   defining Unicode char U+1F84 (decimal 8068)
+   defining Unicode char U+1F85 (decimal 8069)
+   defining Unicode char U+1F86 (decimal 8070)
+   defining Unicode char U+1F87 (decimal 8071)
+   defining Unicode char U+1F88 (decimal 8072)
+   defining Unicode char U+1F89 (decimal 8073)
+   defining Unicode char U+1F8A (decimal 8074)
+   defining Unicode char U+1F8B (decimal 8075)
+   defining Unicode char U+1F8C (decimal 8076)
+   defining Unicode char U+1F8D (decimal 8077)
+   defining Unicode char U+1F8E (decimal 8078)
+   defining Unicode char U+1F8F (decimal 8079)
+   defining Unicode char U+1F90 (decimal 8080)
+   defining Unicode char U+1F91 (decimal 8081)
+   defining Unicode char U+1F92 (decimal 8082)
+   defining Unicode char U+1F93 (decimal 8083)
+   defining Unicode char U+1F94 (decimal 8084)
+   defining Unicode char U+1F95 (decimal 8085)
+   defining Unicode char U+1F96 (decimal 8086)
+   defining Unicode char U+1F97 (decimal 8087)
+   defining Unicode char U+1F98 (decimal 8088)
+   defining Unicode char U+1F99 (decimal 8089)
+   defining Unicode char U+1F9A (decimal 8090)
+   defining Unicode char U+1F9B (decimal 8091)
+   defining Unicode char U+1F9C (decimal 8092)
+   defining Unicode char U+1F9D (decimal 8093)
+   defining Unicode char U+1F9E (decimal 8094)
+   defining Unicode char U+1F9F (decimal 8095)
+   defining Unicode char U+1FA0 (decimal 8096)
+   defining Unicode char U+1FA1 (decimal 8097)
+   defining Unicode char U+1FA2 (decimal 8098)
+   defining Unicode char U+1FA3 (decimal 8099)
+   defining Unicode char U+1FA4 (decimal 8100)
+   defining Unicode char U+1FA5 (decimal 8101)
+   defining Unicode char U+1FA6 (decimal 8102)
+   defining Unicode char U+1FA7 (decimal 8103)
+   defining Unicode char U+1FA8 (decimal 8104)
+   defining Unicode char U+1FA9 (decimal 8105)
+   defining Unicode char U+1FAA (decimal 8106)
+   defining Unicode char U+1FAB (decimal 8107)
+   defining Unicode char U+1FAC (decimal 8108)
+   defining Unicode char U+1FAD (decimal 8109)
+   defining Unicode char U+1FAE (decimal 8110)
+   defining Unicode char U+1FAF (decimal 8111)
+   defining Unicode char U+1FB0 (decimal 8112)
+   defining Unicode char U+1FB1 (decimal 8113)
+   defining Unicode char U+1FB2 (decimal 8114)
+   defining Unicode char U+1FB3 (decimal 8115)
+   defining Unicode char U+1FB4 (decimal 8116)
+   defining Unicode char U+1FB6 (decimal 8118)
+   defining Unicode char U+1FB7 (decimal 8119)
+   defining Unicode char U+1FB8 (decimal 8120)
+   defining Unicode char U+1FB9 (decimal 8121)
+   defining Unicode char U+1FBA (decimal 8122)
+   defining Unicode char U+1FBB (decimal 8123)
+   defining Unicode char U+1FBC (decimal 8124)
+   defining Unicode char U+1FBD (decimal 8125)
+   defining Unicode char U+1FBE (decimal 8126)
+   defining Unicode char U+1FBF (decimal 8127)
+   defining Unicode char U+1FC0 (decimal 8128)
+   defining Unicode char U+1FC1 (decimal 8129)
+   defining Unicode char U+1FC2 (decimal 8130)
+   defining Unicode char U+1FC3 (decimal 8131)
+   defining Unicode char U+1FC4 (decimal 8132)
+   defining Unicode char U+1FC6 (decimal 8134)
+   defining Unicode char U+1FC7 (decimal 8135)
+   defining Unicode char U+1FC8 (decimal 8136)
+   defining Unicode char U+1FC9 (decimal 8137)
+   defining Unicode char U+1FCA (decimal 8138)
+   defining Unicode char U+1FCB (decimal 8139)
+   defining Unicode char U+1FCC (decimal 8140)
+   defining Unicode char U+1FCD (decimal 8141)
+   defining Unicode char U+1FCE (decimal 8142)
+   defining Unicode char U+1FCF (decimal 8143)
+   defining Unicode char U+1FD0 (decimal 8144)
+   defining Unicode char U+1FD1 (decimal 8145)
+   defining Unicode char U+1FD2 (decimal 8146)
+   defining Unicode char U+1FD3 (decimal 8147)
+   defining Unicode char U+1FD6 (decimal 8150)
+   defining Unicode char U+1FD7 (decimal 8151)
+   defining Unicode char U+1FD8 (decimal 8152)
+   defining Unicode char U+1FD9 (decimal 8153)
+   defining Unicode char U+1FDA (decimal 8154)
+   defining Unicode char U+1FDB (decimal 8155)
+   defining Unicode char U+1FDD (decimal 8157)
+   defining Unicode char U+1FDE (decimal 8158)
+   defining Unicode char U+1FDF (decimal 8159)
+   defining Unicode char U+1FE0 (decimal 8160)
+   defining Unicode char U+1FE1 (decimal 8161)
+   defining Unicode char U+1FE2 (decimal 8162)
+   defining Unicode char U+1FE3 (decimal 8163)
+   defining Unicode char U+1FE4 (decimal 8164)
+   defining Unicode char U+1FE5 (decimal 8165)
+   defining Unicode char U+1FE6 (decimal 8166)
+   defining Unicode char U+1FE7 (decimal 8167)
+   defining Unicode char U+1FE8 (decimal 8168)
+   defining Unicode char U+1FE9 (decimal 8169)
+   defining Unicode char U+1FEA (decimal 8170)
+   defining Unicode char U+1FEB (decimal 8171)
+   defining Unicode char U+1FEC (decimal 8172)
+   defining Unicode char U+1FED (decimal 8173)
+   defining Unicode char U+1FEE (decimal 8174)
+   defining Unicode char U+1FEF (decimal 8175)
+   defining Unicode char U+1FF2 (decimal 8178)
+   defining Unicode char U+1FF3 (decimal 8179)
+   defining Unicode char U+1FF4 (decimal 8180)
+   defining Unicode char U+1FF6 (decimal 8182)
+   defining Unicode char U+1FF7 (decimal 8183)
+   defining Unicode char U+1FF8 (decimal 8184)
+   defining Unicode char U+1FF9 (decimal 8185)
+   defining Unicode char U+1FFA (decimal 8186)
+   defining Unicode char U+1FFB (decimal 8187)
+   defining Unicode char U+1FFC (decimal 8188)
+   defining Unicode char U+1FFD (decimal 8189)
+   defining Unicode char U+1FFE (decimal 8190)
+   defining Unicode char U+2013 (decimal 8211)
+   defining Unicode char U+2014 (decimal 8212)
+   defining Unicode char U+2018 (decimal 8216)
+   defining Unicode char U+2019 (decimal 8217)
+   defining Unicode char U+201A (decimal 8218)
+   defining Unicode char U+2030 (decimal 8240)
+   defining Unicode char U+2039 (decimal 8249)
+   defining Unicode char U+203A (decimal 8250)
+   defining Unicode char U+20AC (decimal 8364)
+   defining Unicode char U+2126 (decimal 8486)
+   defining Unicode char U+10144 (decimal 65860)
+   defining Unicode char U+10145 (decimal 65861)
+   defining Unicode char U+10146 (decimal 65862)
+   defining Unicode char U+10147 (decimal 65863)
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/greek-fontenc\greek-fontenc.def
+File: greek-fontenc.def 2015/08/04 v0.13.4 Common Greek font encoding definitions
+))
+LaTeX Info: Redefining \& on input line 116.
+)) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/base\inputenc.sty
+Package: inputenc 2018/08/11 v1.3c Input encoding file
+\inpenc@prehook=\toks22
+\inpenc@posthook=\toks23
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption.sty
+Package: caption 2020/09/02 v3.5a Customizing captions (AR)
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption3.sty
+Package: caption3 2020/08/30 v2.0 caption3 kernel (AR)
+\captionmargin=\dimen151
+\captionmargin@=\dimen152
+\captionwidth=\dimen153
+\caption@tempdima=\dimen154
+\caption@indent=\dimen155
+\caption@parindent=\dimen156
+\caption@hangindent=\dimen157
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count277
+\c@continuedfloat=\count278
+Package caption Info: listings package is loaded.
+Package caption Info: wrapfig package is loaded.
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/kerkis\kerkis.sty
+File: kerkis.sty 2000/02/25 v1.5 Package `kerkis.sty'
+   *********************************************** ******** Loading The Kerkis FontFamily ******** ********** Department of Mathematics ********** *********** University of the Aegean ********** ***********************************************
+LaTeX Info: Redefining \LaTeX on input line 156.
+LaTeX Info: Redefining \LaTeXe on input line 166.
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
+\Urlmuskip=\muskip16
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/tools\multicol.sty
+Package: multicol 2019/12/09 v1.8y multicolumn formatting (FMi)
+\c@tracingmulticols=\count279
+\mult@box=\box51
+\multicol@leftmargin=\dimen158
+\c@unbalance=\count280
+\c@collectmore=\count281
+\doublecol@number=\count282
+\multicoltolerance=\count283
+\multicolpretolerance=\count284
+\full@width=\dimen159
+\page@free=\dimen160
+\premulticols=\dimen161
+\postmulticols=\dimen162
+\multicolsep=\skip55
+\multicolbaselineskip=\skip56
+\partial@page=\box52
+\last@line=\box53
+\maxbalancingoverflow=\dimen163
+\mult@rightbox=\box54
+\mult@grightbox=\box55
+\mult@gfirstbox=\box56
+\mult@firstbox=\box57
+\@tempa=\box58
+\@tempa=\box59
+\@tempa=\box60
+\@tempa=\box61
+\@tempa=\box62
+\@tempa=\box63
+\@tempa=\box64
+\@tempa=\box65
+\@tempa=\box66
+\@tempa=\box67
+\@tempa=\box68
+\@tempa=\box69
+\@tempa=\box70
+\@tempa=\box71
+\@tempa=\box72
+\@tempa=\box73
+\@tempa=\box74
+\@tempa=\box75
+\@tempa=\box76
+\@tempa=\box77
+\@tempa=\box78
+\@tempa=\box79
+\@tempa=\box80
+\@tempa=\box81
+\@tempa=\box82
+\@tempa=\box83
+\@tempa=\box84
+\@tempa=\box85
+\@tempa=\box86
+\@tempa=\box87
+\@tempa=\box88
+\@tempa=\box89
+\@tempa=\box90
+\@tempa=\box91
+\@tempa=\box92
+\@tempa=\box93
+\@tempa=\box94
+\c@minrows=\count285
+\c@columnbadness=\count286
+\c@finalcolumnbadness=\count287
+\last@try=\dimen164
+\multicolovershoot=\dimen165
+\multicolundershoot=\dimen166
+\mult@nat@firstbox=\box95
+\colbreak@box=\box96
+\mc@col@check@num=\count288
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/tocloft\tocloft.sty
+Package: tocloft 2017/08/31 v2.3i parameterised ToC, etc., typesetting
+Package tocloft Info: The document has section divisions on input line 51.
+\cftparskip=\skip57
+\cftbeforetoctitleskip=\skip58
+\cftaftertoctitleskip=\skip59
+\cftbeforepartskip=\skip60
+\cftpartnumwidth=\skip61
+\cftpartindent=\skip62
+\cftbeforesecskip=\skip63
+\cftsecindent=\skip64
+\cftsecnumwidth=\skip65
+\cftbeforesubsecskip=\skip66
+\cftsubsecindent=\skip67
+\cftsubsecnumwidth=\skip68
+\cftbeforesubsubsecskip=\skip69
+\cftsubsubsecindent=\skip70
+\cftsubsubsecnumwidth=\skip71
+\cftbeforeparaskip=\skip72
+\cftparaindent=\skip73
+\cftparanumwidth=\skip74
+\cftbeforesubparaskip=\skip75
+\cftsubparaindent=\skip76
+\cftsubparanumwidth=\skip77
+\cftbeforeloftitleskip=\skip78
+\cftafterloftitleskip=\skip79
+\cftbeforefigskip=\skip80
+\cftfigindent=\skip81
+\cftfignumwidth=\skip82
+\c@lofdepth=\count289
+\c@lotdepth=\count290
+\cftbeforelottitleskip=\skip83
+\cftafterlottitleskip=\skip84
+\cftbeforetabskip=\skip85
+\cfttabindent=\skip86
+\cfttabnumwidth=\skip87
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty
+Package: iftex 2020/03/06 v1.0d TeX engine tests
+))
+\Gm@cnth=\count291
+\Gm@cntv=\count292
+\c@Gm@tempcnt=\count293
+\Gm@bindingoffset=\dimen167
+\Gm@wd@mp=\dimen168
+\Gm@odd@mp=\dimen169
+\Gm@even@mp=\dimen170
+\Gm@layoutwidth=\dimen171
+\Gm@layoutheight=\dimen172
+\Gm@layouthoffset=\dimen173
+\Gm@layoutvoffset=\dimen174
+\Gm@dimlist=\toks24
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg)) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/pgfplots\pgfplots.sty (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots\pgfplots.revision.tex)
+Package: pgfplots 2020/02/29 v1.17 Data Visualization (1.17)
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/pgf/frontendlayer\tikz.sty (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/pgf/basiclayer\pgf.sty (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/pgf/utilities\pgfrcs.sty (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfutil-common.tex
+\pgfutil@everybye=\toks25
+\pgfutil@tempdima=\dimen175
+\pgfutil@tempdimb=\dimen176
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfutil-common-lists.tex)) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfutil-latex.def
+\pgfutil@abb=\box97
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/ms\everyshi.sty
+Package: everyshi 2001/05/15 v3.00 EveryShipout Package (MS)
+)) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfrcs.code.tex (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf\pgf.revision.tex)
+Package: pgfrcs 2020/01/08 v3.1.5b (3.1.5b)
+))
+Package: pgf 2020/01/08 v3.1.5b (3.1.5b)
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/pgf/basiclayer\pgfcore.sty (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/pgf/systemlayer\pgfsys.sty (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsys.code.tex
+Package: pgfsys 2020/01/08 v3.1.5b (3.1.5b)
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkeys.code.tex
+\pgfkeys@pathtoks=\toks26
+\pgfkeys@temptoks=\toks27
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkeysfiltered.code.tex
+\pgfkeys@tmptoks=\toks28
+))
+\pgf@x=\dimen177
+\pgf@y=\dimen178
+\pgf@xa=\dimen179
+\pgf@ya=\dimen180
+\pgf@xb=\dimen181
+\pgf@yb=\dimen182
+\pgf@xc=\dimen183
+\pgf@yc=\dimen184
+\pgf@xd=\dimen185
+\pgf@yd=\dimen186
+\w@pgf@writea=\write3
+\r@pgf@reada=\read3
+\c@pgf@counta=\count294
+\c@pgf@countb=\count295
+\c@pgf@countc=\count296
+\c@pgf@countd=\count297
+\t@pgf@toka=\toks29
+\t@pgf@tokb=\toks30
+\t@pgf@tokc=\toks31
+\pgf@sys@id@count=\count298
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgf.cfg
+File: pgf.cfg 2020/01/08 v3.1.5b (3.1.5b)
+)
+Driver file for pgf: pgfsys-pdftex.def
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsys-pdftex.def
+File: pgfsys-pdftex.def 2020/01/08 v3.1.5b (3.1.5b)
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsys-common-pdf.def
+File: pgfsys-common-pdf.def 2020/01/08 v3.1.5b (3.1.5b)
+))) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsyssoftpath.code.tex
+File: pgfsyssoftpath.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgfsyssoftpath@smallbuffer@items=\count299
+\pgfsyssoftpath@bigbuffer@items=\count300
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsysprotocol.code.tex
+File: pgfsysprotocol.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+)) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcore.code.tex
+Package: pgfcore 2020/01/08 v3.1.5b (3.1.5b)
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmath.code.tex (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathcalc.code.tex (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathutil.code.tex) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathparser.code.tex
+\pgfmath@dimen=\dimen187
+\pgfmath@count=\count301
+\pgfmath@box=\box98
+\pgfmath@toks=\toks32
+\pgfmath@stack@operand=\toks33
+\pgfmath@stack@operation=\toks34
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.code.tex (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.basic.code.tex) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.trigonometric.code.tex) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.random.code.tex) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.comparison.code.tex) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.base.code.tex) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.round.code.tex) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.misc.code.tex) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.integerarithmetics.code.tex))) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfloat.code.tex
+\c@pgfmathroundto@lastzeros=\count302
+)) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfint.code.tex) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepoints.code.tex
+File: pgfcorepoints.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgf@picminx=\dimen188
+\pgf@picmaxx=\dimen189
+\pgf@picminy=\dimen190
+\pgf@picmaxy=\dimen191
+\pgf@pathminx=\dimen192
+\pgf@pathmaxx=\dimen193
+\pgf@pathminy=\dimen194
+\pgf@pathmaxy=\dimen195
+\pgf@xx=\dimen196
+\pgf@xy=\dimen197
+\pgf@yx=\dimen198
+\pgf@yy=\dimen199
+\pgf@zx=\dimen256
+\pgf@zy=\dimen257
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepathconstruct.code.tex
+File: pgfcorepathconstruct.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgf@path@lastx=\dimen258
+\pgf@path@lasty=\dimen259
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepathusage.code.tex
+File: pgfcorepathusage.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgf@shorten@end@additional=\dimen260
+\pgf@shorten@start@additional=\dimen261
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcorescopes.code.tex
+File: pgfcorescopes.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgfpic=\box99
+\pgf@hbox=\box100
+\pgf@layerbox@main=\box101
+\pgf@picture@serial@count=\count303
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcoregraphicstate.code.tex
+File: pgfcoregraphicstate.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgflinewidth=\dimen262
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcoretransformations.code.tex
+File: pgfcoretransformations.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgf@pt@x=\dimen263
+\pgf@pt@y=\dimen264
+\pgf@pt@temp=\dimen265
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcorequick.code.tex
+File: pgfcorequick.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreobjects.code.tex
+File: pgfcoreobjects.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepathprocessing.code.tex
+File: pgfcorepathprocessing.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcorearrows.code.tex
+File: pgfcorearrows.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgfarrowsep=\dimen266
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreshade.code.tex
+File: pgfcoreshade.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgf@max=\dimen267
+\pgf@sys@shading@range@num=\count304
+\pgf@shadingcount=\count305
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreimage.code.tex
+File: pgfcoreimage.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreexternal.code.tex
+File: pgfcoreexternal.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgfexternal@startupbox=\box102
+)) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcorelayers.code.tex
+File: pgfcorelayers.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcoretransparency.code.tex
+File: pgfcoretransparency.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepatterns.code.tex
+File: pgfcorepatterns.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcorerdf.code.tex
+File: pgfcorerdf.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+))) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmoduleshapes.code.tex
+File: pgfmoduleshapes.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgfnodeparttextbox=\box103
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmoduleplot.code.tex
+File: pgfmoduleplot.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/pgf/compatibility\pgfcomp-version-0-65.sty
+Package: pgfcomp-version-0-65 2020/01/08 v3.1.5b (3.1.5b)
+\pgf@nodesepstart=\dimen268
+\pgf@nodesepend=\dimen269
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/pgf/compatibility\pgfcomp-version-1-18.sty
+Package: pgfcomp-version-1-18 2020/01/08 v3.1.5b (3.1.5b)
+)) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/pgf/utilities\pgffor.sty (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/pgf/utilities\pgfkeys.sty (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkeys.code.tex)) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/pgf/math\pgfmath.sty (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmath.code.tex)) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgffor.code.tex
+Package: pgffor 2020/01/08 v3.1.5b (3.1.5b)
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmath.code.tex)
+\pgffor@iter=\dimen270
+\pgffor@skip=\dimen271
+\pgffor@stack=\toks35
+\pgffor@toks=\toks36
+)) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz\tikz.code.tex
+Package: tikz 2020/01/08 v3.1.5b (3.1.5b)
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibraryplothandlers.code.tex
+File: pgflibraryplothandlers.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgf@plot@mark@count=\count306
+\pgfplotmarksize=\dimen272
+)
+\tikz@lastx=\dimen273
+\tikz@lasty=\dimen274
+\tikz@lastxsaved=\dimen275
+\tikz@lastysaved=\dimen276
+\tikz@lastmovetox=\dimen277
+\tikz@lastmovetoy=\dimen278
+\tikzleveldistance=\dimen279
+\tikzsiblingdistance=\dimen280
+\tikz@figbox=\box104
+\tikz@figbox@bg=\box105
+\tikz@tempbox=\box106
+\tikz@tempbox@bg=\box107
+\tikztreelevel=\count307
+\tikznumberofchildren=\count308
+\tikznumberofcurrentchild=\count309
+\tikz@fig@count=\count310
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmodulematrix.code.tex
+File: pgfmodulematrix.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgfmatrixcurrentrow=\count311
+\pgfmatrixcurrentcolumn=\count312
+\pgf@matrix@numberofcolumns=\count313
+)
+\tikz@expandcount=\count314
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrarytopaths.code.tex
+File: tikzlibrarytopaths.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+))) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots\pgfplots.code.tex (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots\pgfplotscore.code.tex
+\t@pgfplots@toka=\toks37
+\t@pgfplots@tokb=\toks38
+\t@pgfplots@tokc=\toks39
+\pgfplots@tmpa=\dimen281
+\c@pgfplots@coordindex=\count315
+\c@pgfplots@scanlineindex=\count316
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/sys\pgfplotssysgeneric.code.tex)) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/libs\pgfplotslibrary.code.tex) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/oldpgfcompatib\pgfplotsoldpgfsupp_loader.code.tex (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibraryfpu.code.tex)) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/util\pgfplotsutil.code.tex (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/liststructure\pgfplotsliststructure.code.tex) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/liststructure\pgfplotsliststructureext.code.tex) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/liststructure\pgfplotsarray.code.tex
+\c@pgfplotsarray@tmp=\count317
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/liststructure\pgfplotsmatrix.code.tex) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/numtable\pgfplotstableshared.code.tex
+\c@pgfplotstable@counta=\count318
+\t@pgfplotstable@a=\toks40
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/liststructure\pgfplotsdeque.code.tex) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/util\pgfplotsbinary.code.tex (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/util\pgfplotsbinary.data.code.tex)) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/util\pgfplotsutil.verb.code.tex) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/libs\pgflibrarypgfplots.surfshading.code.tex
+\c@pgfplotslibrarysurf@no=\count319
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/sys\pgflibrarypgfplots.surfshading.pgfsys-pdftex.def)))
+(C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/util\pgfplotscolormap.code.tex (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/util\pgfplotscolor.code.tex)) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots\pgfplotsstackedplots.code.tex) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots\pgfplotsplothandlers.code.tex (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots\pgfplotsmeshplothandler.code.tex (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots\pgfplotsmeshplotimage.code.tex))) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots\pgfplots.scaling.code.tex) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots\pgfplotscoordprocessing.code.tex) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots\pgfplots.errorbars.code.tex) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots\pgfplots.markers.code.tex) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots\pgfplotsticks.code.tex) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots\pgfplots.paths.code.tex) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrarydecorations.code.tex (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmoduledecorations.code.tex
+\pgfdecoratedcompleteddistance=\dimen282
+\pgfdecoratedremainingdistance=\dimen283
+\pgfdecoratedinputsegmentcompleteddistance=\dimen284
+\pgfdecoratedinputsegmentremainingdistance=\dimen285
+\pgf@decorate@distancetomove=\dimen286
+\pgf@decorate@repeatstate=\count320
+\pgfdecorationsegmentamplitude=\dimen287
+\pgfdecorationsegmentlength=\dimen288
+)
+\tikz@lib@dec@box=\box108
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrarydecorations.pathmorphing.code.tex (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/decorations\pgflibrarydecorations.pathmorphing.code.tex)) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrarydecorations.pathreplacing.code.tex (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/decorations\pgflibrarydecorations.pathreplacing.code.tex))
+\pgfplots@numplots=\count321
+\pgfplots@xmin@reg=\dimen289
+\pgfplots@xmax@reg=\dimen290
+\pgfplots@ymin@reg=\dimen291
+\pgfplots@ymax@reg=\dimen292
+\pgfplots@zmin@reg=\dimen293
+\pgfplots@zmax@reg=\dimen294
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibraryplotmarks.code.tex
+File: tikzlibraryplotmarks.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibraryplotmarks.code.tex
+File: pgflibraryplotmarks.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+))) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
+Package: hyperref 2020-05-15 v7.00e Hypertext links for LaTeX
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
+Package: ltxcmds 2019/12/15 v1.24 LaTeX kernel commands for general use (HO)
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pdftexcmds\pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/infwarerr\infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/kvsetkeys\kvsetkeys.sty
+Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/kvdefinekeys\kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pdfescape\pdfescape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/hycolor\hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/letltxmacro\letltxmacro.sty
+Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/auxhook\auxhook.sty
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
+Package: kvoptions 2019/11/29 v3.13 Key value format for package options (HO)
+)
+\@linkdim=\dimen295
+\Hy@linkcounter=\count322
+\Hy@pagecounter=\count323
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
+File: pd1enc.def 2020-05-15 v7.00e Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/etexcmds\etexcmds.sty
+Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
+)
+\Hy@SavedSpaceFactor=\count324
+Package hyperref Info: Hyper figures OFF on input line 4464.
+Package hyperref Info: Link nesting OFF on input line 4469.
+Package hyperref Info: Hyper index ON on input line 4472.
+Package hyperref Info: Plain pages OFF on input line 4479.
+Package hyperref Info: Backreferencing OFF on input line 4484.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4717.
+\c@Hy@tempcnt=\count325
+LaTeX Info: Redefining \url on input line 5076.
+\XeTeXLinkMargin=\dimen296
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/bigintcalc\bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
+))
+\Fld@menulength=\count326
+\Field@Width=\dimen297
+\Fld@charsize=\dimen298
+Package hyperref Info: Hyper figures OFF on input line 6347.
+Package hyperref Info: Link nesting OFF on input line 6352.
+Package hyperref Info: Hyper index ON on input line 6355.
+Package hyperref Info: backreferencing OFF on input line 6362.
+Package hyperref Info: Link coloring OFF on input line 6367.
+Package hyperref Info: Link coloring with OCG OFF on input line 6372.
+Package hyperref Info: PDF/A mode OFF on input line 6377.
+LaTeX Info: Redefining \ref on input line 6417.
+LaTeX Info: Redefining \pageref on input line 6421.
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/atbegshi\atbegshi.sty
+Package: atbegshi 2019/12/05 v1.19 At begin shipout hook (HO)
+)
+\Hy@abspage=\count327
+\c@Item=\count328
+\c@Hfootnote=\count329
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
+File: hpdftex.def 2020-05-15 v7.00e Hyperref driver for pdfTeX
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/atveryend\atveryend.sty
+Package: atveryend 2019-12-11 v1.11 Hooks at the very end of document (HO)
+Package atveryend Info: \enddocument detected (standard20110627).
+)
+\Fld@listcount=\count330
+\c@bookmark@seq@number=\count331
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfilecheck.sty
+Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/uniquecounter\uniquecounter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 286.
+)
+\Hy@SectionHShift=\skip88
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/tools\verbatim.sty
+Package: verbatim 2019/11/10 v1.5r LaTeX2e package for verbatim enhancements
+\every@verbatim=\toks41
+\verbatim@line=\toks42
+\verbatim@in@stream=\read4
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/enumitem\enumitem.sty
+Package: enumitem 2019/06/20 v3.9 Customized lists
+\labelindent=\skip89
+\enit@outerparindent=\dimen299
+\enit@toks=\toks43
+\enit@inbox=\box109
+\enit@count@id=\count332
+\enitdp@description=\count333
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/libs\tikzlibrarypgfplots.external.code.tex (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/pgf/frontendlayer/libraries\tikzlibraryexternal.code.tex (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzexternalshared.code.tex)))
+\openout3 = `v01.auxlock'.
+
+Package hyperref Info: Option `colorlinks' set `true' on input line 38.
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdfmode.def
+File: l3backend-pdfmode.def 2020-06-29 L3 backend support: PDF mode
+\l__kernel_color_stack_int=\count334
+\l__pdf_internal_box=\box110
+) (d:/Users\gkonto\GitHub\postgrad_thesis\v01.aux (d:/Users\gkonto\GitHub\postgrad_thesis\intro.aux
+LaTeX Font Info:    Trying to load font information for LGR+cmr on input line 3.
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/cbfonts-fd\lgrcmr.fd
+File: lgrcmr.fd 2017/07/29 v1.2 Greek European Computer Regular
+)) (d:/Users\gkonto\GitHub\postgrad_thesis\ch1.aux) (d:/Users\gkonto\GitHub\postgrad_thesis\ch2.aux) (d:/Users\gkonto\GitHub\postgrad_thesis\ch3_1.aux) (d:/Users\gkonto\GitHub\postgrad_thesis\ch3_2.aux) (d:/Users\gkonto\GitHub\postgrad_thesis\ch3_3.aux) (d:/Users\gkonto\GitHub\postgrad_thesis\ch3_4.aux) (d:/Users\gkonto\GitHub\postgrad_thesis\biblio.aux))
+\openout1 = `v01.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for LGR/cmr/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Trying to load font information for OT1+mak on input line 4.
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/kerkis\ot1mak.fd)
+LaTeX Font Info:    Font shape `OT1/mak/m/n' will be
+(Font)              scaled to size 10.79993pt on input line 4.
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count335
+\scratchdimen=\dimen300
+\scratchbox=\box111
+\nofMPsegments=\count336
+\nofMParguments=\count337
+\everyMPshowfont=\toks44
+\MPscratchCnt=\count338
+\MPscratchDim=\dimen301
+\MPnumerator=\count339
+\makeMPintoPDFobject=\count340
+\everyMPtoPDFconversion=\toks45
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
+)
+\c@lstlisting=\count341
+LaTeX Font Info:    Trying to load font information for LGR+mak on input line 4.
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/kerkis\lgrmak.fd)
+LaTeX Font Info:    Font shape `LGR/mak/m/n' will be
+(Font)              scaled to size 10.79993pt on input line 4.
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: hyperref package is loaded.
+Package caption Info: End \AtBeginDocument code.
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: <default>
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(79.6678pt, 449.26894pt, 85.35826pt)
+* v-part:(T,H,B)=(71.13188pt, 652.70622pt, 71.13188pt)
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=449.26894pt
+* \textheight=652.70622pt
+* \oddsidemargin=7.39781pt
+* \evensidemargin=7.39781pt
+* \topmargin=-1.1381pt
+* \headheight=0.0pt
+* \headsep=0.0pt
+* \topskip=12.0pt
+* \footskip=30.0pt
+* \marginparwidth=44.0pt
+* \marginparsep=10.0pt
+* \columnsep=28.45274pt
+* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+ABD: EveryShipout initializing macros
+Package pgfplots notification 'compat/show suggested version=true': you might benefit from \pgfplotsset{compat=1.17} (current compat level: 1.9).
+
+\AtBeginShipoutBox=\box112
+Package hyperref Info: Link coloring ON on input line 4.
+(C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
+Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/generic/gettitlestring\gettitlestring.sty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+)
+\c@section@level=\count342
+)
+LaTeX Info: Redefining \ref on input line 4.
+LaTeX Info: Redefining \pageref on input line 4.
+LaTeX Info: Redefining \nameref on input line 4.
+ (d:/Users\gkonto\GitHub\postgrad_thesis\v01.out) (d:/Users\gkonto\GitHub\postgrad_thesis\v01.out)
+\@outlinefile=\write4
+\openout4 = `v01.out'.
+
+\openout2 = `intro.aux'.
+
+ (d:/Users\gkonto\GitHub\postgrad_thesis\intro.tex
+LaTeX Font Info:    Font shape `LGR/mak/m/sc' will be
+(Font)              scaled to size 10.79993pt on input line 6.
+LaTeX Font Info:    Font shape `LGR/mak/m/n' will be
+(Font)              scaled to size 12.9599pt on input line 7.
+LaTeX Font Info:    Font shape `OT1/mak/m/n' will be
+(Font)              scaled to size 12.9599pt on input line 7.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 12.
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 12.
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) [1
+
+
+{C:/Users/gioko/AppData/Local/MiKTeX/pdftex/config/pdftex.map}]pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.23 \newpage
+              [2] [3]
+LaTeX Font Info:    Font shape `LGR/mak/m/n' will be
+(Font)              scaled to size 9.85492pt on input line 55.
+LaTeX Font Info:    Font shape `LGR/mak/m/it' will be
+(Font)              scaled to size 9.85492pt on input line 59.
+LaTeX Font Info:    Font shape `LGR/mak/m/it' will be
+(Font)              scaled to size 18.66588pt on input line 59.
+LaTeX Font Info:    Font shape `OT1/mak/m/it' will be
+(Font)              scaled to size 18.66588pt on input line 59.
+
+
+LaTeX Font Warning: Font shape `OT1/mak/m/scit' undefined
+(Font)              using `OT1/mak/m/sc' instead on input line 59.
+
+LaTeX Font Info:    Font shape `OT1/mak/m/sc' will be
+(Font)              scaled to size 18.66588pt on input line 59.
+[4
+
+]
+LaTeX Font Info:    Font shape `LGR/mak/b/n' will be
+(Font)              scaled to size 12.9599pt on input line 68.
+LaTeX Font Info:    Font shape `LGR/mak/b/n' will be
+(Font)              scaled to size 10.79993pt on input line 71.
+ [5
+
+]
+LaTeX Font Info:    Trying to load font information for TS1+mak on input line 107.
+LaTeX Font Info:    No file TS1mak.fd. on input line 107.
+
+
+LaTeX Font Warning: Font shape `TS1/mak/m/n' undefined
+(Font)              using `TS1/cmr/m/n' instead
+(Font)              for symbol `textbullet' on input line 107.
+
+LaTeX Font Info:    Font shape `OT1/mak/b/n' will be
+(Font)              scaled to size 10.79993pt on input line 107.
+
+Underfull \hbox (badness 10000) in paragraph at lines 119--125
+
+ []
+
+[6]
+LaTeX Font Info:    Font shape `OT1/mak/b/n' will be
+(Font)              scaled to size 12.9599pt on input line 133.
+ [7
+
+] [8
+
+]
+LaTeX Font Info:    Font shape `LGR/mak/m/n' will be
+(Font)              scaled to size 15.55188pt on input line 148.
+LaTeX Font Info:    Font shape `LGR/mak/b/n' will be
+(Font)              scaled to size 15.55188pt on input line 148.
+ (d:/Users\gkonto\GitHub\postgrad_thesis\v01.toc
+LaTeX Font Info:    Font shape `LGR/mak/m/it' will be
+(Font)              scaled to size 10.79993pt on input line 82.
+LaTeX Font Info:    Font shape `OT1/mak/m/it' will be
+(Font)              scaled to size 10.79993pt on input line 82.
+)
+\tf@toc=\write5
+\openout5 = `v01.toc'.
+
+ [9
+
+] (d:/Users\gkonto\GitHub\postgrad_thesis\v01.lof)
+\tf@lof=\write6
+\openout6 = `v01.lof'.
+
+ [10
+
+] (d:/Users\gkonto\GitHub\postgrad_thesis\v01.lot
+Overfull \hbox (1.96388pt too wide) in paragraph at lines 452--452
+ [][] [][][]\LGR/mak/m/n/12 Apaito‘menh a-nti-gra-f† gia kàje t‘po me-ta-blh-t†c ka-tà tic fàseic eisÏdou- 
+ []
+
+)
+\tf@lot=\write7
+\openout7 = `v01.lot'.
+
+ [11
+
+] (d:/Users\gkonto\GitHub\postgrad_thesis\v01.lol)
+\tf@lol=\write8
+\openout8 = `v01.lol'.
+
+ [12
+
+])
+\openout2 = `ch1.aux'.
+
+ (d:/Users\gkonto\GitHub\postgrad_thesis\ch1.tex
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textEpsilon' on input line 2.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 2.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textsigma' on input line 2.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 2.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textgamma' on input line 2.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomega' on input line 2.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textgamma' on input line 2.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 2.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 2.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 2.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textSigma' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textupsilon' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textpi' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textkappa' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textgamma' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 3.
+
+LaTeX Font Info:    Font shape `LGR/mak/b/it' will be
+(Font)              scaled to size 10.79993pt on input line 19.
+LaTeX Font Info:    Font shape `OT1/mak/b/it' will be
+(Font)              scaled to size 10.79993pt on input line 19.
+(C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2020/03/24 1.8d listings language file
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2020/03/24 1.8d listings language file
+) (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
+File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
+)
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 26.
+
+Underfull \hbox (badness 10000) in paragraph at lines 29--30
+
+ []
+
+[1
+
+
+
+]
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 40.
+
+Underfull \hbox (badness 10000) in paragraph at lines 53--54
+
+ []
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textSigma' on input line 54.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textkappa' on input line 54.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 54.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textpi' on input line 54.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 54.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 54.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 54.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textvarsigma' on input line 54.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textSigma' on input line 54.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 54.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 54.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 54.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 54.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textchi' on input line 54.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 54.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 54.
+
+[2]
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textDelta' on input line 68.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 68.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 68.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 68.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 68.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 68.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttheta' on input line 68.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 68.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomega' on input line 68.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textsigma' on input line 68.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 68.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 68.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 68.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textvarsigma' on input line 68.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 68.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textlambda' on input line 68.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 68.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 68.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 68.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 68.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 68.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textvarsigma' on input line 68.
+
+) [3]
+\openout2 = `ch2.aux'.
+
+ (d:/Users\gkonto\GitHub\postgrad_thesis\ch2.tex
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textTheta' on input line 2.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 2.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomega' on input line 2.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 2.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 2.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 2.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 2.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textkappa' on input line 2.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 2.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 2.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 2.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textUpsilon' on input line 2.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textpi' on input line 2.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 2.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 2.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 2.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 2.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttheta' on input line 2.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 2.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 2.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textlambda' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textPi' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textgamma' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textsigma' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 3.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textupsilon' on input line 3.
+
+<./images/fork_join.png, id=343, 562.1pt x 221.82875pt>
+File: ./images/fork_join.png Graphic file (type png)
+<use ./images/fork_join.png>
+Package pdftex.def Info: ./images/fork_join.png  used on input line 20.
+(pdftex.def)             Requested size: 449.26894pt x 177.30075pt.
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textAlpha' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textlambda' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textlambda' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textlambda' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textpi' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textdelta' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textsigma' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomega' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textkappa' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textpi' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textlambda' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textlambda' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textvarsigma' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textdelta' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textdelta' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomega' on input line 26.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 26.
+
+[4
+
+
+ <./images/fork_join.png>]
+<./images/private_shared.png, id=353, 112.5003pt x 56.6115pt>
+File: ./images/private_shared.png Graphic file (type png)
+<use ./images/private_shared.png>
+Package pdftex.def Info: ./images/private_shared.png  used on input line 40.
+(pdftex.def)             Requested size: 404.3393pt x 203.46774pt.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textIota' on input line 47.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textdelta' on input line 47.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 47.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomega' on input line 47.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 47.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 47.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textkappa' on input line 47.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 47.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 47.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 47.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 47.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 47.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 47.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 47.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 47.
+
+[5 <./images/private_shared.png>]
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textKappa' on input line 55.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 55.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 55.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 55.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 55.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 55.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 55.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textchi' on input line 55.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 55.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 55.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textsigma' on input line 55.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 55.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 55.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 55.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 55.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 55.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 55.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 55.
+
+LaTeX Font Info:    Font shape `OT1/mak/m/n' will be
+(Font)              scaled to size 9.85492pt on input line 76.
+LaTeX Font Info:    Font shape `OT1/mak/b/n' will be
+(Font)              scaled to size 9.85492pt on input line 77.
+[6
+
+]
+<./images/false_sharing_2.png, id=382, 89.6148pt x 74.679pt>
+File: ./images/false_sharing_2.png Graphic file (type png)
+<use ./images/false_sharing_2.png>
+Package pdftex.def Info: ./images/false_sharing_2.png  used on input line 104.
+(pdftex.def)             Requested size: 269.5641pt x 224.6882pt.
+<./images/false_sharing_3.png, id=383, 121.8954pt x 74.679pt>
+File: ./images/false_sharing_3.png Graphic file (type png)
+<use ./images/false_sharing_3.png>
+Package pdftex.def Info: ./images/false_sharing_3.png  used on input line 112.
+(pdftex.def)             Requested size: 224.63446pt x 137.62636pt.
+
+Overfull \hbox (8.9873pt too wide) in paragraph at lines 112--114
+ [][] 
+ []
+
+[7
+
+ <./images/false_sharing_2.png> <./images/false_sharing_3.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 124--129
+
+ []
+
+<./images/false_sharing_4.png, id=394, 104.5506pt x 74.9199pt>
+File: ./images/false_sharing_4.png Graphic file (type png)
+<use ./images/false_sharing_4.png>
+Package pdftex.def Info: ./images/false_sharing_4.png  used on input line 132.
+(pdftex.def)             Requested size: 269.5641pt x 193.20152pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 137--138
+
+ []
+
+[8
+
+ <./images/false_sharing_4.png>]
+LaTeX Font Info:    Font shape `LGR/mak/b/it' will be
+(Font)              scaled to size 12.9599pt on input line 140.
+LaTeX Font Info:    Font shape `OT1/mak/b/it' will be
+(Font)              scaled to size 12.9599pt on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textAlpha' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textdelta' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textsigma' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textsigma' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textkappa' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textchi' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textkappa' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textsigma' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textkappa' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 140.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textupsilon' on input line 140.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 142--146
+
+ []
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textMu' on input line 146.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 146.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 146.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 146.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 146.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 146.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 146.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textlambda' on input line 146.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 146.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textsigma' on input line 146.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textupsilon' on input line 146.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 146.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 146.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textchi' on input line 146.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 146.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 146.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 146.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textvarsigma' on input line 146.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 146.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 146.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 146.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 146.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 146.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textvarsigma' on input line 146.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 163--164
+
+ []
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textOmicron' on input line 164.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textdelta' on input line 164.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 164.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textgamma' on input line 164.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 164.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 164.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 164.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 164.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textvarsigma' on input line 164.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textdelta' on input line 164.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 164.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 164.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 164.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 164.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 164.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 164.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textsigma' on input line 164.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 164.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 164.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 164.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textupsilon' on input line 164.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 164.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 164.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textgamma' on input line 164.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 164.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textsigma' on input line 164.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 164.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 164.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 164.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 164.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textvarsigma' on input line 164.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 171--177
+
+ []
+
+[9
+
+]
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 184.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 185.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 190.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 191.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 192.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 192.
+ [10]
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 214.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 216.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 217.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 218.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 219.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 229.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 230.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 230.
+ [11
+
+]
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 248.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 249.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 282.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 282.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 282.
+ [12
+
+] [13
+
+]
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textPhi' on input line 295.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 295.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 295.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 295.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 295.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textsigma' on input line 295.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 295.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 295.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textvarsigma' on input line 295.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 297--305
+
+ []
+
+[14
+
+] [15
+
+]
+LaTeX Font Info:    Trying to load font information for OMS+mak on input line 356.
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/kerkis\omsmak.fd
+File: omsmak.fd 
+)
+LaTeX Font Info:    Font shape `OMS/mak/m/n' will be
+(Font)              scaled to size 10.79993pt on input line 356.
+
+Underfull \hbox (badness 10000) in paragraph at lines 359--360
+
+ []
+
+[16
+
+] [17
+
+] [18
+
+] [19
+
+] [20
+
+]
+<./images/schedules.jpeg, id=613, 3237.09375pt x 1476.51625pt>
+File: ./images/schedules.jpeg Graphic file (type jpg)
+<use ./images/schedules.jpeg>
+Package pdftex.def Info: ./images/schedules.jpeg  used on input line 509.
+(pdftex.def)             Requested size: 449.26894pt x 204.90848pt.
+ [21 <./images/schedules.jpeg>]
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textMu' on input line 517.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 517.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 517.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 517.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textlambda' on input line 517.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 517.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 517.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 517.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 517.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 517.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textvarsigma' on input line 517.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textPi' on input line 517.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 517.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 517.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 517.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 517.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 517.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 517.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textlambda' on input line 517.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textlambda' on input line 517.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 517.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 517.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 517.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 517.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textvarsigma' on input line 517.
+
+
+Overfull \hbox (25.19997pt too wide) in paragraph at lines 531--554
+[][] 
+ []
+
+[22
+
+]
+Overfull \hbox (25.19997pt too wide) in paragraph at lines 578--607
+[][] 
+ []
+
+) [23
+
+]
+\openout2 = `ch3_1.aux'.
+
+ (d:/Users\gkonto\GitHub\postgrad_thesis\ch3_1.tex
+LaTeX Font Info:    Font shape `OT1/mak/b/n' will be
+(Font)              scaled to size 15.55188pt on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textChi' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textkappa' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textsigma' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textkappa' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textkappa' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textdelta' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textsigma' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomega' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 1.
+
+[24
+
+
+] [25]
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textDelta' on input line 39.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 39.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 39.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 39.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textupsilon' on input line 39.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textsigma' on input line 39.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 39.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 39.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 39.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textkappa' on input line 39.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 39.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textpi' on input line 39.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 39.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 39.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 39.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 39.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 39.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textsigma' on input line 39.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 39.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 39.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 39.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 39.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textsigma' on input line 39.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomega' on input line 39.
+
+<./images/scalar_vs_simd.jpeg, id=654, 1775.63374pt x 712.6625pt>
+File: ./images/scalar_vs_simd.jpeg Graphic file (type jpg)
+<use ./images/scalar_vs_simd.jpeg>
+Package pdftex.def Info: ./images/scalar_vs_simd.jpeg  used on input line 63.
+(pdftex.def)             Requested size: 359.41652pt x 144.24812pt.
+[26
+
+ <./images/scalar_vs_simd.jpeg>]
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textEta' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textdelta' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textgamma' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textPhi' on input line 105.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 105.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 105.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 105.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 105.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textsigma' on input line 105.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 105.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 105.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textvarsigma' on input line 105.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 105.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textdelta' on input line 105.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 105.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textgamma' on input line 105.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 105.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 105.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 105.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 105.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textvarsigma' on input line 105.
+
+
+Overfull \hbox (5.56363pt too wide) in paragraph at lines 107--112
+[] [][] \LGR/mak/m/n/12 'E-na s‘no-lo fràse-wn a-ko-lou-jo-‘me-nwn thc o-dh-g–ac []\OT1/mak/m/it/12 simd []\LGR/mak/m/n/12 u-po-sth-r–ze-tai a-po to []\OT1/mak/m/it/12 OpenMP[]\LGR/mak/m/n/12 .
+ []
+
+[27
+
+]
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 115.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 119.
+ [28]
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 152.
+ [29
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 183--187
+
+ []
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textEta' on input line 187.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textsigma' on input line 187.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 187.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 187.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textupsilon' on input line 187.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 187.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttheta' on input line 187.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 187.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 187.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 187.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 187.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textdelta' on input line 187.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 187.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textgamma' on input line 187.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 187.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 187.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 187.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 187.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 187.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 187.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 187.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 187.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textgamma' on input line 187.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textchi' on input line 187.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 187.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textupsilon' on input line 187.
+
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 194.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 195.
+<./images/for_simd.png, id=705, 138.5175pt x 76.8471pt>
+File: ./images/for_simd.png Graphic file (type png)
+<use ./images/for_simd.png>
+Package pdftex.def Info: ./images/for_simd.png  used on input line 210.
+(pdftex.def)             Requested size: 404.3393pt x 224.34709pt.
+[30] [31 <./images/for_simd.png>]
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textSigma' on input line 223.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textupsilon' on input line 223.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 223.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 223.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 223.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 223.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 223.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 223.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 223.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textsigma' on input line 223.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 223.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 223.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textvarsigma' on input line 223.
+
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 245.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 253.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 255.
+[32
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 270--271
+
+ []
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textChi' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textkappa' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textsigma' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textkappa' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textpi' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomega' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textsigma' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textupsilon' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textsigma' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 271.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textvarsigma' on input line 271.
+
+[33]) [34
+
+]
+\openout2 = `ch3_2.aux'.
+
+ (d:/Users\gkonto\GitHub\postgrad_thesis\ch3_2.tex
+<./images/numa.png, id=771, 136.8312pt x 96.1191pt>
+File: ./images/numa.png Graphic file (type png)
+<use ./images/numa.png>
+Package pdftex.def Info: ./images/numa.png  used on input line 22.
+(pdftex.def)             Requested size: 336.95169pt x 236.72723pt.
+ [35
+
+
+ <./images/numa.png>]
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textsigma' on input line 30.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 30.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 30.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 32--36
+
+ []
+
+[36
+
+]
+Missing character: There is no v in font gk7t!
+
+Underfull \hbox (badness 10000) in paragraph at lines 61--67
+
+ []
+
+[37
+
+]
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textTau' on input line 86.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 86.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textsigma' on input line 86.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 86.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 86.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 86.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textpi' on input line 86.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 86.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 86.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 86.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 86.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textxi' on input line 86.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 86.
+
+) [38
+
+]
+\openout2 = `ch3_3.aux'.
+
+ (d:/Users\gkonto\GitHub\postgrad_thesis\ch3_3.tex
+LaTeX Font Info:    Font shape `OT1/mak/m/it' will be
+(Font)              scaled to size 9.85492pt on input line 19.
+ [39
+
+
+]
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textEta' on input line 41.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 41.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textdelta' on input line 41.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 41.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textgamma' on input line 41.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 41.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 41.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 41.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 41.
+
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 51.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 54.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 55.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 62.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 63.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 63.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 63.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 64.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 66.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 66.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 67.
+[40]
+Overfull \hbox (30.59169pt too wide) in paragraph at lines 98--99
+[]\LGR/mak/m/n/12 ton trÏpo me ton o-po-–o dia-qei-r–ze-tai o me-ta-glwt-ti-st†c thc ka-ta-skeua-smËnec diergas–ec[[]]. 
+ []
+
+[41]
+Overfull \hbox (25.19997pt too wide) in paragraph at lines 105--117
+[][] 
+ []
+
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 134.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 134.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 134.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 136.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 143.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 144.
+[42
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 157--160
+
+ []
+
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 184.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 184.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 186.
+[43
+
+]
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textSigma' on input line 197.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textupsilon' on input line 197.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textgamma' on input line 197.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textchi' on input line 197.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 197.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 197.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 197.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 197.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textsigma' on input line 197.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 197.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 197.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 197.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textvarsigma' on input line 197.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textdelta' on input line 197.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 197.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 197.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 197.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textgamma' on input line 197.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 197.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textsigma' on input line 197.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 197.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 197.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 197.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomega' on input line 197.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 197.
+
+
+Overfull \hbox (25.19997pt too wide) in paragraph at lines 212--225
+[][] 
+ []
+
+) [44
+
+]
+\openout2 = `ch3_4.aux'.
+
+ (d:/Users\gkonto\GitHub\postgrad_thesis\ch3_4.tex
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textEpsilon' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textgamma' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textvarsigma' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textAlpha' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textchi' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textkappa' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textkappa' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 1.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 1.
+
+[45
+
+
+]
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textTau' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textchi' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textkappa' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textvarsigma' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textsigma' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textupsilon' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textsigma' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textkappa' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textupsilon' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textvarsigma' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textpi' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textsigma' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 56.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textupsilon' on input line 56.
+
+<./images/heter_1.png, id=932, 148.1535pt x 80.7015pt>
+File: ./images/heter_1.png Graphic file (type png)
+<use ./images/heter_1.png>
+Package pdftex.def Info: ./images/heter_1.png  used on input line 66.
+(pdftex.def)             Requested size: 449.26894pt x 244.76991pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textMu' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textlambda' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textvarsigma' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textgamma' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textupsilon' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textvarsigma' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textchi' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textkappa' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textkappa' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 74.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textvarsigma' on input line 74.
+
+[46]
+Underfull \hbox (badness 10000) in paragraph at lines 82--85
+
+ []
+
+[47 <./images/heter_1.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 96--96
+[]|\LGR/mak/b/n/12 DiamoirasmËnh
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 98--98
+[]|\LGR/mak/b/n/12 KoinÏqrhsth
+ []
+
+
+Overfull \hbox (49.99995pt too wide) in paragraph at lines 92--101
+[][] 
+ []
+
+[48]
+Overfull \hbox (10.81747pt too wide) in paragraph at lines 116--117
+[]\LGR/mak/m/n/12 Oi dieu-j‘n-seic mn†mhc a-po-jh-ke-‘o-ntai se me-ta-blh-tËc pou o-no-màzo-ntai de-–ktec ([]\OT1/mak/m/it/12 pointers[]\LGR/mak/m/n/12 .
+ []
+
+[49
+
+]
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textEta' on input line 133.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 133.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textdelta' on input line 133.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 133.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textgamma' on input line 133.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 133.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 133.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 133.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 133.
+
+[50
+
+]
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 172.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 173.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 173.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 173.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 174.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 180.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textEta' on input line 185.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 185.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textdelta' on input line 185.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 185.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textgamma' on input line 185.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 185.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 185.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 185.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 185.
+
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 202.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 203.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 208.
+[51]
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textEta' on input line 212.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 212.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textdelta' on input line 212.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 212.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textgamma' on input line 212.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 212.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 212.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 212.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 212.
+
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 219.
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textSigma' on input line 240.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 240.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 240.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textupsilon' on input line 240.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 240.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttheta' on input line 240.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 240.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 240.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 240.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textvarsigma' on input line 240.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 240.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textdelta' on input line 240.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 240.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textgamma' on input line 240.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 240.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 240.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 240.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 240.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textvarsigma' on input line 240.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 240.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textpi' on input line 240.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 240.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 240.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 240.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textchi' on input line 240.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textupsilon' on input line 240.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 240.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texttau' on input line 240.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 240.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 240.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomega' on input line 240.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textnu' on input line 240.
+
+[52
+
+]
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 253.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 256.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 259.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 266.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 268.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 270.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textPhi' on input line 275.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textrho' on input line 275.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 275.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 275.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 275.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textsigma' on input line 275.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textepsilon' on input line 275.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 275.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textvarsigma' on input line 275.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textomicron' on input line 275.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textdelta' on input line 275.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 275.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textgamma' on input line 275.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 275.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 275.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 275.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 275.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textvarsigma' on input line 275.
+
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 279.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 279.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 279.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 288.
+[53
+
+] [54]
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textOmicron' on input line 367.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textdelta' on input line 367.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\texteta' on input line 367.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textgamma' on input line 367.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\ensuregreek' on input line 367.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\acctonos' on input line 367.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textiota' on input line 367.
+
+
+Package hyperref Warning: Glyph not defined in PD1 encoding,
+(hyperref)                removing `\textalpha' on input line 367.
+
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 377.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 377.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 379.
+LaTeX Info: Symbol \textminus not provided by
+            font family mak in TS1 encoding.
+            Default family used instead on input line 383.
+) [55
+
+]
+\openout2 = `biblio.aux'.
+
+ (d:/Users\gkonto\GitHub\postgrad_thesis\biblio.tex (d:/Users\gkonto\GitHub\postgrad_thesis\v01.bbl
+LaTeX Font Info:    Font shape `OT1/mak/m/n' will be
+(Font)              scaled to size 15.55188pt on input line 1.
+LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 5.
+ (C:\Users\gioko\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1pcr.fd
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
+)
+Underfull \hbox (badness 1968) in paragraph at lines 9--12
+[]\OT1/mak/m/n/12 Worksharing con-structs.  [][]$\OT1/pcr/m/n/12 https : / / www . openmp . org / spec-[]html / 5 . 0 /
+ []
+
+
+Underfull \hbox (badness 3260) in paragraph at lines 42--46
+[]\OT1/mak/m/n/12 B. Bar-ney.  Openmp.  [][]$\OT1/pcr/m/n/12 https : / / computing . llnl . gov / tutorials /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 48--53
+\OT1/pcr/m/n/12 intel / compiler _ c / main _ cls / cref _ cls / common / cilk _ false _
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 60--65
+[]\OT1/mak/m/n/12 V. Ei-jkhout.  Openmp topic: Affin-ity.  [][]$\OT1/pcr/m/n/12 https : / / pages . tacc .
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 60--65
+\OT1/pcr/m/n/12 utexas . edu / []eijkhout / pcse / html / omp-[]affinity . html #
+ []
+
+[56
+
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 67--72
+[]\OT1/mak/m/n/12 N. Z. eScience In-sti-tute.  Thread place-ment and thread affin-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 67--72
+\OT1/mak/m/n/12 ity.  [][]$\OT1/pcr/m/n/12 https : / / support . nesi . org . nz / hc / en-[]gb / articles /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 87--92
+\OT1/pcr/m/n/12 support / knowledgecenter / SSGH2K _ 12 . 1 . 0 / com . ibm . xlc121 . aix .
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 94--99
+\OT1/pcr/m/n/12 support / knowledgecenter / SSGH2K _ 12 . 1 . 0 / com . ibm . xlc121 . aix .
+ []
+
+
+Underfull \hbox (badness 3417) in paragraph at lines 101--105
+[]\OT1/mak/m/n/12 K.Margaritis.  In-tro-duc-tion to openmp.  [][]$\OT1/pcr/m/n/12 pdplab . it . uom / teaching /
+ []
+
+
+Underfull \hbox (badness 1867) in paragraph at lines 107--111
+\OT1/pcr/m/n/12 / / www . hpc . kaust . edu . sa / tips / thread-[]affinity-[]openmp-[]40$[][]\OT1/mak/m/n/12 .  Ac-
+ []
+
+[57]
+Underfull \hbox (badness 1838) in paragraph at lines 165--169
+[]\OT1/mak/m/n/12 Wikipedia.  [][]\LGR/mak/m/n/12 Pa-ràl-lh-loc Pro-gram-ma-ti-smÏc[][]\OT1/mak/m/n/12 .  [][]$\OT1/pcr/m/n/12 el . wikipedia . org / wiki /
+ []
+
+)) [58]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 22.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 22.
+ (d:/Users\gkonto\GitHub\postgrad_thesis\v01.aux (d:/Users\gkonto\GitHub\postgrad_thesis\intro.aux) (d:/Users\gkonto\GitHub\postgrad_thesis\ch1.aux) (d:/Users\gkonto\GitHub\postgrad_thesis\ch2.aux) (d:/Users\gkonto\GitHub\postgrad_thesis\ch3_1.aux) (d:/Users\gkonto\GitHub\postgrad_thesis\ch3_2.aux) (d:/Users\gkonto\GitHub\postgrad_thesis\ch3_3.aux) (d:/Users\gkonto\GitHub\postgrad_thesis\ch3_4.aux) (d:/Users\gkonto\GitHub\postgrad_thesis\biblio.aux))
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 22.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 22.
+Package rerunfilecheck Info: File `v01.out' has not changed.
+(rerunfilecheck)             Checksum: B567F6C479526767ABE11020FA172B56;2495.
+
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 22.
+ ) 
+Here is how much of TeX's memory you used:
+ 34374 strings out of 480790
+ 784458 string characters out of 2897301
+ 1333317 words of memory out of 3000000
+ 49053 multiletter control sequences out of 15000+200000
+ 569948 words of font info for 115 fonts, out of 3000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 76i,12n,102p,1107b,1856s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Users/gioko/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}{C:/Users/gioko/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/kerkis/kmsym.enc} <C:\Users\gioko\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcti1200.pk>{C:/Users/gioko/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/kerkis/kerkis.enc} <C:\Users\gioko\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk>{C:/Users/gioko/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/kerkis/gpkerkis.enc}<C:/Users/gioko/AppData/Local/Programs/MiKTeX/fonts/type1/public/kerkis/Kerkis-Bold.pfb><C:/Users/gioko/AppData/Local/Programs/MiKTeX/fonts/type1/public/kerkis/Kerkis-BoldItalic.pfb><C:/Users/gioko/AppData/Local/Programs/MiKTeX/fonts/type1/public/kerkis/Kerkis-Italic.pfb><C:/Users/gioko/AppData/Local/Programs/MiKTeX/fonts/type1/public/kerkis/Kerkis-SmallCaps.pfb><C:/Users/gioko/AppData/Local/Programs/MiKTeX/fonts/type1/public/kerkis/Kerkis.pfb><C:/Users/gioko/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/gioko/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/gioko/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/gioko/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/gioko/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/gioko/AppData/Local/Programs/MiKTeX/fonts/type1/public/kerkis/ktsy.pfb><C:/Users/gioko/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb>
+Output written on d:/Users\gkonto\GitHub\postgrad_thesis\v01.pdf (70 pages, 1678295 bytes).
+PDF statistics:
+ 1330 PDF objects out of 1440 (max. 8388607)
+ 632 named destinations out of 1000 (max. 500000)
+ 359 words of extra memory for PDF output out of 10000 (max. 10000000)
+
