@@ -1,3 +1,40 @@
-\BOOKMARK [1][-]{section.1}{\265 \265dummy}{}% 1
-\BOOKMARK [2][-]{subsection.1.1}{ \040\337\265}{section.1}% 2
-\BOOKMARK [2][-]{subsection.1.2}{ \040\265\265}{section.1}% 3
+\BOOKMARK [1][-]{section.1}{}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{ \040 OpenMP}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{ \205 }{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.3}{ \040\265}{section.1}% 4
+\BOOKMARK [1][-]{section.2}{ \337}{}% 5
+\BOOKMARK [2][-]{subsection.2.1}{To \265 \265\265\265 OpenMP}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.2}{ \265 \040\337 \265}{section.2}% 7
+\BOOKMARK [3][-]{subsubsection.2.2.1}{ \265\265}{subsection.2.2}% 8
+\BOOKMARK [3][-]{subsubsection.2.2.2}{ \265\265}{subsection.2.2}% 9
+\BOOKMARK [2][-]{subsection.2.3}{\265 \040\337 \040 OpenMP}{section.2}% 10
+\BOOKMARK [3][-]{subsubsection.2.3.1}{ \040\265\265}{subsection.2.3}% 11
+\BOOKMARK [3][-]{subsubsection.2.3.2}{ \265\265 }{subsection.2.3}% 12
+\BOOKMARK [3][-]{subsubsection.2.3.3}{ - Clauses}{subsection.2.3}% 13
+\BOOKMARK [3][-]{subsubsection.2.3.4}{\337 \337}{subsection.2.3}% 14
+\BOOKMARK [3][-]{subsubsection.2.3.5}{Runtime Functions}{subsection.2.3}% 15
+\BOOKMARK [1][-]{section.3}{ \040OpenMP 3.0 - 4.5}{}% 16
+\BOOKMARK [2][-]{subsection.3.1}{\265 \265 SIMD}{section.3}% 17
+\BOOKMARK [3][-]{subsubsection.3.1.1}{ \040simd}{subsection.3.1}% 18
+\BOOKMARK [3][-]{subsubsection.3.1.2}{ \040simd}{subsection.3.1}% 19
+\BOOKMARK [3][-]{subsubsection.3.1.3}{ \040 \337 SIMD}{subsection.3.1}% 20
+\BOOKMARK [3][-]{subsubsection.3.1.4}{ SIMD}{subsection.3.1}% 21
+\BOOKMARK [3][-]{subsubsection.3.1.5}{ \265 SIMD }{subsection.3.1}% 22
+\BOOKMARK [2][-]{subsection.3.2}{Thread Affinity}{section.3}% 23
+\BOOKMARK [3][-]{subsubsection.3.2.1}{Thread affinity \040OpenMP 4.0}{subsection.3.2}% 24
+\BOOKMARK [3][-]{subsubsection.3.2.2}{ thread affinity \040}{subsection.3.2}% 25
+\BOOKMARK [2][-]{subsection.3.3}{Tasking}{section.3}% 26
+\BOOKMARK [3][-]{subsubsection.3.3.1}{ \040task}{subsection.3.3}% 27
+\BOOKMARK [3][-]{subsubsection.3.3.2}{\265 }{subsection.3.3}% 28
+\BOOKMARK [2][-]{subsection.3.4}{ }{section.3}% 29
+\BOOKMARK [3][-]{subsubsection.3.4.1}{ \040\265 \040 \265}{subsection.3.4}% 30
+\BOOKMARK [3][-]{subsubsection.3.4.2}{ \265\265 \040}{subsection.3.4}% 31
+\BOOKMARK [3][-]{subsubsection.3.4.3}{ \040target}{subsection.3.4}% 32
+\BOOKMARK [3][-]{subsubsection.3.4.4}{ \040target teams}{subsection.3.4}% 33
+\BOOKMARK [3][-]{subsubsection.3.4.5}{ \040distribute}{subsection.3.4}% 34
+\BOOKMARK [3][-]{subsubsection.3.4.6}{ \040}{subsection.3.4}% 35
+\BOOKMARK [3][-]{subsubsection.3.4.7}{ \040map}{subsection.3.4}% 36
+\BOOKMARK [3][-]{subsubsection.3.4.8}{ declare target}{subsection.3.4}% 37
+\BOOKMARK [1][-]{section.4}{\265 \265dummy}{}% 38
+\BOOKMARK [2][-]{subsection.4.1}{ \040\337\265}{section.4}% 39
+\BOOKMARK [2][-]{subsection.4.2}{ \040\265\265}{section.4}% 40
