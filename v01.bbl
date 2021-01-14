@@ -1,129 +1,14 @@
-\begin{thebibliography}{10}
+\begin{thebibliography}{1}
 
-\bibitem{simd_linear}
-Effective vectorization with openmp 4.5.
-\newblock \url{https://info.ornl.gov/sites/publications/files/Pub69214.pdf}.
-\newblock Accessed: 2017-03-20.
-
-\bibitem{openmpse16}
-Worksharing constructs.
-\newblock \url{https://www.openmp.org/spec-html/5.0/openmpse16.html}.
-\newblock Accessed: 2020-05-20.
-
-\bibitem{tasking1}
-{\em An Extension to Improve OpenMP Tasking Control (Tsukuba, Japan, June
-  2010)}, volume 6132 of {\em Lecture Notes in Computer Science}, Berlin,
-  Germany, 2010. Springer.
-
-\bibitem{thread_affinity}
-{\em The Design of OpenMP Thread Affinity (Heidelberg, Berlin, June 2012)},
-  volume 7312 of {\em Lecture Notes in Computer Science}, Berlin, Heidelberg,
-  2012. Springer.
-
-\bibitem{environmental_var}
-O.~API.
-\newblock Openmp api specification: Environmental variables.
-\newblock \url{https://www.openmp.org/spec-html/5.0/openmpch6.html}.
-\newblock Accessed: 2020-07-01.
-
-\bibitem{ompsyntaxrefguide}
-O.~ARB.
-\newblock Openmp 4.5 api c/c++ syntax reference guide.
-\newblock
-  \url{https://www.openmp.org/wp-content/uploads/OpenMP-4.5-1115-CPP-web.pdf}.
-\newblock Accessed: 2020-06-20.
-
-\bibitem{barbara}
-R.~v. d.~P. Barbara~Chapman, Gabriele~Jost.
-\newblock {\em Using OpenMP-Portable Shared Memory Programming}.
-\newblock The MIT Press, 2007.
-
-\bibitem{ompblaise}
-B.~Barney.
-\newblock Openmp.
-\newblock \url{https://computing.llnl.gov/tutorials/openMP/}.
-\newblock Accessed: 2020-05-20.
-
-\bibitem{false_sharing}
-I.~Corporation.
-\newblock False sharing.
-\newblock
-  \url{https://scc.ustc.edu.cn/zlsc/sugon/intel/compiler_c/main_cls/cref_cls/common/cilk_false_sharing.htm}.
-\newblock Accessed: 2020-04-13.
-
-\bibitem{parallel_dist}
-A.~D. Eduard~Ayguade, Nawal~Copty.
-\newblock {\em The Design of OpenMP Tasks}, pages 404--418.
-\newblock IEEE Trans, 2009.
-
-\bibitem{affinity2}
-V.~Eijkhout.
-\newblock Openmp topic: Affinity.
-\newblock
-  \url{https://pages.tacc.utexas.edu/~eijkhout/pcse/html/omp-affinity.html#OpenMPthreadaffinitycontrol}.
-\newblock Accessed: 2020-06-20.
-
-\bibitem{affinity3}
-N.~Z. eScience Institute.
-\newblock Thread placement and thread affinity.
-\newblock
-  \url{https://support.nesi.org.nz/hc/en-gb/articles/360000995575-Thread-Placement-and-Thread-Affinity}.
-\newblock Accessed: 2020-06-20.
-
-\bibitem{flynn}
-M.~Flynn.
-\newblock {\em Some Computer Organizations and Their Effectiveness}, pages
-  948--960.
-\newblock IEEE, 1972.
-
-\bibitem{toms_hardware}
-T.~Harware.
-\newblock Amd unveils its heterogeneous uniform memory access (huma)
-  technology.
-\newblock \url{https://www.tomshardware.com/news/AMD-HSA-hUMA-APU,22324.html}.
-\newblock Accessed: 2020-06-13.
-
-\bibitem{ibm_flush}
-IBM.
-\newblock pragma directives for parallel processing.
-\newblock
-  \url{https://www.ibm.com/support/knowledgecenter/SSGH2K_12.1.0/com.ibm.xlc121.aix.doc/compiler_ref/prag_omp_flush.html}.
-\newblock Accessed: 2020-07-01.
-
-\bibitem{ibm_master}
-IBM.
-\newblock pragma directives for parallel processing.
-\newblock
-  \url{https://www.ibm.com/support/knowledgecenter/SSGH2K_12.1.0/com.ibm.xlc121.aix.doc/compiler_ref/prag_omp_master.html}.
-\newblock Accessed: 2020-07-01.
+\bibitem{dummy}
+\url{}.
+\newblock 0.
 
 \bibitem{pdplab}
 K.Margaritis.
 \newblock Introduction to openmp.
 \newblock \url{pdplab.it.uom/teaching/llnl-gr/OpenMP.html#Abstract}.
 \newblock Accessed: 2020-06-25.
-
-\bibitem{affinity1}
-K.~A.~U. of~Science and Technology.
-\newblock Thread affinity with openmp 4.0.
-\newblock \url{https://www.hpc.kaust.edu.sa/tips/thread-affinity-openmp-40 }.
-\newblock Accessed: 2020-06-20.
-
-\bibitem{oracle1}
-Oracle.
-\newblock Task dependence.
-\newblock \url{https://docs.oracle.com/cd/E37069_01/html/E37081/gozsa.html}.
-\newblock Accessed: 2020-06-20.
-
-\bibitem{book2}
-L.~D. Rohit~Chandra, Ramesh~Menon.
-\newblock {\em Parallel Programming in OpenMP}, page~21.
-\newblock Morgan Kaufmann, 2000.
-
-\bibitem{book2_23}
-L.~D. Rohit~Chandra, Ramesh~Menon.
-\newblock {\em Parallel Programming in OpenMP}, page~23.
-\newblock Morgan Kaufmann, 2000.
 
 \bibitem{thenextstep59}
 C.~T. Ruud van~der Pas, E.~Stotzer.
@@ -136,35 +21,5 @@ C.~T. Ruud van~der Pas, E.~Stotzer.
 \newblock {\em Using OpenMP. The Next Step: affinity, accelerators, tasking,
   SIMD}, page~20.
 \newblock The MIT Press, 2017.
-
-\bibitem{thenextstep152}
-C.~T. Ruud van~der Pas, E.~Stotzer.
-\newblock {\em Using OpenMP. The Next Step: affinity, accelerators, tasking,
-  SIMD}, page 152.
-\newblock The MIT Press, 2017.
-
-\bibitem{thenextstep7}
-C.~T. Ruud van~der Pas, E.~Stotzer.
-\newblock {\em Using OpenMP. The Next Step: affinity, accelerators, tasking,
-  SIMD}, page~7.
-\newblock The MIT Press, 2017.
-
-\bibitem{thenextstep9}
-C.~T. Ruud van~der Pas, E.~Stotzer.
-\newblock {\em Using OpenMP. The Next Step: affinity, accelerators, tasking,
-  SIMD}, page~9.
-\newblock The MIT Press, 2017.
-
-\bibitem{jakacorner}
-J.~Speh.
-\newblock Openmp for and scheduling.
-\newblock \url{http://jakascorner.com/blog/2016/06/omp-for-scheduling.html}.
-\newblock Accessed: 2020-07-03.
-
-\bibitem{googleparallelprog}
-Wikipedia.
-\newblock \el{Παράλληλος Προγραμματισμός}.
-\newblock \url{el.wikipedia.org/wiki/Parallel_computing}.
-\newblock Accessed: 2020-05-26.
 
 \end{thebibliography}
