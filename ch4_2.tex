@@ -1,971 +1,1023 @@
-\subsection{Παράδειγμα διπλασιασμού τιμών στοιχείων πίνακα}
+\subsection{Πρόσθεση διανυσμάτων αριθμών μικρής ακρίβειας - \emph{\en{SAXPY}}}
 \subparagraph{}
-Σε αυτό το παράδειγμα γίνεται ανάλυση του προβλήματος τροποποίησης τιμών ενός διανύσματος. Μελετάται η επίδοση κάθε εναλλακτικής λύσης και σχολιάζονται εργαλεία που αναφέρθηκαν στα προηγούμενα κεφάλαια. Χρησιμοποιείται ένα διάνυσμα μεταβαλλόμενου μεγέθους για κάθε επίλυση, το οποίο αρχικοποιείται με τον παρακάτω τρόπο.
-\selectlanguage{english}
-\begin{lstlisting}[language=C++, caption={\el{Αρχικοποίηση τιμών διανύσματος}} , frame=tlrb]{Name}
-void fill_array(int *arr, size_t size) {
-    for (size_t k = 0; k < size; ++k) {
-            arr[k] = static_cast<int>(k);
-    }
-}
-\end{lstlisting}
-\selectlanguage{greek}
-\ \\
-Για την επαλήθευση σωστού αποτελέσματος, χρησιμοποιείται η παρακάτω ρουτίνα, που καλείται μετά την εκτέλεση του διπλασιασμού:
-\ \\
-\selectlanguage{english}
-\begin{lstlisting}[language=C++, caption={\el{Ρουτίνα ελέγχου αποτελεσμάτων}} , frame=tlrb]{Name}
-void verify(int *arr, size_t size) {
-	for (size_t k = 0; k < size; ++k) {
-		if (arr[k] != k * 2) {
-        	printf('Error in position %ld.
-        		Got %d, 
-        		expected %ld\n', 
-        		k, 
-        		arr[k], 
-        		k * 2);
-			exit(1);
-		}
-	}
-}
-\end{lstlisting}
-\selectlanguage{greek}
-\ \\
-Η μεταγλώττιση του κώδικα έγινε με μεταγλωττιστή \emph{\en{g++-7}} και τις επιλογές:$-Wall -O0$. Οι παραλλαγές εκτέλεσης του προβλήματος χωρίζονται σε δύο κατηγορίες, σε αυτές που απαιτείται αντιγραφή δεδομένων από τον εξυπηρετητή στη συσκευή στόχου και από αυτές που δεσμεύουν μνήμη απευθείας στον επιταχυντή.
+Μια από τις λειτουργίες που κατέχει θεμελιώδη θέση σε εφαρμογές της γραμμικής άλγεβρας, αποτελεί η πρόσθεση διανυσμάτων
+δεκαδικών αριθμών μικρής ακρίβειας (\emph{\en{floats}}), γνωστή ως \textbf{\en{SAXPY}}.
 
+Στο παράδειγμα \emph{\en{SAXPY}}, ο λόγος του μεγέθους υπολογισμών προς το μέγεθος των δεδομένων που τελούν υπό επεξεργασία
+είναι μικρός. Ως εκτότου, αποτελεί πρόβλημα περιορισμένης επεκτασιμότητας. Παρόλα αυτά, πρόκειται για ένα χρήσιμο
+παράδειγμα που ανήκει στην κατηγορία προβλημάτων παραλληλοποίησης τύπου \emph{\en{map}} και των εννοιών
+\emph{\en{uniform}} και \emph{\en{varying parameters}}\cite{patters}.
+\\
+\subsubsection{Περιγραφή προβλήματος}
+Η λειτουργία \en{SAXPY} δέχεται ως δεδομένα δυο διάνυσματα δεκαδικών αριθμών. Το πρώτο διάνυσμα πολλαπλασιάζεται με μια
+σταθερά \emph{\en{a}} και το αποτέλεσμα προστίθεται στο δεύτερο διάνυσμα \emph{\en{y}}. Τα διανύσματα \emph{\en{x,y}}
+πρέπει να έχουν το ίδιο μέγεθος.
+
+Ο υπολογισμός αυτός εμφανίζεται συχνά στη γραμμική άλγεβρα, όπως για παράδειγμα στη διαγραφή σειρών για την απαλοιφή
+\textbf{\en{Gauss}}. Το όνομα \emph{\en{SAXPY}} δόθηκε από την βιβλιοθήκη \en{\textbf{BLAS} (\emph{"Basic Linear Algrbra
+Subprograms"})} για δεκαδικούς αρθμούς μικρής ακρίβειας (\emph{\en{floats}}). Ο αντίστοιχος αλγόριθμος διπλής ακρίβειας
+ονομάζεται \emph{\en{DAXPY}}, ενώ για μιγαδικούς αριθμούς ονομάζεται \emph{\en{CAXPY}}.
+Η μαθηματική διατύπωση του \emph{\en{SAXPY}} είναι:
+                              $$\en{\textbf{y} = a*\textbf{x} + \textbf{y}}$$ όπου το διάνυσμα \emph{\en{x}}
+χρησιμοποιείται ως είσοδος, το \en{\emph{y}} ως είσοδος και έξοδος. Δηλαδή το αρχικό διάνυσμα \emph{\en{y}}
+τροποποιείται. Εναλλακτικά, η λειτουργία \emph{\en{SAXPY}} μπορεί να περιγραφεί ως συνάρτηση που δρα σε μεμονωμένα
+στοιχεία, οπως φαίνεται παρακάτω: 
+\begin{equation*}\label{eq:pareto mle2}
+\begin{aligned}
+f(t, p, q) = tp + q\\
+\forall _i : y_i \leftarrow f(a, x_i, y_i)
+\end{aligned}
+\end{equation*}
 \clearpage
-\subsubsection{Σειριακή εκτέλεση}
-\label{sec:ch42_serial}
+Οι συναρτήσεις τύπου \emph{\en{f}} δεχονται ως ορίσματα, δύο είδη παραμέτρων. Τις παραμέτρους όπως την \en{\emph{a}} που
+παραμένουν σταθερές και ονομάζονται \emph{\en{uniform}}, οι παράμετροι που είναι μεταβλητές σε κάθε κλίση της
+\emph{\en{f}} ονομάζονται \emph{\en{varying}}. To μοτίβο \emph{\en{map}} καλεί τη συνάρτηση \emph{\en{f}} τόσες φορές
+όσες και ο αριθμός των στοιχείων του διανύσματος.\cite{patters}.
+
+\subsection{Περιγραφή κεντρικού τμήματος προβλήματος \en{SAXPY}}
 \subparagraph{}
-Στο σειριακό υπολογισμό, το πρόγραμμα εκτελείται από ένα μοναδικό νήμα, χωρίς βελτιστοποίηση παραλληλισμού. Στη συγκεκριμένη περίπτωση, καλείται μια ρουτίνα που δέχεται ως όρισμα ένα μοναδιαίο πίνακα με ακέραιους αριθμούς και έναν αριθμό που υποδηλώνει το μέγεθος αυτού του πίνακα, όπως φαίνεται παρακάτω:
-\ \\
+Το πρόβλημα ξεκινάει δημιουργώντας ένα στοιχείο τύπου \emph{\en{Containers}}, που περιέχει τα διανύσματα που εισάγονται
+στον αλγόριθμο \en{SAXPY}. Ο ρόλος του \en{Containers} είναι για την διαχείριση της \en{\emph{heap}} μνήμης. Τα
+διανύσματα και η σταθερά \en{cons} αρχικοποιούνται με τυχαίους αριθμούς μικρής ακρίβειας. Το μέγεθος των
+διανυσμάτων (μέγεθος προβλήματος) ορίζεται από τον χρήστη μέσω της γραμμής εντολών. Στη συνέχεια, καλείται ο αλγόριθμος
+\en{SAXPY} μόλις τελειώσει γίνεται επαλήθευση των αποτελεσμάτων, όπου αν επαληθευτούν σωστά, γίνεται εκτύπωση του
+χρόνουν εκτέλεσης της παραλλαγής.
+\\
 \selectlanguage{english}
-\begin{lstlisting}[language=C++, caption={\el{Ρουτίνα σειριακής υλοποίησης}} , frame=tlrb]{Name}
-void double_elements(int *A, size_t size) {
-    for (size_t i = 0; i < size; ++i) {
-            A[i] = A[i] * 2;
-    }
-}
-\end{lstlisting}
-\selectlanguage{greek}
-\ \\
-Οι χρόνοι εκτέλεσης που καταγράφηκαν εμφανίζονται στον παρακάτω πίνακα:
-\ \\
-\begin{table}[htbp]
-\centering
-\captionsetup{justification=raggedright,
-singlelinecheck=false
-}
-\caption{ \emph{Καταγραφή χρόνων εκτέλεσης παραδειγμάτων}}
-\def\arraystretch{1.5}
-\begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth}|}
- \textbf{Αριθμός στοιχείων πίνακα\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος εκτέλεσης (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
-\hline
- 100000 & 0.002  \\
-\hline
-1000000 & 0.0097 \\
-\hline
-10000000 & 0.098  \\
-\hline
-100000000 &  0.980\\
-\hline
-200000000 & 1.978 \\
-\hline
-300000000 & 2.968 \\
-\hline
-400000000 & 4.935 \\
-\hline
-\end{tabular}
-\end{table}
-
-\subparagraph{Σχόλιο:}\ \\
-\emph{Τα αποτελέσματα της σειριακής εκτέλεσης θα χρησιμοποιηθούν ως σημείο αναφοράς για τη σύγκριση με τις υπόλοιπες παραλλαγές παράλληλης εκτέλεσης του προβλήματος.}
-
-\clearpage
-\subsubsection{Υλοποιήσεις που απαιτούν αντιστοίχιση μνήμης}
-\subparagraph{}
-Τα παραδείγματα που ακολουθούν αφορούν υλοποίηση του προβλήματος με μεθόδους παραλληλοποίησης που απαιτούν αντιστοίχιση δεδομένων ανάμεσα στον εξυπηρετητή και στον επιταχυντή. Για την αντιγραφή των δεδομένων χρησιμοποιούνται οι φράσεις που υποστηρίζονται από την οδηγία \textbf{\emph{\en{map}}} και αναφέρθηκαν στα προηγούμενα κεφάλαια.
-
-\paragraph{Παραλλαγή 1\textsuperscript{η}}
-\subparagraph{}
-Για τον υπολογισμό, η ρουτίνα που εκτελέστηκε ήταν η εξής:
-
-\selectlanguage{english}
-\begin{lstlisting}[language=C++, caption={\el{Ρουτίνα υλοποίησης στη συσκευή στόχου}} , frame=tlrb]{Name}
-void double_elements(int *A, size_t size) {
-#pragma omp target map(A[:size] )
-    for (size_t i = 0; i < size; ++i) {
-            A[i] = A[i] * 2;
-    }
-}
-\end{lstlisting}
-
-\selectlanguage{greek}
-\begin{table}[htbp]
-\centering
-\captionsetup{justification=raggedright,
-singlelinecheck=false
-}
-\caption{ Καταγραφή χρόνων εκτέλεσης παραδειγμάτων}
-\def\arraystretch{1.5}
-\begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth}|}
- \textbf{Αριθμός στοιχείων πίνακα\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος εκτέλεσης (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
-\hline
-100000 & 0.971  \\
-\hline
-1000000 & 1.838 \\
-\hline
-10000000 & 10.177 \\
-\hline
-\end{tabular}
-\end{table}
-
-
-\subparagraph{Σχόλιο:}\ \\
-Παρατηρείται μεγάλο ποσοστό αύξησης του χρόνου εκτέλεσης σε σύγκριση με τη σειριακή εκτέλεση. Η συγκρεκριμένη εκτέλεση δε γίνεται παράλληλα, καθώς η εντολή \emph{\en{pragma omp target map}} υποδηλώνει την δημιουργία διεργασίας που θα εκτελεστεί στη συσκευή στόχου, χωρίς όμως δίνεται εντολή για διαμοιρασμού του βρόγχου σε ομάδες νημάτων. Επομένως, η εκτέλεση γίνεται πιθανότατα από ένα νήμα. Αιτία της μεγάλης αύξησης του χρόνου εκτέλεσης αποτελεί και η διαδικασία αντιστοίχισης των δεδομένων ανάμεσα στις δυο συσκευές κατά την είσοδο στη διεργασία αλλά και κατά την εξοδό της.
-
-\clearpage
-\paragraph{Παραλλαγή 2\textsuperscript{η}}
-\subparagraph{}
-Για τον υπολογισμό, η ρουτίνα που εκτελέστηκε ήταν η εξής:
-
-\selectlanguage{english}
-\begin{lstlisting}[language=C++, caption={\el{Ρουτίνα 2ης υλοποίησης προβλήματος}} , frame=tlrb]{Name}
-void double_elements(int *A, size_t size) {
-	#pragma omp target map(A[:size])
-	{
-		#pragma omp parallel for
-		for (size_t i = 0; i < size; ++i) {
-			A[i] = A[i] * 2;
-		}
-	}
-}
-\end{lstlisting}
-\selectlanguage{greek}
-\begin{table}[htbp]
-\centering
-\captionsetup{justification=raggedright,
-singlelinecheck=false
-}
-\caption{ Καταγραφή χρόνων εκτέλεσης παραδειγμάτων}
-\def\arraystretch{1.5}
-\begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth}|}
- \textbf{Αριθμός στοιχείων πίνακα\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος εκτέλεσης (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
-\hline
-100000 &  0.850\\
-\hline
-1000000 &  0.984\\
-\hline
-10000000 & 2.116 \\
-\hline
-100000000 &  13.548\\
-\hline
-\end{tabular}
-\end{table}
-
-\subparagraph{Σχόλιο:}\ \\
-Παρατηρούνται αυξημένες χρονικές επιδόσεις στην εκτέλεση του προβλήματος σε σύγκριση με τη σειριακή εκτέλεση, αλλα πολύ καλύτερες σε σύγκριση με την εκτέλεση της Παραλλαγής 1. 
-Η συγκεκριμένη εκτέλεση, υλοποιείται ως διεργασία που θα εκτελεστεί απο ένα μοναδικό νήμα στη συσκευή στόχου, αλλά στη συνέχεια δημιουργείται βρόγχος διαμοιραζόμενης διεργασίας. Έτσι, βελτιώνονται οι επιδόσεις σε σύγκριση με την Παραλλαγή 1.
-
-\clearpage
-\paragraph{Παραλλαγή 3\textsuperscript{η}}
-\subparagraph{}
-Για τον υπολογισμό, η ρουτίνα που εκτελέστηκε ήταν η εξής:
-
-\selectlanguage{english}
-\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση ρουτίνας παραλλαγής 3}} , frame=tlrb]{Name}
-void double_elements(int *A, size_t size) {
-	#pragma omp target parallel map(A[:size])
-	{
-		for (size_t i = 0; i < size; ++i) {
-        	A[i] = A[i] * 2;
-	    }
-    }
-}
-\end{lstlisting}
-
-\selectlanguage{greek}
-\begin{table}[htbp]
-\centering
-\captionsetup{justification=raggedright,
-singlelinecheck=false
-}
-\caption{ Καταγραφή χρόνων εκτέλεσης παραδειγμάτων}
-\def\arraystretch{1.5}
-\begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth}|}
- \textbf{Αριθμός στοιχείων πίνακα\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος εκτέλεσης (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
-\hline
-100000 &  0.969\\
-\hline
-1000000 &  1.88\\
-\hline
-10000000 & 10.463 \\
-\hline
-\end{tabular}
-\end{table}
-
-\subparagraph{Σχόλιο: }\ \\
-Πρόκειται για μια λάθος υλοποίηση του προβλήματος που τα αποτελέσματα της μοιάζουν με αυτά της Παραλλαγής 1. Στη συγκεκριμένη περίπτωση η οδηγία \emph{\en{pragma omp target parallel map(A[:size])}} ορίζει οτι η εκτέλεση θα γίνει στη συσκευή στόχου από πολλά νήματα. Χωρίς όμως να διαμοιράζεται η διεργασία. Ετσι, θα γίνει πολλές φορές ο ίδιο υπολογισμός από πολλαπλά νήματα. 
-
-\clearpage
-\paragraph{Παραλλαγή 4\textsuperscript{η}}
-\subparagraph{}
-Για τον υπολογισμό, η ρουτίνα που εκτελέστηκε ήταν η εξής:
-
-\selectlanguage{english}
-\begin{lstlisting}[language=C++, caption={\el{Αρχικοποίηση τιμών διανύσματος}} , frame=tlrb]{Name}
-void double_elements(int *A, size_t size) {
-	#pragma omp target parallel for simd map(A[:size])
-	for (size_t i = 0; i < size; ++i) {
-		A[i] = A[i] * 2;
-	}
-}
-\end{lstlisting}
-\selectlanguage{greek}
-\begin{table}[htbp]
-\centering
-\captionsetup{justification=raggedright,
-singlelinecheck=false
-}
-\caption{ Καταγραφή χρόνων εκτέλεσης παραδειγμάτων}
-\def\arraystretch{1.5}
-\begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth}|}
- \textbf{Αριθμός στοιχείων πίνακα\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος εκτέλεσης (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
-\hline
-100000 & 0.951 \\
-\hline
-1000000 & 1.001\\
-\hline
-10000000 &  2.195\\
-\hline
-100000000 &  13.049\\
-\hline
-\end{tabular}
-\end{table}
-
-
-\subparagraph{Σχόλιο: }\ \\
-Αποτελεί τη σωστή έκδοση της παραλλαγής 3. Τα αποτελέσματα της μοιάζουν με αυτά της παραλλαγής 2. Ωστόσο, το \emph{\en{OpenMP}} αναφέρει ότι η "ένωση" οδηγιών σε μία μπορεί να βοηθήσει τον μεταγλωττιστή για καλύτερη βελτιστοποίηση. Παρόλα αυτά, τα αποτελέσματα δε δείχνουν χρονική διαφορά ανάμεσα στις δυο παραλλαγές.
-
-\clearpage
-\paragraph{Παραλλαγή 5\textsuperscript{η}}
-\subparagraph{}
-Για τον υπολογισμό, η ρουτίνα που εκτελέστηκε ήταν η εξής:
-
-\selectlanguage{english}
-\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής 5}} , frame=tlrb]{Name}
-void double_elements(int *A, size_t size) {
-	#pragma omp target parallel simd map(A[:size])
-	{
-		for (size_t i = 0; i < size; ++i) {
-        	A[i] = A[i] * 2;
-	    }
-	}
-}
-\end{lstlisting}
-\selectlanguage{greek}
-
-\subparagraph{Σχόλιο}\ \\
-Η μεταγλώττιση του παραπάνω κώδικα δεν επιτρέπεται, καθώς το \emph{\en{OpenMP}} απαιτεί η οδηγία \emph{\en{simd}} να ακολουθείται απευθείας απο βρόγχο επανάληψης και όχι απο αγκύλες.
-
-\ \\
-\newpage
-\paragraph{Παραλλαγή 6\textsuperscript{η}}
-\subparagraph{}
-Για τον υπολογισμό, η ρουτίνα που εκτελέστηκε ήταν η εξής:
-
-\selectlanguage{english}
-\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής 6}} , frame=tlrb]{Name}
-void double_elements(int *A, size_t size) {
-#pragma omp target teams distribute map(A[:size])
-	for (size_t i = 0; i < size; ++i) {
-		A[i] = A[i] * 2;
-	}
-}
-\end{lstlisting}
-\selectlanguage{greek}
-\begin{table}[htbp]
-\centering
-\captionsetup{justification=raggedright,
-singlelinecheck=false
-}
-\caption{ Καταγραφή χρόνων εκτέλεσης παραδειγμάτων}
-\def\arraystretch{1.5}
-\begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth}|}
- \textbf{Αριθμός στοιχείων πίνακα\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος εκτέλεσης (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
-\hline
-100000 &  0.894\\
-\hline
-1000000 & 0.863\\
-\hline
-10000000 & 1.104\\
-\hline
-100000000 & 3.281\\
-\hline
-200000000 &  6.634\\
-\hline
-\end{tabular}
-\end{table}
-
-\subparagraph{Σχόλιο}\ \\
-H οδηγία \emph{\en{distribute}} διαμοιράζει τις επαναλήψεις του βρόγχου σε νήματα με το βέλτιστο τρόπο σε σύγκριση με την οδηγία \emph{\en{parallel for}}. Οι επιδόσεις είναι καλύτερες απο όλες τις υπόλοιπες όταν η εκτέλεση γίνεται στη συσκευή στόχου.
-
-
-\clearpage
-\paragraph{Παραλλαγή 7\textsuperscript{η}}
-\subparagraph{}
-Για τον υπολογισμό, η ρουτίνα που εκτελέστηκε ήταν η εξής:
-
-\selectlanguage{english}
-\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής 7}} , frame=tlrb]{Name}
-void double_elements(int *A, size_t size) {
-#pragma omp target teams distribute parallel for map(A[:size])
-	for (size_t i = 0; i < size; ++i) {
-		A[i] = A[i] * 2;
-	}
-}
-\end{lstlisting}
-\selectlanguage{greek}
-\begin{table}[htbp]
-\centering
-\captionsetup{justification=raggedright,
-singlelinecheck=false
-}
-\caption{ Καταγραφή χρόνων εκτέλεσης παραδειγμάτων}
-\def\arraystretch{1.5}
-\begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth}|}
- \textbf{Αριθμός στοιχείων πίνακα\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος εκτέλεσης (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
-\hline
-100000 &  0.943\\
-\hline
-1000000 & 0.837\\
-\hline
-10000000 & 0.915\\
-\hline
-100000000 &  1.456\\
-\hline
-200000000 & 2.085\\
-\hline
-300000000 & 2.733\\
-\hline
-\end{tabular}
-\end{table}
-
-\subparagraph{Σχόλιο}
-\ \\
-Η διεργασία διαμοιράζεται σε ομάδες νημάτων, όπου κάθε ομάδα αποτελείται από περισσότερα απο ένα νήματα. Παρατηρείται σημαντική βελτίωση του χρόνου εκτέλεσης. 
-
-\clearpage
-\paragraph{Παραλλαγή 8\textsuperscript{η}}
-\subparagraph{}
-Για τον υπολογισμό, η ρουτίνα που εκτελέστηκε ήταν η εξής:
-
-\selectlanguage{english}
-\begin{lstlisting}[language=C++, caption={\el{Αρχικοποίηση τιμών διανύσματος}} , frame=tlrb]{Name}
-void double_elements(int *A, size_t size) {
-	#pragma omp target teams distribute simd map(A[:size])
-	for (size_t i = 0; i < size; ++i) {
-    	A[i] = A[i] * 2;
-	}
-}
-\end{lstlisting}
-
-\selectlanguage{greek}
-\begin{table}[htbp]
-\centering
-\captionsetup{justification=raggedright,
-singlelinecheck=false
-}
-\caption{ Καταγραφή χρόνων εκτέλεσης παραδειγμάτων}
-\def\arraystretch{1.5}
-\begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth}|}
- \textbf{Αριθμός στοιχείων πίνακα\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος εκτέλεσης (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
-\hline
-100000 &  0.978\\
-\hline
-1000000 &  0.845\\
-\hline
-10000000 & 1.125\\
-\hline
-100000000 & 3.750\\
-\hline
-200000000 &  6.616\\
-\hline
-\end{tabular}
-\end{table}
-
-\clearpage
-\paragraph{Παραλλαγή 9\textsuperscript{η}}
-\subparagraph{}
-Για τον υπολογισμό, η ρουτίνα που εκτελέστηκε ήταν η εξής:
-
-\selectlanguage{english}
-\begin{lstlisting}[language=C++, caption={\el{Αρχικοποίηση τιμών διανύσματος}} , frame=tlrb]{Name}
-void double_elements(int *A, size_t size) {
-#pragma omp target teams distribute parallel for simd map(A[:size])
-	for (size_t i = 0; i < size; ++i) {
-    	A[i] = A[i] * 2;
-	}
-}
-\end{lstlisting}
-\selectlanguage{greek}
-\begin{table}[htbp]
-\centering
-\captionsetup{justification=raggedright,
-singlelinecheck=false
-}
-\caption{ Καταγραφή χρόνων εκτέλεσης παραδειγμάτων}
-\def\arraystretch{1.5}
-\begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth}|}
- \textbf{Αριθμός στοιχείων πίνακα\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος εκτέλεσης (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
-\hline
-100000 &  0.933\\
-\hline
-1000000 & 0.831\\
-\hline
-10000000 & 0.903\\
-\hline
-100000000 & 1.44\\
-\hline
-200000000 & 3.211\\
-\hline
-300000000 & 3.135\\
-\hline
-400000000 & 5.68\\
-\hline
-\end{tabular}
-\end{table}
-
-\newpage
-\clearpage
-\subsubsection{Υλοποιήσεις που δεσμεύουν μνήμη απευθείας στον επιταχυντή}
-\subparagraph{}
-Στις υλοποιήσεις αυτής της ενότητας δεν απαιτείται αντιστοίχιση δεδομένων μνήμης ανάμεσα στα περιβάλλοντα δεδομένων του επιταχυντή και του εξυπηρετητή, καθώς η μνήμη δεσμεύεται απευθείας στη συσκευή στόχου μέσω της οδηγίας \emph{\en{\textbf{omp\_target\_alloc}}}. Με αυτό τον τρόπο αποφεύγονται εργασίες αντιγραφής ανάμεσα στα δύο μέσα.
-\ \\
-\selectlanguage{english}
-\begin{lstlisting}[language=C++, caption={\el{Κώδικας αρχικοποίησης διανύσματος στη συσκευή στόχου και επαλήθευση ομαλής εκτέλεσης}} , frame=tlrb]{Name}
-    std::cout << "Device: " << device << std::endl;
-    int *a = (int *)omp_target_alloc(sizeof(int) * o.size, device);
-    if (!a) {
-            std::cout << "Could not allocate memory for array"
-             << std::endl;
-            exit(1);
-    } else {
-            std::cout << "Successful allocation" << std::endl;
-    }
-#pragma omp target is_device_ptr(a)
-    for (size_t i = 0; i < o.size; ++i) {
-            a[i] = static_cast<int>(i);
-    }
-    //Count time
+\begin{spacing}{1.0}
+\begin{lstlisting}[language=C++, caption={\el{Κεντρικός κώδικας προβλήματος \en{SAXPY}}} , frame=tlrb]{Name}
+int main(int argc, char **argv) {
+    Opts o;
+    parseArgs(argc, argv, o);
+    Containers c(o.size);
+    c.setRandomValues();
+    float cons = float(rand()) / float(RAND_MAX);
     auto start = omp_get_wtime();
-    double_elements(a, o.size);
+    saxpy(c.m_size, cons, c.m_a, c.m_b);
     auto end = omp_get_wtime();
-    std::cout << "Starting verification" << std::endl;
-#pragma omp target is_device_ptr(a) map(flag)
-    for (size_t i = 0; i < o.size; ++i) {
-            if (a[i] != i * 2) {
-                    flag = 1;
-            }
+    verify(c.m_size, cons, c.m_a, c.m_b, c.m_verification);
+    std::cout << "Execution Time : " << std::fixed
+         << end - start << std::setprecision(5);
+    std::cout << " sec " << std::endl;
+    return 0;
+}
+   
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+\clearpage
+\selectlanguage{english}
+\begin{spacing}{0.8}
+\begin{lstlisting}[language=C++, caption={\el{Κλάση \emph{\en{Containers}}}} , frame=tlrb]{Name}
+struct Containers {
+    explicit Containers(size_t containers_size);
+    ~Containers();
+
+    size_t m_size;
+    float *m_a;
+    float *m_verification;
+    float *m_b;
+};     
+
+Containers::Containers(size_t containers_size)
+    : m_size(containers_size) {
+    srand(time(nullptr));
+    m_a = new float[containers_size];
+    m_verification = new float[containers_size];
+    m_b = new float[containers_size];
+}
+
+Containers::~Containers() {
+    delete []m_a;
+    delete []m_b;
+    delete []m_verification;
+}
+
+Containers::setRandomValues() {
+    fill_random_arr(m_a, m_size);
+    fill_random_arr(m_b, m_size);
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\selectlanguage{english}
+\begin{spacing}{1}
+\begin{lstlisting}[language=C++, caption={\el{Συνάρτηση επαλήθευσης}} , frame=tlrb]{Name}
+static void verify(size_t size, float c, float *a, float *b, 
+                    float *verification) {
+    for (size_t i = 0; i < size; ++i) {
+        if (abs(c * a[i] + verification[i] - b[i]) >= 10e-6) {
+            std::cout << "Failed index: " << i <<
+             ". " << c * a[i] + verification[i] << 
+             " =! " << b[i] << std::endl;
+            exit(1);
+        }
     }
-    
-     if (flag) {
-            std::cout << "FAILED VERIFICATION !" << std::endl;
-    } else {
-            std::cout << "Successful verification" << std::endl;
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\selectlanguage{english}
+\begin{spacing}{1}
+\begin{lstlisting}[language=C++, caption={\el{Συνάρτηση αρχικοποίησης τιμών}} , frame=tlrb]{Name}
+static void fill_random_arr(float *arr, size_t size) {
+    for (size_t k = 0; k < size; ++k) {
+        arr[k] = (float)(rand()) / RAND_MAX;
     }
-
-    std::cout << "Successful verification" << std::endl;
-    omp_target_free(a, device);
+}       
 \end{lstlisting}
+\end{spacing}
 \selectlanguage{greek}
 
 \clearpage
-\paragraph{Παραλλαγή 10\textsuperscript{η}}
+\subsection{Σειριακή εκτέλεση}
 \subparagraph{}
-Για τον υπολογισμό, η ρουτίνα που εκτελέστηκε ήταν η εξής:
-
+Η υλοποίηση της σειριακής παραλλαγής της συνάρτησης \en{saxpy} περιλαμβάνει έναν επαναληπτικό 
+βρόγχο στον οποίο γίνεται ο υπολογισμός για κάθε στοιχείο των διανυσμάτων.
 \selectlanguage{english}
-\begin{lstlisting}[language=C++, caption={\el{Ρουτίνας παραλλαγής 10}} , frame=tlrb]{Name}
-void double_elements(int *A, size_t size) {
-	#pragma omp target parallel for is_device_ptr(A)
-	for (size_t i = 0; i < size; ++i) {
-		A[i] = A[i] * 2;
-	}
-}
+\begin{spacing}{0.8}
+\begin{lstlisting}[language=C++, caption={\el{Σειριακή υλοποίηση της \en{SAXPY}}} , frame=tlrb]{Name}
+void saxpy(size_t n, float a, const float *x, float *y) {
+    for (size_t i = 0; i < n; ++i) {
+        y[i] = a * x[i] + y[i];
+    }
+}   
 \end{lstlisting}
+\end{spacing}
 \selectlanguage{greek}
 
-\begin{table}[htbp]
-\centering
-\captionsetup{justification=raggedright,
-singlelinecheck=false
-}
-\caption{ Καταγραφή χρόνων εκτέλεσης παραδειγμάτων}
-\def\arraystretch{1.5}
-\begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth}|}
- \textbf{Αριθμός στοιχείων πίνακα\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος εκτέλεσης (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
-\hline
-100000 & 0.018\\
-\hline
-1000000 &  0.156\\
-\hline
-10000000 &  1.249\\
-\hline
-100000000 &  11.791\\
-\hline
-\end{tabular}
+Οι χρόνοι εκτέλεσης του αλγορίθμοι συναρτήσει του μεγέθους του προβλήματος παρατίθενται στον παρακάτων πίνακα.
+Το πρόγραμμα μεταγλωττίστηκε με επιλογή -O3 kai -O0.
+
+
+\begin{table}[h]
+    \centering
+    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \label{my-label}
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{3}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-4} 
+               & \textbf{-Ο0} & \textbf{-Ο3} & \en{\textbf{-O3 -fno-tree-vectorize}}\\ \hline
+     100000    &  0.0012 & 0.00011 & 0.0002 \\ \cline{1-4} 
+     1000000   &  0.0118 & 0.00171 & 0.0021 \\ \cline{1-4} 
+     10000000  &  0.1179 & 0.01631 & 0.0203 \\ \cline{1-4} 
+     100000000 &  1.1821 & 0.16124 & 0.2397 \\ \cline{1-4} 
+     200000000 &  2.3612 & 0.31867 & 0.3981 \\ \cline{1-4} 
+     300000000 &  3.5510 & 0.42806 & 0.6052 \\ \cline{1-4} 
+     400000000 &  4.7291 & 0.6339  & 0.7884 \\ \cline{1-4} 
+
+    \end{tabular}
 \end{table}
 
-\subparagraph{Σχόλιο:}
-Παρουσιάζονται χαμηλές επιδόσεις. Παρατηρείται πως η δημιουργία διεργασίας στη συσκευή προορισμού, δηλαδη η δημιουργία αρχικού νήματος και η μετέπειτα παραλληλοποίηση μέσω \emph{\en{pragma omp parallel}} δεν αποτελεί αποτελεσματική λύση. Αίτιο της φτωχής απόδοσης ενδέχεται να είναι το \emph{\en{false sharing}}.
-
-\clearpage
-\paragraph{Παραλλαγή 11\textsuperscript{η}}
-\subparagraph{}
-Για τον υπολογισμό, η ρουτίνα που εκτελέστηκε ήταν η εξής:
-
-\selectlanguage{english}
-\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής 11}} , frame=tlrb]{Name}
-void double_elements(int *A, size_t size) {
-#pragma omp target teams distribute is_device_ptr(A)
-        for (size_t i = 0; i < size; ++i) {
-                A[i] = A[i] * 2;
-        }
-}
-
-\end{lstlisting}
-\selectlanguage{greek}
-
-\begin{table}[htbp]
-\centering
-\captionsetup{justification=raggedright,
-singlelinecheck=false
-}
-\caption{ Καταγραφή χρόνων εκτέλεσης παραδειγμάτων}
-\def\arraystretch{1.5}
-\begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth}|}
- \textbf{Αριθμός στοιχείων πίνακα\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος εκτέλεσης (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
-\hline
-100000 & 0.008\\
-\hline
-1000000 &  0.031\\
-\hline
-10000000 & 0.25\\
-\hline
-100000000 & 2.001\\
-\hline
-200000000 & 3.963\\
-\hline
-\end{tabular}
-\end{table}
-
-\clearpage
-\paragraph{Παραλλαγή 12\textsuperscript{η}}
-\subparagraph{}
-Για τον υπολογισμό, η ρουτίνα που εκτελέστηκε ήταν η εξής:
-
-\selectlanguage{english}
-\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση ρουτίνας παραλλαγής 12}} , frame=tlrb]{Name}
-void double_elements(int *A, size_t size) {
-#pragma omp target teams distribute parallel for is_device_ptr(A)
-        for (size_t i = 0; i < size; ++i) {
-                A[i] = A[i] * 2;
-        }
-}
-\end{lstlisting}
-\selectlanguage{greek}
-
-\begin{table}[htbp]
-\centering
-\captionsetup{justification=raggedright,
-singlelinecheck=false
-}
-\caption{ Καταγραφή χρόνων εκτέλεσης παραδειγμάτων}
-\def\arraystretch{1.5}
-\begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth}|}
- \textbf{Αριθμός στοιχείων πίνακα\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος εκτέλεσης (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
-\hline
-100000 &  0.006\\
-\hline
-1000000 & 0.009\\
-\hline
-10000000 &  0.042\\
-\hline
-100000000 & 0.322\\
-\hline
-200000000 & 0.616\\
-\hline
-300000000 &  0.948\\
-\hline
-\end{tabular}
-\end{table}
-
-\clearpage
-\paragraph{Παραλλαγή 13\textsuperscript{η}}
-\subparagraph{}
-Για τον υπολογισμό, η ρουτίνα που εκτελέστηκε ήταν η εξής:
-
-\selectlanguage{english}
-\begin{lstlisting}[language=C++, caption={\el{Εκτέλεση υπολογισμών}} , frame=tlrb]{Name}
-void double_elements(int *A, size_t size) {
-#pragma omp target teams distribute simd is_device_ptr(A)
-        for (size_t i = 0; i < size; ++i) {
-                A[i] = A[i] * 2;
-        }
-}
-\end{lstlisting}
-\selectlanguage{greek}
-
-
-\begin{table}[htbp]
-\centering
-\captionsetup{justification=raggedright,
-singlelinecheck=false
-}
-\caption{ Καταγραφή χρόνων εκτέλεσης παραδειγμάτων}
-\def\arraystretch{1.5}
-\begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth}|}
- \textbf{Αριθμός στοιχείων πίνακα\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος εκτέλεσης (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
-\hline
-100000 &  0.008\\
-\hline
-1000000 & 0.031\\
-\hline
-10000000 &  0.248\\
-\hline
-100000000 &  1.994\\
-\hline
-200000000 &  3.93\\
-\hline
-300000000 &  5.923\\
-\hline
-\end{tabular}
-\end{table}
-
-
-\newpage
-\paragraph{Παραλλαγή 14\textsuperscript{η}}
-\subparagraph{}
-Για τον υπολογισμό, η ρουτίνα που εκτελέστηκε ήταν η εξής:
-
-\selectlanguage{english}
-\begin{lstlisting}[language=C++, caption={\el{Εκτέλεση υπολογισμών}} , frame=tlrb]{Name}
-void double_elements(int *A, size_t size) {
-#pragma omp target teams distribute parallel for simd is_device_ptr(A)
-        for (size_t i = 0; i < size; ++i) {
-                A[i] = A[i] * 2;
-        }
-}
-\end{lstlisting}
-\selectlanguage{greek}
-
-
-\begin{center}
-\begin{table}[htbp]
-\centering
-\captionsetup{justification=raggedright,
-singlelinecheck=false
-}
-\caption{ Καταγραφή χρόνων εκτέλεσης παραδειγμάτων}
-\def\arraystretch{1.5}
-\begin{tabular}{| p{0.25\textwidth} | p{0.25\textwidth}|}
- \textbf{Αριθμός στοιχείων πίνακα\cellcolor[HTML]{D0D0D0}} & \textbf{Χρόνος εκτέλεσης (\emph{\en{sec}}) }\cellcolor[HTML]{D0D0D0} \\
-\hline
-100000 & 0.006\\
-\hline
-1000000 & 0.009\\
-\hline
-10000000 & 0.042\\
-\hline
-100000000 & 0.322\\
-\hline
-200000000 & 0.615\\
-\hline
-300000000 &  0.947\\
-\hline
-400000000 &  1.22\\
-\hline
-\end{tabular}
-\end{table}
-\end{center}
-
-\subparagraph{Σχόλιο}\ \\
-Η συγκεκριμένη εκτέλεση καταγράφει τις καλύτερες επιδόσεις από όλες τις υπόλοιπες. Ή υλοποίησή της έγινε με παραλληλοποίηση βρόγχου επανάληψης στη συσκευή προορισμού, με δεδομένα που βρίσκονται αποθηκευμένα σε αυτή. Οι επιδόσεις είναι εμφανώς καλύτερες σε σύγκριση με τη σειριακή εκτέλεση, ενώ η οδηγία διανυσματικοποίησης \emph{\en{simd}} δεν επηρεάζει στη βελτίωση του χρόνου.
-
-\newpage
-\subsubsection{Συγκρίσεις με γραφική απεικόνιση}
-\subparagraph{}
-
-\paragraph{\emph{Σειριακή} \en{VS} \emph{Παραλλαγή 14}}
-\subparagraph{}
-Στο παρακάτω διάγραμμα συγκρίνεται η σειριακή εκτέλεση, με την καλύτερη επίδοση που επετεύχθει.
-Πρόκειται για την παραλλαγή 14, η οποία παρουσιάζει παρόμοιες επιδόσεις με την 12.
-Η μοναδική διαφορά ανάμεσα στις δυο παραλλαγές είναι ότι στη παραλλαγή 12, δεν υπάρχει η οδηγία διανυσματικοποίησης \emph{\en{\textbf{simd}}}.\ \\ 
-\ \\
-
-\begin{tikzpicture}
-\centering
-\begin{axis}[
-   % title={Τίτλος},
-    xlabel={Αριθμός στοιχείων διανύσματος},
-    legend cell align = {left},
-    ylabel={Χρόνος εκτέλεσης \emph{\en{sec}}},
-    xmin=100000, xmax=300000000,
-    ymin=0, ymax=5,
-    xtick={100000,100000000, 200000000, 300000000},
-    ytick={0,1,2,3,4,5},
-    legend pos= outer north east,
-    ymajorgrids=true,
-    width = 0.60\textwidth,
-    grid style=dashed,
-]
-\addplot[
-    color=blue,
-    mark=triangle,
-    ]
-    coordinates {
-    (100000,0.002)
-    (1000000, 0.009742)
-    (10000000, 0.098103)
-    (100000000, 0.98088)
-    (200000000, 1.978147) 
-    (300000000, 2.968849)
-    };
-    \addlegendentry{Σειριακή}
+\begin{figure}[h]
+\begin{tabular}{*{2}{>{\centering\arraybackslash}b{\dimexpr0.5\linewidth-2\tabcolsep\relax}}}
+\resizebox{0.35\textwidth}{!} {
+\begin{tikzpicture}[state/.append style={minimum size=7mm}]
+     \begin{axis}[
+         title={Χρόνοι εκτέλεσης \en{SAXPY}},
+         xlabel={Μέγεθος διανυσμάτων},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=100000, xmax=300000000,
+         ymin=0, ymax=4,
+         xtick={ 100000000, 200000000, 300000000},
+         ytick={ 0, 1, 2, 3, 4 },
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ]
     
-    \addplot[
-    color=red,
-    mark=*,
-    ]
-    coordinates {
-    (100000,0.006)
-    (1000000, 0.00974)
-    (10000000, 0.0417)
-    (100000000, 0.322)
-    (200000000, 0.615) 
-    (300000000, 0.947)
-    };
-    \addlegendentry{Παραλλαγή 14}
-\end{axis}
-\end{tikzpicture}
+     \addplot[ color=blue, mark=square,]
+      coordinates {
+          (100000,0.0012)(1000000,0.0118)(10000000,0.1179)
+          (100000000,1.1821)(200000000,2.3612)(300000000,3.5510)
+ 	};
+     \addlegendentry{-O0}
+     
+     \addplot[ color=red, mark=square,]
+      coordinates {
+          (100000,0.00011)(1000000,0.00171)(10000000,0.01631)
+          (100000000,0.16124)(200000000,0.31867)(300000000,0.42806)
+ 	};
+ 	\addlegendentry{-O3}
+ 	
+ 	\addplot[ color=green, mark=square,]
+      coordinates {
+          (100000,0.0002)(1000000,0.0021)(10000000,0.0203)
+          (100000000,0.2397)(200000000,0.3981)(300000000,0.6052)
+ 	};
+ 	\addlegendentry{-O3 \en{no-vec}}
+     \end{axis}
+ \end{tikzpicture}}
 
-Παρατηρείται ότι η απόδοση των δυο παραλλαγών δεν επηρεάζεται από το μέγεθος του διανύσματος που αντιστοιχίζεται.
-\ \\
-\begin{center}
-\begin{tikzpicture}
-\centering
-\centering
-\begin{axis}[
-    title={\textbf{Ποσοστό αύξησης χρόνου εκτέλεσης}},
-    xlabel={Αριθμός στοιχείων διανύσματος},
-    legend cell align = {left},
-    ylabel={Ποσοστό αύξησης χρόνου (\%)},
-    xmin=100000, xmax=300000000,
-    ymin=0, ymax=100,
-    xtick={100000, 100000000, 200000000, 300000000},
-    ytick={ 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-    legend pos= outer north east,
-    ymajorgrids=true,
-    width = 0.50\textwidth,
-    grid style=dashed,
-]
-\addplot[
-    color=blue,
-    mark=triangle,
-    ]
-    coordinates {
-    (10000000,57.49)
-    (100000000,67.17)
-    (200000000, 68.91)
-    (300000000, 68.10)
-    };
-\end{axis}
-\end{tikzpicture}
-\end{center}
+\caption{Σύγκριση αποτελεσμάτων}
+    &
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{c|c}
+Μέγεθος & Επιτάχυνση (\%)  \\
+\hline
+100000    & 90.8 \\
+1000000   & 85.5 \\
+10000000  & 86.2  \\
+100000000 & 86.4  \\
+200000000 & 86.5 \\
+300000000 & 87.9
+\end{tabular}
+\captionof{table}{Ποσοστό μείωσης με -Ο3}
+\end{tabular}
+\end{figure}
 
-\newpage
-\paragraph{Παραλλαγή \emph{8 \en{VS} 13}}
+\clearpage
+\subsection{Παραλλαγή με οδηγία \en{parallel for}}
 \subparagraph{}
-Συγκρίνονται παραλλαγές που μοναδική διαφορά έχουν τον τρόπο διαχείρισης των δεδομένων που μεταφέρονται ανάμεσα στις δυο συσκευές.
-Στην πρώτη περίπτωση, γίνεται αντιστοίχιση του διανύσματος με τη χρήση οδηγίας \emph{\en{textbf{map}}}, ενώ στη δεύτερη η δέσμευση μνήμης γίνεται απευθείας στη συσκευή προορισμού, γιαύτό δεν απαιτείται αντιστοίχιση.
-\ \\ 
+Η πρώτη υλοποίηση παραλλαγής με παραλληλισμό της συνάρτησης \en{saxpy} περιλαμβάνει τον επαναληπτικό βρόγχο ενσωματωμένο στην οδηγία \emph\en{parallel for} στον οποίο γίνεται ο υπολογισμός για κάθε στοιχείο των διανυσμάτων. Τα αποτελέσματα φαίνονται στον ακολουθούμενο πίνακα.
+\selectlanguage{english}
+\begin{spacing}{1.0}
+\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{parallel for}}} , frame=tlrb]{Name}
+void saxpy(size_t n, float a, const float *x, float *y) {
+    #pragma omp parallel for
+    for (size_t i = 0; i < n; ++i) {
+        y[i] = a * x[i] + y[i];
+    }
+} 
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
 
-\begin{tikzpicture}
-\centering
-\begin{axis}[
-    title={Σύγκριση Παραλλαγών},
-    xlabel={Αριθμός στοιχείων διανύσματος},
-    legend cell align = {left},
-    ylabel={Χρόνος εκτέλεσης \emph{\en{sec}}},
-    xmin=100000, xmax=300000000,
-    ymin=0, ymax=7,
-    xtick={100000,100000000, 200000000, 300000000},
-    ytick={0,1,2,3,4,5, 6, 7},
-    legend pos= outer north east,
-    ymajorgrids=true,
-    width = 0.65\textwidth,
-    grid style=dashed,
-]
-\addplot[
-    color=blue,
-    mark=triangle,
-    ]
-    coordinates {
-    (100000, 0.977)
-    (1000000, 0.845)
-    (10000000, 1.125)
-    (100000000, 3.75)
-    (200000000, 6.616)
-    (300000000, 9.671)
-    };
-    \addlegendentry{Παραλλαγή 8}
+\begin{table}[h]
+    \centering
+    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \label{my-label}
+    \begin{tabular}{|p{0.30\textwidth}| >{\centering\arraybackslash}p{0.25\textwidth}| >{\centering\arraybackslash}p{0.25\textwidth}|}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+               & \textbf{-Ο0} & \textbf{-Ο3} \\ \hline
+     100000    &  0.003 & 0.004 \\ \cline{1-3} 
+     1000000   &  0.009 & 0.004 \\ \cline{1-3} 
+     10000000  &  0.018 & 0.014 \\ \cline{1-3} 
+     100000000 &  0.133 & 0.126 \\ \cline{1-3} 
+     200000000 &  0.255 & 0.244 \\ \cline{1-3} 
+     300000000 &  0.380 & 0.364 \\ \cline{1-3} 
+     400000000 &  0.480 & 0.460 \\ \cline{1-3} 
+     500000000 &  0.489 & 0.408 \\ \cline{1-3} 
+
+
+    \end{tabular}
+\end{table}
+
+\begin{figure}[h]
+\begin{tabular}{*{2}{>{\centering\arraybackslash}b{\dimexpr0.5\linewidth-2\tabcolsep\relax}}}
+\resizebox{0.42\textwidth}{!} {
+\begin{tikzpicture}[state/.append style={minimum size=7mm}]
+     \begin{axis}[
+         title={Χρόνοι εκτέλεσης \en{SAXPY}},
+         xlabel={Μέγεθος διανυσμάτων},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=100000, xmax=700000000,
+         ymin=0, ymax=1.5,
+         xtick={ 100000000, 200000000, 300000000, 400000000,
+          500000000, 600000000, 700000000},
+         ytick={ 0, 0.25, 0.5, 0.75, 1, 1.5 },
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ]
     
-    \addplot[
-    color=red,
-    mark=*,
-    ]
-    coordinates {
-    (100000, 0.0078)
-    (1000000, 0.031)
-    (10000000, 0.248)
-    (100000000, 1.994)
-    (200000000, 3.93)
-    (300000000, 5.923)
-    };
-    \addlegendentry{Παραλλαγή 13}
+     \addplot[ color=blue, mark=square,]
+      coordinates {
+          (100000, 0.003804)(1000000,0.009033)(10000000,0.018875)
+          (100000000,0.133915)(200000000,0.255251)(300000000,0.380445)
+          (400000000, 0.480862)(500000000, 0.489234)(600000000, 0.471 )
+ 	};
+     
+     \addplot[ color=red, mark=square,]
+      coordinates {
+          (100000,0.004391)(1000000,0.004197)(10000000,0.014912)
+          (100000000,0.126548)(200000000,0.2425)(300000000,0.364)
+          (400000000,0.460)(500000000,0.408)(600000000, 0.391)(700000000, 0.4275)
+ 	};
 
-\end{axis}
-\end{tikzpicture}
-\ \\
-\ \\
-Παρατηρείται ότι η απόδοση των δυο παραλλαγών επηρεάζεται από το μέγεθος του διανύσματος που αντιστοιχίζεται.
-\ \\
-\begin{center}
-\begin{tikzpicture}
-\centering
-\centering
-\begin{axis}[
-    title={\textbf{Ποσοστό αύξησης χρόνου εκτέλεσης}},
-    xlabel={Αριθμός στοιχείων διανύσματος},
-    legend cell align = {left},
-    ylabel={Ποσοστό αύξησης χρόνου (\%)},
-    xmin=100000, xmax=300000000,
-    ymin=0, ymax=100,
-    xtick={100000, 100000000, 200000000, 300000000},
-    ytick={0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-    legend pos= outer north east,
-    ymajorgrids=true,
-    width = 0.50\textwidth,
-    grid style=dashed,
-]
-\addplot[
-    color=blue,
-    mark=triangle,
-    ]
-    coordinates {
-    (100000, 99.20)
-    (1000000, 96.34)
-    (10000000, 77.95)
-    (100000000,46.83)
-    (200000000, 40.599)
-    (300000000, 38.755)
-    };
-\end{axis}
-\end{tikzpicture}
-\end{center}
-\newpage
+	\addplot[ color=green, mark=square,]
+      coordinates {
+          (100000,0.00011)(1000000,0.00171)(10000000,0.01631)
+          (100000000,0.16124)(200000000,0.31867)(300000000,0.42806)
+          (400000000, 0.645)(500000000,0.851) (600000000, 1.055)(700000000, 1.1977)
+ 	};
+     \legend{-O0, -O3, \en{serial} -O3}
+     \end{axis}
+ \end{tikzpicture}}
 
-\paragraph{Παραλλαγή \emph{9 \en{vs} 14}}
+\caption{Σύγκριση αποτελεσμάτων}
+    &
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{c|c}
+Μέγεθος & Επιτάχυνση (\%)  \\
+\hline
+100000    & -33.3 \\
+1000000   &  55.5\\
+10000000  &  22.22 \\
+100000000 & 5.26\\
+200000000 & 4.31 \\
+300000000 & 4.2\\
+400000000 & 4.16\\
+500000000 & 16.56
+\end{tabular}
+\captionof{table}{Ποσοστό μείωσης με -Ο3}
+\end{tabular}
+\end{figure}
+
+\subsubsection{Παρατηρήσεις}
 \subparagraph{}
-Συγκρίνονται παραλλαγές που μοναδική διαφορά έχουν τον τρόπο διαχείρισης των δεδομένων που μεταφέρονται ανάμεσα στις δυο συσκευές.
-Στην πρώτη περίπτωση, γίνεται αντιστοίχιση του διανύσματος με τη χρήση οδηγίας \emph{\en{textbf{map}}}, ενώ στη δεύτερη η δέσμευση μνήμης γίνεται απευθείας στη συσκευή προορισμού, γιαύτό δεν απαιτείται αντιστοίχιση.
-\ \\ 
+Με τη χρήση της οδηγίας \emph{\en{pragma omp parallel for}} επετέφχθει μείωση του χρόνου εκτέλεσης του αλγορίθμου όταν το πρόγραμμα μεταγλωττίζεται με -Ο0 σε σύγκριση με την αντίστοιχη σειριακή. Οι χρόνοι εκτέλεσης της συγκεκριμένης περίπτωσης ωστόσο, μοιάζουν με τους αντίστοιχους της μεταγλώττισης σειριακού κώδικα με -Ο3 για διανύσματα μέχρι 3\en{e}8 στοιχείων, ενώ για μεγαλύτερες τιμές η παράλληλη εκτέλεση έχει καλύτερες επιδόσεις. Τέλος, από το παραπάνω διάγραμμα δε προκύπτει κάποια διαφοροποίηση ανάμεσα στη μεταγλώττιση με -Ο0 και -Ο3.
 
-\begin{tikzpicture}
-\centering
-\begin{axis}[
-    title={\textbf{Σύγκριση Παραλλαγών}},
-    xlabel={Αριθμός στοιχείων διανύσματος},
-    legend cell align = {left},
-    ylabel={Χρόνος εκτέλεσης \emph{\en{sec}}},
-    xmin=100000, xmax=300000000,
-    ymin=0, ymax=7,
-    xtick={100000,100000000, 200000000, 300000000},
-    ytick={0,1,2,3,4,5, 6, 7},
-    legend pos= outer north east,
-    ymajorgrids=true,
-    width = 0.65\textwidth,
-    grid style=dashed,
-]
-\addplot[
-    color=blue,
-    mark=triangle,
-    ]
-    coordinates {
-    (100000, 0.933)
-    (1000000, 0.8312)
-    (10000000, 0.903)
-    (100000000, 1.44)
-    (200000000, 3.21)
-    (300000000, 3.13)
-    (400000000, 5.68)
-    };
-    \addlegendentry{Παραλλαγή 9}
+
+\subsection{Παραλλαγή με \emph{\en{parallel for}} και \en{padding}}
+\subparagraph{}
+Σε αυτή την περίπτωση, ο αλγόριθμος παραμένει ίδιος, χρησιμοποιείται δηλαδή η οδηγία \emph{\en{pragma omp parallel for}}. Ωστόσο στη συνάρτηση εισάγονται ως ορίσματα δομές που εμπεριέχουν μία μεταβλητή αριθμού μικρής ακρίβειας και ένα τεχνητό κενό \emph{\en{padding}}. Το μέγεθος της είναι 64\en{bytes} και έχει ως στόχο την αποφυγή του φαινομένου \textbf{\en{false sharing}}.
+
+\selectlanguage{english}
+\begin{spacing}{0.9}
+\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{parallel for}}} , frame=tlrb]{Name}
+void saxpy(size_t n, float a, const float64 *x, float64 *y) {
+    #pragma omp parallel for
+    for (size_t i = 0; i < n; ++i) {
+        y[i].val = a * x[i].val + y[i].val;
+    }
+} 
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \label{my-label}
+    \begin{tabular}{|p{0.30\textwidth}| >{\centering\arraybackslash}p{0.25\textwidth}| >{\centering\arraybackslash}p{0.25\textwidth}|}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+               & \textbf{-Ο0} & \textbf{-Ο3} \\ \hline
+     100000    &  0.004 & 0.0046 \\ \cline{1-3} 
+     1000000   &  0.021 & 0.0196 \\ \cline{1-3} 
+     10000000  &  0.182 & 0.185  \\ \cline{1-3} 
+     100000000 &  \en{killed} & \en{killed} \\ \cline{1-3} 
+    \end{tabular}
+\end{table}
+
+\subsubsection{Παρατηρήσεις}
+\subparagraph{}
+Το πρόβλημα \emph{\en{false sharing}} δεν ήταν δυνατό να εντοπισθεί στη
+συγκεκριμένη παραλλαγή. Μάλιστα, 
+ο έλεγχος για μεγέθη διανυσμάτων μεγαλύτερων των 1\en{e}8 στοιχείων, ήταν ανεπιτυχής λόγω έλλειψης υπολογιστικών πόρων.
+\clearpage
+
+\subsection{Παραλλαγή με \emph{\en{omp simd}}}
+\subparagraph{}
+\selectlanguage{english}
+\begin{spacing}{0.9}
+\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{omp simd}}} , frame=tlrb]{Name}
+void saxpy(size_t n, float a, const float *x, float *y) {
+    #pragma omp simd
+    for (size_t i = 0; i < n; ++i) {
+        y[i] = a * x[i] + y[i];
+    }
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \label{my-label}
+    \begin{tabular}{| >{\centering\arraybackslash}p{0.15\textwidth}| 
+    >{\centering\arraybackslash}p{0.1\textwidth}|
+    >{\centering\arraybackslash}p{0.25\textwidth}|
+    >{\centering\arraybackslash}p{0.1\textwidth}|
+    >{\centering\arraybackslash}p{0.25\textwidth}|}
+    \hline
+    \multirow{2}{*}{\textbf{\shortstack{\\Μέγεθος \\ προβλήματος}}} & \multicolumn{4}{|c|}					{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-5} 
+        & \textbf{-Ο0}
+        & \textbf{\en{\shortstack{\\-O0\\ -fno-tree-vectorize}}} 
+        & \textbf{\en{-O3}}
+        & \textbf{\en{\shortstack{\\-O3\\ -fno-tree-vectorize}}} 
+\\ \hline
+     100000    & 0.001 & 0.001 & 0.000 & 0.003 \\ \cline{1-5} 
+     1000000   & 0.011 & 0.011 & 0.002 & 0.002 \\ \cline{1-5} 
+     10000000  & 0.113 & 0.114 & 0.016 & 0.020 \\ \cline{1-5} 
+     100000000 & 1.126 & 1.142 & 0.162 & 0.198 \\ \cline{1-5} 
+     200000000 & 2.263 & 2.271 & 0.320 & 0.380 \\ \cline{1-5} 
+     300000000 & 3.417 & 3.414 & 0.481 & 0.527 \\ \cline{1-5} 
+     400000000 & 4.548 & 4.513 & 0.634 & 0.787 \\ \cline{1-5} 
+
+    \end{tabular}
+\end{table}
+
+θελω να συγκρινω το vectorizatin με την σεριαλ εκδοση. Να ξαναδω τη σειριαλ, για 
+να παρε αυτο με την επιλογη -fno-tree-vectorize. Να φτιαξω διαγραμματα και να κανω πειραματα.
+
+\begin{figure}[h]
+\centering 
+\resizebox{0.5\textwidth}{!} {
+\begin{tikzpicture}   
+    \begin{axis}[
+         title={Χρόνοι εκτέλεσης με \en{omp simd}},
+         xlabel={Μέγεθος διανυσμάτων},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=100000000, xmax=400000000,
+         ymin=0, ymax=5,
+         xtick={ 100000000, 200000000, 300000000, 400000000},
+         ytick={ 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4},
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ]
     
-    \addplot[
-    color=red,
-    mark=*,
-    ]
-    coordinates {
-    (100000, 0.006)
-    (1000000, 0.0094)
-    (10000000, 0.0417)
-    (100000000, 0.322)
-    (200000000, 0.615)
-    (300000000, 0.947)
-    (400000000, 1.228)
-    };
-    \addlegendentry{Παραλλαγή 14}
+     \addplot[ color=blue, mark=square,]
+      coordinates {
+          (100000000, 1.126)(200000000, 2.263)(300000000, 3.417)
+          (400000000, 4.548)
+ 	};
+     
+     \addplot[ color=red, mark=square,]
+      coordinates {
+          (100000000,1.142)(200000000,2.271)(300000000,3.414)
+          (400000000,4.513)
+ 	};
 
-\end{axis}
-\end{tikzpicture}
-\ \\
-\ \\
-Παρατηρείται ότι η απόδοση των δυο παραλλαγών επηρεάζεται από το μέγεθος του διανύσματος που αντιστοιχίζεται.
-\ \\
-\begin{center}
+	\addplot[ color=green, mark=square,]
+      coordinates {
+          (100000000,0.162)(200000000,0.320)(300000000,0.481)
+          (400000000, 0.634)
+ 	};
+ 	
+ 	\addplot[ color=black, mark=square,]
+      coordinates {
+          (100000000,0.198)(200000000,0.380)(300000000,0.527)
+          (400000000, 0.787)
+ 	};
+ 	\legend{-O0, \en{-O0 no-vec}, -O3, \en{-O3 no-vec}}
+    \end{axis}
+χ`\end{tikzpicture}}% NO EMPTY LINE HERE!!!! 
+\resizebox{0.5\textwidth}{!} {
 \begin{tikzpicture}
-\centering
-\centering
-\begin{axis}[
-    title={\textbf{Ποσοστό αύξησης χρόνου εκτέλεσης}},
-    xlabel={Αριθμός στοιχείων διανύσματος},
-    legend cell align = {left},
-    ylabel={Ποσοστό αύξησης χρόνου (\%)},
-    xmin=100000, xmax=400000000,
-    ymin=0, ymax=100,
-    xtick={100000, 100000000, 200000000, 300000000, 400000000},
-    ytick={0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-    legend pos= outer north east,
-    ymajorgrids=true,
-    width = 0.50\textwidth,
-    grid style=dashed,
-]
-\addplot[
-    color=blue,
-    mark=triangle,
-    ]
-    coordinates {
-    (100000, 99.357)
-    (1000000, 98.87)
-    (10000000,95.382)
-    (100000000,77.64)
-    (200000000, 80.8411)
-    (300000000, 69.74)
-	(400000000, 78.38)
+    \begin{axis}[
+         title={Σύγκριση σειριακής με \en{omp simd}},
+         xlabel={Μέγεθος διανυσμάτων},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=100000000, xmax=400000000,
+         ymin=0, ymax=5,
+         xtick={ 100000000, 200000000, 300000000, 400000000},
+         ytick={ 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4},
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ]
+    
+	\addplot[ color=blue, mark=square,]
+      coordinates {
+          (100000000, 1.182)(200000000, 2.361)(300000000, 3.55)
+          (400000000, 4.73)
+ 	};
+ 	\addlegendentry{-O0 \en{serial}}
+ 	
+ 	\addplot[ color=red, mark=square,]
+      coordinates {
+          (100000000,1.142)(200000000,2.271)(300000000,3.414)
+          (400000000,4.513)
+ 	};
+ 	\addlegendentry{-O0 \en{no-vec}}
+ 	
+ 	\addplot[ color=green, mark=square,]
+      coordinates {
+          (100000000,0.2397)(200000000, 0.3981)(300000000,0.6052)
+          (400000000,0.7884)
+ 	};
+ 	\addlegendentry{-O3 \en{ serial no-vec}}
+ 	
+ 	 	\addplot[ color=black, mark=square,]
+      coordinates {
+          (100000000,0.198)(200000000,0.380)(300000000,0.527)
+          (400000000,0.787)
+ 	};
+ 	\addlegendentry{-O3 \en{simd no-vec}}
 
-    };
-\end{axis}
-\end{tikzpicture}
-\end{center}
+
+    \end{axis}
+\end{tikzpicture}} 
+\caption{Left: No Interaction. Right: Interaction} \label{fig:M}  
+\end{figure}
+
+\subsection{Παραλλαγή με \emph{\en{omp declare simd uniform}}}
+\subparagraph{} 
+
+\selectlanguage{english}
+\begin{spacing}{0.9}
+\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{omp declare simd uniform}}} , frame=tlrb]{Name}
+#pragma omp declare simd uniform(a)
+float do_work(float a, float b, float c)
+{
+    return a * b + c;
+}
+
+void saxpy(size_t n, float a, const float *x, float *y) {
+    #pragma omp simd
+    for (size_t i = 0; i < n; ++i) {
+        y[i] = do_work(a, x[i], y[i]);
+    }
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \label{my-label}
+    \begin{tabular}{| >{\centering\arraybackslash}p{0.15\textwidth}| 
+    >{\centering\arraybackslash}p{0.1\textwidth}|
+    >{\centering\arraybackslash}p{0.25\textwidth}|
+    >{\centering\arraybackslash}p{0.1\textwidth}|
+    >{\centering\arraybackslash}p{0.25\textwidth}|}
+    \hline
+    \multirow{2}{*}{\textbf{\shortstack{\\Μέγεθος \\ προβλήματος}}} & \multicolumn{4}{|c|}					{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-5} 
+        & \textbf{-Ο0}
+        & \textbf{\en{\shortstack{\\-O0\\ -fno-tree-vectorize}}} 
+        & \textbf{\en{-O3}}
+        & \textbf{\en{\shortstack{\\-O3\\ -fno-tree-vectorize}}} 
+\\ \hline
+     100000    & 0.001 & 0.001 & 0.001 & 0.0003\\ \cline{1-5} 
+     1000000   & 0.017 & 0.014 & 0.002 & 0.002 \\ \cline{1-5} 
+     10000000  & 0.143 & 0.139 & 0.017 & 0.022 \\ \cline{1-5} 
+     100000000 & 1.424 & 1.421 & 0.148 & 0.193 \\ \cline{1-5} 
+     200000000 & 2.792 & 2.78  & 0.294 & 0.422 \\ \cline{1-5} 
+     300000000 & 4.206 & 4.174 & 0.459 & 0.630 \\ \cline{1-5} 
+     400000000 & 5.705 & 5.59  & 0.651 & 0.833 \\ \cline{1-5} 
+    \end{tabular}
+\end{table}
+
+\en{TODO} Μπορω να βαλω 4 διαγραμματα που να συγκρινουν το προηγουμενο με αυτο. για να δειξω οτι η πιθανη καθυστερηση σε αυτο ειναι το overhead απο το function call.
+\clearpage
+\subsection{Παραλλαγή με \emph{\en{omp declare simd uniform notinbranch}}}
+\subparagraph{} 
+\selectlanguage{english}
+\begin{spacing}{0.9}
+\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{omp declare simd uniform
+ notinbranch}}} , frame=tlrb]{Name}
+#pragma omp declare simd uniform(a) notinbranch
+float do_work(float a, float b, float c)
+{
+    return a * b + c;
+}
+
+void saxpy(size_t n, float a, const float *x, float *y) {
+    #pragma omp simd
+    for (size_t i = 0; i < n; ++i) {
+        y[i] = a * x[i] + y[i]; //TODO
+    }
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \label{my-label}
+    \begin{tabular}{| >{\centering\arraybackslash}p{0.15\textwidth}| 
+    >{\centering\arraybackslash}p{0.1\textwidth}|
+    >{\centering\arraybackslash}p{0.25\textwidth}|
+    >{\centering\arraybackslash}p{0.1\textwidth}|
+    >{\centering\arraybackslash}p{0.25\textwidth}|}
+    \hline
+    \multirow{2}{*}{\textbf{\shortstack{\\Μέγεθος \\ προβλήματος}}} & \multicolumn{4}{|c|}					{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-5} 
+        & \textbf{-Ο0}
+        & \textbf{\en{\shortstack{\\-O0\\ -fno-tree-vectorize}}} 
+        & \textbf{\en{-O3}}
+        & \textbf{\en{\shortstack{\\-O3\\ -fno-tree-vectorize}}} 
+\\ \hline
+     100000    & 0.001 & 0.001 & 0.001 & 0.001 \\ \cline{1-5} 
+     1000000   & 0.012 & 0.011 & 0.002 & 0.002 \\ \cline{1-5} 
+     10000000  & 0.115 & 0.115 & 0.016 & 0.021 \\ \cline{1-5} 
+     100000000 & 1.154 & 1.145 & 0.161 & 0.212 \\ \cline{1-5} 
+     200000000 & 2.308 & 2.299 & 0.322 & 0.378 \\ \cline{1-5} 
+     300000000 & 3.473 & 3.446 & 0.479 & 0.633 \\ \cline{1-5} 
+     400000000 & 4.621 & 4.604 & 0.632 & 0.827 \\ \cline{1-5} 
+    \end{tabular}
+\end{table}
+
+Να αναφερω οτι δε βλέπω κάποια διαφορα σε σχέση με το προηγούμενο παραλλαγή.
+\clearpage
+
+
+\subsection{Παραλλαγή με \emph{\en{omp parallel for simd}}}
+\subparagraph{} 
+\selectlanguage{english}
+\begin{spacing}{0.9}
+\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{omp parallel for simd}}} , frame=tlrb]{Name}
+void saxpy(size_t n, float a, const float *x, float *y) {
+    #pragma omp parallel for simd
+    for (size_t i = 0; i < n; ++i) {
+        y[i] = a * x[i] + y[i];
+    }
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \label{my-label}
+    \begin{tabular}{| >{\centering\arraybackslash}p{0.15\textwidth}| 
+    >{\centering\arraybackslash}p{0.1\textwidth}|
+    >{\centering\arraybackslash}p{0.25\textwidth}|
+    >{\centering\arraybackslash}p{0.1\textwidth}|
+    >{\centering\arraybackslash}p{0.25\textwidth}|}
+    \hline
+    \multirow{2}{*}{\textbf{\shortstack{\\Μέγεθος \\ προβλήματος}}} & \multicolumn{4}{|c|}					{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-5} 
+        & \textbf{-Ο0}
+        & \textbf{\en{\shortstack{\\-O0\\ -fno-tree-vectorize}}} 
+        & \textbf{\en{-O3}}
+        & \textbf{\en{\shortstack{\\-O3\\ -fno-tree-vectorize}}} 
+\\ \hline
+     100000    & 0.004 & 0.005 & 0.002 & 0.005 \\ \cline{1-5} 
+     1000000   & 0.007 & 0.007 & 0.001 & 0.004 \\ \cline{1-5} 
+     10000000  & 0.019 & 0.019 & 0.017 & 0.014 \\ \cline{1-5} 
+     100000000 & 0.127 & 0.125 & 0.125 & 0.124 \\ \cline{1-5} 
+     200000000 & 0.256 & 0.249 & 0.247 & 0.250 \\ \cline{1-5} 
+     300000000 & 0.372 & 0.383 & 0.369 & 0.365 \\ \cline{1-5} 
+     400000000 & 0.494 & 0.525 & 0.482 & 0.485 \\ \cline{1-5} 
+    \end{tabular}
+\end{table}
+
+να αναφέρω οτι δεν παιζει ρολο το -O3 optimization :(
+Επίσης να συγκρίνω με την parallel for χωρις simd!
+\clearpage
+\subsection{Παραλλαγή με \emph{\en{target map}}}
+\subparagraph{}
+\selectlanguage{english}
+\begin{spacing}{0.9}
+\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{target map}}} , frame=tlrb]{Name}
+void saxpy(size_t n, float a, const float *x, float *y) {
+    #pragma omp target map(tofrom: y[0:n]) map(to: x[0:n])
+    for (size_t i = 0; i < n; ++i) {
+        y[i] = a * x[i] + y[i];
+    }
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \label{my-label}
+    \begin{tabular}{| >{\centering\arraybackslash}p{0.25\textwidth}| 
+    >{\centering\arraybackslash}p{0.25\textwidth}|
+    >{\centering\arraybackslash}p{0.25\textwidth}|}
+    \hline
+    \multirow{2}{*}{\textbf{\shortstack{\\Μέγεθος \\ προβλήματος}}} & \multicolumn{2}{|c|}					{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+        & \textbf{-Ο0}
+        & \textbf{-O3} 
+
+\\ \hline
+     100000    & 0.005 & 0.004 \\ \cline{1-3} 
+     1000000   & 0.016 & 0.006 \\ \cline{1-3} 
+     10000000  & 0.123 & 0.019 \\ \cline{1-3} 
+     100000000 & 1.187 & 0.269 \\ \cline{1-3} 
+     200000000 & 2.381 & 0.334 \\ \cline{1-3} 
+     300000000 & 3.555 & 0.512 \\ \cline{1-3} 
+     400000000 & 4.731 & 0.622 \\ \cline{1-3} 
+    \end{tabular}
+\end{table}
+
+Συγκριση με σειριακή.
+
+\clearpage
+\subsection{Παραλλαγή με \emph{\en{target simd map}}}
+\subparagraph{}
+\selectlanguage{english}
+\begin{spacing}{0.9}
+\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{target simd map}}} , frame=tlrb]{Name}
+void saxpy(size_t n, float a, const float *x, float *y) {
+    #pragma omp target simd map(tofrom: y[0:n]) map(to: x[0:n])
+    for (size_t i = 0; i < n; ++i) {
+        y[i] = a * x[i] + y[i];
+    }
+}
+
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \label{my-label}
+    \begin{tabular}{| >{\centering\arraybackslash}p{0.15\textwidth}| 
+    >{\centering\arraybackslash}p{0.15\textwidth}|
+	>{\centering\arraybackslash}p{0.20\textwidth}|
+	>{\centering\arraybackslash}p{0.15\textwidth}|
+    >{\centering\arraybackslash}p{0.20\textwidth}|}
+    \hline
+    \multirow{4}{*}{\textbf{\shortstack{\\Μέγεθος \\ προβλήματος}}} & \multicolumn{2}{|c|}					{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+        & \textbf{-Ο0}
+        & \textbf{\en{-O0 -fopenmp-simd}}
+        & \textbf{-O3} 
+        & \textbf{\en{-O3 -fopenmp-simd}}
+
+\\ \hline
+     100000    & 0.005 & 0.005 & 0.004 & 0.004 \\ \cline{1-5} 
+     1000000   & 0.015 & 0.016 & 0.006 & 0.006\\ \cline{1-5} 
+     10000000  & 0.120 & 0.120 & 0.020 & 0.021\\ \cline{1-5} 
+     100000000 & 1.154 & 1.161 & 0.157 & 0.167\\ \cline{1-5} 
+     200000000 & 2.298 & 2.314 & 0.332 & 0.333\\ \cline{1-5} 
+     300000000 & 3.485 & 3.491 & 0.486 & 0.490\\ \cline{1-5} 
+     400000000 & 4.620 & 4.613 & 0.650 & 0.654\\ \cline{1-5} 
+    \end{tabular}
+\end{table}
+
+Συγκριση με σιμδ.
+\clearpage
+\subsection{Παραλλαγή με \emph{\en{target parallel for}}}
+\subparagraph{}
+\selectlanguage{english}
+\begin{spacing}{0.9}
+\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{target parallel for}}} , frame=tlrb]{Name}
+void saxpy(size_t n, float a, const float *x, float *y) {
+#pragma omp target parallel for map(tofrom: y[0:n]) map(to: x[0:n])
+    for (size_t i = 0; i < n; ++i) {
+        y[i] = a * x[i] + y[i];
+    }
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+\begin{table}[h]
+    \centering
+    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \label{my-label}
+    \begin{tabular}{| >{\centering\arraybackslash}p{0.25\textwidth}| 
+    >{\centering\arraybackslash}p{0.25\textwidth}|
+    >{\centering\arraybackslash}p{0.25\textwidth}|}
+    \hline
+    \multirow{2}{*}{\textbf{\shortstack{\\Μέγεθος \\ προβλήματος}}} & \multicolumn{2}{|c|}					{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+        & \textbf{-Ο0}
+        & \textbf{-O3} 
+
+\\ \hline
+     100000    & 0.011 & 0.011 \\ \cline{1-3} 
+     1000000   & 0.009 & 0.013 \\ \cline{1-3} 
+     10000000  & 0.035 & 0.021 \\ \cline{1-3} 
+     100000000 & 0.150 & 0.127 \\ \cline{1-3} 
+     200000000 & 0.264 & 0.251 \\ \cline{1-3} 
+     300000000 & 0.387 & 0.369 \\ \cline{1-3} 
+     400000000 & 0.500 & 0.490 \\ \cline{1-3} 
+    \end{tabular}
+\end{table}
+\clearpage
+\subsection{Παραλλαγή με \emph{\en{target parallel for simd}}}
+\subparagraph{}
+\selectlanguage{english}
+\begin{spacing}{0.9}
+\begin{lstlisting}[basicstyle=\small, language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{target parallel for simd}}} , frame=tlrb]{Name}
+void saxpy(size_t n, float a, const float *x, float *y) {
+#pragma omp target parallel for simd map(tofrom: y[0:n]) map(to: x[0:n])
+    for (size_t i = 0; i < n; ++i) {
+        y[i] = a * x[i] + y[i];
+    }
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \label{my-label}
+    \begin{tabular}{| >{\centering\arraybackslash}p{0.15\textwidth}| 
+    >{\centering\arraybackslash}p{0.15\textwidth}|
+	>{\centering\arraybackslash}p{0.20\textwidth}|
+	>{\centering\arraybackslash}p{0.15\textwidth}|
+    >{\centering\arraybackslash}p{0.20\textwidth}|}
+    \hline
+    \multirow{4}{*}{\textbf{\shortstack{\\Μέγεθος \\ προβλήματος}}} & \multicolumn{2}{|c|}					{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+        & \textbf{-Ο0}
+        & \textbf{\en{-O0 -fopenmp-simd}}
+        & \textbf{-O3} 
+        & \textbf{\en{-O3 -fopenmp-simd}}
+
+\\ \hline
+     100000    & 0.010 & 0.010 & 0.011 & 0.011 \\ \cline{1-5} 
+     1000000   & 0.012 & 0.014 & 0.011 & 0.009 \\ \cline{1-5} 
+     10000000  & 0.027 & 0.026 & 0.020 & 0.020 \\ \cline{1-5} 
+     100000000 & 0.140 & 0.154 & 0.128 & 0.130 \\ \cline{1-5} 
+     200000000 & 0.257 & 0.271 & 0.249 & 0.247 \\ \cline{1-5} 
+     300000000 & 0.378 & 0.385 & 0.370 & 0.365 \\ \cline{1-5} 
+     400000000 & 0.513 & 0.505 & 0.450 & 0.489 \\ \cline{1-5} 
+    \end{tabular}
+\end{table}
+
+\clearpage
+\subsection{Παραλλαγή με \emph{\en{target teams map}}}
+\subparagraph{}
+\selectlanguage{english}
+\begin{spacing}{0.9}
+\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{target teams map}}} , frame=tlrb]{Name}
+void saxpy(size_t n, float a, const float *x, float *y) {
+    #pragma omp target teams map(tofrom: y[0:n]) map(to: x[0:n])
+    for (size_t i = 0; i < n; ++i) {
+        y[i] = a * x[i] + y[i];
+    }
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+\begin{table}[h]
+    \centering
+    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \label{my-label}
+    \begin{tabular}{| >{\centering\arraybackslash}p{0.25\textwidth}| 
+    >{\centering\arraybackslash}p{0.25\textwidth}|
+    >{\centering\arraybackslash}p{0.25\textwidth}|}
+    \hline
+    \multirow{2}{*}{\textbf{\shortstack{\\Μέγεθος \\ προβλήματος}}} & \multicolumn{2}{|c|}					{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+        & \textbf{-Ο0}
+        & \textbf{-O3} 
+
+\\ \hline
+     100000    & 0.005 & 0.004  \\ \cline{1-3} 
+     1000000   & 0.016 & 0.006 \\ \cline{1-3} 
+     10000000  & 0.132 & 0.025 \\ \cline{1-3} 
+     100000000 & 1.186 & 0.221 \\ \cline{1-3} 
+     200000000 & 2.374 & 0.420 \\ \cline{1-3} 
+     300000000 & 3.543 & 0.652 \\ \cline{1-3} 
+     400000000 & 4.729 & 0.821 \\ \cline{1-3} 
+    \end{tabular}
+\end{table}
+
+\clearpage
+\subsection{Παραλλαγή με \emph{\en{target teams distribute map}}}
+\subparagraph{}
+\selectlanguage{english}
+\begin{spacing}{0.9}
+\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{target teams distribute map}}} , frame=tlrb]{Name}
+void saxpy(size_t n, float a, const float *x, float *y) {
+#pragma omp target teams distribute map(from: y[0:n]) map(to: x[0:n])
+    for (size_t i = 0; i < n; ++i) {
+        y[i] = a * x[i] + y[i];
+    }
+}
+
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+\begin{table}[h]
+    \centering
+    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \label{my-label}
+    \begin{tabular}{| >{\centering\arraybackslash}p{0.25\textwidth}| 
+    >{\centering\arraybackslash}p{0.25\textwidth}|
+    >{\centering\arraybackslash}p{0.25\textwidth}|}
+    \hline
+    \multirow{2}{*}{\textbf{\shortstack{\\Μέγεθος \\ προβλήματος}}} & \multicolumn{2}{|c|}					{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+        & \textbf{-Ο0}
+        & \textbf{-O3} 
+
+\\ \hline
+     100000    & 0.005 & 0.004 \\ \cline{1-3} 
+     1000000   & 0.015 & 0.006 \\ \cline{1-3} 
+     10000000  & 0.117 & 0.025 \\ \cline{1-3} 
+     100000000 & 1.142 & 0.214 \\ \cline{1-3} 
+     200000000 & 2.278 & 0.428 \\ \cline{1-3} 
+     300000000 & 3.433 & 0.625 \\ \cline{1-3} 
+     400000000 & 4.575 & 0.851 \\ \cline{1-3} 
+    \end{tabular}
+\end{table}
+
+\clearpage
+\subsection{Παραλλαγή με \emph{\en{target teams distribute parallel for map}}}
+\subparagraph{}
+\selectlanguage{english}
+\begin{spacing}{0.9}
+\begin{lstlisting}[basicstyle=\footnotesize, language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{target teams distribute parallel for}}} , frame=tlrb]{Name}
+void saxpy(size_t n, float a, const float *x, float *y) {
+#pragma omp target teams distribute parallel for map(from: y[0:n]) map(to: x[0:n])
+    for (size_t i = 0; i < n; ++i) {
+        y[i] = a * x[i] + y[i];
+    }
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+\begin{table}[h]
+    \centering
+    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \label{my-label}
+    \begin{tabular}{| >{\centering\arraybackslash}p{0.25\textwidth}| 
+    >{\centering\arraybackslash}p{0.25\textwidth}|
+    >{\centering\arraybackslash}p{0.25\textwidth}|}
+    \hline
+    \multirow{2}{*}{\textbf{\shortstack{\\Μέγεθος \\ προβλήματος}}} & \multicolumn{2}{|c|}					{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+        & \textbf{-Ο0}
+        & \textbf{-O3} 
+
+\\ \hline
+     100000    & 0.010 & 0.011 \\ \cline{1-3} 
+     1000000   & 0.016 & 0.011 \\ \cline{1-3} 
+     10000000  & 0.023 & 0.020 \\ \cline{1-3} 
+     100000000 & 0.139 & 0.127 \\ \cline{1-3} 
+     200000000 & 0.257 & 0.250 \\ \cline{1-3} 
+     300000000 & 0.389 & 0.369 \\ \cline{1-3} 
+     400000000 & 0.511 & 0.490 \\ \cline{1-3} 
+    \end{tabular}
+\end{table}
+\clearpage
+\subsection{Παραλλαγή με \emph{\en{target teams distribute simd map}}}
+\subparagraph{}
+\selectlanguage{english}
+\begin{spacing}{0.9}
+\begin{lstlisting}[basicstyle=\small, language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{target teams distribute simd map}}} , frame=tlrb]{Name}
+void saxpy(size_t n, float a, const float *x, float *y) {
+#pragma omp target teams distribute simd map(from: y[0:n]) map(to: x[0:n])
+    for (size_t i = 0; i < n; ++i) {
+        y[i] = a * x[i] + y[i];
+    }
+}
+
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \label{my-label}
+    \begin{tabular}{| >{\centering\arraybackslash}p{0.15\textwidth}| 
+    >{\centering\arraybackslash}p{0.15\textwidth}|
+	>{\centering\arraybackslash}p{0.20\textwidth}|
+	>{\centering\arraybackslash}p{0.15\textwidth}|
+    >{\centering\arraybackslash}p{0.20\textwidth}|}
+    \hline
+    \multirow{4}{*}{\textbf{\shortstack{\\Μέγεθος \\ προβλήματος}}} & \multicolumn{2}{|c|}					{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+        & \textbf{-Ο0}
+        & \textbf{\en{-O0 -fopenmp-simd}}
+        & \textbf{-O3} 
+        & \textbf{\en{-O3 -fopenmp-simd}}
+
+\\ \hline
+     100000    & 0.005 & 0.050 & 0.004 & 0.004 \\ \cline{1-5} 
+     1000000   & 0.015 & 0.015 & 0.006 & 0.006 \\ \cline{1-5} 
+     10000000  & 0.120 & 0.119 & 0.021 & 0.021 \\ \cline{1-5} 
+     100000000 & 1.159 & 1.153 & 0.159 & 0.168 \\ \cline{1-5} 
+     200000000 & 2.311 & 2.305 & 0.326 & 0.327 \\ \cline{1-5} 
+     300000000 & 3.487 & 3.472 & 0.482 & 0.495 \\ \cline{1-5} 
+     400000000 & 4.620 & 4.610 & 0.647 & 0.644 \\ \cline{1-5} 
+    \end{tabular}
+\end{table}
+
+\clearpage
+\subsection{Παραλλαγή με \emph{\en{target teams distribute parallel for simd map}}}
+\subparagraph{}
+\selectlanguage{english}
+\begin{spacing}{0.9}
+\begin{lstlisting}[basicstyle=\footnotesize, language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{teams distribute parallel for simd\
+			map}}} , frame=tlrb]{Name}
+void saxpy(size_t n, float a, const float *x, float *y) {
+#pragma omp target teams distribute parallel for simd\
+			map(from: y[0:n]) map(to: x[0:n])
+    for (size_t i = 0; i < n; ++i) {
+        y[i] = a * x[i] + y[i];
+    }
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \label{my-label}
+    \begin{tabular}{| >{\centering\arraybackslash}p{0.15\textwidth}| 
+    >{\centering\arraybackslash}p{0.15\textwidth}|
+	>{\centering\arraybackslash}p{0.20\textwidth}|}
+    \hline
+    \multirow{2}{*}{\textbf{\shortstack{\\Μέγεθος \\ προβλήματος}}} & \multicolumn{2}{|c|}					{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+        & \textbf{-Ο0}
+        & \textbf{-O3} 
+
+\\ \hline
+     100000    & 0.010 & 0.010 \\ \cline{1-3} 
+     1000000   & 0.012 & 0.010 \\ \cline{1-3} 
+     10000000  & 0.025 & 0.021 \\ \cline{1-3} 
+     100000000 & 0.146 & 0.127 \\ \cline{1-3} 
+     200000000 & 0.263 & 0.246 \\ \cline{1-3} 
+     300000000 & 0.389 & 0.371 \\ \cline{1-3} 
+     400000000 & 0.519 & 0.489 \\ \cline{1-3} 
+    \end{tabular}
+\end{table}

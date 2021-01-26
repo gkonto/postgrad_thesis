@@ -18,24 +18,27 @@
 \usepackage{multicol}
 \usepackage[titles]{tocloft}
 \usepackage[top=2.5cm, bottom=2.5cm, left=2.8cm, right=3cm]{geometry}
-\usepackage{pgfplots}
 \usepackage{hyperref}
 \usepackage{verbatim}
 \usepackage{enumitem}
-%\usepackage[utf8]{fontenc}
-%\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{subfig}
+\usepackage{graphicx}
 
 
-\pgfplotsset{width=15cm ,compat=1.9}
-\usepgfplotslibrary{external}
-\tikzexternalize[prefix=diagrams/]
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.8}
+\usepgfplotslibrary[external]
+\usepackage{pdfpages}
 
-\hypersetup{
-    colorlinks=true,
-    linkcolor=blue,
-    filecolor=magenta,      
-    urlcolor=cyan,
-}
+% \hypersetup{
+%     colorlinks=true,
+%     linkcolor=blue,
+%     filecolor=magenta,      
+%     urlcolor=cyan,
+% }
 
 
 \renewcommand\cftsecfont{\normalfont}
