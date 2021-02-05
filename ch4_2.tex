@@ -148,14 +148,28 @@ void saxpy(size_t n, float a, const float *x, float *y) {
 \end{spacing}
 \selectlanguage{greek}
 
-Οι χρόνοι εκτέλεσης του αλγορίθμοι συναρτήσει του μεγέθους του προβλήματος παρατίθενται στον παρακάτων πίνακα.
-Το πρόγραμμα μεταγλωττίστηκε με επιλογή -O3 kai -O0.
-
+Η μεταγλώττιση έγινε με τους παρακάτω τρόπους και οι χρόνοι εκτέλεσης καταγράφονται στους πίνακες που ακολουθούν. Ο δεύτερος τρόπος μεταγλώττισης περιλαμβάνει διανυσματικοποίηση από τον μεταγλωττιστή ενώ η πρώτη όχι.
+\begin{table}[h]
+    \centering
+    \caption{Επιλογές μεταγλώττισης}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.9\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt1}} & \en{ -fopt-info-vec=info.log -fno-inline -fno-tree-vectorize -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+     \textbf{\en{Alt2}} & \en{ -fopt-info-vec=info.log -fno-inline -ftree-vectorize -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+          \textbf{\en{Alt3}} & \en{ -fopt-info-vec=info.log -fno-inline -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+    \end{tabular}
+\end{table}
 
 \begin{table}[h]
     \centering
     \caption{Καταγραφή χρόνων εκτέλεσης}
     \label{my-label}
+    \resizebox{0.7\textwidth}{!} {
     \begin{tabular}{|p{0.30\textwidth}
     | >{\centering\arraybackslash}p{0.12\textwidth}
     | >{\centering\arraybackslash}p{0.12\textwidth}
@@ -163,30 +177,31 @@ void saxpy(size_t n, float a, const float *x, float *y) {
     |}
     \hline
     \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{3}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-4} 
-               & \textbf{-Ο0} & \textbf{-Ο3} & \en{\textbf{-O3 -fno-tree-vectorize}}\\ \hline
-     100000    &  0.0012 & 0.00011 & 0.0002 \\ \cline{1-4} 
-     1000000   &  0.0118 & 0.00171 & 0.0021 \\ \cline{1-4} 
-     10000000  &  0.1179 & 0.01631 & 0.0203 \\ \cline{1-4} 
-     100000000 &  1.1821 & 0.16124 & 0.2397 \\ \cline{1-4} 
-     200000000 &  2.3612 & 0.31867 & 0.3981 \\ \cline{1-4} 
-     300000000 &  3.5510 & 0.42806 & 0.6052 \\ \cline{1-4} 
-     400000000 &  4.7291 & 0.6339  & 0.7884 \\ \cline{1-4} 
+               & \textbf{\en{Alt1}} & \textbf{\en{Alt2}} & \textbf{\en{Alt3}} \\ \hline
+     100000    & 0.0004 & 0.0001 & 0.0001\\ \cline{1-4} 
+     1000000   & 0.002  & 0.002  & 0.002\\ \cline{1-4} 
+     10000000  & 0.021  & 0.016  & 0.020\\ \cline{1-4} 
+     100000000 & 0.200  & 0.167  & 0.199 \\ \cline{1-4} 
+     200000000 & 0.398  & 0.334  & 0.397\\ \cline{1-4} 
+     300000000 & 0.583  & 0.502  & 0.599\\ \cline{1-4} 
+     400000000 & 0.773  & 0.617  & 0.788\\ \cline{1-4} 
+     500000000 & 0.989  & 0.818  & 0.991\\ \cline{1-4} 
 
-    \end{tabular}
+    \end{tabular}}
 \end{table}
-
+\clearpage
 \begin{figure}[h]
 \begin{tabular}{*{2}{>{\centering\arraybackslash}b{\dimexpr0.5\linewidth-2\tabcolsep\relax}}}
-\resizebox{0.35\textwidth}{!} {
+\resizebox{0.5\textwidth}{!} {
 \begin{tikzpicture}[state/.append style={minimum size=7mm}]
      \begin{axis}[
-         title={Χρόνοι εκτέλεσης \en{SAXPY}},
+         title={Χρόνοι εκτέλεσης \en{Alt1 - Alt2 - Alt3}},
          xlabel={Μέγεθος διανυσμάτων},
          ylabel={Χρόνος εκτέλεσης},
-         xmin=100000, xmax=300000000,
-         ymin=0, ymax=4,
-         xtick={ 100000000, 200000000, 300000000},
-         ytick={ 0, 1, 2, 3, 4 },
+         xmin=100000, xmax=400000000,
+         ymin=0, ymax=1,
+         xtick={ 100000000, 200000000, 300000000, 400000000},
+         ytick={ 0, 0.25, 0.5, 0.75, 1 },
          legend pos=north west,
         % ymajorgrids=true,
         % grid style=dashed,
@@ -194,48 +209,57 @@ void saxpy(size_t n, float a, const float *x, float *y) {
     
      \addplot[ color=blue, mark=square,]
       coordinates {
-          (100000,0.0012)(1000000,0.0118)(10000000,0.1179)
-          (100000000,1.1821)(200000000,2.3612)(300000000,3.5510)
+          (100000,0.0004)(1000000,0.002)(10000000,0.021)
+          (100000000,0.200)(200000000,0.398)(300000000,0.583)(400000000, 0.773)
+			(5e8, 0.989) 	
  	};
-     \addlegendentry{-O0}
+     \addlegendentry{\en{Alt1}}
      
-     \addplot[ color=red, mark=square,]
-      coordinates {
-          (100000,0.00011)(1000000,0.00171)(10000000,0.01631)
-          (100000000,0.16124)(200000000,0.31867)(300000000,0.42806)
- 	};
- 	\addlegendentry{-O3}
  	
  	\addplot[ color=green, mark=square,]
       coordinates {
-          (100000,0.0002)(1000000,0.0021)(10000000,0.0203)
-          (100000000,0.2397)(200000000,0.3981)(300000000,0.6052)
+          (100000,0.0001)(1000000,0.002)(10000000,0.016)
+          (100000000,0.167)(200000000,0.334)(300000000,0.502)(400000000, 0.617)
+			(5e8, 0.818) 	
  	};
- 	\addlegendentry{-O3 \en{no-vec}}
+ 	\addlegendentry{\en{Alt2}}
+ 	
+ 	 	\addplot[ color=red, mark=square,]
+      coordinates {
+          (100000,0.0001)(1000000,0.002)(10000000,0.020)
+          (1e8,0.199)(2e8,0.397)(3e8,0.599)(4e8, 0.788)
+			(5e8,0.991) 	
+ 	};
+ 	\addlegendentry{\en{Alt3}}
      \end{axis}
  \end{tikzpicture}}
 
 \caption{Σύγκριση αποτελεσμάτων}
     &
 \renewcommand{\arraystretch}{1.1}
+\resizebox{0.4\textwidth}{!} {
 \begin{tabular}{c|c}
 Μέγεθος & Επιτάχυνση (\%)  \\
 \hline
-100000    & 90.8 \\
-1000000   & 85.5 \\
-10000000  & 86.2  \\
-100000000 & 86.4  \\
-200000000 & 86.5 \\
-300000000 & 87.9
-\end{tabular}
-\captionof{table}{Ποσοστό μείωσης με -Ο3}
+100000    & - \\
+1000000   & - \\
+10000000  & 23 \\
+100000000 & 17 \\
+200000000 & 16 \\
+300000000 & 13.9\\
+400000000 & 20 \\
+\end{tabular}}
+\captionof{table}{Ποσοστιαία σύγκριση μεταξύ \en{Alt1} και \en{Alt2}}
 \end{tabular}
 \end{figure}
 
-\clearpage
+Η επιλογή για διανυσματικοποίηση κατά τη μεταγλώττιση επιφέρει περίπου 20\% βελτίωση στις χρονικές επιδόσεις των εκτελέσεων με διαφορετικά μεγέθη διανύσματος. Ακόμη, η επιλογή μεταγλώττισης με \emph{\en{-fno-tree-vectorize}} έχει τις ίδιες επιδόσεις με την παραλλαγή \en{Alt3}, πράγμα που επιβεβαιώνει ότι η -Ο2 δεν υπονοεί αυτόματη διανυσματικοποίηση. Τα
+αποτελέσματα αυτά θα χρησιμοποιηθούν για συγκρίσεις με τις παραλλαγές που θα ακολουθήσουν. 
+
 \subsection{Παραλλαγή με οδηγία \en{parallel for}}
 \subparagraph{}
-Η πρώτη υλοποίηση παραλλαγής με παραλληλισμό της συνάρτησης \en{saxpy} περιλαμβάνει τον επαναληπτικό βρόγχο ενσωματωμένο στην οδηγία \emph\en{parallel for} στον οποίο γίνεται ο υπολογισμός για κάθε στοιχείο των διανυσμάτων. Τα αποτελέσματα φαίνονται στον ακολουθούμενο πίνακα.
+Η πρώτη υλοποίηση παραλλαγής με παραλληλισμό της συνάρτησης \en{saxpy} περιλαμβάνει τον επαναληπτικό βρόγχο ενσωματωμένο στην οδηγία \emph{\en{parallel for}} στον οποίο γίνεται ο υπολογισμός για κάθε στοιχείο των διανυσμάτων. Τα αποτελέσματα φαίνονται στον ακολουθούμενο πίνακα.
+\\
 \selectlanguage{english}
 \begin{spacing}{1.0}
 \begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{parallel for}}} , frame=tlrb]{Name}
@@ -248,6 +272,22 @@ void saxpy(size_t n, float a, const float *x, float *y) {
 \end{lstlisting}
 \end{spacing}
 \selectlanguage{greek}
+\clearpage
+
+\begin{table}[h]
+    \centering
+    \caption{Επιλογές μεταγλώττισης}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.9\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt4}} & \en{ -fopt-info-vec=info.log -fno-inline -fno-tree-vectorize -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+     \textbf{\en{Alt5}} & \en{ -fopt-info-vec=info.log -fno-inline -ftree-vectorize -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+    \end{tabular}
+\end{table}
 
 \begin{table}[h]
     \centering
@@ -256,33 +296,33 @@ void saxpy(size_t n, float a, const float *x, float *y) {
     \begin{tabular}{|p{0.30\textwidth}| >{\centering\arraybackslash}p{0.25\textwidth}| >{\centering\arraybackslash}p{0.25\textwidth}|}
     \hline
     \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
-               & \textbf{-Ο0} & \textbf{-Ο3} \\ \hline
-     100000    &  0.003 & 0.004 \\ \cline{1-3} 
-     1000000   &  0.009 & 0.004 \\ \cline{1-3} 
-     10000000  &  0.018 & 0.014 \\ \cline{1-3} 
-     100000000 &  0.133 & 0.126 \\ \cline{1-3} 
-     200000000 &  0.255 & 0.244 \\ \cline{1-3} 
-     300000000 &  0.380 & 0.364 \\ \cline{1-3} 
-     400000000 &  0.480 & 0.460 \\ \cline{1-3} 
-     500000000 &  0.489 & 0.408 \\ \cline{1-3} 
-
-
+               & \textbf{\en{Alt4}} & \textbf{\en{Alt5}} \\ \hline
+     100000    & 0.005 & 0.005  \\ \cline{1-3} 
+     1000000   & 0.006 & 0.003 \\ \cline{1-3} 
+     10000000  & 0.016 & 0.015 \\ \cline{1-3} 
+     100000000 & 0.122 & 0.126 \\ \cline{1-3} 
+     200000000 & 0.245 & 0.243 \\ \cline{1-3} 
+     300000000 & 0.370 & 0.379 \\ \cline{1-3} 
+     400000000 & 0.485 & 0.488 \\ \cline{1-3} 
+     500000000 & 0.557 & 0.547 \\ \cline{1-3} 
+     600000000 & 0.526 & 0.531 \\ \cline{1-3} 
+     700000000 & 0.485 & 0.487 \\ \cline{1-3} 
+     800000000 & 0.482 & 0.483 \\ \cline{1-3} 
     \end{tabular}
 \end{table}
 
-\begin{figure}[h]
-\begin{tabular}{*{2}{>{\centering\arraybackslash}b{\dimexpr0.5\linewidth-2\tabcolsep\relax}}}
-\resizebox{0.42\textwidth}{!} {
+\begin{center}
+\resizebox{0.7\textwidth}{!} {
 \begin{tikzpicture}[state/.append style={minimum size=7mm}]
      \begin{axis}[
-         title={Χρόνοι εκτέλεσης \en{SAXPY}},
+         title={Χρόνοι εκτέλεσης \en{Alt2 - Alt4 - Alt5}},
          xlabel={Μέγεθος διανυσμάτων},
          ylabel={Χρόνος εκτέλεσης},
-         xmin=100000, xmax=700000000,
-         ymin=0, ymax=1.5,
+         xmin=100000, xmax=800000000,
+         ymin=0, ymax=0.9,
          xtick={ 100000000, 200000000, 300000000, 400000000,
-          500000000, 600000000, 700000000},
-         ytick={ 0, 0.25, 0.5, 0.75, 1, 1.5 },
+          500000000, 6e8, 7e8, 8e8},
+         ytick={ 0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.9},
          legend pos=north west,
         % ymajorgrids=true,
         % grid style=dashed,
@@ -290,51 +330,39 @@ void saxpy(size_t n, float a, const float *x, float *y) {
     
      \addplot[ color=blue, mark=square,]
       coordinates {
-          (100000, 0.003804)(1000000,0.009033)(10000000,0.018875)
-          (100000000,0.133915)(200000000,0.255251)(300000000,0.380445)
-          (400000000, 0.480862)(500000000, 0.489234)(600000000, 0.471 )
+          (100000, 0.005)(1000000, 0.006)(10000000, 0.016)
+          (100000000, 0.122)(200000000, 0.245)(300000000, 0.37)
+          (400000000, 0.485)(500000000, 0.557)(600000000, 0.526)
+          (700000000, 0.485)(800000000, 0.482)
  	};
-     
+ 	\addlegendentry{\en{Alt4}}
+ 	
      \addplot[ color=red, mark=square,]
       coordinates {
-          (100000,0.004391)(1000000,0.004197)(10000000,0.014912)
-          (100000000,0.126548)(200000000,0.2425)(300000000,0.364)
-          (400000000,0.460)(500000000,0.408)(600000000, 0.391)(700000000, 0.4275)
+          (100000, 0.005)(1000000, 0.003)(10000000,0.015)
+          (100000000, 0.126)(200000000,0.243)(300000000,0.379)
+          (400000000, 0.488)(500000000, 0.547)(600000000, 0.531)
+          (700000000, 0.487)(800000000, 0.483 )
  	};
-
-	\addplot[ color=green, mark=square,]
+ 	\addlegendentry{\en{Alt5}}
+ 	
+ 	\addplot[ color=green, mark=square,]
       coordinates {
-          (100000,0.00011)(1000000,0.00171)(10000000,0.01631)
-          (100000000,0.16124)(200000000,0.31867)(300000000,0.42806)
-          (400000000, 0.645)(500000000,0.851) (600000000, 1.055)(700000000, 1.1977)
+          (100000,0.0001)(1000000,0.002)(10000000,0.016)
+          (100000000,0.167)(200000000,0.334)(300000000,0.502)(400000000, 0.617)
+          (5e8, 0.752)(6e8, 1.068)
  	};
-     \legend{-O0, -O3, \en{serial} -O3}
+ 	\addlegendentry{\en{Alt2}}
+
      \end{axis}
- \end{tikzpicture}}
+\end{tikzpicture}}
+\end{center}
 
-\caption{Σύγκριση αποτελεσμάτων}
-    &
-\renewcommand{\arraystretch}{1.1}
-\begin{tabular}{c|c}
-Μέγεθος & Επιτάχυνση (\%)  \\
-\hline
-100000    & -33.3 \\
-1000000   &  55.5\\
-10000000  &  22.22 \\
-100000000 & 5.26\\
-200000000 & 4.31 \\
-300000000 & 4.2\\
-400000000 & 4.16\\
-500000000 & 16.56
-\end{tabular}
-\captionof{table}{Ποσοστό μείωσης με -Ο3}
-\end{tabular}
-\end{figure}
 
+\clearpage
 \subsubsection{Παρατηρήσεις}
 \subparagraph{}
-Με τη χρήση της οδηγίας \emph{\en{pragma omp parallel for}} επετέφχθει μείωση του χρόνου εκτέλεσης του αλγορίθμου όταν το πρόγραμμα μεταγλωττίζεται με -Ο0 σε σύγκριση με την αντίστοιχη σειριακή. Οι χρόνοι εκτέλεσης της συγκεκριμένης περίπτωσης ωστόσο, μοιάζουν με τους αντίστοιχους της μεταγλώττισης σειριακού κώδικα με -Ο3 για διανύσματα μέχρι 3\en{e}8 στοιχείων, ενώ για μεγαλύτερες τιμές η παράλληλη εκτέλεση έχει καλύτερες επιδόσεις. Τέλος, από το παραπάνω διάγραμμα δε προκύπτει κάποια διαφοροποίηση ανάμεσα στη μεταγλώττιση με -Ο0 και -Ο3.
-
+Με τη χρήση της οδηγίας \emph{\en{pragma omp parallel for}} επετέφχθει μείωση του χρόνου εκτέλεσης του αλγορίθμου σε σύγκριση με την αντίστοιχη σειριακή παραλλαγή. Δεν προκύπτει καμία διαφοροποίηση της μεταγλώττισης με εντολή διανυσματικοποίησης ή χωρίς. Σύμφωνα ωστόσο με τον ορισμό του \en{false sharing}, υπάρχει πιθανότητα περαιτέρω βελτίωσης της παραλλαγής με οδηγία \en{parallel for}, κάτι που εξετάζεται στην επόμενη ενότητα.
 
 \subsection{Παραλλαγή με \emph{\en{parallel for}} και \en{padding}}
 \subparagraph{}
@@ -352,6 +380,21 @@ void saxpy(size_t n, float a, const float64 *x, float64 *y) {
 \end{lstlisting}
 \end{spacing}
 \selectlanguage{greek}
+\begin{table}[h]
+    \centering
+    \caption{Επιλογές μεταγλώττισης}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.9\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt6}} & \en{ -fopt-info-vec=info.log -fno-inline -fno-tree-vectorize -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+     \textbf{\en{Alt7}} & \en{ -fopt-info-vec=info.log -fno-inline -ftree-vectorize -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+    \end{tabular}
+\end{table}
+
 
 \begin{table}[h]
     \centering
@@ -360,10 +403,10 @@ void saxpy(size_t n, float a, const float64 *x, float64 *y) {
     \begin{tabular}{|p{0.30\textwidth}| >{\centering\arraybackslash}p{0.25\textwidth}| >{\centering\arraybackslash}p{0.25\textwidth}|}
     \hline
     \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
-               & \textbf{-Ο0} & \textbf{-Ο3} \\ \hline
-     100000    &  0.004 & 0.0046 \\ \cline{1-3} 
-     1000000   &  0.021 & 0.0196 \\ \cline{1-3} 
-     10000000  &  0.182 & 0.185  \\ \cline{1-3} 
+               & \textbf{\en{Alt6}} & \textbf{\en{Alt7}} \\ \hline
+     100000    & 0.006  & 0.006 \\ \cline{1-3} 
+     1000000   & 0.023  & 0.025 \\ \cline{1-3} 
+     10000000  & 0.193  & 0.198  \\ \cline{1-3} 
      100000000 &  \en{killed} & \en{killed} \\ \cline{1-3} 
     \end{tabular}
 \end{table}
@@ -373,10 +416,15 @@ void saxpy(size_t n, float a, const float64 *x, float64 *y) {
 Το πρόβλημα \emph{\en{false sharing}} δεν ήταν δυνατό να εντοπισθεί στη
 συγκεκριμένη παραλλαγή. Μάλιστα, 
 ο έλεγχος για μεγέθη διανυσμάτων μεγαλύτερων των 1\en{e}8 στοιχείων, ήταν ανεπιτυχής λόγω έλλειψης υπολογιστικών πόρων.
-\clearpage
 
-\subsection{Παραλλαγή με \emph{\en{omp simd}}}
+\subsection{Παραλλαγές με χρήση οδηγίας \emph{\en{SIMD}}}
 \subparagraph{}
+Η συγκεκριμένη ενότητα καθώς και ορισμένες που ακολουθούν αφορούν την επίλυση του προβλήματος \en{\emph{SAXPY}} με χρήση της οδηγίας διανυσματικοποίησης \textbf{\en{SIMD}}. Οπως προαναφέρθηκε, η οδηγία δεν έχει ως στόχο την παραλληλοποίηση τμήματος κώδικα, αλλά την ταυτόχρονη εκτέλεση εντολών ως μία εντολή \en{\textbf{SIMD}}. Στη περίπτωση του \en{g++}, γίνεται αυτόματη προσπάθεια διανυσματικοποίησης χρησιμοποιείται η επιλογή -Ο3. Αυτός ειναι και ο λόγος που στα προηγούμενα παραδείγματα χρησιμοποιήθηκε επιλογή μεταγλώττισης -Ο2 με ταυτόχρονη χρήση των εντολών \en{\textbf{-fno-tree-vectorize}} και 
+\en{\textbf{ftree-vectorize}} που επιτρέπουν στο χρήστη να επιλέγει μεταγλώττιση με διανυσματικοποίηση ή χωρίς. Παράλληλα, χρησιμοποιούνται οι εντολές \en{\textbf{-fno-inline}} και \en{\textbf{-fopt-info-vec}}. Η πρώτη απογορεύει στον μεταγγλωτιστή το \en{loop-unrolling} ενώ η δεύτερη δημιουργεί ένα αρχείο με χρήσιμα μηνύματα κατά τη διάρκεια της μεταγλώττισης.
+
+\subsubsection{Παραλλαγή με \emph{\en{omp simd}}}
+\subparagraph{}
+Η εντολή \en{\emph{pragma omp simd}} αποσκοπεί στη διανυσματικοποίηση του τμήματος κώδικα που ακολουθεί, χωρίς ωστόσο να γίνεται διαμοιρασμός των επαναλήψεων του βρόγχου σε διαφορετικά νήματα όπως θα γίνόταν με την οδηγία \en{\emph{pragma omp parallel for simd}}.
 \selectlanguage{english}
 \begin{spacing}{0.9}
 \begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{omp simd}}} , frame=tlrb]{Name}
@@ -392,46 +440,57 @@ void saxpy(size_t n, float a, const float *x, float *y) {
 
 \begin{table}[h]
     \centering
-    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \caption{Επιλογές μεταγλώττισης}
     \label{my-label}
-    \begin{tabular}{| >{\centering\arraybackslash}p{0.15\textwidth}| 
-    >{\centering\arraybackslash}p{0.1\textwidth}|
-    >{\centering\arraybackslash}p{0.25\textwidth}|
-    >{\centering\arraybackslash}p{0.1\textwidth}|
-    >{\centering\arraybackslash}p{0.25\textwidth}|}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.9\textwidth}
+    |}
     \hline
-    \multirow{2}{*}{\textbf{\shortstack{\\Μέγεθος \\ προβλήματος}}} & \multicolumn{4}{|c|}					{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-5} 
-        & \textbf{-Ο0}
-        & \textbf{\en{\shortstack{\\-O0\\ -fno-tree-vectorize}}} 
-        & \textbf{\en{-O3}}
-        & \textbf{\en{\shortstack{\\-O3\\ -fno-tree-vectorize}}} 
-\\ \hline
-     100000    & 0.001 & 0.001 & 0.000 & 0.003 \\ \cline{1-5} 
-     1000000   & 0.011 & 0.011 & 0.002 & 0.002 \\ \cline{1-5} 
-     10000000  & 0.113 & 0.114 & 0.016 & 0.020 \\ \cline{1-5} 
-     100000000 & 1.126 & 1.142 & 0.162 & 0.198 \\ \cline{1-5} 
-     200000000 & 2.263 & 2.271 & 0.320 & 0.380 \\ \cline{1-5} 
-     300000000 & 3.417 & 3.414 & 0.481 & 0.527 \\ \cline{1-5} 
-     400000000 & 4.548 & 4.513 & 0.634 & 0.787 \\ \cline{1-5} 
-
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt8}} & \en{ -fopt-info-vec=info.log -fno-inline -fno-tree-vectorize -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+     \textbf{\en{Alt9}} & \en{ -fopt-info-vec=info.log -fno-inline -ftree-vectorize -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+     \textbf{\en{Alt10}} & \en{ -fopt-info-vec=info.log -fno-inline -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
     \end{tabular}
 \end{table}
 
-θελω να συγκρινω το vectorizatin με την σεριαλ εκδοση. Να ξαναδω τη σειριαλ, για 
-να παρε αυτο με την επιλογη -fno-tree-vectorize. Να φτιαξω διαγραμματα και να κανω πειραματα.
+\begin{table}[h]
+    \centering
+    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \label{my-label}
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+|}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{3}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-4} 
+      & \textbf{\en{Alt8}} & \textbf{\en{Alt9}} & \textbf{\en{Alt10}} \\ \hline
+     100000    & 0.001 & 0.001 & 0.001\\ \cline{1-4} 
+     1000000   & 0.002 & 0.002 & 0.002 \\ \cline{1-4} 
+     10000000  & 0.021 & 0.017 & 0.017\\ \cline{1-4} 
+     100000000 & 0.202 & 0.165 & 0.145\\ \cline{1-4} 
+     200000000 & 0.401 & 0.329 & 0.296\\ \cline{1-4} 
+     300000000 & 0.592 & 0.503 & 0.496\\ \cline{1-4} 
+     400000000 & 0.783 & 0.639 & 0.642\\ \cline{1-4} 
+     500000000 & 0.995 & 0.827 & 0.844\\ \cline{1-4} 
+    \end{tabular}
+\end{table}
+
+
 
 \begin{figure}[h]
 \centering 
 \resizebox{0.5\textwidth}{!} {
 \begin{tikzpicture}   
     \begin{axis}[
-         title={Χρόνοι εκτέλεσης με \en{omp simd}},
+         title={Χρόνοι εκτέλεσης με \en{Alt1 - Alt8}},
          xlabel={Μέγεθος διανυσμάτων},
          ylabel={Χρόνος εκτέλεσης},
-         xmin=100000000, xmax=400000000,
-         ymin=0, ymax=5,
-         xtick={ 100000000, 200000000, 300000000, 400000000},
-         ytick={ 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4},
+         xmin=1e8, xmax=5e8,
+         ymin=0, ymax=1,
+         xtick={ 1e8, 2e8, 3e8, 4e8, 5e8},
+         ytick={0, 0.2, 0.4, 0.6, 0.8, 1},
          legend pos=north west,
         % ymajorgrids=true,
         % grid style=dashed,
@@ -439,82 +498,215 @@ void saxpy(size_t n, float a, const float *x, float *y) {
     
      \addplot[ color=blue, mark=square,]
       coordinates {
-          (100000000, 1.126)(200000000, 2.263)(300000000, 3.417)
-          (400000000, 4.548)
+          (1e8, 0.202)(2e8,0.401)(3e8, 0.592)
+          (4e8, 0.783)(5e8, 0.995)
  	};
-     
-     \addplot[ color=red, mark=square,]
-      coordinates {
-          (100000000,1.142)(200000000,2.271)(300000000,3.414)
-          (400000000,4.513)
- 	};
+  	\addlegendentry{\en{Alt8}}
 
-	\addplot[ color=green, mark=square,]
+          \addplot[ color=red, mark=square,]
       coordinates {
-          (100000000,0.162)(200000000,0.320)(300000000,0.481)
-          (400000000, 0.634)
+          (100000000,0.200)(200000000,0.398)
+          (300000000,0.583)(400000000, 0.773)
+          (5e8, 0.989)
  	};
- 	
- 	\addplot[ color=black, mark=square,]
-      coordinates {
-          (100000000,0.198)(200000000,0.380)(300000000,0.527)
-          (400000000, 0.787)
- 	};
- 	\legend{-O0, \en{-O0 no-vec}, -O3, \en{-O3 no-vec}}
+     \addlegendentry{\en{Alt1}}
+
     \end{axis}
-χ`\end{tikzpicture}}% NO EMPTY LINE HERE!!!! 
+\end{tikzpicture}}% NO EMPTY LINE HERE!!!!
 \resizebox{0.5\textwidth}{!} {
 \begin{tikzpicture}
     \begin{axis}[
-         title={Σύγκριση σειριακής με \en{omp simd}},
+         title={Χρόνοι εκτέλεσης με \en{Alt2 - Alt8}},
          xlabel={Μέγεθος διανυσμάτων},
          ylabel={Χρόνος εκτέλεσης},
-         xmin=100000000, xmax=400000000,
-         ymin=0, ymax=5,
-         xtick={ 100000000, 200000000, 300000000, 400000000},
-         ytick={ 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4},
+         xmin=1e8, xmax=5e8,
+         ymin=0, ymax=1,
+         xtick={ 1e8, 2e8, 3e8, 4e8, 5e8},
+         ytick={0, 0.2, 0.4, 0.6, 0.8, 1},
          legend pos=north west,
         % ymajorgrids=true,
         % grid style=dashed,
      ]
     
-	\addplot[ color=blue, mark=square,]
-      coordinates {
-          (100000000, 1.182)(200000000, 2.361)(300000000, 3.55)
-          (400000000, 4.73)
- 	};
- 	\addlegendentry{-O0 \en{serial}}
- 	
- 	\addplot[ color=red, mark=square,]
-      coordinates {
-          (100000000,1.142)(200000000,2.271)(300000000,3.414)
-          (400000000,4.513)
- 	};
- 	\addlegendentry{-O0 \en{no-vec}}
- 	
  	\addplot[ color=green, mark=square,]
       coordinates {
-          (100000000,0.2397)(200000000, 0.3981)(300000000,0.6052)
-          (400000000,0.7884)
+          (100000,0.0001)(1000000,0.002)(10000000,0.016)
+          (100000000,0.167)(200000000,0.334)(300000000,0.502)(400000000, 0.617)
+          (5e8, 0.818)
  	};
- 	\addlegendentry{-O3 \en{ serial no-vec}}
- 	
- 	 	\addplot[ color=black, mark=square,]
+ 	\addlegendentry{\en{Alt2}}
+
+     
+     \addplot[ color=red, mark=square,]
       coordinates {
-          (100000000,0.198)(200000000,0.380)(300000000,0.527)
-          (400000000,0.787)
+          (1e8, 0.165)(2e8, 0.329)(3e8, 0.503)
+          (4e8, 0.639)(5e8, 0.827)
  	};
- 	\addlegendentry{-O3 \en{simd no-vec}}
-
-
+ 	\addlegendentry{\en{Alt9}}
     \end{axis}
 \end{tikzpicture}} 
 \caption{Left: No Interaction. Right: Interaction} \label{fig:M}  
 \end{figure}
+\clearpage
+\begin{center}
+\resizebox{0.7\textwidth}{!} {
+\begin{tikzpicture}   
+    \begin{axis}[
+         title={Σύγκριση \en{Alt3} με \en{Alt10}},
+         xlabel={Μέγεθος διανυσμάτων},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=1e8, xmax=5e8,
+         ymin=0, ymax=1,
+         xtick={ 1e8, 2e8, 3e8, 4e8, 5e8},
+         ytick={0, 0.2, 0.4, 0.6, 0.8, 1},
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ]
+    
+     \addplot[ color=blue, mark=square,]
+      coordinates {
+          (1e8, 0.199)(2e8,0.397)(3e8, 0.599)
+          (4e8, 0.788)(5e8, 0.991)
+ 	};
+  	\addlegendentry{\en{Alt3}}
 
-\subsection{Παραλλαγή με \emph{\en{omp declare simd uniform}}}
+          \addplot[ color=red, mark=square,]
+      coordinates {
+          (100000000,0.145)(200000000,0.296)
+          (300000000,0.496)(400000000, 0.642)
+          (5e8, 0.844)
+ 	};
+     \addlegendentry{\en{Alt10}}
+
+    \end{axis}
+\end{tikzpicture}}% NO EMPTY LINE HERE!!!! 
+\end{center}
+
+Από τα παραπάνω διαγράμματα διαφαίνεται ότι η μεταγλώττιση με επιλογή \emph{\en{-fno-tree-vectorize}} και \emph{\en{-ftree-vectorize}} παρακάμπτει την οδηγία \en{omp simd} και εκτελείται ως σειριακή, με διανυσματικοποίηση ή χωρίς, ανάλογα με την επιλογή. Στη περίπτωση που δε δοθεί η επιλογή ωστόσο, τότε διανυσματικοποίηση εφαρμόζεται μέσω του \emph{\en{OpenMP}} και της οδηγίας \emph{\en{omp simd}} αν υπάρχει
+\begin{center}
+\begin{table}[h]
+    \centering
+    \caption{Συνοπτικός πίνακας εφαρμογών διανθσματικοποίησης}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.3\textwidth}
+    | >{\centering\arraybackslash}p{0.25\textwidth}
+        | >{\centering\arraybackslash}p{0.25\textwidth}
+    |}
+    \hline
+ \textbf{Επιλογή μεταγλώττισης} & \textbf{Σειριακή} & \en{\textbf{OpenMP - omp simd}}\\ \hline
+     \textbf{\en{-fno-tree-vectorize}} & Οχι & Οχι \\ \hline
+     \textbf{\en{-ftree-vectorize}}    & Ναι & Ναι\\ \hline
+     \textbf{\en{None}}                & Οχι & Ναι\\ \hline
+    \end{tabular}
+\end{table}
+\end{center}
+
+\clearpage
+\subsubsection{Παραλλαγή με \emph{\en{omp parallel for simd}}}
+\subparagraph{}
+Στην παραλλαγή αυτής της ενότητας χρησιμοποιείται ο συνδυασμός παραλληλοποίησης μέσω της οδηγίας \emph{\en{parallel for}} με διανυσματικοποίηση μέσω \emph{\en{simd}}. 
+\selectlanguage{english}
+\begin{spacing}{0.9}
+\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{omp parallel for simd}}} , frame=tlrb]{Name}
+void saxpy(size_t n, float a, const float *x, float *y) {
+    #pragma omp parallel for simd
+    for (size_t i = 0; i < n; ++i) {
+        y[i] = a * x[i] + y[i];
+    }
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{Επιλογές μεταγλώττισης}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt11}} & \en{ -fopt-info-vec=info.log -fno-inline -fno-tree-vectorize -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+     \textbf{\en{Alt12}} & \en{ -fopt-info-vec=info.log -fno-inline -ftree-vectorize -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+     \textbf{\en{Alt13}} & \en{ -fopt-info-vec=info.log -fno-inline -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \label{my-label}
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+|}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{3}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-4} 
+      & \textbf{\en{Alt11}} & \textbf{\en{Alt12}} & \textbf{\en{Alt13}} \\ \hline
+     100000    & 0.006 & 0.002 & 0.005 \\ \cline{1-4} 
+     1000000   & 0.006 & 0.002 & 0.004 \\ \cline{1-4} 
+     10000000  & 0.015 & 0.016 & 0.016 \\ \cline{1-4} 
+     100000000 & 0.129 & 0.123 & 0.124 \\ \cline{1-4} 
+     200000000 & 0.247 & 0.251 & 0.246 \\ \cline{1-4} 
+     300000000 & 0.368 & 0.368 & 0.366 \\ \cline{1-4} 
+     400000000 & 0.489 & 0.486 & 0.486 \\ \cline{1-4} 
+     500000000 & 0.578 & 0.576 & 0.577 \\ \cline{1-4}
+     500000000 & 0.578 & 0.576 & 0.577 \\ \cline{1-4} 
+     600000000 & 0.515 & 0.458 & 0.525 \\ \cline{1-4} 
+     700000000 & 0.496 & 0.496 & 0.460 \\ \cline{1-4} 
+     800000000 & 0.487 & 0.500 & 0.483 \\ \cline{1-4} 
+
+    \end{tabular}
+\end{table}
+
+Από τις παραπάνω εκτελέσεις του αλγόριθμου προκύπτει το συμπέρασμα ότι η οδηγία διανυσματικοποίησης μέσω \en{simd} δεν λαμβάνεται υπόψη όταν εφαρμόζεται σε συνδυασμό με την οδηγία \en{parallel for}.
+
+\clearpage
+\begin{figure}[h]
+\centering 
+\resizebox{0.7\textwidth}{!} {
+\begin{tikzpicture}   
+    \begin{axis}[
+         title={Χρόνοι εκτέλεσης με \en{Alt5 - Alt13}},
+         xlabel={Μέγεθος διανυσμάτων},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=1e8, xmax=5e8,
+         ymin=0, ymax=1,
+         xtick={ 1e8, 2e8, 3e8, 4e8, 5e8},
+         ytick={0, 0.2, 0.4, 0.6, 0.8, 1},
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ]
+    
+    \addplot[ color=red, mark=square,]
+      coordinates {
+          (1e8,0.124)(2e8,0.246)
+          (3e8,0.366)(4e8,0.486)
+          (5e8,0.577)(6e8, 0.525) (7e8, 0.460 )(8e8, 0.483)
+ 	};
+  	\addlegendentry{\en{Alt13}}
+
+    \addplot[ color=green, mark=square,]
+      coordinates {
+          (1e8,0.126)(2e8,0.243)
+          (3e8,0.379)(4e8, 0.488)
+          (5e8, 0.547)(6e8, 0.531) (7e8, 0.487)(8e8, 0.483 )
+ 	};
+     \addlegendentry{\en{Alt5}}
+
+    \end{axis}
+\end{tikzpicture}}% NO EMPTY LINE HERE!!!!
+\end{figure}
+\clearpage
+\subsubsection{Παραλλαγή με \emph{\en{omp declare simd uniform}}}
 \subparagraph{} 
-
+Υλοποίηση παραλλαγής με χρήση της φράσης \emph{\en{uniform}}. Θεωρητικά δεν υπάρχει κέρδος στις επιδόσεις του αλγορίθμου σε σχέση με της προηγούμενες παραλλαγές. Η εναλλακτική αυτη χρησιμοποιείται για την επαλήθευση της διανυσματικοποίησης μέσω \emph{\en{OpenMP}}.
 \selectlanguage{english}
 \begin{spacing}{0.9}
 \begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{omp declare simd uniform}}} , frame=tlrb]{Name}
@@ -533,37 +725,112 @@ void saxpy(size_t n, float a, const float *x, float *y) {
 \end{lstlisting}
 \end{spacing}
 \selectlanguage{greek}
+\begin{table}[h]
+    \centering
+    \caption{Επιλογές μεταγλώττισης}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt14}} & \en{ -fopt-info-vec=info.log -fno-inline -fno-tree-vectorize -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+     \textbf{\en{Alt15}} & \en{ -fopt-info-vec=info.log -fno-inline -ftree-vectorize -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+     \textbf{\en{Alt16}} & \en{ -fopt-info-vec=info.log -fno-inline -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+    \end{tabular}
+\end{table}
 
 \begin{table}[h]
     \centering
     \caption{Καταγραφή χρόνων εκτέλεσης}
     \label{my-label}
-    \begin{tabular}{| >{\centering\arraybackslash}p{0.15\textwidth}| 
-    >{\centering\arraybackslash}p{0.1\textwidth}|
-    >{\centering\arraybackslash}p{0.25\textwidth}|
-    >{\centering\arraybackslash}p{0.1\textwidth}|
-    >{\centering\arraybackslash}p{0.25\textwidth}|}
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.15\textwidth}
+    | >{\centering\arraybackslash}p{0.15\textwidth}
+    | >{\centering\arraybackslash}p{0.15\textwidth}
+|}
     \hline
-    \multirow{2}{*}{\textbf{\shortstack{\\Μέγεθος \\ προβλήματος}}} & \multicolumn{4}{|c|}					{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-5} 
-        & \textbf{-Ο0}
-        & \textbf{\en{\shortstack{\\-O0\\ -fno-tree-vectorize}}} 
-        & \textbf{\en{-O3}}
-        & \textbf{\en{\shortstack{\\-O3\\ -fno-tree-vectorize}}} 
-\\ \hline
-     100000    & 0.001 & 0.001 & 0.001 & 0.0003\\ \cline{1-5} 
-     1000000   & 0.017 & 0.014 & 0.002 & 0.002 \\ \cline{1-5} 
-     10000000  & 0.143 & 0.139 & 0.017 & 0.022 \\ \cline{1-5} 
-     100000000 & 1.424 & 1.421 & 0.148 & 0.193 \\ \cline{1-5} 
-     200000000 & 2.792 & 2.78  & 0.294 & 0.422 \\ \cline{1-5} 
-     300000000 & 4.206 & 4.174 & 0.459 & 0.630 \\ \cline{1-5} 
-     400000000 & 5.705 & 5.59  & 0.651 & 0.833 \\ \cline{1-5} 
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{3}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-4} 
+      & \textbf{\en{Alt14}} & \textbf{\en{Alt15}} & \textbf{\en{Alt16}} \\ \hline
+     100000    & 0.0003 & 0.0001 & 0.0003 \\ \cline{1-4} 
+     1000000   & 0.003 & 0.002 & 0.002 \\ \cline{1-4} 
+     10000000  & 0.035 & 0.018 & 0.018 \\ \cline{1-4} 
+     100000000 & 0.346 & 0.180 & 0.179 \\ \cline{1-4} 
+     200000000 & 0.700 & 0.339 & 0.318 \\ \cline{1-4} 
+     300000000 & 1.030 & 0.479 & 0.469 \\ \cline{1-4} 
+     400000000 & 1.384 & 0.707 & 0.637 \\ \cline{1-4}
+     500000000 & 1.707 & 0.944 & 0.911 \\ \cline{1-4} 
     \end{tabular}
 \end{table}
 
-\en{TODO} Μπορω να βαλω 4 διαγραμματα που να συγκρινουν το προηγουμενο με αυτο. για να δειξω οτι η πιθανη καθυστερηση σε αυτο ειναι το overhead απο το function call.
-\clearpage
-\subsection{Παραλλαγή με \emph{\en{omp declare simd uniform notinbranch}}}
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}   
+    \begin{axis}[
+         title={Χρόνοι εκτέλεσης με \en{Alt14 - Alt8}},
+         xlabel={Μέγεθος διανυσμάτων},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=1e8, xmax=5e8,
+         ymin=0, ymax=1.8,
+         xtick={ 1e8, 2e8, 3e8, 4e8, 5e8},
+         ytick={0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8},
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ]
+    
+     \addplot[ color=red, mark=square,]
+      coordinates {
+          (1e8, 0.346)(2e8,0.7)(3e8,1.030)
+          (4e8,1.384)(5e8, 1.707)
+ 	};
+  	\addlegendentry{\en{Alt14}}
+
+     \addplot[ color=blue, mark=square,]
+      coordinates {
+          (1e8,0.202 )(2e8,0.401)(3e8,0.592)
+          (4e8,0.783)(5e8,0.995)
+ 	};
+     \addlegendentry{\en{Alt8}}
+    \end{axis}
+\end{tikzpicture}% NO EMPTY LINE HERE!!!!
+\begin{tikzpicture}
+    \begin{axis}[
+         title={Χρόνοι εκτέλεσης με \en{Alt15 - Alt9}},
+         xlabel={Μέγεθος διανυσμάτων},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=1e8, xmax=5e8,
+         ymin=0, ymax=1,
+         xtick={ 1e8, 2e8, 3e8, 4e8, 5e8},
+         ytick={0, 0.2, 0.4, 0.6, 0.8, 1},
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ]
+    
+ 	\addplot[ color=green, mark=square,]
+      coordinates {
+          (100000000,0.180)(200000000,0.339)(300000000,0.479)(400000000,0.707 )
+          (5e8, 0.944)
+ 	};
+ 	\addlegendentry{\en{Alt15}}
+
+     
+     \addplot[ color=red, mark=square,]
+      coordinates {
+          (1e8, 0.165)(2e8,0.329)(3e8,0.503)
+          (4e8, 0.639 )(5e8, 0.827)
+ 	};
+ 	\addlegendentry{\en{Alt9}}
+    \end{axis}
+\end{tikzpicture}
+\end{figure}
+
+Από τα διαγράμματα προκύπτει ότι ο υπολογισμός \en{SAXPY} μέσω συνάρτησης, προσδίδει εξτρά καθυστέρηση στην συνολική απόδοση, που πιθανόν οφείλεται στη μετακίνηση της διεύθυνσης μνήμης καθώς κατά τη μεταγλώττιση απενεργοποιείται το \emph{\en{loop unrolling}}. Στη περίπτωση της \en{explicit} εντολής διανυσματικοποίησης κατά τη μεταγλώττιση, οι επιδόσεις δείχνουν να μοιάζουν, με λίγο καλύτερες επιδόσεις για την εκτέλεση χωρίς ενδιάμεση κλήση συνάρτησης.
+\subsubsection{Παραλλαγή με \emph{\en{omp declare simd uniform notinbranch}}}
 \subparagraph{} 
+Στη περίπτωση που ακολουθεί, γίνεται προσπάθεια εξαγωγής συμπερασμάτων σχετικών με τη φράση \emph{\en{notinbranch}} και το κέρδος που μπορεί να επιφέρει σε σύγκριση με τη προηγούμενη παραλλαγή.
 \selectlanguage{english}
 \begin{spacing}{0.9}
 \begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{omp declare simd uniform
@@ -577,89 +844,165 @@ float do_work(float a, float b, float c)
 void saxpy(size_t n, float a, const float *x, float *y) {
     #pragma omp simd
     for (size_t i = 0; i < n; ++i) {
-        y[i] = a * x[i] + y[i]; //TODO
+        y[i] = do_work(a, x[i], y[i]);
     }
 }
 \end{lstlisting}
 \end{spacing}
 \selectlanguage{greek}
-
+\begin{table}[h]
+    \centering
+    \caption{Επιλογές μεταγλώττισης}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt17}} & \en{ -fopt-info-vec=info.log -fno-inline -fno-tree-vectorize -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+     \textbf{\en{Alt18}} & \en{ -fopt-info-vec=info.log -fno-inline -ftree-vectorize -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+     \textbf{\en{Alt19}} & \en{ -fopt-info-vec=info.log -fno-inline -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+    \end{tabular}
+\end{table}
 \begin{table}[h]
     \centering
     \caption{Καταγραφή χρόνων εκτέλεσης}
     \label{my-label}
-    \begin{tabular}{| >{\centering\arraybackslash}p{0.15\textwidth}| 
-    >{\centering\arraybackslash}p{0.1\textwidth}|
-    >{\centering\arraybackslash}p{0.25\textwidth}|
-    >{\centering\arraybackslash}p{0.1\textwidth}|
-    >{\centering\arraybackslash}p{0.25\textwidth}|}
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+|}
     \hline
-    \multirow{2}{*}{\textbf{\shortstack{\\Μέγεθος \\ προβλήματος}}} & \multicolumn{4}{|c|}					{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-5} 
-        & \textbf{-Ο0}
-        & \textbf{\en{\shortstack{\\-O0\\ -fno-tree-vectorize}}} 
-        & \textbf{\en{-O3}}
-        & \textbf{\en{\shortstack{\\-O3\\ -fno-tree-vectorize}}} 
-\\ \hline
-     100000    & 0.001 & 0.001 & 0.001 & 0.001 \\ \cline{1-5} 
-     1000000   & 0.012 & 0.011 & 0.002 & 0.002 \\ \cline{1-5} 
-     10000000  & 0.115 & 0.115 & 0.016 & 0.021 \\ \cline{1-5} 
-     100000000 & 1.154 & 1.145 & 0.161 & 0.212 \\ \cline{1-5} 
-     200000000 & 2.308 & 2.299 & 0.322 & 0.378 \\ \cline{1-5} 
-     300000000 & 3.473 & 3.446 & 0.479 & 0.633 \\ \cline{1-5} 
-     400000000 & 4.621 & 4.604 & 0.632 & 0.827 \\ \cline{1-5} 
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{3}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-4} 
+      & \textbf{\en{Alt17}} & \textbf{\en{Alt18}} & \textbf{\en{Alt19}} \\ \hline
+     100000    & 0.001 & 0.001 & 0.001 \\ \cline{1-4} 
+     1000000   & 0.003 & 0.002 & 0.002 \\ \cline{1-4} 
+     10000000  & 0.035 & 0.018 & 0.018 \\ \cline{1-4} 
+     100000000 & 0.343 & 0.180 & 0.175 \\ \cline{1-4} 
+     200000000 & 0.689 & 0.359 & 0.319 \\ \cline{1-4} 
+     300000000 & 1.025 & 0.536 & 0.469 \\ \cline{1-4} 
+     400000000 & 1.375 & 0.702 & 0.619 \\ \cline{1-4} 
+     500000000 & 1.723 & 0.909 & 0.809 \\ \cline{1-4} 
+
     \end{tabular}
 \end{table}
 
-Να αναφερω οτι δε βλέπω κάποια διαφορα σε σχέση με το προηγούμενο παραλλαγή.
+
+\begin{figure}[h]
+\centering 
+\resizebox{0.5\textwidth}{!} {
+\begin{tikzpicture}   
+    \begin{axis}[
+         title={Χρόνοι εκτέλεσης με \en{Alt17 - Alt14}},
+         xlabel={Μέγεθος διανυσμάτων},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=1e8, xmax=5e8,
+         ymin=0, ymax=2,
+         xtick={ 1e8, 2e8, 3e8, 4e8, 5e8},
+         ytick={0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2},
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ]
+    
+     \addplot[ color=red, mark=square,]
+      coordinates {
+          (1e8, 0.346)(2e8,0.7)(3e8,1.030)
+          (4e8,1.384)(5e8, 1.707)
+ 	};
+  	\addlegendentry{\en{Alt14}}
+
+          \addplot[ color=blue, mark=square,]
+      coordinates {
+          (100000000,0.343)(200000000,0.689)
+          (300000000,1.025)(400000000, 1.375)
+          (5e8, 1.723)
+ 	};
+     \addlegendentry{\en{Alt17}}
+
+    \end{axis}
+\end{tikzpicture}}% NO EMPTY LINE HERE!!!!
+\resizebox{0.5\textwidth}{!} {
+\begin{tikzpicture}
+    \begin{axis}[
+         title={Χρόνοι εκτέλεσης με \en{Alt15 - Alt18}},
+         xlabel={Μέγεθος διανυσμάτων},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=1e8, xmax=5e8,
+         ymin=0, ymax=1,
+         xtick={ 1e8, 2e8, 3e8, 4e8, 5e8},
+         ytick={0, 0.2, 0.4, 0.6, 0.8, 1},
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ]
+    
+ 	\addplot[ color=green, mark=square,]
+      coordinates {
+          (1e8,0.180)(2e8,0.359)(3e8,0.536)(4e8,0.702)
+          (5e8, 0.909)
+ 	};
+ 	\addlegendentry{\en{Alt18}}
+
+     
+     \addplot[ color=red, mark=square,]
+      coordinates {
+          (1e8, 0.180)(2e8, 0.339)(3e8, 0.479)
+          (4e8, 0.707)(5e8, 0.944)
+ 	};
+ 	\addlegendentry{\en{Alt15}}
+    \end{axis}
+\end{tikzpicture}} 
+\end{figure}
 \clearpage
-
-
-\subsection{Παραλλαγή με \emph{\en{omp parallel for simd}}}
-\subparagraph{} 
-\selectlanguage{english}
-\begin{spacing}{0.9}
-\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{omp parallel for simd}}} , frame=tlrb]{Name}
-void saxpy(size_t n, float a, const float *x, float *y) {
-    #pragma omp parallel for simd
-    for (size_t i = 0; i < n; ++i) {
-        y[i] = a * x[i] + y[i];
-    }
-}
-\end{lstlisting}
-\end{spacing}
-\selectlanguage{greek}
-
-\begin{table}[h]
-    \centering
-    \caption{Καταγραφή χρόνων εκτέλεσης}
-    \label{my-label}
-    \begin{tabular}{| >{\centering\arraybackslash}p{0.15\textwidth}| 
-    >{\centering\arraybackslash}p{0.1\textwidth}|
-    >{\centering\arraybackslash}p{0.25\textwidth}|
-    >{\centering\arraybackslash}p{0.1\textwidth}|
-    >{\centering\arraybackslash}p{0.25\textwidth}|}
-    \hline
-    \multirow{2}{*}{\textbf{\shortstack{\\Μέγεθος \\ προβλήματος}}} & \multicolumn{4}{|c|}					{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-5} 
-        & \textbf{-Ο0}
-        & \textbf{\en{\shortstack{\\-O0\\ -fno-tree-vectorize}}} 
-        & \textbf{\en{-O3}}
-        & \textbf{\en{\shortstack{\\-O3\\ -fno-tree-vectorize}}} 
-\\ \hline
-     100000    & 0.004 & 0.005 & 0.002 & 0.005 \\ \cline{1-5} 
-     1000000   & 0.007 & 0.007 & 0.001 & 0.004 \\ \cline{1-5} 
-     10000000  & 0.019 & 0.019 & 0.017 & 0.014 \\ \cline{1-5} 
-     100000000 & 0.127 & 0.125 & 0.125 & 0.124 \\ \cline{1-5} 
-     200000000 & 0.256 & 0.249 & 0.247 & 0.250 \\ \cline{1-5} 
-     300000000 & 0.372 & 0.383 & 0.369 & 0.365 \\ \cline{1-5} 
-     400000000 & 0.494 & 0.525 & 0.482 & 0.485 \\ \cline{1-5} 
-    \end{tabular}
-\end{table}
-
-να αναφέρω οτι δεν παιζει ρολο το -O3 optimization :(
-Επίσης να συγκρίνω με την parallel for χωρις simd!
 \clearpage
-\subsection{Παραλλαγή με \emph{\en{target map}}}
+\begin{figure}[h]
+\centering 
+\resizebox{0.7\textwidth}{!} {
+\begin{tikzpicture}   
+    \begin{axis}[
+         title={Χρόνοι εκτέλεσης με \en{Alt16 - Alt19}},
+         xlabel={Μέγεθος διανυσμάτων},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=1e8, xmax=5e8,
+         ymin=0, ymax=1,
+         xtick={ 1e8, 2e8, 3e8, 4e8, 5e8},
+         ytick={0, 0.2, 0.4, 0.6, 0.8, 1},
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ]
+    
+    \addplot[ color=red, mark=square,]
+      coordinates {
+          (1e8,0.179)(2e8,0.318)
+          (3e8,0.469)(4e8,0.637)
+          (5e8,0.911)
+ 	};
+  	\addlegendentry{\en{Alt16}}
+
+    \addplot[ color=green, mark=square,]
+      coordinates {
+          (1e8,0.175)(2e8,0.319)
+          (3e8,0.469)(4e8, 0.619)
+          (5e8, 0.809)
+ 	};
+     \addlegendentry{\en{Alt19}}
+
+    \end{axis}
+\end{tikzpicture}}% NO EMPTY LINE HERE!!!!
+\end{figure}
+\clearpage
+\subsection{Παραλλαγές με \emph{\en{offloading}}}
 \subparagraph{}
+
+Η ομάδα παραλλαγών αυτής της ενότητας, αφορά τη μεταφορά του αλγορίθμου σε άλλο μέσο για την επίλυση του. Το βασικότερο τμήμα του \emph{\en{SAXPY}}, εκτελείται στη μονάδα επεξεργασίας κάρτας γραφικών - \emph{\en{GPU}}. Στα πλαίσια της μεταφοράς, συμπεριλαμβάνεται και η μεταφορά των μεταβλητών από τη μνήμη της κεντρικής μονάδας στη μνήμη της κάρτας γραφικών. Αυτή η μεταφορά γίνεται με διάφορους τρόπου και τεχνικές που αναφέρονται στις επόμενες παραγράφους.
+
+\subsubsection{Παραλλαγή με \emph{\en{target map}}}
+\subparagraph{}
+Στη συγκεκριμένη παραλλαγή γίνεται απλή μεταφορά του κώδικα και των μεταβλητών στην κάρτα γραφικών για την εκτέλεση του \emph{\en{SAXPY}} σε αυτή. 
 \selectlanguage{english}
 \begin{spacing}{0.9}
 \begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{target map}}} , frame=tlrb]{Name}
@@ -672,33 +1015,43 @@ void saxpy(size_t n, float a, const float *x, float *y) {
 \end{lstlisting}
 \end{spacing}
 \selectlanguage{greek}
+\begin{table}[h]
+    \centering
+    \caption{Επιλογές μεταγλώττισης}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt20}} & \en{ -fopt-info-vec=info.log -fno-inline -fno-tree-vectorize -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+     \textbf{\en{Alt21}} & \en{ -fopt-info-vec=info.log -fno-inline -ftree-vectorize -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+    \end{tabular}
+\end{table}
 
 \begin{table}[h]
     \centering
     \caption{Καταγραφή χρόνων εκτέλεσης}
     \label{my-label}
-    \begin{tabular}{| >{\centering\arraybackslash}p{0.25\textwidth}| 
-    >{\centering\arraybackslash}p{0.25\textwidth}|
-    >{\centering\arraybackslash}p{0.25\textwidth}|}
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+|}
     \hline
-    \multirow{2}{*}{\textbf{\shortstack{\\Μέγεθος \\ προβλήματος}}} & \multicolumn{2}{|c|}					{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
-        & \textbf{-Ο0}
-        & \textbf{-O3} 
-
-\\ \hline
-     100000    & 0.005 & 0.004 \\ \cline{1-3} 
-     1000000   & 0.016 & 0.006 \\ \cline{1-3} 
-     10000000  & 0.123 & 0.019 \\ \cline{1-3} 
-     100000000 & 1.187 & 0.269 \\ \cline{1-3} 
-     200000000 & 2.381 & 0.334 \\ \cline{1-3} 
-     300000000 & 3.555 & 0.512 \\ \cline{1-3} 
-     400000000 & 4.731 & 0.622 \\ \cline{1-3} 
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+      & \textbf{\en{Alt20}} & \textbf{\en{Alt21}}  \\ \hline
+     100000    & 0.881 & 0.873 \\ \cline{1-3} 
+     1000000   & 1.200 & 1.169 \\ \cline{1-3} 
+     10000000  & 3.848 & 3.752 \\ \cline{1-3} 
+     100000000 & 29.984 & 29.937\\ \cline{1-3} 
+     200000000 & 59.055 & 59.894 \\ \cline{1-3} 
     \end{tabular}
 \end{table}
-
-Συγκριση με σειριακή.
-
 \clearpage
+Παρόλο που η συγκρεκριμένη παραλλαγή προσομοιώνει σειριακή εκτέλεση στη μονάδα επεξεργασίας της κάρτας γραφικών, είναι προφανές ότι η δημιουργία ενός νέου περιβάλλοντος δεδομένων, με τα απαραίτητα δεδομένα για την εκτέλεση του προβλήματος και η εκτέλεσή του στη μονάδα επεξεργασίας γραφικών μέσω \emph{\en{OpenMP}}, αποτελεί μια χρονοβόρα διαδικασία, πολύ πιο χρονοβόρα από τη σειριακή εκτέλεση στη κεντρική μονάδα επεξεργασίας \emph{\en{CPU}}.
+
+
 \subsection{Παραλλαγή με \emph{\en{target simd map}}}
 \subparagraph{}
 \selectlanguage{english}
@@ -714,36 +1067,145 @@ void saxpy(size_t n, float a, const float *x, float *y) {
 \end{lstlisting}
 \end{spacing}
 \selectlanguage{greek}
+\begin{table}[h]
+    \centering
+    \caption{Επιλογές μεταγλώττισης}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt22}} & \en{-fopt-info-vec=builds/alt22.log -O2 -fno-tree-vectorize -fno-inline -fno-stack-protector -foffload=nvptx-none="-O2 -fno-tree-vectorize -fno-inline" -fopenmp -o ./builds/Alt22} \\ \hline
+     \textbf{\en{Alt23}} & \en{-fopt-info-vec=builds/alt23.log -O2 -ftree-vectorize -fno-inline -fno-stack-protector -foffload=nvptx-none="-O2 -ftree-vectorize -fno-inline" -fopenmp -o ./builds/Alt23} \\ \hline
+     \textbf{\en{Alt24}} & \en{-fopt-info-vec=builds/alt24.log -O2  -fno-inline -fno-stack-protector -foffload=nvptx-none="-O2  -fno-inline" -fopenmp -o ./builds/Alt24} \\ \hline
+    \end{tabular}
+\end{table}
 
 \begin{table}[h]
     \centering
     \caption{Καταγραφή χρόνων εκτέλεσης}
     \label{my-label}
-    \begin{tabular}{| >{\centering\arraybackslash}p{0.15\textwidth}| 
-    >{\centering\arraybackslash}p{0.15\textwidth}|
-	>{\centering\arraybackslash}p{0.20\textwidth}|
-	>{\centering\arraybackslash}p{0.15\textwidth}|
-    >{\centering\arraybackslash}p{0.20\textwidth}|}
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+|}
     \hline
-    \multirow{4}{*}{\textbf{\shortstack{\\Μέγεθος \\ προβλήματος}}} & \multicolumn{2}{|c|}					{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
-        & \textbf{-Ο0}
-        & \textbf{\en{-O0 -fopenmp-simd}}
-        & \textbf{-O3} 
-        & \textbf{\en{-O3 -fopenmp-simd}}
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{3}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-4} 
+      & \textbf{\en{Alt22}} & \textbf{\en{Alt23}} & \textbf{\en{Alt24}} \\ \hline
+     100000    & 0.888 & 0.809 & 0.837 \\ \cline{1-4} 
+     1000000   & 0.841 & 0.837 & 0.833 \\ \cline{1-4} 
+     10000000  & 1.018 & 1.018 & 0.997 \\ \cline{1-4} 
+     100000000 & 2.359 & 2.406 & 2.392 \\ \cline{1-4} 
+     200000000 & 4.387 & 5.149 & 5.157 \\ \cline{1-4} 
+     300000000 & 5.883 & 7.256 & 7.494 \\ \cline{1-4} 
+     400000000 & 7.189 & 6.969 & 7.155 	\\ \cline{1-4} 
 
-\\ \hline
-     100000    & 0.005 & 0.005 & 0.004 & 0.004 \\ \cline{1-5} 
-     1000000   & 0.015 & 0.016 & 0.006 & 0.006\\ \cline{1-5} 
-     10000000  & 0.120 & 0.120 & 0.020 & 0.021\\ \cline{1-5} 
-     100000000 & 1.154 & 1.161 & 0.157 & 0.167\\ \cline{1-5} 
-     200000000 & 2.298 & 2.314 & 0.332 & 0.333\\ \cline{1-5} 
-     300000000 & 3.485 & 3.491 & 0.486 & 0.490\\ \cline{1-5} 
-     400000000 & 4.620 & 4.613 & 0.650 & 0.654\\ \cline{1-5} 
     \end{tabular}
 \end{table}
 
-Συγκριση με σιμδ.
 \clearpage
+
+\begin{figure}[h]
+\centering 
+\resizebox{0.5\textwidth}{!} {
+\begin{tikzpicture}   
+    \begin{axis}[
+         title={Χρόνοι εκτέλεσης με \en{Alt22 - Alt8}},
+         xlabel={Μέγεθος διανυσμάτων},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=1e8, xmax=5e8,
+         ymin=0, ymax=10,
+         xtick={ 1e8, 2e8, 3e8, 4e8, 5e8},
+         ytick={0, 2, 4, 6, 8, 10},
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ]
+    
+     \addplot[ color=red, mark=square,]
+      coordinates {
+          (1e8,2.359)(2e8,4.387)
+          (3e8,5.883)(4e8,7.189)
+ 	};
+  	\addlegendentry{\en{Alt22}}
+
+          \addplot[ color=blue, mark=square,]
+      coordinates {
+          (100000000,0.202)(200000000,0.401)
+          (300000000,0.592)(400000000, 0.783)
+        
+ 	};
+     \addlegendentry{\en{Alt8}}
+
+    \end{axis}
+\end{tikzpicture}}% NO EMPTY LINE HERE!!!!
+\resizebox{0.5\textwidth}{!} {
+\begin{tikzpicture}
+    \begin{axis}[
+         title={Χρόνοι εκτέλεσης με \en{Alt23 - Alt9}},
+         xlabel={Μέγεθος διανυσμάτων},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=1e8, xmax=5e8,
+         ymin=0, ymax=10,
+         xtick={ 1e8, 2e8, 3e8, 4e8, 5e8},
+         ytick={0, 2, 4, 6, 8, 10},
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ]
+    
+ 	\addplot[ color=green, mark=square,]
+      coordinates {
+          (1e8,2.406)(2e8,5.149)(3e8,7.256)(4e8,6.969)(5e8, 8.433)
+ 	};
+ 	\addlegendentry{\en{Alt23}}
+
+ 	\addplot[ color=blue, mark=square,]
+      coordinates {
+          (1e8,0.165)(2e8,0.329)(3e8,0.503)(4e8,0.639)(5e8, 0.827)
+ 	};
+ 	\addlegendentry{\en{Alt9}}
+    \end{axis}
+\end{tikzpicture}} 
+\end{figure}
+
+\begin{figure}[h]
+\centering 
+\resizebox{0.5\textwidth}{!} {
+\begin{tikzpicture}   
+    \begin{axis}[
+         title={Χρόνοι εκτέλεσης με \en{Alt24 - Alt19}},
+         xlabel={Μέγεθος διανυσμάτων},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=1e8, xmax=5e8,
+         ymin=0, ymax=10,
+         xtick={ 1e8, 2e8, 3e8, 4e8, 5e8},
+         ytick={0, 2, 3, 6, 8, 10},
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ]
+    
+    \addplot[ color=red, mark=square,]
+      coordinates {
+          (1e8,2.392)(2e8,5.157)
+          (3e8,7.494)(4e8,7.155)(5e8, 8.476)
+ 	};
+  	\addlegendentry{\en{Alt24}}
+
+    \addplot[ color=green, mark=square,]
+      coordinates {
+          (1e8,0.145)(2e8,0.296)
+          (3e8,0.496)(4e8, 0.642)(5e8, 0.844)
+ 	};
+     \addlegendentry{\en{Alt10}}
+
+    \end{axis}
+\end{tikzpicture}}% NO EMPTY LINE HERE!!!!
+\end{figure}
 \subsection{Παραλλαγή με \emph{\en{target parallel for}}}
 \subparagraph{}
 \selectlanguage{english}
