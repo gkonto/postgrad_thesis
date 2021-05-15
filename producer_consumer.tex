@@ -1,0 +1,807 @@
+\setstretch{1.5}
+\subsection{Παράδειγμα \en{Producer-Consumer}}
+Στον προγραμματισμό το πρόβλημα \emph{\en{producer-consumer}}, γνωστό και ως \emph{\en{bounded buffer}} πρόβλημα, αποτελεί ένα κλασσικό πρόβλημα συγχρονισμού πολλαπλών διαδικασιών. Το πρόβλημα περιλαμβάνει δύο επαναλαμβανόμενες εργασίες, τον παραγωγό\en{\emph{(producer)}} και τον καταναλωτή\en{\emph{(consumer)}} που μοιράζονται ένα κοινό \emph{\en{buffer}} σταθερού μεγέθους που χρησιμοποιείται ως ουρά(\en{\emph{queue}}). Ο παραγωγός δημιουργεί συνεχώς δεδομένα και τα εισάγει στο \emph{\en{buffer}} ενώ ο καταναλωτής διαβάζει και διαγράφει επαναλαμβανόμενα τα δεδομένα από αυτό.\cite{wiki_prod_cons}
+
+Στην παρούσα υλοποίηση οι εργασίες που παράγονται και εκτελούνται περιλαμβάνουν την κλήση ρουτινών που δεν έχουν κάποια ιδιαίτερη λειτουργικότητα, παρά μόνο αδρανοποιούν το εκάστοτε νήμα για 60 και 125 \emph{\en{milliseconds}} αντίστοιχα. Ταυτόχρονα, στη εργασία καταναλωτή επιστρέφεται και ένας ακέραιος με σκοπό την επαλήθευση σωστής εκτέλεσης του αλγορίθμου.
+
+\subsubsection{Περιγραφή κοινού τμήματος αλγορίθμου \en{Producer-Consumer}}
+\selectlanguage{english}
+\begin{spacing}{0.8}
+\begin{lstlisting}[language=C++, caption={\en{Prod-Cons: main()}} , frame=tb]{Name}
+  int main(int argc, char **argv)
+   {
+       Opts o;
+       parseArgs(argc, argv, o);
+
+       double start = omp_get_wtime();
+       int total = producer_consumer(o.size);
+       double end = omp_get_wtime();
+
+       int ver = 0;
+       for (int i = 0; i < o.size; i++) {
+           ver += i;
+       }
+
+       if (ver != total) {
+           std::cout << "Failed Verification!" << std::endl;
+           exit(1);
+       }
+
+       std::cout << "Calculation time: " <<
+       		end - start << " sec" << std::endl;
+       return 0;
+   }
+
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+\clearpage
+
+\subsubsection{Σειριακή εκτέλεση}
+\selectlanguage{english}
+\begin{spacing}{0.6}
+\begin{lstlisting}[language=C++, caption={\en{Prod-Cons}: \el{Σειριακή εκτέλεση}} , frame=tb]{Name}
+Buffer *gl_buffer = 0;
+
+ int consume()
+ {
+     int num = gl_buffer->buf_[--gl_buffer->len_].x_;
+     std::this_thread::sleep_for(std::chrono::milliseconds(20));
+     return num;
+ }
+
+ void produce(int key)
+ {
+     gl_buffer->buf_[gl_buffer->len_++].x_ = key;
+     std::this_thread::sleep_for(std::chrono::milliseconds(10));
+ }
+
+ int producer_consumer(int iterations)
+ {
+     gl_buffer = new Buffer(iterations);
+
+     int total = 0;
+
+     for (int i = 0; i < iterations; ++i) {
+         produce(i);
+         total += consume();
+     }
+
+     return total;
+ }
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Prod-Cons}: Επιλογές μεταγλώττισης \en{Alt1, Alt2}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt1}} & \en{-fopt-info-vec=builds/alt1.log -O2 -fno-inline -fno-tree-vectorize -fopenmp -o ./builds/Alt1} \\ \hline
+      \textbf{\en{Alt2}} & \en{-fopt-info-vec=builds/alt2.log -O2 -fno-inline -ftree-vectorize -fopenmp -o ./builds/Alt2} \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Prod-Cons: } Αποτελέσματα \en{Alt1, Alt2}}
+    \label{my-label}
+    \resizebox{0.5\textwidth}{!} {
+    \begin{tabular}{|p{0.20\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{\shortstack{Μέγεθος\\προβλήματος}}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+               & \textbf{\en{Alt1}} & \textbf{\en{Alt2}}\\ \hline
+     10 & 0.303 & 0.303 \\ \cline{1-3} 
+     20 & 0.606 & 0.615 \\ \cline{1-3} 
+     30 & 0.908 & 0.910 \\ \cline{1-3} 
+     40 & 1.211 & 1.210 \\ \cline{1-3} 
+     50 & 1.514 & 1.514  \\ \cline{1-3} 
+     60 & 1.817 & 1.832  \\ \cline{1-3} 
+     70 & 2.120 & 2.127 \\ \cline{1-3} 
+     80 & 2.422 &  2.398 \\ \cline{1-3} 
+     90 &  2.725 &  2.727 \\ \cline{1-3} 
+     100 & 3.028 & 3.014 \\ \cline{1-3} 
+
+    \end{tabular}}
+\end{table}
+\clearpage
+
+\paragraph{Παρατηρήσεις}
+\ \\
+Ο χρόνος εκτέλεσης του προβλήματος για \emph{\en{k}} επαναλήψεις αναλύεται ως εξής:
+ \[ \sum_{n=1}^{k} p_n + c_n = total\_time \]	
+Για 100 επαναλήψεις, ο ελάχιστος χρόνος που χρειάζεται για την ολοκλήρωση του αλγόριθμου είναι $10 * 100 + 20 * 100 = 3000 \en{milliseconds}$, όπως επαληθεύεται και απο τον προηγούμενο πίνακα. Επίσης, ο παρακάτω πίνακας επιβεβαιώνει οτι τα βήματα του αλγόριθμου, είναι εναλλάξ παραγωγή - κατανάλωση.
+\begin{table}[h]
+    \centering
+    \caption{\en{Prod-Cons: Alt1:} Βήματα εργασιών}
+    \label{my-label}
+    \resizebox{0.5\textwidth}{!} {
+    \begin{tabular}{
+    | >{\centering\arraybackslash}p{0.20\textwidth}
+    | >{\centering\arraybackslash}p{0.20\textwidth}
+    |}
+    \hline
+    \multicolumn{2}{|c|}{\textbf{Βήματα εκτέλεσης}} \\ \cline{1-2} 
+               \textbf{\en{1-5}} & \textbf{\en{6-10}}\\ \hline
+\en{Produce:} 0  & \en{Produce:} 6  \\ \cline{1-2} 
+\en{Consume:} 0  & \en{Consume:} 6  \\ \cline{1-2} 
+\en{Produce:} 1  & \en{Produce:} 7  \\ \cline{1-2} 
+\en{Consume:} 1  & \en{Consume:} 7  \\ \cline{1-2} 
+\en{Produce:} 2  & \en{Produce:} 8  \\ \cline{1-2} 
+\en{Consume:} 2  & \en{Consume:} 8  \\ \cline{1-2} 
+\en{Produce:} 3  & \en{Produce:} 9  \\ \cline{1-2} 
+\en{Consume:} 3  & \en{Consume:} 9  \\ \cline{1-2} 
+\en{Produce:} 4  & \en{Produce:} 10 \\ \cline{1-2} 
+\en{Consume:} 4  & \en{Consume:} 10 \\ \cline{1-2} 
+\en{Produce:} 5  & \\ \cline{1-2} 
+\en{Consume:} 5  & \\ \cline{1-2} 
+
+    \end{tabular}}
+\end{table}
+\clearpage
+
+\subsubsection{Παραλλαγή με \en{parallel for reduction}}
+Όπως φαίνεται και στον κώδικα που ακολουθεί, ο βρόγχος επανάληψης των εργασιών εκτελείται παράλληλα. Ως συνέπεια, κάθε νήμα είναι υπεύθυνο για την εκτέλεση μιας εργασίας αμέσως μετά την παραγωγή μιας άλλης. Η εργασία που εκτελείται δεν είναι απαραίτητα ή ίδια με αυτή που παράγεται από το ίδιο νήμα.
+\selectlanguage{english}
+\begin{spacing}{0.6}
+\begin{lstlisting}[showstringspaces=false, language=C++, caption={\en{Prod-Cons: parallel for reduction - critical}}, frame=tb]{Name}
+ Buffer *gl_buffer = 0;
+
+ int consume()
+ {
+     int num = 0;
+ #pragma omp critical
+     {
+         num = gl_buffer->buf_[--gl_buffer->len_].x_;
+     }
+     std::this_thread::sleep_for(std::chrono::milliseconds(20));
+     return num;
+ }
+
+ void produce(int key)
+ {
+ #pragma omp critical
+     {
+         gl_buffer->buf_[gl_buffer->len_++].x_ = key;
+     }
+     std::this_thread::sleep_for(std::chrono::milliseconds(10));
+ }
+
+ int producer_consumer(int iterations)
+ {
+     gl_buffer = new Buffer(iterations);
+     long long int total = 0;
+
+ #pragma omp parallel for reduction(+: total)
+     for (int i = 0; i < iterations; ++i) {
+         produce(i);
+         total += consume();
+     }
+
+     return total;
+ }
+
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Prod-Cons}: Επιλογές μεταγλώττισης \en{Alt3, Alt4}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Labe}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt3}} & \en{-fopt-info-vec=builds/alt3.log -O2 -fno-inline -fno-tree-vectorize -fopenmp -o ./builds/Alt3} \\ \hline
+      \textbf{\en{Alt4}} & \en{-fopt-info-vec=builds/alt4.log -O2 -fno-inline -ftree-vectorize -fopenmp -o ./builds/Alt4} \\ \hline
+    \end{tabular}
+\end{table}
+\clearpage
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Prod-Cons: } Αποτελέσματα \en{Alt3, Alt4}}
+    \label{my-label}
+    \resizebox{0.6\textwidth}{!} {
+    \begin{tabular}{|p{0.20\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{\shortstack{Μέγεθος\\προβλήματος}}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+               & \textbf{\en{Alt3}} & \textbf{\en{Alt4}}\\ \hline
+     10 & 0.031 & 0.031 \\ \cline{1-3} 
+     20 & 0.064 & 0.065 \\ \cline{1-3} 
+     30 & 0.063 & 0.063 \\ \cline{1-3} 
+     40 & 0.094 & 0.093 \\ \cline{1-3} 
+     50 & 0.124 & 0.126 \\ \cline{1-3} 
+     60 & 0.126 & 0.127 \\ \cline{1-3} 
+     70 & 0.154 & 0.153 \\ \cline{1-3} 
+     80 & 0.157 & 0.157 \\ \cline{1-3} 
+     90 & 0.185  & 0.186 \\ \cline{1-3} 
+     100 & 0.213 & 0.215 \\ \cline{1-3} 
+
+    \end{tabular}}
+\end{table}
+
+\paragraph{Παρατηρήσεις}
+\ \\
+Κατα την εκτέλεση του αλγορίθμου, αρχικά γίνονται μαζικές παραγωγές δεδομένων παράλληλα από διαφορετικά νήματα. Στη συνέχεια ακολουθεί η κατανάλωση τους. Η διαδικασία ολοκληρώνεται όταν τελειώσουν τα δεδομένα προς παραγωγή.
+\begin{table}[h]
+    \centering
+    \caption{\en{Prod-Cons: Alt3:} Βήματα εργασιών}
+    \label{my-label}
+    \resizebox{0.6\textwidth}{!} {
+    \begin{tabular}{
+    | >{\centering\arraybackslash}p{0.20\textwidth}
+    | >{\centering\arraybackslash}p{0.20\textwidth}
+    | >{\centering\arraybackslash}p{0.20\textwidth}
+    |}
+    \hline
+    \multicolumn{3}{|c|}{\textbf{Βήματα εκτέλεσης}} \\ \cline{1-3} 
+               \textbf{\en{1-16}} & \textbf{\en{17-32}} & \textbf{\en{33-40}}\\ \hline
+\en{Produce:} 19 & \en{Consume:} 18 & \en{Produce:} 1\\ \cline{1-3} 
+\en{Produce:} 0  & \en{Consume:} 16 & \en{Produce:} 3\\ \cline{1-3} 
+\en{Produce:} 14 & \en{Consume:} 10 & \en{Produce:} 5\\ \cline{1-3} 
+\en{Produce:} 12 & \en{Consume:} 11 & \en{Produce:} 7\\ \cline{1-3} 
+\en{Produce:} 8  & \en{Consume:} 6  & \en{Consume:} 7 \\ \cline{1-3} 
+\en{Produce:} 13 & \en{Consume:} 4  & \en{Consume:} 4 \\ \cline{1-3} 
+\en{Produce:} 9  & \en{Consume:} 17 & \en{Consume:} 3 \\ \cline{1-3} 
+\en{Produce:} 15 & \en{Consume:} 2  & \en{Consume:} 1 \\ \cline{1-3} 
+\en{Produce:} 2  & \en{Consume:} 15 & \\ \cline{1-3} 
+\en{Produce:} 17 & \en{Consume:} 19 & \\ \cline{1-3} 
+\en{Produce:} 4  & \en{Consume:} 13 & \\ \cline{1-3} 
+\en{Produce:} 6  & \en{Consume:} 8  & \\ \cline{1-3} 
+\en{Produce:} 11 & \en{Consume:} 12 & \\ \cline{1-3} 
+\en{Produce:} 10 & \en{Consume:} 14 & \\ \cline{1-3} 
+\en{Produce:} 16 & \en{Consume:} 0  & \\ \cline{1-3} 
+\en{Produce:} 18 & \en{Consume:} 19 & \\ \cline{1-3} 
+
+    \end{tabular}}
+\end{table}
+\clearpage
+
+\begin{figure}[h]
+\begin{tabular}{*{2}{>{\centering\arraybackslash}b{\dimexpr0.5\linewidth-2\tabcolsep\relax}}}
+\resizebox{0.5\textwidth}{!} {
+\begin{tikzpicture}[state/.append style={minimum size=7mm}]
+     \begin{axis}[
+         xlabel={Μέγεθος διανυσμάτων},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=10, xmax=100,
+         ymin=0, ymax=3.5,
+         xtick={ 10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
+         ytick={ 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5},
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ] 
+ 	
+ 	\addplot[ color=blue, mark=triangle,]
+      coordinates {
+          (10, 0.303)(20,0.606)(30,0.908)
+          (40,1.211)(50,1.514)(60,1.817)
+          (70, 2.12)(80, 2.422)(90, 2.725)(100, 3.028)
+ 	};
+ 	\addlegendentry{\en{Alt1}}
+ 	
+ 	\addplot[ color=red, mark=square,]
+      coordinates {
+          (10,0.031)(20,0.064)(30,0.063)
+          (40,0.094)(50,0.124)(60,0.126)
+          (70, 0.154)(80, 0.157)(90, 0.185)(100, 0.213)
+ 	};
+ 	\addlegendentry{\en{Alt3}}
+ 	
+     \end{axis}
+ \end{tikzpicture}}
+
+ \caption{\en{Prod-Cons}: Σύγκριση \en{Alt1, Alt3}}
+    &
+\renewcommand{\arraystretch}{1.1}
+\resizebox{0.5\textwidth}{!} {
+\begin{tabular}{c|c}
+Μέγεθος & Ποσοστό μείωσης χρόνου (\%)  \\
+\hline
+\en{10} & 89.76 \\
+\en{20} & 89.43 \\
+\en{30} & 93.03 \\
+\en{40} & 92.24 \\
+\en{50} & 91.81 \\
+\en{60} & 93.06 \\
+\en{70} & 92.73 \\
+\en{80} & 93.51 \\
+\en{90} & 93.21 \\
+\en{100} &  92.97\\
+
+\end{tabular}}
+\captionof{table}{\en{Prod-Cons}: Ποσοστιαία σύγκριση μεταξύ \en{Alt1} και \en{Alt3}}
+\end{tabular}
+\end{figure}
+
+\clearpage
+\subsubsection{Παραλλαγή με \en{parallel for (2)}}
+\selectlanguage{english}
+\begin{spacing}{0.7}
+\begin{lstlisting}[language=C++, caption={\en{Prod-Cons: parallel - critical}}, frame=tb]{Name}
+Buffer *gl_buffer = 0;
+
+int consume()
+{
+    int num = 0;
+#pragma omp critical
+    {
+        if (gl_buffer->len_ > 0) {
+            num = gl_buffer->buf_[--gl_buffer->len_].x_;
+        }
+    }
+    std::this_thread::sleep_for(std::chrono::milliseconds(20));
+    return num;
+}
+
+void produce(int key)
+{
+#pragma omp critical
+    {
+       gl_buffer->buf_[gl_buffer->len_++].x_ = key;
+    }
+    std::this_thread::sleep_for(std::chrono::milliseconds(20));
+}
+
+int producer_consumer(int iterations)
+{
+    gl_buffer = new Buffer(iterations);
+    int total = 0;
+    int finished_production = 0;
+    int abort = 0;
+
+#pragma omp parallel shared(finished_production) firstprivate(abort)
+    {
+        if (omp_get_thread_num() == 0) {
+            for (int i = 0; i < iterations; ++i) {
+                produce(i);
+            }
+            finished_production = 1;
+        } else {
+            while (!abort) {
+                int temp = consume();
+#pragma omp critical
+                {
+                    total += temp;
+                    if (finished_production && gl_buffer->len_ == 0)
+                    {
+                        abort = 1;
+                    }
+                }
+            }
+        }
+    }
+
+    return total;
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+Στην υλοποίηση αυτής της ενότητας δημιουργείται μια παράλληλη περιοχή και μέσα σε αυτή μόνο ένα νήμα είναι υπεύθυνο για τη δημιουργία των εργασιών. Τα υπόλοιπα νήματα εκτελούν τις εργασίες που βρίσκουν μέσα στο \en{buffer} έως ότου αυτές τελειώσουν και ταυτόχρονα έχει τελειώσει και η παραγωγή τους από το αρμόδιο νήμα.
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Prod-Cons}: Επιλογές μεταγλώττισης \en{Alt5, Alt6}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Labe}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt5}} & \en{-fopt-info-vec=builds/alt5.log -O2 -fno-inline -fno-tree-vectorize -fopenmp -o ./builds/Alt5} \\ \hline
+      \textbf{\en{Alt6}} & \en{-fopt-info-vec=builds/alt6.log -O2 -fno-inline -fno-tree-vectorize -fopenmp -o ./builds/Alt5} \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Prod-Cons:} Αποτελέσματα \en{Alt5, Alt6}}
+    \label{my-label}
+    \resizebox{0.5\textwidth}{!} {
+    \begin{tabular}{|p{0.20\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{\shortstack{Μέγεθος\\προβλήματος}}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+               & \textbf{\en{Alt5}} & \textbf{\en{Alt6}}\\ \hline
+     10 & 0.225 & 0.227 \\ \cline{1-3} 
+     20 & 0.404 & 0.425 \\ \cline{1-3} 
+     30 & 0.628 & 0.651 \\ \cline{1-3} 
+     40 & 0.829 & 0.829 \\ \cline{1-3} 
+     50 & 1.031 & 1.029 \\ \cline{1-3} 
+     60 & 1.232 & 1.223 \\ \cline{1-3} 
+     70 & 1.434 & 1.532 \\ \cline{1-3} 
+     80 & 1.615 & 1.615 \\ \cline{1-3} 
+     90 & 1.835  & 1.823 \\ \cline{1-3} 
+     100 & 2.038 & 2.012\\ \cline{1-3} 
+
+    \end{tabular}}
+\end{table}
+
+\paragraph{Παρατηρήσεις}
+\ \\
+Η επίδοση του αλγόριθμου υστερεί σε σχέση με την \en{Alt5} καθώς μόνο ένα νήμα είναι υπεύθυνο για την παραγωγή των εργασιών. Η μέθοδος αυτή δεν ενδείκνυται, καθώς σημαντικό ρόλο παίζει ο σχετικός χρόνος ανάμεσα στην παραγωγή και την κατανάλωση μιας εργασίας. Τα νήματα που είναι αρμόδια για την κατανάλωση, θα εκτελέσουν άσκοπα το βρόγχο επανάληψης στην περίπτωση που δεν έχει προλάβει να εισαχθεί μια εργασία από τον παραγωγό ή αν ο αριθμός των εργασιών που υπάρχουν μέσα στο \en{buffer} είναι μικρότερος από το συνολικό αριθμό νημάτων καταναλωτών που δεν εκτελούν κάποια εργασία.
+
+\clearpage
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Prod-Cons: Alt5:} Βήματα εργασιών}
+        \label{my-label}
+    \resizebox{0.65\textwidth}{!} {
+    \begin{tabular}{
+    | >{\centering\arraybackslash}p{0.20\textwidth}
+    | >{\centering\arraybackslash}p{0.20\textwidth}
+    | >{\centering\arraybackslash}p{0.20\textwidth}
+    |}
+    \hline
+    \multicolumn{3}{|c|}{\textbf{Βήματα εκτέλεσης}} \\ \cline{1-3} 
+               \textbf{\en{1-16}} & \textbf{\en{17-32}} & \textbf{\en{33-40}}\\ \hline
+\en{Produce: } 0 & \en{Produce: } 8 & \en{Produce: } 16 \\ \cline{1-3} 
+\en{Consume: } 0 & \en{Produce: } 9 & \en{Produce: } 17\\ \cline{1-3} 
+\en{Produce: } 1 & \en{Consume: } 9 & \en{Consume: } 17\\ \cline{1-3} 
+\en{Consume: } 1 & \en{Consume: } 8 & \en{Consume: } 18\\ \cline{1-3} 
+\en{Produce: } 2 & \en{Produce: } 10 & \en{Produce: } 19\\ \cline{1-3} 
+\en{Produce: } 3 & \en{Produce: } 11 & \en{Produce: } 20\\ \cline{1-3} 
+\en{Consume: } 3 & \en{Consume: } 11 & \en{Consume: } 20\\ \cline{1-3} 
+\en{Consume: } 2 & \en{Consume: } 10 & \en{Consume: } 19\\ \cline{1-3} 
+\en{Produce: } 4 & \en{Produce: } 12 & \\ \cline{1-3} 
+\en{Consume: } 4 & \en{Produce: } 13 & \\ \cline{1-3} 
+\en{Produce: } 5 & \en{Consume: } 13 & \\ \cline{1-3} 
+\en{Consume: } 5 & \en{Consume: } 12 & \\ \cline{1-3} 
+\en{Produce: } 6 & \en{Produce: } 14 & \\ \cline{1-3} 
+\en{Produce: } 7 & \en{Produce: } 15 & \\ \cline{1-3} 
+\en{Consume: } 7 & \en{Consume: } 15 & \\ \cline{1-3} 
+\en{Consume: } 6 & \en{Consume: } 14 & \\ \cline{1-3} 
+
+    \end{tabular}}
+\end{table}
+
+Όπως φαίνεται από τον πίνακα καταγραφής της σειράς παραγωγής-εκτέλεσης των εργασιών, κάθε εργασία που δημιουργείται εκτελείται απευθείας απο ένα αδρανές νήμα.
+
+\begin{figure}[h]
+\begin{center}
+\resizebox{0.4\textwidth}{!} {
+\begin{tikzpicture}  
+     \begin{axis}[
+         xlabel={Μέγεθος διανυσμάτων},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=10, xmax=100,
+         ymin=0, ymax=3.5,
+         xtick={ 10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
+         ytick={ 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5},
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ] 
+ 	
+ 	\addplot[ color=blue, mark=triangle,]
+      coordinates {
+          (10, 0.225)(20,0.404)(30,0.628)
+          (40,0.829)(50,1.031)(60,1.232)
+          (70,1.434)(80,1.615)(90,1.835)(100, 2.038)
+ 	};
+ 	\addlegendentry{\en{Alt6}}
+ 	
+ 	\addplot[ color=red, mark=square,]
+      coordinates {
+          (10,0.031)(20,0.064)(30,0.063)
+          (40,0.094)(50,0.124)(60,0.126)
+          (70,0.154)(80,0.157)(90,0.185)(100,0.213)
+ 	};
+ 	\addlegendentry{\en{Alt3}}
+ 	
+     \end{axis}
+\end{tikzpicture}}% NO EMPTY LINE HERE!!!! 
+\end{center}
+\caption{\en{Prime Numbers}: Σύγκριση \en{Alt6, Alt3}}
+\end{figure}
+\clearpage
+
+\subsubsection{Παραλλαγή με \en{tasks (depend)}}
+Με την χρήση των \en{\emph{tasks}} η επίλυση προβλημάτων τύπου παραγωγού-καταναλωτή 
+επιλύονται με μεγαλύτερη ευκολία. Στην παραλλαγή αυτής της παραγράφου γίνεται επίλυση με χρήση εργασιών. Ο αλγόριθμος εισέρχεται σε ένα παράλληλο τμήμα κώδικα, όπου ένα νήμα είναι υπεύθυνο για την δημιουργία εργασιών που περιλαμβάνουν εργασίες παραγωγής ή κατανάλωσης. Τα \en{tasks} δημιουργούνται από ένα νήμα αλλά εκτελούνται απο όλα μόλις ολοκληρωθεί το τμήμα κώδικα που περιλαμβάνεται στην οδηγία \en{pragma omp single}. Μια \en{consume} εργασία για να εκτελεστεί, θα πρέπει πρώτα να έχει ολοκληρωθεί η αντίστοιχη \en{produce} και αυτό επιτυγχάνεται με την φράση \en{depend}.
+
+\selectlanguage{english}
+\begin{spacing}{0.5}
+\begin{lstlisting}[language=C++, caption={\en{Prod-Cons: task depend - critical}} , frame=tb]{Name}
+int producer_consumer(int iterations)
+{
+    gl_buffer = new Buffer(iterations);
+    int total = 0;
+    int x = 0;
+
+#pragma omp parallel
+    {
+#pragma omp single
+        {
+            for (int i = 0; i < iterations; ++i) {
+#pragma omp task depend(out : x)
+                {
+                    produce(i);
+                    x = 1;
+                }
+            }
+
+            for (int i = 0; i < iterations; ++i) {
+#pragma omp task depend(in : x)
+                {
+                    int temp = consume();
+#pragma omp critical
+                    {
+                        total += temp;
+                    }
+                }
+            }
+        }
+    }
+    return total;
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+\begin{table}[h]
+    \centering
+    \caption{\en{Prod-Cons}: Επιλογές μεταγλώττισης \en{Alt7, Alt8}}
+    \label{my-label}
+    \resizebox{0.9\textwidth}{!} {
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Labe}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt7}} & \en{-fopt-info-vec=builds/alt7.log -O2 -fno-inline -fno-tree-vectorize -fopenmp -o ./builds/Alt7} \\ \hline
+      \textbf{\en{Alt8}} & \en{-fopt-info-vec=builds/alt8.log -O2 -fno-inline -ftree-vectorize -fopenmp -o ./builds/Alt8} \\ \hline
+    \end{tabular}}
+\end{table}
+\clearpage
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Prod-Cons: } Αποτελέσματα \en{Alt7, Alt8}}
+    \label{my-label}
+    \resizebox{0.6\textwidth}{!} {
+    \begin{tabular}{|p{0.20\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{\shortstack{Μέγεθος\\προβλήματος}}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+               & \textbf{\en{Alt7}} & \textbf{\en{Alt8}}\\ \hline
+     10 & 0.125 & 0.127 \\ \cline{1-3} 
+     20 & 0.250 & 0.249 \\ \cline{1-3} 
+     30 & 0.349 & 0.350 \\ \cline{1-3} 
+     40 & 0.471 & 0.471 \\ \cline{1-3} 
+     50 & 0.593 & 0.592 \\ \cline{1-3} 
+     60 & 0.696 & 0.698 \\ \cline{1-3} 
+     70 & 0.817 & 0.819 \\ \cline{1-3} 
+     80 & 0.919 & 0.919 \\ \cline{1-3} 
+     90 & 1.043  & 1.043 \\ \cline{1-3} 
+     100 & 1.161 & 1.162\\ \cline{1-3} 
+
+    \end{tabular}}
+\end{table}
+
+\paragraph{Παρατηρήσεις}
+\ \\ 
+\begin{table}[h]
+    \centering
+    \caption{\en{Prod-Cons: Alt7:} Βήματα εργασιών}
+    \label{my-label}
+    \resizebox{0.6\textwidth}{!} {
+    \begin{tabular}{
+    | >{\centering\arraybackslash}p{0.20\textwidth}
+    | >{\centering\arraybackslash}p{0.20\textwidth}
+    | >{\centering\arraybackslash}p{0.20\textwidth}
+    |}
+    \hline
+    \multicolumn{3}{|c|}{\textbf{Βήματα εκτέλεσης}} \\ \cline{1-3} 
+               \textbf{\en{1-16}} & \textbf{\en{17-32}} & \textbf{\en{33-40}}\\ \hline
+\en{Produce : } 0 & \en{Produce : } 16 & \en{Consume: } 7 \\ \cline{1-3} 
+\en{Produce : } 1 & \en{Produce : } 17 & \en{Consume: } 6\\ \cline{1-3} 
+\en{Produce : } 2 & \en{Produce : } 18 & \en{Consume: } 5\\ \cline{1-3} 
+\en{Produce : } 3 & \en{Produce : } 19 & \en{Consume: } 4\\ \cline{1-3} 
+\en{Produce : } 4 & \en{Consume: } 19 & \en{Consume: } 3\\ \cline{1-3} 
+\en{Produce : } 5 & \en{Consume: } 18 & \en{Consume: } 2\\ \cline{1-3} 
+\en{Produce : } 6 & \en{Consume: } 17 & \en{Consume: } 1\\ \cline{1-3} 
+\en{Produce : } 7 & \en{Consume: } 16 & \en{Consume: } 0\\ \cline{1-3} 
+\en{Produce : } 8 & \en{Consume: } 15 & \\ \cline{1-3} 
+\en{Produce : } 9 & \en{Consume: } 14 & \\ \cline{1-3} 
+\en{Produce : } 10 & \en{Consume: } 13 & \\ \cline{1-3} 
+\en{Produce : } 11 & \en{Consume: } 12 & \\ \cline{1-3} 
+\en{Produce : } 12 & \en{Consume: } 11 & \\ \cline{1-3} 
+\en{Produce : } 13 & \en{Consume: } 10 & \\ \cline{1-3} 
+\en{Produce : } 14 & \en{Consume: } 9 & \\ \cline{1-3} 
+\en{Produce : } 15 & \en{Consume: } 8 & \\ \cline{1-3} 
+
+    \end{tabular}}
+\end{table}
+\clearpage
+
+\subsubsection{Παραλλαγή με \en{taskloop}}
+Στη τελευταία υλοποίηση \en{producer - consumer} γίνεται χρήση της οδηγίας \en{\emph{taskloop}} η οποία δημιουργεί μια εργασία προς εκτέλεση για κάθε επανάληψη ενός βρόγχου.
+
+\selectlanguage{english}
+\begin{spacing}{0.2}
+\begin{lstlisting}[language=C++, caption={\en{Prod-Cons: taskloop simd - atomic}}, frame=tb]{Name}
+int producer_consumer(int iterations)
+{
+    gl_buffer = new Buffer(iterations);
+    int total = 0;
+    int x = 0;
+
+#pragma omp parallel
+    {
+#pragma omp single
+        {
+#pragma omp taskloop simd
+            for (int i = 0; i < iterations; ++i) {
+                produce(i);
+            }
+
+#pragma omp taskloop
+            for (int i = 0; i < iterations; ++i) {
+                    int temp = consume();
+#pragma omp atomic
+                        total += temp;
+            }
+        }
+    }
+    return total;
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Prod-Cons}: Επιλογές μεταγλώττισης \en{Alt9, Alt10}}
+    \label{my-label}
+        \resizebox{0.9\textwidth}{!} {
+
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Labe}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt9}} & \en{-fopt-info-vec=builds/alt9.log -O2 -fno-inline -fno-tree-vectorize -fopenmp -o ./builds/Alt9} \\ \hline
+      \textbf{\en{Alt10}} & \en{-fopt-info-vec=builds/alt10.log -O2 -fno-inline -ftree-vectorize -fopenmp -o ./builds/Alt10} \\ \hline
+    \end{tabular}}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Prod-Cons:} Αποτελέσματα \en{Alt9, Alt10}}
+    \label{my-label}
+    \resizebox{0.5\textwidth}{!} {
+    \begin{tabular}{|p{0.20\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{\shortstack{Μέγεθος\\προβλήματος}}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+               & \textbf{\en{Alt9}} & \textbf{\en{Alt10}}\\ \hline
+     10 & 0.036 & 0.036\\ \cline{1-3} 
+     20 & 0.066 & 0.067\\ \cline{1-3} 
+     30 & 0.068 & 0.064\\ \cline{1-3} 
+     40 & 0.098 & 0.095\\ \cline{1-3} 
+     50 & 0.125 & 0.126\\ \cline{1-3} 
+     60 & 0.124 & 0.129\\ \cline{1-3} 
+     70 & 0.157 & 0.155\\ \cline{1-3} 
+     80 & 0.158 & 0.156\\ \cline{1-3} 
+     90 & 0.187  & 0.190 \\ \cline{1-3} 
+     100 & 0.218 & 0.217\\ \cline{1-3} 
+
+    \end{tabular}}
+\end{table}
+
+
+\clearpage
+\paragraph{Παρατηρήσεις}
+\ \\
+\begin{table}[h]
+    \centering
+    \caption{\en{Prod-Cons: Alt9:} Βήματα εργασιών}
+    \label{my-label}
+    \resizebox{0.6\textwidth}{!} {
+    \begin{tabular}{
+    | >{\centering\arraybackslash}p{0.20\textwidth}
+    | >{\centering\arraybackslash}p{0.20\textwidth}
+    | >{\centering\arraybackslash}p{0.20\textwidth}
+    |}
+    \hline
+    \multicolumn{3}{|c|}{\textbf{Βήματα εκτέλεσης}} \\ \cline{1-3} 
+               \textbf{\en{1-16}} & \textbf{\en{17-32}} & \textbf{\en{33-40}}\\ \hline
+\en{Produce : } 0 & \en{Produce : } 1 & \en{Consume: } 8 \\ \cline{1-3} 
+\en{Produce : } 18 & \en{Produce : } 7 & \en{Consume: } 4\\ \cline{1-3} 
+\en{Produce : } 6 & \en{Produce : } 5 & \en{Consume: } 2\\ \cline{1-3} 
+\en{Produce : } 19 & \en{Produce : } 3 & \en{Consume: } 9\\ \cline{1-3} 
+\en{Produce : } 9 & \en{Consume: } 3 & \en{Consume: } 19\\ \cline{1-3} 
+\en{Produce : } 2 & \en{Consume: } 5 & \en{Consume: } 6\\ \cline{1-3} 
+\en{Produce : } 4 & \en{Consume: } 7 & \en{Consume: } 18\\ \cline{1-3} 
+\en{Produce : } 8 & \en{Consume: } 1 & \en{Consume: } 0\\ \cline{1-3} 
+\en{Produce : } 10 & \en{Consume: } 17 & \\ \cline{1-3} 
+\en{Produce : } 11 & \en{Consume: } 15 & \\ \cline{1-3} 
+\en{Produce : } 14 & \en{Consume: } 16 & \\ \cline{1-3} 
+\en{Produce : } 13 & \en{Consume: } 12 & \\ \cline{1-3} 
+\en{Produce : } 12 & \en{Consume: } 13 & \\ \cline{1-3} 
+\en{Produce : } 16 & \en{Consume: } 14 & \\ \cline{1-3} 
+\en{Produce : } 15 & \en{Consume: } 11 & \\ \cline{1-3} 
+\en{Produce : } 17 & \en{Consume: } 10 & \\ \cline{1-3} 
+
+    \end{tabular}}
+\end{table}
+
+\begin{figure}[h]
+\centering 
+\resizebox{0.5\textwidth}{!} {
+\begin{tikzpicture}[state/.append style={minimum size=7mm}]
+     \begin{axis}[
+         xlabel={Μέγεθος διανυσμάτων},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=10, xmax=100,
+         ymin=0, ymax=1.2,
+         xtick={ 10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
+         ytick={ 0,0.25,0.5,0.75,1,1.25},
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ] 
+ 	
+
+ 	
+ 	\addplot[ color=red, mark=square,]
+      coordinates {
+          (10,0.031)(20,0.064)(30,0.063)
+          (40,0.094)(50,0.124)(60,0.126)
+          (70, 0.154)(80, 0.157)(90, 0.185)(100, 0.213)
+ 	};
+ 	\addlegendentry{\en{Alt3}}
+
+ 	 	\addplot[ color=green, mark=triangle,]
+      coordinates {
+          (10, 0.125)(20, 0.25)(30, 0.349)
+          (40, 0.471)(50, 0.593)(60, 0.696)
+          (70, 0.817)(80, 0.919)(90, 1.043)(100, 1.161)
+ 	};
+ 	\addlegendentry{\en{Alt7}} 	
+ 	
+ 	
+ 	 	\addplot[ color=blue, mark=triangle,]
+      coordinates {
+          (10, 0.036)(20, 0.066)(30, 0.068)
+          (40, 0.098)(50, 0.125)(60, 0.124)
+          (70, 0.157)(80, 0.158)(90, 0.187)(100, 0.218)
+ 	};
+ 	\addlegendentry{\en{Alt9}}
+ 	
+     \end{axis}
+ \end{tikzpicture}}
+
+ \caption{\en{Prod-Cons}: Σύγκριση \en{Alt3, Alt9}}
+\end{figure}
+\clearpage
+
+

@@ -1,51 +1,45 @@
-\subsection{Πρόσθεση διανυσμάτων αριθμών μικρής ακρίβειας - \emph{\en{SAXPY}}}
-\subparagraph{}
-Μια από τις λειτουργίες που κατέχει θεμελιώδη θέση σε εφαρμογές της γραμμικής άλγεβρας, αποτελεί η πρόσθεση διανυσμάτων
-δεκαδικών αριθμών μικρής ακρίβειας (\emph{\en{floats}}), γνωστή ως \textbf{\en{SAXPY}}.
+\subsection{Πρόσθεση πινάκων αριθμών μικρής ακρίβειας - \emph{\en{SAXPY}}}
+Μια από τις λειτουργίες που κατέχει θεμελιώδη θέση σε εφαρμογές της γραμμικής άλγεβρας, αποτελεί η πρόσθεση πινάκων
+πραγματικών αριθμών μικρής ακρίβειας (\emph{\en{floats}}), γνωστή ως \textbf{\en{SAXPY}}.
 
 Στο παράδειγμα \emph{\en{SAXPY}}, ο λόγος του μεγέθους υπολογισμών προς το μέγεθος των δεδομένων που τελούν υπό επεξεργασία
-είναι μικρός. Ως εκτότου, αποτελεί πρόβλημα περιορισμένης επεκτασιμότητας. Παρόλα αυτά, πρόκειται για ένα χρήσιμο
-παράδειγμα που ανήκει στην κατηγορία προβλημάτων παραλληλοποίησης τύπου \emph{\en{map}} και των εννοιών
-\emph{\en{uniform}} και \emph{\en{varying parameters}}\cite{patters}.
-\\
-\subsubsection{Περιγραφή προβλήματος}
-Η λειτουργία \en{SAXPY} δέχεται ως δεδομένα δυο διάνυσματα δεκαδικών αριθμών. Το πρώτο διάνυσμα πολλαπλασιάζεται με μια
-σταθερά \emph{\en{a}} και το αποτέλεσμα προστίθεται στο δεύτερο διάνυσμα \emph{\en{y}}. Τα διανύσματα \emph{\en{x,y}}
-πρέπει να έχουν το ίδιο μέγεθος.
+είναι μικρός. Ως εκ τούτου, αποτελεί πρόβλημα περιορισμένης επεκτασιμότητας. Παρόλα αυτά, πρόκειται για ένα χρήσιμο
+παράδειγμα και για αυτό μελετάται.
 
-Ο υπολογισμός αυτός εμφανίζεται συχνά στη γραμμική άλγεβρα, όπως για παράδειγμα στη διαγραφή σειρών για την απαλοιφή
-\textbf{\en{Gauss}}. Το όνομα \emph{\en{SAXPY}} δόθηκε από την βιβλιοθήκη \en{\textbf{BLAS} (\emph{"Basic Linear Algrbra
-Subprograms"})} για δεκαδικούς αρθμούς μικρής ακρίβειας (\emph{\en{floats}}). Ο αντίστοιχος αλγόριθμος διπλής ακρίβειας
+\subsubsection{Περιγραφή προβλήματος}
+Η λειτουργία \en{SAXPY} δέχεται ως δεδομένα δυο μονοδιάστατους πίνακες πραγματικών αριθμών. Οι πίνακες \emph{\en{x,y}}
+πρέπει να έχουν το ίδιο μέγεθος. Ο πρώτος πίνακας πολλαπλασιάζεται με μια
+σταθερά \emph{\en{a}} και το αποτέλεσμα προστίθεται στο δεύτερο πίνακα\emph{\en{y}}. 
+
+Ο υπολογισμός αυτός εμφανίζεται συχνά στην αριθμητική. Το όνομα \emph{\en{SAXPY}} δόθηκε από την βιβλιοθήκη \en{\textbf{BLAS} (\emph{"Basic Linear Algrbra
+Subprograms"})} για πραγματικούς αριθμούς μικρής ακρίβειας (\emph{\en{floats}}). Ο αντίστοιχος αλγόριθμος διπλής ακρίβειας
 ονομάζεται \emph{\en{DAXPY}}, ενώ για μιγαδικούς αριθμούς ονομάζεται \emph{\en{CAXPY}}.
 Η μαθηματική διατύπωση του \emph{\en{SAXPY}} είναι:
-                              $$\en{\textbf{y} = a*\textbf{x} + \textbf{y}}$$ όπου το διάνυσμα \emph{\en{x}}
-χρησιμοποιείται ως είσοδος, το \en{\emph{y}} ως είσοδος και έξοδος. Δηλαδή το αρχικό διάνυσμα \emph{\en{y}}
+                              $$\en{\textbf{y} = a*\textbf{x} + \textbf{y}}$$ όπου ο πίνακας \emph{\en{x}}
+χρησιμοποιείται ως είσοδος, ο \en{\emph{y}} ως είσοδος και έξοδος. Δηλαδή ο αρχικός πίνακας \emph{\en{y}}
 τροποποιείται. Εναλλακτικά, η λειτουργία \emph{\en{SAXPY}} μπορεί να περιγραφεί ως συνάρτηση που δρα σε μεμονωμένα
-στοιχεία, οπως φαίνεται παρακάτω: 
+στοιχεία, όπως φαίνεται παρακάτω: 
 \begin{equation*}\label{eq:pareto mle2}
 \begin{aligned}
 f(t, p, q) = tp + q\\
 \forall _i : y_i \leftarrow f(a, x_i, y_i)
 \end{aligned}
 \end{equation*}
-\clearpage
-Οι συναρτήσεις τύπου \emph{\en{f}} δεχονται ως ορίσματα, δύο είδη παραμέτρων. Τις παραμέτρους όπως την \en{\emph{a}} που
-παραμένουν σταθερές και ονομάζονται \emph{\en{uniform}}, οι παράμετροι που είναι μεταβλητές σε κάθε κλίση της
+Οι συναρτήσεις τύπου \emph{\en{f}} δέχονται ως ορίσματα δύο είδη παραμέτρων. Τις παραμέτρους όπως την \en{\emph{a}} που
+παραμένουν σταθερές και ονομάζονται \emph{\en{uniform}}, οι παράμετροι που είναι μεταβλητές σε κάθε κλήση της
 \emph{\en{f}} ονομάζονται \emph{\en{varying}}. To μοτίβο \emph{\en{map}} καλεί τη συνάρτηση \emph{\en{f}} τόσες φορές
-όσες και ο αριθμός των στοιχείων του διανύσματος.\cite{patters}.
+όσες και ο αριθμός των στοιχείων του πίνακα.\cite{patters}.
+\clearpage
 
-\subsection{Περιγραφή κεντρικού τμήματος προβλήματος \en{SAXPY}}
-\subparagraph{}
-Το πρόβλημα ξεκινάει δημιουργώντας ένα στοιχείο τύπου \emph{\en{Containers}}, που περιέχει τα διανύσματα που εισάγονται
-στον αλγόριθμο \en{SAXPY}. Ο ρόλος του \en{Containers} είναι για την διαχείριση της \en{\emph{heap}} μνήμης. Τα
-διανύσματα και η σταθερά \en{cons} αρχικοποιούνται με τυχαίους αριθμούς μικρής ακρίβειας. Το μέγεθος των
-διανυσμάτων (μέγεθος προβλήματος) ορίζεται από τον χρήστη μέσω της γραμμής εντολών. Στη συνέχεια, καλείται ο αλγόριθμος
-\en{SAXPY} μόλις τελειώσει γίνεται επαλήθευση των αποτελεσμάτων, όπου αν επαληθευτούν σωστά, γίνεται εκτύπωση του
-χρόνουν εκτέλεσης της παραλλαγής.
+\subsubsection{Περιγραφή κοινού τμήματος αλγορίθμου \en{SAXPY}}
+Το πρόβλημα ξεκινάει δημιουργώντας ένα στοιχείο τύπου \emph{\en{Containers}}, που περιέχει του πίνακες που εισάγονται
+στον αλγόριθμο \en{SAXPY}. Ο ρόλος του \en{Containers} είναι για την δυναμική διαχείριση μνήμης. Οι πίνακες και η σταθερά \en{cons} αρχικοποιούνται με τυχαίους αριθμούς μικρής ακρίβειας. Το μέγεθος των
+πινάκων (μέγεθος προβλήματος) ορίζεται από τον χρήστη μέσω της γραμμής εντολών. Στη συνέχεια, καλείται η ρουτίνα που γίνεται υπολογισμός των επιμέρους στοιχείων \en{SAXPY} και μόλις ολοκληρωθεί γίνεται επαλήθευση των αποτελεσμάτων, όπου αν επαληθευτούν σωστά, γίνεται εκτύπωση του
+χρόνου εκτέλεσης της παραλλαγής.
 \\
 \selectlanguage{english}
-\begin{spacing}{1.0}
-\begin{lstlisting}[language=C++, caption={\el{Κεντρικός κώδικας προβλήματος \en{SAXPY}}} , frame=tlrb]{Name}
+\begin{spacing}{1.5}
+\begin{lstlisting}[showstringspaces=false, language=C++, caption={\en{SAXPY: main}} , frame=tb]{Name}
 int main(int argc, char **argv) {
     Opts o;
     parseArgs(argc, argv, o);
@@ -68,7 +62,7 @@ int main(int argc, char **argv) {
 \clearpage
 \selectlanguage{english}
 \begin{spacing}{0.8}
-\begin{lstlisting}[language=C++, caption={\el{Κλάση \emph{\en{Containers}}}} , frame=tlrb]{Name}
+\begin{lstlisting}[language=C++, caption={SAXPY: class Containers} , frame=tb]{Name}
 struct Containers {
     explicit Containers(size_t containers_size);
     ~Containers();
@@ -103,7 +97,7 @@ Containers::setRandomValues() {
 
 \selectlanguage{english}
 \begin{spacing}{1}
-\begin{lstlisting}[language=C++, caption={\el{Συνάρτηση επαλήθευσης}} , frame=tlrb]{Name}
+\begin{lstlisting}[showstringspaces=false, language=C++, caption={SAXPY: verify} , frame=tb]{Name}
 static void verify(size_t size, float c, float *a, float *b, 
                     float *verification) {
     for (size_t i = 0; i < size; ++i) {
@@ -121,7 +115,7 @@ static void verify(size_t size, float c, float *a, float *b,
 
 \selectlanguage{english}
 \begin{spacing}{1}
-\begin{lstlisting}[language=C++, caption={\el{Συνάρτηση αρχικοποίησης τιμών}} , frame=tlrb]{Name}
+\begin{lstlisting}[language=C++, caption={SAXPY: fill\_random\_arr} , frame=tb]{Name}
 static void fill_random_arr(float *arr, size_t size) {
     for (size_t k = 0; k < size; ++k) {
         arr[k] = (float)(rand()) / RAND_MAX;
@@ -132,13 +126,12 @@ static void fill_random_arr(float *arr, size_t size) {
 \selectlanguage{greek}
 
 \clearpage
-\subsection{Σειριακή εκτέλεση}
-\subparagraph{}
+\subsubsection{Σειριακή εκτέλεση}
 Η υλοποίηση της σειριακής παραλλαγής της συνάρτησης \en{saxpy} περιλαμβάνει έναν επαναληπτικό 
-βρόγχο στον οποίο γίνεται ο υπολογισμός για κάθε στοιχείο των διανυσμάτων.
+βρόγχο στον οποίο γίνεται ο υπολογισμός για κάθε στοιχείο των πινάκων.
 \selectlanguage{english}
 \begin{spacing}{0.8}
-\begin{lstlisting}[language=C++, caption={\el{Σειριακή υλοποίηση της \en{SAXPY}}} , frame=tlrb]{Name}
+\begin{lstlisting}[language=C++, caption={SAXPY: \el{Σειριακή υλοποίηση}} , frame=tb]{Name}
 void saxpy(size_t n, float a, const float *x, float *y) {
     for (size_t i = 0; i < n; ++i) {
         y[i] = a * x[i] + y[i];
@@ -148,10 +141,10 @@ void saxpy(size_t n, float a, const float *x, float *y) {
 \end{spacing}
 \selectlanguage{greek}
 
-Η μεταγλώττιση έγινε με τους παρακάτω τρόπους και οι χρόνοι εκτέλεσης καταγράφονται στους πίνακες που ακολουθούν. Ο δεύτερος τρόπος μεταγλώττισης περιλαμβάνει διανυσματικοποίηση από τον μεταγλωττιστή ενώ η πρώτη όχι.
+Η μεταγλώττιση έγινε με τους παρακάτω τρόπους και οι χρόνοι εκτέλεσης καταγράφονται στους πίνακες που ακολουθούν. Ο δεύτερος τρόπος μεταγλώττισης περιλαμβάνει διανυσματικοποίηση(\en{\emph{-ftree-vectorize}}) ενώ η πρώτη όχι(\en{\emph{-fno-tree-vectorize}}). Στη τρίτη περίπτωση, δεν ορίζεται κάποια σχετική οδηγία διανυσματικοποίησης, γιαυτο ο μεταγλωττιστής θα χρησιμοποιήσει την προκαθορισμένη επιλογή για -O2, δηλαδή μεταγλώττιση χωρίς διανυσματικοποίηση.
 \begin{table}[h]
     \centering
-    \caption{Επιλογές μεταγλώττισης}
+    \caption{\en{SAXPY}: Επιλογές μεταγλώττισης \en{Alt1, Alt2, Alt3}}
     \label{my-label}
     \begin{tabular}{
     |p{0.1\textwidth}
@@ -167,9 +160,8 @@ void saxpy(size_t n, float a, const float *x, float *y) {
 
 \begin{table}[h]
     \centering
-    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \caption{\en{SAXPY}: Αποτελέσματα \en{Alt1, Alt2} και \en{Alt3}}
     \label{my-label}
-    \resizebox{0.7\textwidth}{!} {
     \begin{tabular}{|p{0.30\textwidth}
     | >{\centering\arraybackslash}p{0.12\textwidth}
     | >{\centering\arraybackslash}p{0.12\textwidth}
@@ -187,7 +179,7 @@ void saxpy(size_t n, float a, const float *x, float *y) {
      400000000 & 0.773  & 0.617  & 0.788\\ \cline{1-4} 
      500000000 & 0.989  & 0.818  & 0.991\\ \cline{1-4} 
 
-    \end{tabular}}
+    \end{tabular}
 \end{table}
 \clearpage
 \begin{figure}[h]
@@ -195,12 +187,11 @@ void saxpy(size_t n, float a, const float *x, float *y) {
 \resizebox{0.5\textwidth}{!} {
 \begin{tikzpicture}[state/.append style={minimum size=7mm}]
      \begin{axis}[
-         title={Χρόνοι εκτέλεσης \en{Alt1 - Alt2 - Alt3}},
-         xlabel={Μέγεθος διανυσμάτων},
+         xlabel={Μέγεθος πίνακα},
          ylabel={Χρόνος εκτέλεσης},
-         xmin=100000, xmax=400000000,
+         xmin=100000, xmax=500000000,
          ymin=0, ymax=1,
-         xtick={ 100000000, 200000000, 300000000, 400000000},
+         xtick={ 100000000, 200000000, 300000000, 400000000, 5e8},
          ytick={ 0, 0.25, 0.5, 0.75, 1 },
          legend pos=north west,
         % ymajorgrids=true,
@@ -234,7 +225,7 @@ void saxpy(size_t n, float a, const float *x, float *y) {
      \end{axis}
  \end{tikzpicture}}
 
-\caption{Σύγκριση αποτελεσμάτων}
+\caption{\en{SAXPY}: Σύγκριση \en{Alt1, Alt2, Alt3}}
     &
 \renewcommand{\arraystretch}{1.1}
 \resizebox{0.4\textwidth}{!} {
@@ -249,22 +240,22 @@ void saxpy(size_t n, float a, const float *x, float *y) {
 300000000 & 13.9\\
 400000000 & 20 \\
 \end{tabular}}
-\captionof{table}{Ποσοστιαία σύγκριση μεταξύ \en{Alt1} και \en{Alt2}}
+\captionof{table}{\en{SAXPY}: Ποσοστιαία σύγκριση \en{Alt1}, \en{Alt2}}
 \end{tabular}
 \end{figure}
-
-Η επιλογή για διανυσματικοποίηση κατά τη μεταγλώττιση επιφέρει περίπου 20\% βελτίωση στις χρονικές επιδόσεις των εκτελέσεων με διαφορετικά μεγέθη διανύσματος. Ακόμη, η επιλογή μεταγλώττισης με \emph{\en{-fno-tree-vectorize}} έχει τις ίδιες επιδόσεις με την παραλλαγή \en{Alt3}, πράγμα που επιβεβαιώνει ότι η -Ο2 δεν υπονοεί αυτόματη διανυσματικοποίηση. Τα
+\paragraph{Παρατηρήσεις}\mbox{} \\
+Η επιλογή για διανυσματικοποίηση κατά τη μεταγλώττιση επιφέρει περίπου 20\% βελτίωση στις χρονικές επιδόσεις των εκτελέσεων με διαφορετικά μεγέθη διανύσματος. Ακόμη, η μεταγλώττιση με \emph{\en{-fno-tree-vectorize}} έχει τις ίδιες επιδόσεις με την παραλλαγή \en{Alt3}, πράγμα που επιβεβαιώνει ότι η -Ο2 δεν υπονοεί αυτόματη διανυσματικοποίηση. Τα
 αποτελέσματα αυτά θα χρησιμοποιηθούν για συγκρίσεις με τις παραλλαγές που θα ακολουθήσουν. 
+\clearpage
+\subsubsection{Παραλλαγή με οδηγία \en{parallel for}}
+\mbox{}
+Η πρώτη υλοποίηση παραλλαγής με παραλληλισμό της συνάρτησης \en{saxpy} περιλαμβάνει τον επαναληπτικό βρόγχο ενσωματωμένο στην οδηγία \emph{\en{parallel for}} στον οποίο γίνεται ο υπολογισμός για κάθε στοιχείο των πινάκων. Τα αποτελέσματα φαίνονται στον πίνακα που ακολουθεί.
 
-\subsection{Παραλλαγή με οδηγία \en{parallel for}}
-\subparagraph{}
-Η πρώτη υλοποίηση παραλλαγής με παραλληλισμό της συνάρτησης \en{saxpy} περιλαμβάνει τον επαναληπτικό βρόγχο ενσωματωμένο στην οδηγία \emph{\en{parallel for}} στον οποίο γίνεται ο υπολογισμός για κάθε στοιχείο των διανυσμάτων. Τα αποτελέσματα φαίνονται στον ακολουθούμενο πίνακα.
-\\
 \selectlanguage{english}
 \begin{spacing}{1.0}
-\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{parallel for}}} , frame=tlrb]{Name}
+\begin{lstlisting}[language=C++, caption={\en{SAXPY}: \el{Υλοποίηση με \en{parallel for}}} , frame=tb]{Name}
 void saxpy(size_t n, float a, const float *x, float *y) {
-    #pragma omp parallel for
+#pragma omp parallel for
     for (size_t i = 0; i < n; ++i) {
         y[i] = a * x[i] + y[i];
     }
@@ -272,11 +263,10 @@ void saxpy(size_t n, float a, const float *x, float *y) {
 \end{lstlisting}
 \end{spacing}
 \selectlanguage{greek}
-\clearpage
 
 \begin{table}[h]
     \centering
-    \caption{Επιλογές μεταγλώττισης}
+    \caption{\en{SAXPY}: Επιλογές μεταγλώττισης \en{Alt4, Alt5}}
     \label{my-label}
     \begin{tabular}{
     |p{0.1\textwidth}
@@ -291,7 +281,7 @@ void saxpy(size_t n, float a, const float *x, float *y) {
 
 \begin{table}[h]
     \centering
-    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \caption{\en{SAXPY}: Αποτελέσματα \en{Alt4} και \en{Alt5}}
     \label{my-label}
     \begin{tabular}{|p{0.30\textwidth}| >{\centering\arraybackslash}p{0.25\textwidth}| >{\centering\arraybackslash}p{0.25\textwidth}|}
     \hline
@@ -310,13 +300,14 @@ void saxpy(size_t n, float a, const float *x, float *y) {
      800000000 & 0.482 & 0.483 \\ \cline{1-3} 
     \end{tabular}
 \end{table}
-
+\clearpage
+\begin{figure}
 \begin{center}
-\resizebox{0.7\textwidth}{!} {
+
+\resizebox{0.45\textwidth}{!} {
 \begin{tikzpicture}[state/.append style={minimum size=7mm}]
      \begin{axis}[
-         title={Χρόνοι εκτέλεσης \en{Alt2 - Alt4 - Alt5}},
-         xlabel={Μέγεθος διανυσμάτων},
+         xlabel={Μέγεθος πίνακα},
          ylabel={Χρόνος εκτέλεσης},
          xmin=100000, xmax=800000000,
          ymin=0, ymax=0.9,
@@ -356,80 +347,79 @@ void saxpy(size_t n, float a, const float *x, float *y) {
 
      \end{axis}
 \end{tikzpicture}}
+\caption{\en{SAXPY}: Σύγκριση \en{Alt2, Alt4, Alt5}}
 \end{center}
 
+\end{figure}
 
-\clearpage
-\subsubsection{Παρατηρήσεις}
-\subparagraph{}
-Με τη χρήση της οδηγίας \emph{\en{pragma omp parallel for}} επετέφχθει μείωση του χρόνου εκτέλεσης του αλγορίθμου σε σύγκριση με την αντίστοιχη σειριακή παραλλαγή. Δεν προκύπτει καμία διαφοροποίηση της μεταγλώττισης με εντολή διανυσματικοποίησης ή χωρίς. Σύμφωνα ωστόσο με τον ορισμό του \en{false sharing}, υπάρχει πιθανότητα περαιτέρω βελτίωσης της παραλλαγής με οδηγία \en{parallel for}, κάτι που εξετάζεται στην επόμενη ενότητα.
+\paragraph{Παρατηρήσεις}
+\ \\
+Με τη χρήση της οδηγίας \emph{\en{pragma omp parallel for}} επετεύχθη μείωση του χρόνου εκτέλεσης του αλγορίθμου σε σύγκριση με τη σειριακή υλοποίηση. Δεν προκύπτει καμία διαφοροποίηση της μεταγλώττισης με εντολή διανυσματικοποίησης ή χωρίς. Σύμφωνα ωστόσο με τον ορισμό του \en{false sharing}, υπάρχει πιθανότητα περαιτέρω βελτίωσης της παραλλαγής με οδηγία \en{parallel for}, κάτι που εξετάζεται στην επόμενη ενότητα.
+%\subsubsection{Παραλλαγή με \emph{\en{parallel for}} και \en{padding}}
+%\mbox{}
+%Σε αυτή την περίπτωση ο αλγόριθμος παραμένει ίδιος. Χρησιμοποιείται δηλαδή η οδηγία \emph{\en{pragma omp parallel for}}. Ωστόσο στη συνάρτηση εισάγονται ως ορίσματα δομές που εμπεριέχουν μία μεταβλητή αριθμού μικρής ακρίβειας και ένα τεχνητό κενό \emph{\en{padding}}. Το μέγεθος της είναι 64\en{bytes} και έχει ως στόχο την αποφυγή του φαινομένου \textbf{\en{false sharing}}.
+%
+%\selectlanguage{english}
+%\begin{spacing}{0.9}
+%\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{parallel for}}} , frame=tlrb]{Name}
+%void saxpy(size_t n, float a, const float64 *x, float64 *y) {
+%    #pragma omp parallel for
+%    for (size_t i = 0; i < n; ++i) {
+%        y[i].val = a * x[i].val + y[i].val;
+%    }
+%} 
+%\end{lstlisting}
+%\end{spacing}
+%\selectlanguage{greek}
+%\begin{table}[h]
+%    \centering
+%    \caption{Επιλογές μεταγλώττισης}
+%    \label{my-label}
+%    \begin{tabular}{
+%    |p{0.1\textwidth}
+%    | >{\centering\arraybackslash}p{0.9\textwidth}
+%    |}
+%    \hline
+% {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+%     \textbf{\en{Alt6}} & \en{ -fopt-info-vec=info.log -fno-%inline -fno-tree-vectorize -fopenmp -Wall  -Wextra -std=c++14 %-O2} \\ \hline
+%     \textbf{\en{Alt7}} & \en{ -fopt-info-vec=info.log -fno-%inline -ftree-vectorize -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+%    \end{tabular}
+%\end{table}
+%
+%
+%\begin{table}[h]
+%    \centering
+%    \caption{Καταγραφή χρόνων εκτέλεσης}
+%    \label{my-label}
+%    \begin{tabular}{|p{0.30\textwidth}| >{\centering \arraybackslash}p{0.25\textwidth}| >{\centering\arraybackslash}p{0.25\textwidth}|}
+%    \hline
+%    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & %\multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+%               & \textbf{\en{Alt6}} & \textbf{\en{Alt7}} \\ \hline
+%     100000    & 0.006  & 0.006 \\ \cline{1-3} 
+%     1000000   & 0.023  & 0.025 \\ \cline{1-3} 
+%     10000000  & 0.193  & 0.198  \\ \cline{1-3} 
+%     100000000 &  \en{killed} & \en{killed} \\ \cline{1-3} 
+%    \end{tabular}
+%\end{table}
 
-\subsection{Παραλλαγή με \emph{\en{parallel for}} και \en{padding}}
-\subparagraph{}
-Σε αυτή την περίπτωση, ο αλγόριθμος παραμένει ίδιος, χρησιμοποιείται δηλαδή η οδηγία \emph{\en{pragma omp parallel for}}. Ωστόσο στη συνάρτηση εισάγονται ως ορίσματα δομές που εμπεριέχουν μία μεταβλητή αριθμού μικρής ακρίβειας και ένα τεχνητό κενό \emph{\en{padding}}. Το μέγεθος της είναι 64\en{bytes} και έχει ως στόχο την αποφυγή του φαινομένου \textbf{\en{false sharing}}.
+%\paragraph{Παρατηρήσεις}
+%\mbox{}
+%Το πρόβλημα \emph{\en{false sharing}} δεν ήταν δυνατό να εντοπισθεί στη
+%συγκεκριμένη παραλλαγή. Μάλιστα, 
+%ο έλεγχος για μεγέθη πινάκων μεγαλύτερων των 1\en{e}8 στοιχείων, ήταν ανεπιτυχής λόγω έλλειψης υπολογιστικών πόρων.
 
-\selectlanguage{english}
-\begin{spacing}{0.9}
-\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{parallel for}}} , frame=tlrb]{Name}
-void saxpy(size_t n, float a, const float64 *x, float64 *y) {
-    #pragma omp parallel for
-    for (size_t i = 0; i < n; ++i) {
-        y[i].val = a * x[i].val + y[i].val;
-    }
-} 
-\end{lstlisting}
-\end{spacing}
-\selectlanguage{greek}
-\begin{table}[h]
-    \centering
-    \caption{Επιλογές μεταγλώττισης}
-    \label{my-label}
-    \begin{tabular}{
-    |p{0.1\textwidth}
-    | >{\centering\arraybackslash}p{0.9\textwidth}
-    |}
-    \hline
- {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
-     \textbf{\en{Alt6}} & \en{ -fopt-info-vec=info.log -fno-inline -fno-tree-vectorize -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
-     \textbf{\en{Alt7}} & \en{ -fopt-info-vec=info.log -fno-inline -ftree-vectorize -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
-    \end{tabular}
-\end{table}
+\subsubsection{Παραλλαγές με χρήση οδηγίας \emph{\en{SIMD}}}
+Η συγκεκριμένη ενότητα καθώς και ορισμένες που ακολουθούν αφορούν την επίλυση του προβλήματος \en{\emph{SAXPY}} με χρήση της οδηγίας διανυσματικοποίησης \textbf{\en{SIMD}}. Όπως προαναφέρθηκε, η οδηγία δεν έχει ως στόχο την παραλληλοποίηση τμήματος κώδικα, αλλά την ταυτόχρονη εκτέλεση εντολών ως μία εντολή \en{\textbf{SIMD}}. Στη περίπτωση του \en{g++}, ο μεταγλωττιστής εφαρμόζει διανυσματικοποίηση αυτόματα όταν χρησιμοποιείται η επιλογή -Ο3. Για το λόγο αυτό στα προηγούμενα παραδείγματα χρησιμοποιήθηκε επιλογή μεταγλώττισης -Ο2 με ταυτόχρονη χρήση των εντολών \en{\textbf{-fno-tree-vectorize}} και 
+\en{\textbf{ftree-vectorize}} που επιτρέπουν στο χρήστη να επιλέγει μεταγλώττιση με διανυσματικοποίηση ή χωρίς. Παράλληλα, χρησιμοποιούνται οι εντολές \en{\textbf{-fno-inline}} και \en{\textbf{-fopt-info-vec}}. Η πρώτη απαγορεύει στον μεταγλωττιστή τη δημιουργία \en{inline} συναρτήσεων, ενώ η δεύτερη δημιουργεί ένα αρχείο με χρήσιμα μηνύματα κατά τη διάρκεια της μεταγλώττισης.
 
-
-\begin{table}[h]
-    \centering
-    \caption{Καταγραφή χρόνων εκτέλεσης}
-    \label{my-label}
-    \begin{tabular}{|p{0.30\textwidth}| >{\centering\arraybackslash}p{0.25\textwidth}| >{\centering\arraybackslash}p{0.25\textwidth}|}
-    \hline
-    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
-               & \textbf{\en{Alt6}} & \textbf{\en{Alt7}} \\ \hline
-     100000    & 0.006  & 0.006 \\ \cline{1-3} 
-     1000000   & 0.023  & 0.025 \\ \cline{1-3} 
-     10000000  & 0.193  & 0.198  \\ \cline{1-3} 
-     100000000 &  \en{killed} & \en{killed} \\ \cline{1-3} 
-    \end{tabular}
-\end{table}
-
-\subsubsection{Παρατηρήσεις}
-\subparagraph{}
-Το πρόβλημα \emph{\en{false sharing}} δεν ήταν δυνατό να εντοπισθεί στη
-συγκεκριμένη παραλλαγή. Μάλιστα, 
-ο έλεγχος για μεγέθη διανυσμάτων μεγαλύτερων των 1\en{e}8 στοιχείων, ήταν ανεπιτυχής λόγω έλλειψης υπολογιστικών πόρων.
-
-\subsection{Παραλλαγές με χρήση οδηγίας \emph{\en{SIMD}}}
-\subparagraph{}
-Η συγκεκριμένη ενότητα καθώς και ορισμένες που ακολουθούν αφορούν την επίλυση του προβλήματος \en{\emph{SAXPY}} με χρήση της οδηγίας διανυσματικοποίησης \textbf{\en{SIMD}}. Οπως προαναφέρθηκε, η οδηγία δεν έχει ως στόχο την παραλληλοποίηση τμήματος κώδικα, αλλά την ταυτόχρονη εκτέλεση εντολών ως μία εντολή \en{\textbf{SIMD}}. Στη περίπτωση του \en{g++}, γίνεται αυτόματη προσπάθεια διανυσματικοποίησης χρησιμοποιείται η επιλογή -Ο3. Αυτός ειναι και ο λόγος που στα προηγούμενα παραδείγματα χρησιμοποιήθηκε επιλογή μεταγλώττισης -Ο2 με ταυτόχρονη χρήση των εντολών \en{\textbf{-fno-tree-vectorize}} και 
-\en{\textbf{ftree-vectorize}} που επιτρέπουν στο χρήστη να επιλέγει μεταγλώττιση με διανυσματικοποίηση ή χωρίς. Παράλληλα, χρησιμοποιούνται οι εντολές \en{\textbf{-fno-inline}} και \en{\textbf{-fopt-info-vec}}. Η πρώτη απογορεύει στον μεταγγλωτιστή το \en{loop-unrolling} ενώ η δεύτερη δημιουργεί ένα αρχείο με χρήσιμα μηνύματα κατά τη διάρκεια της μεταγλώττισης.
-
-\subsubsection{Παραλλαγή με \emph{\en{omp simd}}}
-\subparagraph{}
+\paragraph{Παραλλαγή με \emph{\en{omp simd}}}
+\ \\ 
 Η εντολή \en{\emph{pragma omp simd}} αποσκοπεί στη διανυσματικοποίηση του τμήματος κώδικα που ακολουθεί, χωρίς ωστόσο να γίνεται διαμοιρασμός των επαναλήψεων του βρόγχου σε διαφορετικά νήματα όπως θα γίνόταν με την οδηγία \en{\emph{pragma omp parallel for simd}}.
 \selectlanguage{english}
 \begin{spacing}{0.9}
-\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{omp simd}}} , frame=tlrb]{Name}
+\begin{lstlisting}[language=C++, caption={SAXPY: \el{Υλοποίηση με \en{omp simd}}} , frame=tb]{Name}
 void saxpy(size_t n, float a, const float *x, float *y) {
-    #pragma omp simd
+#pragma omp simd
     for (size_t i = 0; i < n; ++i) {
         y[i] = a * x[i] + y[i];
     }
@@ -440,7 +430,7 @@ void saxpy(size_t n, float a, const float *x, float *y) {
 
 \begin{table}[h]
     \centering
-    \caption{Επιλογές μεταγλώττισης}
+    \caption{\en{SAXPY}: Επιλογές μεταγλώττισης \en{Alt8, Alt9, Alt10}}
     \label{my-label}
     \begin{tabular}{
     |p{0.1\textwidth}
@@ -454,9 +444,11 @@ void saxpy(size_t n, float a, const float *x, float *y) {
     \end{tabular}
 \end{table}
 
+
+
 \begin{table}[h]
     \centering
-    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \caption{\en{SAXPY}: Αποτελέσματα \en{Alt8, Alt9} και \en{Alt10}}
     \label{my-label}
     \begin{tabular}{|p{0.30\textwidth}
     | >{\centering\arraybackslash}p{0.12\textwidth}
@@ -476,16 +468,35 @@ void saxpy(size_t n, float a, const float *x, float *y) {
      500000000 & 0.995 & 0.827 & 0.844\\ \cline{1-4} 
     \end{tabular}
 \end{table}
+\begin{center}
+\begin{table}[h]
+    \centering
+    \caption{\en{SAXPY: Alt8}: \el{Αναφορά επιτυχίας διανυσματικοποίησης}}
+    \label{my-label}
+    \resizebox{0.8\textwidth}{!} {
 
+    \begin{tabular}{
+    |p{0.3\textwidth}
+    | >{\centering\arraybackslash}p{0.25\textwidth}
+        | >{\centering\arraybackslash}p{0.25\textwidth}
+    |}
+    \hline
+ \textbf{Επιλογή μεταγλώττισης} & \textbf{Σειριακή} & \en{\textbf{OpenMP - omp simd}}\\ \hline
+     \textbf{\en{-fno-tree-vectorize}} & Όχι & Όχι \\ \hline
+     \textbf{\en{-ftree-vectorize}}    & Ναι & Ναι\\ \hline
+     \textbf{\en{None}}                & Όχι & Ναι\\ \hline
+    \end{tabular}}
+\end{table}
+\end{center}
 
+\clearpage
 
-\begin{figure}[h]
+\begin{figure}[htb]
 \centering 
 \resizebox{0.5\textwidth}{!} {
 \begin{tikzpicture}   
     \begin{axis}[
-         title={Χρόνοι εκτέλεσης με \en{Alt1 - Alt8}},
-         xlabel={Μέγεθος διανυσμάτων},
+         xlabel={Μέγεθος πινάκων},
          ylabel={Χρόνος εκτέλεσης},
          xmin=1e8, xmax=5e8,
          ymin=0, ymax=1,
@@ -496,14 +507,14 @@ void saxpy(size_t n, float a, const float *x, float *y) {
         % grid style=dashed,
      ]
     
-     \addplot[ color=blue, mark=square,]
+     \addplot[ color=red, mark=square,]
       coordinates {
           (1e8, 0.202)(2e8,0.401)(3e8, 0.592)
           (4e8, 0.783)(5e8, 0.995)
  	};
   	\addlegendentry{\en{Alt8}}
 
-          \addplot[ color=red, mark=square,]
+          \addplot[ color=blue, mark=square,]
       coordinates {
           (100000000,0.200)(200000000,0.398)
           (300000000,0.583)(400000000, 0.773)
@@ -516,8 +527,7 @@ void saxpy(size_t n, float a, const float *x, float *y) {
 \resizebox{0.5\textwidth}{!} {
 \begin{tikzpicture}
     \begin{axis}[
-         title={Χρόνοι εκτέλεσης με \en{Alt2 - Alt8}},
-         xlabel={Μέγεθος διανυσμάτων},
+         xlabel={Μέγεθος πίνακα},
          ylabel={Χρόνος εκτέλεσης},
          xmin=1e8, xmax=5e8,
          ymin=0, ymax=1,
@@ -527,33 +537,31 @@ void saxpy(size_t n, float a, const float *x, float *y) {
         % ymajorgrids=true,
         % grid style=dashed,
      ]
-    
- 	\addplot[ color=green, mark=square,]
+      
+     \addplot[ color=red, mark=square,]
+      coordinates {
+          (1e8, 0.165)(2e8, 0.329)(3e8, 0.503)
+          (4e8, 0.639)(5e8, 0.827)
+ 	};
+ 	\addlegendentry{\en{Alt9}}  
+ 	
+ 	 
+ 	\addplot[ color=blue, mark=square,]
       coordinates {
           (100000,0.0001)(1000000,0.002)(10000000,0.016)
           (100000000,0.167)(200000000,0.334)(300000000,0.502)(400000000, 0.617)
           (5e8, 0.818)
  	};
  	\addlegendentry{\en{Alt2}}
-
-     
-     \addplot[ color=red, mark=square,]
-      coordinates {
-          (1e8, 0.165)(2e8, 0.329)(3e8, 0.503)
-          (4e8, 0.639)(5e8, 0.827)
- 	};
- 	\addlegendentry{\en{Alt9}}
     \end{axis}
 \end{tikzpicture}} 
-\caption{Left: No Interaction. Right: Interaction} \label{fig:M}  
-\end{figure}
-\clearpage
+\caption{\en{SAXPY}: Σύγκριση αποτελεσμάτων \en{Alt1-Alt8, Alt2-Alt9}}
+
 \begin{center}
-\resizebox{0.7\textwidth}{!} {
+\resizebox{0.5\textwidth}{!} {
 \begin{tikzpicture}   
     \begin{axis}[
-         title={Σύγκριση \en{Alt3} με \en{Alt10}},
-         xlabel={Μέγεθος διανυσμάτων},
+         xlabel={Μέγεθος πίνακα},
          ylabel={Χρόνος εκτέλεσης},
          xmin=1e8, xmax=5e8,
          ymin=0, ymax=1,
@@ -563,7 +571,14 @@ void saxpy(size_t n, float a, const float *x, float *y) {
         % ymajorgrids=true,
         % grid style=dashed,
      ]
-    
+     \addplot[ color=red, mark=square,]
+      coordinates {
+          (100000000,0.145)(200000000,0.296)
+          (300000000,0.496)(400000000, 0.642)
+          (5e8, 0.844)
+ 	}; 	
+     \addlegendentry{\en{Alt10}}
+     
      \addplot[ color=blue, mark=square,]
       coordinates {
           (1e8, 0.199)(2e8,0.397)(3e8, 0.599)
@@ -571,47 +586,26 @@ void saxpy(size_t n, float a, const float *x, float *y) {
  	};
   	\addlegendentry{\en{Alt3}}
 
-          \addplot[ color=red, mark=square,]
-      coordinates {
-          (100000000,0.145)(200000000,0.296)
-          (300000000,0.496)(400000000, 0.642)
-          (5e8, 0.844)
- 	};
-     \addlegendentry{\en{Alt10}}
-
     \end{axis}
 \end{tikzpicture}}% NO EMPTY LINE HERE!!!! 
+\caption{\en{SAXPY}: Σύγκριση \en{Alt3, Alt10}}
 \end{center}
+\end{figure}
 
-Από τα παραπάνω διαγράμματα διαφαίνεται ότι η μεταγλώττιση με επιλογή \emph{\en{-fno-tree-vectorize}} και \emph{\en{-ftree-vectorize}} παρακάμπτει την οδηγία \en{omp simd} και εκτελείται ως σειριακή, με διανυσματικοποίηση ή χωρίς, ανάλογα με την επιλογή. Στη περίπτωση που δε δοθεί η επιλογή ωστόσο, τότε διανυσματικοποίηση εφαρμόζεται μέσω του \emph{\en{OpenMP}} και της οδηγίας \emph{\en{omp simd}} αν υπάρχει
-\begin{center}
-\begin{table}[h]
-    \centering
-    \caption{Συνοπτικός πίνακας εφαρμογών διανθσματικοποίησης}
-    \label{my-label}
-    \begin{tabular}{
-    |p{0.3\textwidth}
-    | >{\centering\arraybackslash}p{0.25\textwidth}
-        | >{\centering\arraybackslash}p{0.25\textwidth}
-    |}
-    \hline
- \textbf{Επιλογή μεταγλώττισης} & \textbf{Σειριακή} & \en{\textbf{OpenMP - omp simd}}\\ \hline
-     \textbf{\en{-fno-tree-vectorize}} & Οχι & Οχι \\ \hline
-     \textbf{\en{-ftree-vectorize}}    & Ναι & Ναι\\ \hline
-     \textbf{\en{None}}                & Οχι & Ναι\\ \hline
-    \end{tabular}
-\end{table}
-\end{center}
 
+
+\subparagraph{Παρατηρήσεις}
+\ \\
+Από τα παραπάνω διαγράμματα διαφαίνεται ότι η μεταγλώττιση με επιλογή \emph{\en{-fno-tree-vectorize}} και \emph{\en{-ftree-vectorize}} παρακάμπτει την οδηγία \en{omp simd} και εκτελείται ως σειριακή, με διανυσματικοποίηση ή χωρίς, ανάλογα με την επιλογή. Στη περίπτωση που δε δοθεί η επιλογή ωστόσο, τότε διανυσματικοποίηση εφαρμόζεται μέσω του \emph{\en{OpenMP}} και της οδηγίας \emph{\en{omp simd}} αν υπάρχει.
 \clearpage
-\subsubsection{Παραλλαγή με \emph{\en{omp parallel for simd}}}
-\subparagraph{}
+\paragraph{Παραλλαγή με \emph{\en{omp parallel for simd}}}
+\ \\
 Στην παραλλαγή αυτής της ενότητας χρησιμοποιείται ο συνδυασμός παραλληλοποίησης μέσω της οδηγίας \emph{\en{parallel for}} με διανυσματικοποίηση μέσω \emph{\en{simd}}. 
 \selectlanguage{english}
 \begin{spacing}{0.9}
-\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{omp parallel for simd}}} , frame=tlrb]{Name}
+\begin{lstlisting}[language=C++, caption={SAXPY: parallel for simd}, frame=tb]{Name}
 void saxpy(size_t n, float a, const float *x, float *y) {
-    #pragma omp parallel for simd
+#pragma omp parallel for simd
     for (size_t i = 0; i < n; ++i) {
         y[i] = a * x[i] + y[i];
     }
@@ -620,9 +614,11 @@ void saxpy(size_t n, float a, const float *x, float *y) {
 \end{spacing}
 \selectlanguage{greek}
 
+\bigbreak
+
 \begin{table}[h]
     \centering
-    \caption{Επιλογές μεταγλώττισης}
+    \caption{\en{SAXPY}: Επιλογές μεταγλώττισης \en{Alt11, Alt12, Alt13}}
     \label{my-label}
     \begin{tabular}{
     |p{0.1\textwidth}
@@ -638,7 +634,7 @@ void saxpy(size_t n, float a, const float *x, float *y) {
 
 \begin{table}[h]
     \centering
-    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \caption{\en{SAXPY}: Αποτελέσματα \en{Alt11, Alt12} και \en{Alt13}}
     \label{my-label}
     \begin{tabular}{|p{0.30\textwidth}
     | >{\centering\arraybackslash}p{0.12\textwidth}
@@ -656,28 +652,24 @@ void saxpy(size_t n, float a, const float *x, float *y) {
      300000000 & 0.368 & 0.368 & 0.366 \\ \cline{1-4} 
      400000000 & 0.489 & 0.486 & 0.486 \\ \cline{1-4} 
      500000000 & 0.578 & 0.576 & 0.577 \\ \cline{1-4}
-     500000000 & 0.578 & 0.576 & 0.577 \\ \cline{1-4} 
      600000000 & 0.515 & 0.458 & 0.525 \\ \cline{1-4} 
      700000000 & 0.496 & 0.496 & 0.460 \\ \cline{1-4} 
      800000000 & 0.487 & 0.500 & 0.483 \\ \cline{1-4} 
 
     \end{tabular}
 \end{table}
-
-Από τις παραπάνω εκτελέσεις του αλγόριθμου προκύπτει το συμπέρασμα ότι η οδηγία διανυσματικοποίησης μέσω \en{simd} δεν λαμβάνεται υπόψη όταν εφαρμόζεται σε συνδυασμό με την οδηγία \en{parallel for}.
-
 \clearpage
 \begin{figure}[h]
-\centering 
-\resizebox{0.7\textwidth}{!} {
+\begin{center}
+\resizebox{0.5\textwidth}{!} {
 \begin{tikzpicture}   
     \begin{axis}[
          title={Χρόνοι εκτέλεσης με \en{Alt5 - Alt13}},
-         xlabel={Μέγεθος διανυσμάτων},
+         xlabel={Μέγεθος πίνακα},
          ylabel={Χρόνος εκτέλεσης},
-         xmin=1e8, xmax=5e8,
+         xmin=1e8, xmax=8e8,
          ymin=0, ymax=1,
-         xtick={ 1e8, 2e8, 3e8, 4e8, 5e8},
+         xtick={ 1e8, 2e8, 3e8, 4e8, 5e8, 6e8, 7e8, 8e8},
          ytick={0, 0.2, 0.4, 0.6, 0.8, 1},
          legend pos=north west,
         % ymajorgrids=true,
@@ -692,7 +684,7 @@ void saxpy(size_t n, float a, const float *x, float *y) {
  	};
   	\addlegendentry{\en{Alt13}}
 
-    \addplot[ color=green, mark=square,]
+    \addplot[ color=blue, mark=square,]
       coordinates {
           (1e8,0.126)(2e8,0.243)
           (3e8,0.379)(4e8, 0.488)
@@ -701,15 +693,22 @@ void saxpy(size_t n, float a, const float *x, float *y) {
      \addlegendentry{\en{Alt5}}
 
     \end{axis}
-\end{tikzpicture}}% NO EMPTY LINE HERE!!!!
+\end{tikzpicture}}% NO EMPTY LINE HERE!!!! 
+\caption{\en{SAXPY}: Σύγκριση \en{Alt5, Alt13}}
+\end{center}
 \end{figure}
+\subparagraph{Παρατηρήσεις}
+\ \\
+Από τις παραπάνω εκτελέσεις του αλγόριθμου προκύπτει το συμπέρασμα ότι η οδηγία διανυσματικοποίησης μέσω \en{simd} δεν λαμβάνεται υπόψη όταν εφαρμόζεται σε συνδυασμό με την οδηγία \en{parallel for}.
+
+
 \clearpage
-\subsubsection{Παραλλαγή με \emph{\en{omp declare simd uniform}}}
-\subparagraph{} 
-Υλοποίηση παραλλαγής με χρήση της φράσης \emph{\en{uniform}}. Θεωρητικά δεν υπάρχει κέρδος στις επιδόσεις του αλγορίθμου σε σχέση με της προηγούμενες παραλλαγές. Η εναλλακτική αυτη χρησιμοποιείται για την επαλήθευση της διανυσματικοποίησης μέσω \emph{\en{OpenMP}}.
+\paragraph{Παραλλαγή με \emph{\en{omp declare simd uniform}}}
+\ \\
+Υλοποίηση παραλλαγής με χρήση της φράσης \emph{\en{uniform}}. Θεωρητικά δεν υπάρχει κέρδος στις επιδόσεις του αλγορίθμου σε σχέση με της προηγούμενες παραλλαγές. Η εναλλακτική αυτή χρησιμοποιείται για την επαλήθευση της διανυσματικοποίησης μέσω \emph{\en{OpenMP}}.
 \selectlanguage{english}
 \begin{spacing}{0.9}
-\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{omp declare simd uniform}}} , frame=tlrb]{Name}
+\begin{lstlisting}[language=C++, caption={SAXPY: declare simd uniform} , frame=tb]{Name}
 #pragma omp declare simd uniform(a)
 float do_work(float a, float b, float c)
 {
@@ -717,7 +716,7 @@ float do_work(float a, float b, float c)
 }
 
 void saxpy(size_t n, float a, const float *x, float *y) {
-    #pragma omp simd
+#pragma omp simd
     for (size_t i = 0; i < n; ++i) {
         y[i] = do_work(a, x[i], y[i]);
     }
@@ -725,9 +724,10 @@ void saxpy(size_t n, float a, const float *x, float *y) {
 \end{lstlisting}
 \end{spacing}
 \selectlanguage{greek}
+
 \begin{table}[h]
     \centering
-    \caption{Επιλογές μεταγλώττισης}
+    \caption{\en{SAXPY}: Επιλογές μεταγλώττισης \en{Alt14, Alt15, Alt16}}
     \label{my-label}
     \begin{tabular}{
     |p{0.1\textwidth}
@@ -743,7 +743,7 @@ void saxpy(size_t n, float a, const float *x, float *y) {
 
 \begin{table}[h]
     \centering
-    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \caption{\en{SAXPY}: Αποτελέσματα \en{Alt14, Alt15} και \en{Alt16}}
     \label{my-label}
     \begin{tabular}{|p{0.30\textwidth}
     | >{\centering\arraybackslash}p{0.15\textwidth}
@@ -763,13 +763,14 @@ void saxpy(size_t n, float a, const float *x, float *y) {
      500000000 & 1.707 & 0.944 & 0.911 \\ \cline{1-4} 
     \end{tabular}
 \end{table}
-
+\clearpage
 \begin{figure}[h]
 \centering
+\resizebox{0.5\textwidth}{!} {
 \begin{tikzpicture}   
     \begin{axis}[
          title={Χρόνοι εκτέλεσης με \en{Alt14 - Alt8}},
-         xlabel={Μέγεθος διανυσμάτων},
+         xlabel={Μέγεθος πίνακα},
          ylabel={Χρόνος εκτέλεσης},
          xmin=1e8, xmax=5e8,
          ymin=0, ymax=1.8,
@@ -794,11 +795,12 @@ void saxpy(size_t n, float a, const float *x, float *y) {
  	};
      \addlegendentry{\en{Alt8}}
     \end{axis}
-\end{tikzpicture}% NO EMPTY LINE HERE!!!!
+\end{tikzpicture}}% NO EMPTY LINE HERE!!!!
+\resizebox{0.5\textwidth}{!} {
 \begin{tikzpicture}
     \begin{axis}[
          title={Χρόνοι εκτέλεσης με \en{Alt15 - Alt9}},
-         xlabel={Μέγεθος διανυσμάτων},
+         xlabel={Μέγεθος πίνακα},
          ylabel={Χρόνος εκτέλεσης},
          xmin=1e8, xmax=5e8,
          ymin=0, ymax=1,
@@ -809,7 +811,7 @@ void saxpy(size_t n, float a, const float *x, float *y) {
         % grid style=dashed,
      ]
     
- 	\addplot[ color=green, mark=square,]
+ 	\addplot[ color=red, mark=square,]
       coordinates {
           (100000000,0.180)(200000000,0.339)(300000000,0.479)(400000000,0.707 )
           (5e8, 0.944)
@@ -817,24 +819,28 @@ void saxpy(size_t n, float a, const float *x, float *y) {
  	\addlegendentry{\en{Alt15}}
 
      
-     \addplot[ color=red, mark=square,]
+     \addplot[ color=blue, mark=square,]
       coordinates {
           (1e8, 0.165)(2e8,0.329)(3e8,0.503)
           (4e8, 0.639 )(5e8, 0.827)
  	};
  	\addlegendentry{\en{Alt9}}
     \end{axis}
-\end{tikzpicture}
+\end{tikzpicture}}
+\caption{\en{SAXPY}: Σύγκριση αποτελεσμάτων \en{Alt8-Alt14, Alt9-Alt15}}
 \end{figure}
+\subparagraph{Παρατηρήσεις}
+\ \\
+Η παραλλαγή της παραγράφου συγκρίνεται με τις υλοποιήσεις \en{Alt8 \- Alt9} που προαναφέρθηκαν. H μοναδική διαφορά ανάμεσά τους, είναι ότι σε αυτή την παράγραφο η πράξη της πρόσθεσης δύο στοιχείων γίνεται μέσω της ρουτίνας \en{do\_work} που καλείται μέσα στο βρόγχο επανάληψης. Ως συνέπεια, η μικρή αύξηση που παρατηρείται, οφείλεται πιθανότατα στο χρόνο που απαιτείται για την κλήση της ρουτίνας αυτής.
 
-Από τα διαγράμματα προκύπτει ότι ο υπολογισμός \en{SAXPY} μέσω συνάρτησης, προσδίδει εξτρά καθυστέρηση στην συνολική απόδοση, που πιθανόν οφείλεται στη μετακίνηση της διεύθυνσης μνήμης καθώς κατά τη μεταγλώττιση απενεργοποιείται το \emph{\en{loop unrolling}}. Στη περίπτωση της \en{explicit} εντολής διανυσματικοποίησης κατά τη μεταγλώττιση, οι επιδόσεις δείχνουν να μοιάζουν, με λίγο καλύτερες επιδόσεις για την εκτέλεση χωρίς ενδιάμεση κλήση συνάρτησης.
-\subsubsection{Παραλλαγή με \emph{\en{omp declare simd uniform notinbranch}}}
-\subparagraph{} 
-Στη περίπτωση που ακολουθεί, γίνεται προσπάθεια εξαγωγής συμπερασμάτων σχετικών με τη φράση \emph{\en{notinbranch}} και το κέρδος που μπορεί να επιφέρει σε σύγκριση με τη προηγούμενη παραλλαγή.
+\clearpage
+
+\paragraph{Παραλλαγή με \emph{\en{omp declare simd uniform notinbranch}}}
+\ \\
+Στη περίπτωση που ακολουθεί, μελετάται η υλοποίηση με χρήση της φράσης\emph{\en{notinbranch}} και το κέρδος που μπορεί να επιφέρει σε σύγκριση με τη προηγούμενη παραλλαγή.
 \selectlanguage{english}
 \begin{spacing}{0.9}
-\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{omp declare simd uniform
- notinbranch}}} , frame=tlrb]{Name}
+\begin{lstlisting}[language=C++, caption={SAXPY: declare simd uniform notinbranch} , frame=tb]{Name}
 #pragma omp declare simd uniform(a) notinbranch
 float do_work(float a, float b, float c)
 {
@@ -842,17 +848,19 @@ float do_work(float a, float b, float c)
 }
 
 void saxpy(size_t n, float a, const float *x, float *y) {
-    #pragma omp simd
+#pragma omp simd
     for (size_t i = 0; i < n; ++i) {
         y[i] = do_work(a, x[i], y[i]);
     }
 }
 \end{lstlisting}
 \end{spacing}
+
+
 \selectlanguage{greek}
 \begin{table}[h]
     \centering
-    \caption{Επιλογές μεταγλώττισης}
+    \caption{\en{SAXPY}: Επιλογές μεταγλώττισης \en{Alt17, Alt18, Alt19}}
     \label{my-label}
     \begin{tabular}{
     |p{0.1\textwidth}
@@ -865,10 +873,12 @@ void saxpy(size_t n, float a, const float *x, float *y) {
      \textbf{\en{Alt19}} & \en{ -fopt-info-vec=info.log -fno-inline -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
     \end{tabular}
 \end{table}
+
 \begin{table}[h]
     \centering
-    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \caption{\en{SAXPY}: Αποτελέσματα \en{Alt17, Alt18} και \en{Alt19}}
     \label{my-label}
+    \resizebox{0.7\textwidth}{!} {
     \begin{tabular}{|p{0.30\textwidth}
     | >{\centering\arraybackslash}p{0.12\textwidth}
     | >{\centering\arraybackslash}p{0.12\textwidth}
@@ -886,17 +896,16 @@ void saxpy(size_t n, float a, const float *x, float *y) {
      400000000 & 1.375 & 0.702 & 0.619 \\ \cline{1-4} 
      500000000 & 1.723 & 0.909 & 0.809 \\ \cline{1-4} 
 
-    \end{tabular}
+    \end{tabular}}
 \end{table}
 
-
-\begin{figure}[h]
+\clearpage
+\begin{figure}[htb]
 \centering 
-\resizebox{0.5\textwidth}{!} {
+\resizebox{0.45\textwidth}{!} {
 \begin{tikzpicture}   
     \begin{axis}[
-         title={Χρόνοι εκτέλεσης με \en{Alt17 - Alt14}},
-         xlabel={Μέγεθος διανυσμάτων},
+         xlabel={Μέγεθος πίνακα},
          ylabel={Χρόνος εκτέλεσης},
          xmin=1e8, xmax=5e8,
          ymin=0, ymax=2,
@@ -906,29 +915,27 @@ void saxpy(size_t n, float a, const float *x, float *y) {
         % ymajorgrids=true,
         % grid style=dashed,
      ]
-    
-     \addplot[ color=red, mark=square,]
-      coordinates {
-          (1e8, 0.346)(2e8,0.7)(3e8,1.030)
-          (4e8,1.384)(5e8, 1.707)
- 	};
-  	\addlegendentry{\en{Alt14}}
-
-          \addplot[ color=blue, mark=square,]
+              \addplot[ color=red, mark=square,]
       coordinates {
           (100000000,0.343)(200000000,0.689)
           (300000000,1.025)(400000000, 1.375)
           (5e8, 1.723)
  	};
      \addlegendentry{\en{Alt17}}
-
+     
+     
+     \addplot[ color=blue, mark=square,]
+      coordinates {
+          (1e8, 0.346)(2e8,0.7)(3e8,1.030)
+          (4e8,1.384)(5e8, 1.707)
+ 	};
+  	\addlegendentry{\en{Alt14}}
     \end{axis}
 \end{tikzpicture}}% NO EMPTY LINE HERE!!!!
-\resizebox{0.5\textwidth}{!} {
+\resizebox{0.45\textwidth}{!} {
 \begin{tikzpicture}
     \begin{axis}[
-         title={Χρόνοι εκτέλεσης με \en{Alt15 - Alt18}},
-         xlabel={Μέγεθος διανυσμάτων},
+         xlabel={Μέγεθος πίνακα},
          ylabel={Χρόνος εκτέλεσης},
          xmin=1e8, xmax=5e8,
          ymin=0, ymax=1,
@@ -939,7 +946,7 @@ void saxpy(size_t n, float a, const float *x, float *y) {
         % grid style=dashed,
      ]
     
- 	\addplot[ color=green, mark=square,]
+ 	\addplot[ color=red, mark=square,]
       coordinates {
           (1e8,0.180)(2e8,0.359)(3e8,0.536)(4e8,0.702)
           (5e8, 0.909)
@@ -947,7 +954,7 @@ void saxpy(size_t n, float a, const float *x, float *y) {
  	\addlegendentry{\en{Alt18}}
 
      
-     \addplot[ color=red, mark=square,]
+     \addplot[ color=blue, mark=square,]
       coordinates {
           (1e8, 0.180)(2e8, 0.339)(3e8, 0.479)
           (4e8, 0.707)(5e8, 0.944)
@@ -955,16 +962,13 @@ void saxpy(size_t n, float a, const float *x, float *y) {
  	\addlegendentry{\en{Alt15}}
     \end{axis}
 \end{tikzpicture}} 
-\end{figure}
-\clearpage
-\clearpage
-\begin{figure}[h]
+\caption{\en{SAXPY}: Σύγκριση αποτελεσμάτων \en{Alt17-Alt14, Alt18-Alt15}}
+ 
 \centering 
-\resizebox{0.7\textwidth}{!} {
+\resizebox{0.45\textwidth}{!} {
 \begin{tikzpicture}   
     \begin{axis}[
-         title={Χρόνοι εκτέλεσης με \en{Alt16 - Alt19}},
-         xlabel={Μέγεθος διανυσμάτων},
+         xlabel={Μέγεθος πίνακα},
          ylabel={Χρόνος εκτέλεσης},
          xmin=1e8, xmax=5e8,
          ymin=0, ymax=1,
@@ -974,16 +978,8 @@ void saxpy(size_t n, float a, const float *x, float *y) {
         % ymajorgrids=true,
         % grid style=dashed,
      ]
-    
-    \addplot[ color=red, mark=square,]
-      coordinates {
-          (1e8,0.179)(2e8,0.318)
-          (3e8,0.469)(4e8,0.637)
-          (5e8,0.911)
- 	};
-  	\addlegendentry{\en{Alt16}}
 
-    \addplot[ color=green, mark=square,]
+    \addplot[ color=red, mark=square,]
       coordinates {
           (1e8,0.175)(2e8,0.319)
           (3e8,0.469)(4e8, 0.619)
@@ -991,23 +987,31 @@ void saxpy(size_t n, float a, const float *x, float *y) {
  	};
      \addlegendentry{\en{Alt19}}
 
+    
+    \addplot[ color=blue, mark=square,]
+      coordinates {
+          (1e8, 0.179)(2e8, 0.318)
+          (3e8, 0.469)(4e8, 0.637)
+          (5e8, 0.911)
+ 	};
+  	\addlegendentry{\en{Alt16}}
+
     \end{axis}
 \end{tikzpicture}}% NO EMPTY LINE HERE!!!!
+\caption{\en{SAXPY}: Σύγκριση αποτελεσμάτων \en{Alt16-Alt19}}
 \end{figure}
+\subsubsection{Παραλλαγές με \emph{\en{offloading}}}
+Η ομάδα παραλλαγών αυτής της ενότητας, αφορά τη μεταφορά του αλγορίθμου σε άλλο μέσο για την επίλυση του. Το βασικότερο τμήμα του \emph{\en{SAXPY}}, εκτελείται στη μονάδα επεξεργασίας κάρτας γραφικών - \emph{\en{GPU}}. Στα πλαίσια της μεταφοράς, συμπεριλαμβάνεται και η μεταφορά των μεταβλητών από τη μνήμη της κεντρικής μονάδας στη μνήμη της κάρτας γραφικών. Αυτή η μεταφορά γίνεται με διάφορους τρόπους και τεχνικές που αναφέρονται στις επόμενες παραγράφους. Για την επιτυχία της μεταγλώττισης προβλημάτων που γίνεται η χρήση της \textbf{\en{GPU}}, είναι απαραίτητη η χρήση των επιλογών \en{-fno-stack-protector -foffload=nvptx-none="-O2}.
+
 \clearpage
-\subsection{Παραλλαγές με \emph{\en{offloading}}}
-\subparagraph{}
-
-Η ομάδα παραλλαγών αυτής της ενότητας, αφορά τη μεταφορά του αλγορίθμου σε άλλο μέσο για την επίλυση του. Το βασικότερο τμήμα του \emph{\en{SAXPY}}, εκτελείται στη μονάδα επεξεργασίας κάρτας γραφικών - \emph{\en{GPU}}. Στα πλαίσια της μεταφοράς, συμπεριλαμβάνεται και η μεταφορά των μεταβλητών από τη μνήμη της κεντρικής μονάδας στη μνήμη της κάρτας γραφικών. Αυτή η μεταφορά γίνεται με διάφορους τρόπου και τεχνικές που αναφέρονται στις επόμενες παραγράφους.
-
-\subsubsection{Παραλλαγή με \emph{\en{target map}}}
-\subparagraph{}
-Στη συγκεκριμένη παραλλαγή γίνεται απλή μεταφορά του κώδικα και των μεταβλητών στην κάρτα γραφικών για την εκτέλεση του \emph{\en{SAXPY}} σε αυτή. 
+\paragraph{Παραλλαγή με \emph{\en{target map}}}
+\ \\
+Στη συγκεκριμένη παραλλαγή γίνεται απλή μεταφορά του κώδικα και των μεταβλητών στην κάρτα γραφικών για την εκτέλεση του \emph{\en{SAXPY}} σε αυτή. Πρόκειται για σειριακή υλοποίηση του προβλήματος, η οποία έχει μεταφερθεί στη μονάδα επεξεργασίας της κάρτας γραφικών.
 \selectlanguage{english}
 \begin{spacing}{0.9}
-\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{target map}}} , frame=tlrb]{Name}
+\begin{lstlisting}[language=C++, caption={SAXPY: target map} , frame=tb]{Name}
 void saxpy(size_t n, float a, const float *x, float *y) {
-    #pragma omp target map(tofrom: y[0:n]) map(to: x[0:n])
+#pragma omp target map(tofrom: y[0:n]) map(to: x[0:n])
     for (size_t i = 0; i < n; ++i) {
         y[i] = a * x[i] + y[i];
     }
@@ -1017,7 +1021,7 @@ void saxpy(size_t n, float a, const float *x, float *y) {
 \selectlanguage{greek}
 \begin{table}[h]
     \centering
-    \caption{Επιλογές μεταγλώττισης}
+    \caption{\en{SAXPY}: Επιλογές μεταγλώττισης \en{Alt20, Alt21}}
     \label{my-label}
     \begin{tabular}{
     |p{0.1\textwidth}
@@ -1025,14 +1029,14 @@ void saxpy(size_t n, float a, const float *x, float *y) {
     |}
     \hline
  {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
-     \textbf{\en{Alt20}} & \en{ -fopt-info-vec=info.log -fno-inline -fno-tree-vectorize -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
-     \textbf{\en{Alt21}} & \en{ -fopt-info-vec=info.log -fno-inline -ftree-vectorize -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+     \textbf{\en{Alt20}} & \en{ -fopt-info-vec=info.log -fno-inline -fno-stack-protector -foffload=nvptx-none="-O2 -fno-tree-vectorize -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+     \textbf{\en{Alt21}} & \en{ -fopt-info-vec=info.log -fno-inline -fno-stack-protector -foffload=nvptx-none="-O2 -ftree-vectorize -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
     \end{tabular}
 \end{table}
 
 \begin{table}[h]
     \centering
-    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \caption{\en{SAXPY}: Αποτελέσματα \en{Alt20, Alt21}}
     \label{my-label}
     \begin{tabular}{|p{0.30\textwidth}
     | >{\centering\arraybackslash}p{0.12\textwidth}
@@ -1048,17 +1052,18 @@ void saxpy(size_t n, float a, const float *x, float *y) {
      200000000 & 59.055 & 59.894 \\ \cline{1-3} 
     \end{tabular}
 \end{table}
+\subparagraph{Παρατηρήσεις}\mbox{} \\
+Παρόλο που η συγκεκριμένη παραλλαγή προσομοιώνει σειριακή εκτέλεση στη μονάδα επεξεργασίας της κάρτας γραφικών, η δημιουργία ενός νέου περιβάλλοντος δεδομένων και η εκτέλεσή του στη μονάδα επεξεργασίας γραφικών μέσω \emph{\en{OpenMP}}, αποτελεί μια διαδικασία, πολύ πιο χρονοβόρα από τη σειριακή εκτέλεση στη \emph{\en{CPU}}.
+
 \clearpage
-Παρόλο που η συγκρεκριμένη παραλλαγή προσομοιώνει σειριακή εκτέλεση στη μονάδα επεξεργασίας της κάρτας γραφικών, είναι προφανές ότι η δημιουργία ενός νέου περιβάλλοντος δεδομένων, με τα απαραίτητα δεδομένα για την εκτέλεση του προβλήματος και η εκτέλεσή του στη μονάδα επεξεργασίας γραφικών μέσω \emph{\en{OpenMP}}, αποτελεί μια χρονοβόρα διαδικασία, πολύ πιο χρονοβόρα από τη σειριακή εκτέλεση στη κεντρική μονάδα επεξεργασίας \emph{\en{CPU}}.
-
-
-\subsection{Παραλλαγή με \emph{\en{target simd map}}}
-\subparagraph{}
+\paragraph{Παραλλαγή με \emph{\en{target simd map}}}
+\ \\
+Η προηγούμενη παραλλαγή, εμπλουτίζεται με τη φράση \en{\emph{simd}}, όπως φαίνεται στον πίνακα που ακολουθεί:
 \selectlanguage{english}
-\begin{spacing}{0.9}
-\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{target simd map}}} , frame=tlrb]{Name}
+\begin{spacing}{1.1}
+\begin{lstlisting}[language=C++, caption={SAXPY: target simd map} , frame=tb]{Name}
 void saxpy(size_t n, float a, const float *x, float *y) {
-    #pragma omp target simd map(tofrom: y[0:n]) map(to: x[0:n])
+#pragma omp target simd map(tofrom: y[0:n]) map(to: x[0:n])
     for (size_t i = 0; i < n; ++i) {
         y[i] = a * x[i] + y[i];
     }
@@ -1069,7 +1074,7 @@ void saxpy(size_t n, float a, const float *x, float *y) {
 \selectlanguage{greek}
 \begin{table}[h]
     \centering
-    \caption{Επιλογές μεταγλώττισης}
+    \caption{\en{SAXPY}: Επιλογές μεταγλώττισης \en{Alt22, Alt23, Alt24}}
     \label{my-label}
     \begin{tabular}{
     |p{0.1\textwidth}
@@ -1085,7 +1090,7 @@ void saxpy(size_t n, float a, const float *x, float *y) {
 
 \begin{table}[h]
     \centering
-    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \caption{\en{SAXPY}: Αποτελέσματα \en{Alt22, Alt23} και \en{Alt24}}
     \label{my-label}
     \begin{tabular}{|p{0.30\textwidth}
     | >{\centering\arraybackslash}p{0.12\textwidth}
@@ -1106,19 +1111,21 @@ void saxpy(size_t n, float a, const float *x, float *y) {
     \end{tabular}
 \end{table}
 
-\clearpage
+\subparagraph{Παρατηρήσεις}\mbox{} \\
+\label{simdwithwithtout}
+Συγκριτικά με τις αντίστοιχες παραλλαγές υπολογισμού στη \en{\emph{CPU}}, οι χρονικές επιδόσεις σε \en{\emph{GPU}} είναι χειρότερες όπως φαίνεται στα  διαγράμματα που προηγήθηκαν. Από το συνολικό χρόνο εκτέλεσης της \emph{\en{saxpy}} ρουτίνας, αξίζει να αναφερθεί ο χρόνος που απαιτείται για την αντιγραφή των πινάκων στη μνήμη της \en{\emph{GPU}}. Για ορισμένα μεγέθη προβλήματος το ποσοστό αυτό φτάνει στο 50\%.
+Τέλος, παρατηρείται οτι σε σύγκριση με τις παραλλαγές \en{Alt20 - Alt21}, η μοναδική διαφορά είναι η φράση \en{simd}. Παρόλα αυτά εμφανίζεται σημαντική μείωση στους χρόνους εκτέλεσης της παρούσας παραλλαγής.
 
 \begin{figure}[h]
 \centering 
-\resizebox{0.5\textwidth}{!} {
+\resizebox{0.35\textwidth}{!} {
 \begin{tikzpicture}   
     \begin{axis}[
-         title={Χρόνοι εκτέλεσης με \en{Alt22 - Alt8}},
-         xlabel={Μέγεθος διανυσμάτων},
+         xlabel={Μέγεθος πίνακα},
          ylabel={Χρόνος εκτέλεσης},
-         xmin=1e8, xmax=5e8,
+         xmin=1e8, xmax=4e8,
          ymin=0, ymax=10,
-         xtick={ 1e8, 2e8, 3e8, 4e8, 5e8},
+         xtick={ 1e8, 2e8, 3e8, 4e8},
          ytick={0, 2, 4, 6, 8, 10},
          legend pos=north west,
         % ymajorgrids=true,
@@ -1142,47 +1149,46 @@ void saxpy(size_t n, float a, const float *x, float *y) {
 
     \end{axis}
 \end{tikzpicture}}% NO EMPTY LINE HERE!!!!
-\resizebox{0.5\textwidth}{!} {
+\resizebox{0.35\textwidth}{!} {
 \begin{tikzpicture}
     \begin{axis}[
-         title={Χρόνοι εκτέλεσης με \en{Alt23 - Alt9}},
-         xlabel={Μέγεθος διανυσμάτων},
+         xlabel={Μέγεθος πίνακα},
          ylabel={Χρόνος εκτέλεσης},
-         xmin=1e8, xmax=5e8,
+         xmin=1e8, xmax=4e8,
          ymin=0, ymax=10,
-         xtick={ 1e8, 2e8, 3e8, 4e8, 5e8},
+         xtick={ 1e8, 2e8, 3e8, 4e8},
          ytick={0, 2, 4, 6, 8, 10},
          legend pos=north west,
         % ymajorgrids=true,
         % grid style=dashed,
      ]
     
- 	\addplot[ color=green, mark=square,]
+ 	\addplot[ color=red, mark=square,]
       coordinates {
-          (1e8,2.406)(2e8,5.149)(3e8,7.256)(4e8,6.969)(5e8, 8.433)
+          (1e8,2.406)(2e8,5.149)(3e8,7.256)(4e8,6.969)
  	};
  	\addlegendentry{\en{Alt23}}
 
  	\addplot[ color=blue, mark=square,]
       coordinates {
-          (1e8,0.165)(2e8,0.329)(3e8,0.503)(4e8,0.639)(5e8, 0.827)
+          (1e8,0.165)(2e8,0.329)(3e8,0.503)(4e8,0.639)
  	};
  	\addlegendentry{\en{Alt9}}
     \end{axis}
 \end{tikzpicture}} 
+\caption{\en{SAXPY}: Σύγκριση αποτελεσμάτων \en{Alt8-Alt22, Alt9-Alt23}}
 \end{figure}
 
 \begin{figure}[h]
 \centering 
-\resizebox{0.5\textwidth}{!} {
+\resizebox{0.35\textwidth}{!} {
 \begin{tikzpicture}   
     \begin{axis}[
-         title={Χρόνοι εκτέλεσης με \en{Alt24 - Alt19}},
-         xlabel={Μέγεθος διανυσμάτων},
+         xlabel={Μέγεθος πίνακα},
          ylabel={Χρόνος εκτέλεσης},
-         xmin=1e8, xmax=5e8,
+         xmin=1e8, xmax=4e8,
          ymin=0, ymax=10,
-         xtick={ 1e8, 2e8, 3e8, 4e8, 5e8},
+         xtick={ 1e8, 2e8, 3e8, 4e8},
          ytick={0, 2, 3, 6, 8, 10},
          legend pos=north west,
         % ymajorgrids=true,
@@ -1192,25 +1198,54 @@ void saxpy(size_t n, float a, const float *x, float *y) {
     \addplot[ color=red, mark=square,]
       coordinates {
           (1e8,2.392)(2e8,5.157)
-          (3e8,7.494)(4e8,7.155)(5e8, 8.476)
+          (3e8,7.494)(4e8,7.155)
  	};
   	\addlegendentry{\en{Alt24}}
 
-    \addplot[ color=green, mark=square,]
+    \addplot[ color=blue, mark=square,]
       coordinates {
           (1e8,0.145)(2e8,0.296)
-          (3e8,0.496)(4e8, 0.642)(5e8, 0.844)
+          (3e8,0.496)(4e8, 0.642)
  	};
      \addlegendentry{\en{Alt10}}
 
     \end{axis}
 \end{tikzpicture}}% NO EMPTY LINE HERE!!!!
+\caption{\en{SAXPY}: Σύγκριση αποτελεσμάτων \en{Alt19-Alt24}}
 \end{figure}
-\subsection{Παραλλαγή με \emph{\en{target parallel for}}}
-\subparagraph{}
+
+
+\begin{table}[h]
+    \centering
+    \caption{\en{SAXPY: Alt22}: Ποσοστά χρόνου εργασιών με \en{offloading}}
+    \label{my-label}
+    \resizebox{0.61\textwidth}{!} {
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+|}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{3}{|c|}{\textbf{Ποσοστό (\%)}} \\ \cline{2-4} 
+      & \textbf{\en{saxpy}} & \textbf{\en{memcpy DtoH}} & \textbf{\en{memcpy HtoD}} \\ \hline
+     100000    & 79.07 & 14.05  & 6.87 \\ \cline{1-4} 
+     1000000   & 77.42 & 15.27 & 7.31 \\ \cline{1-4} 
+     10000000  & 75.25 & 16.32 & 8.42 \\ \cline{1-4} 
+     100000000  & 62.62 & 20.76 & 16.63 \\ \cline{1-4} 
+     200000000  & 60.29 & 23.67 & 16.04 \\ \cline{1-4} 
+     300000000  & 50.38 & 35.48 & 14.14 \\ \cline{1-4} 
+     400000000  & 70.80 & 19.26 &  9.94 \\ \cline{1-4} 
+    \end{tabular}}
+\end{table}
+\clearpage
+
+\paragraph{Παραλλαγή με \emph{\en{target parallel for}}}
+\label{previous}
+\ \\
+Σε αυτή την  παραλλαγή εφαρμόζεται η οδηγία \emph{\en{pragma omp parallel for}} στη συσκευή στόχου, όπως φαίνεται στο παρακάτω τμήμα κώδικα.
 \selectlanguage{english}
 \begin{spacing}{0.9}
-\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{target parallel for}}} , frame=tlrb]{Name}
+\begin{lstlisting}[language=C++, caption={\en{SAXPY: target parallel for map}} , frame=tb]{Name}
 void saxpy(size_t n, float a, const float *x, float *y) {
 #pragma omp target parallel for map(tofrom: y[0:n]) map(to: x[0:n])
     for (size_t i = 0; i < n; ++i) {
@@ -1222,32 +1257,52 @@ void saxpy(size_t n, float a, const float *x, float *y) {
 \selectlanguage{greek}
 \begin{table}[h]
     \centering
-    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \caption{\en{SAXPY}: Επιλογές μεταγλώττισης \en{Alt25, Alt26}}
     \label{my-label}
-    \begin{tabular}{| >{\centering\arraybackslash}p{0.25\textwidth}| 
-    >{\centering\arraybackslash}p{0.25\textwidth}|
-    >{\centering\arraybackslash}p{0.25\textwidth}|}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
     \hline
-    \multirow{2}{*}{\textbf{\shortstack{\\Μέγεθος \\ προβλήματος}}} & \multicolumn{2}{|c|}					{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
-        & \textbf{-Ο0}
-        & \textbf{-O3} 
-
-\\ \hline
-     100000    & 0.011 & 0.011 \\ \cline{1-3} 
-     1000000   & 0.009 & 0.013 \\ \cline{1-3} 
-     10000000  & 0.035 & 0.021 \\ \cline{1-3} 
-     100000000 & 0.150 & 0.127 \\ \cline{1-3} 
-     200000000 & 0.264 & 0.251 \\ \cline{1-3} 
-     300000000 & 0.387 & 0.369 \\ \cline{1-3} 
-     400000000 & 0.500 & 0.490 \\ \cline{1-3} 
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt25}} & \en{-fopt-info-vec=builds/alt24.log -O2 -fno-tree-vectorize -fno-inline -fno-stack-protector -foffload=nvptx-none="-O2 -fno-tree-vectorize -fno-inline" -fopenmp -o ./builds/Alt24} \\ \hline
+     \textbf{\en{Alt26}} & \en{-fopt-info-vec=builds/alt25.log -O2 -ftree-vectorize -fno-inline -fno-stack-protector -foffload=nvptx-none="-O2 -ftree-vectorize -fno-inline" -fopenmp -o ./builds/Alt25} \\ \hline
     \end{tabular}
 \end{table}
+
+\selectlanguage{greek}
+\begin{table}[h]
+    \centering
+    \caption{\en{SAXPY}: Αποτελέσματα \en{Alt25, Alt26}}
+    \label{my-label}
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+|}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+      & \textbf{\en{Alt25}} & \textbf{\en{Alt26}}  \\ \hline
+     100000    & 1.103 & 0.825 \\ \cline{1-3} 
+     1000000   & 0.869 & 0.912 \\ \cline{1-3} 
+     10000000  & 1.264 & 1.224 \\ \cline{1-3} 
+     100000000 & 4.776 & 4.657 \\ \cline{1-3} 
+     200000000 & 9.058 & 8.983 \\ \cline{1-3} 
+     300000000 & 13.10 & 13.145\\ \cline{1-3} 
+    \end{tabular}
+\end{table}
+
+\subparagraph{Παρατηρήσεις}\mbox{} \\
+Από τον πίνακα αποτελεσμάτων, φαίνεται πως η χρήση της οδηγίας \en{\emph{parallel for}}
+στη συσκευή στόχου, καταλήγει σε εκτέλεση με χαμηλές επιδόσεις.
+
 \clearpage
-\subsection{Παραλλαγή με \emph{\en{target parallel for simd}}}
-\subparagraph{}
+\paragraph{Παραλλαγή με \emph{\en{target parallel for simd}}}
+\ \\
+Η προηγούμενη παραλλαγή, εμπλουτίζεται με τη φράση \en{\emph{simd}}, όπως φαίνεται στον πίνακα που ακολουθεί:
+
 \selectlanguage{english}
 \begin{spacing}{0.9}
-\begin{lstlisting}[basicstyle=\small, language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{target parallel for simd}}} , frame=tlrb]{Name}
+\begin{lstlisting}[basicstyle=\small, language=C++, caption={\en{SAXPY: target parallel for simd}} , frame=tb]{Name}
 void saxpy(size_t n, float a, const float *x, float *y) {
 #pragma omp target parallel for simd map(tofrom: y[0:n]) map(to: x[0:n])
     for (size_t i = 0; i < n; ++i) {
@@ -1260,39 +1315,57 @@ void saxpy(size_t n, float a, const float *x, float *y) {
 
 \begin{table}[h]
     \centering
-    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \caption{\en{SAXPY}: Επιλογές μεταγλώττισης \en{Alt27, Alt28, Alt29}}
     \label{my-label}
-    \begin{tabular}{| >{\centering\arraybackslash}p{0.15\textwidth}| 
-    >{\centering\arraybackslash}p{0.15\textwidth}|
-	>{\centering\arraybackslash}p{0.20\textwidth}|
-	>{\centering\arraybackslash}p{0.15\textwidth}|
-    >{\centering\arraybackslash}p{0.20\textwidth}|}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
     \hline
-    \multirow{4}{*}{\textbf{\shortstack{\\Μέγεθος \\ προβλήματος}}} & \multicolumn{2}{|c|}					{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
-        & \textbf{-Ο0}
-        & \textbf{\en{-O0 -fopenmp-simd}}
-        & \textbf{-O3} 
-        & \textbf{\en{-O3 -fopenmp-simd}}
-
-\\ \hline
-     100000    & 0.010 & 0.010 & 0.011 & 0.011 \\ \cline{1-5} 
-     1000000   & 0.012 & 0.014 & 0.011 & 0.009 \\ \cline{1-5} 
-     10000000  & 0.027 & 0.026 & 0.020 & 0.020 \\ \cline{1-5} 
-     100000000 & 0.140 & 0.154 & 0.128 & 0.130 \\ \cline{1-5} 
-     200000000 & 0.257 & 0.271 & 0.249 & 0.247 \\ \cline{1-5} 
-     300000000 & 0.378 & 0.385 & 0.370 & 0.365 \\ \cline{1-5} 
-     400000000 & 0.513 & 0.505 & 0.450 & 0.489 \\ \cline{1-5} 
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt27}} & \en{-fopt-info-vec=builds/alt26.log -O2 -fno-tree-vectorize -fno-inline -fno-stack-protector -foffload=nvptx-none="-O2 -fno-tree-vectorize -fno-inline" -fopenmp -o ./builds/Alt26} \\ \hline
+     \textbf{\en{Alt28}} & \en{-fopt-info-vec=builds/alt27.log -O2 -ftree-vectorize -fno-inline -fno-stack-protector -foffload=nvptx-none="-O2 -ftree-vectorize -fno-inline" -fopenmp -o ./builds/Alt27} \\ \hline
+     \textbf{\en{Alt29}} & \en{-fopt-info-vec=builds/alt28.log -O2 -fno-inline -fno-stack-protector -foffload=nvptx-none="-O2 -fno-inline" -fopenmp -o ./builds/Alt29} \\ \hline
     \end{tabular}
 \end{table}
 
+\begin{table}[h]
+    \centering
+    \caption{\en{SAXPY}: Αποτελέσματα \en{Alt27, Alt28} και \en{Alt29}}
+    \label{my-label}
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+|}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{3}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-4} 
+      & \textbf{\en{Alt27}} & \textbf{\en{Alt28}} & \textbf{\en{Alt29}} \\ \hline
+     100000    & 0.940 & 0.872 & 0.823 \\ \cline{1-4} 
+     1000000   & 0.867 & 0.850 & 0.827 \\ \cline{1-4} 
+     10000000  & 0.885 & 0.917 & 0.880 \\ \cline{1-4} 
+     100000000 & 1.471 & 1.479 & 1.456 \\ \cline{1-4} 
+     200000000 & 2.001 & 2.118 & 2.103 \\ \cline{1-4} 
+     300000000 & 4.472 & 3.135 & 2.614 \\ \cline{1-4} 
+     400000000 & 3.218 & 3.174 & 3.183 \\ \cline{1-4} 
+     500000000 & 3.798 & 4.061 & 3.877 \\ \cline{1-4} 
+     600000000 & 4.392 & 4.709 & 4.275 \\ \cline{1-4} 
+
+    \end{tabular}
+\end{table}
+
+\subparagraph{Παρατηρήσεις}
+\ \\
+Όπως και σε \hyperref[simdwithwithtout]{\emph{προηγούμενη περίπτωση}}, η εισαγωγή της φράσης \en{simd} αποτέλεσε παράγοντα μείωσης του χρόνου εκτέλεσης σε σύγκριση με την \hyperref[previous]{\emph{υλοποίηση}} χωρίς τη φράση αυτή. Οι χρόνοι εκτέλεσης ωστόσο παραμένουν υψηλοί.
+
 \clearpage
-\subsection{Παραλλαγή με \emph{\en{target teams map}}}
-\subparagraph{}
+\paragraph{Παραλλαγή με \emph{\en{target teams map}}}
+\mbox{}
 \selectlanguage{english}
 \begin{spacing}{0.9}
-\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{target teams map}}} , frame=tlrb]{Name}
+\begin{lstlisting}[language=C++, caption={\en{SAXPY}: \en{target teams map}} , frame=tb]{Name}
 void saxpy(size_t n, float a, const float *x, float *y) {
-    #pragma omp target teams map(tofrom: y[0:n]) map(to: x[0:n])
+#pragma omp target teams map(tofrom: y[0:n]) map(to: x[0:n])
     for (size_t i = 0; i < n; ++i) {
         y[i] = a * x[i] + y[i];
     }
@@ -1302,35 +1375,34 @@ void saxpy(size_t n, float a, const float *x, float *y) {
 \selectlanguage{greek}
 \begin{table}[h]
     \centering
-    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \caption{\en{SAXPY}: Επιλογές μεταγλώττισης \en{Alt30, Alt31}}
     \label{my-label}
-    \begin{tabular}{| >{\centering\arraybackslash}p{0.25\textwidth}| 
-    >{\centering\arraybackslash}p{0.25\textwidth}|
-    >{\centering\arraybackslash}p{0.25\textwidth}|}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
     \hline
-    \multirow{2}{*}{\textbf{\shortstack{\\Μέγεθος \\ προβλήματος}}} & \multicolumn{2}{|c|}					{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
-        & \textbf{-Ο0}
-        & \textbf{-O3} 
-
-\\ \hline
-     100000    & 0.005 & 0.004  \\ \cline{1-3} 
-     1000000   & 0.016 & 0.006 \\ \cline{1-3} 
-     10000000  & 0.132 & 0.025 \\ \cline{1-3} 
-     100000000 & 1.186 & 0.221 \\ \cline{1-3} 
-     200000000 & 2.374 & 0.420 \\ \cline{1-3} 
-     300000000 & 3.543 & 0.652 \\ \cline{1-3} 
-     400000000 & 4.729 & 0.821 \\ \cline{1-3} 
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt30}} & \en{-fopt-info-vec=builds/alt30.log -O2 -fno-tree-vectorize -fno-inline -fno-stack-protector\
+     -foffload=nvptx-none="-O2 -fno-tree-vectorize -fno-inline" -fopenmp -o ./builds/Alt30} \\ \hline
+     \textbf{\en{Alt31}} & \en{-fopt-info-vec=builds/alt31.log -O2 -fno-inline -fno-stack-protector -ftree-vectorize\
+     -foffload=nvptx-none="-O2 -ftree-vectorize -fno-inline" -fopenmp -o ./builds/Alt31} \\ \hline
     \end{tabular}
 \end{table}
 
+\subparagraph{Παρατηρήσεις}\mbox{} \\
+Κατά τη διάρκεια πειραματικών ελέγχων με διάφορα μεγέθη πινάκων, όπως έγινε και τις προηγούμενες παραγράφους,
+παρατηρήθηκε λάθος υπολογισμός του τελικού διανύσματος. Ως συνέπεια, δεν έγινε καταγραφή των χρόνων επίλυσης του προβλήματος, για διαφορετικά μεγέθη. Το πρόβλημα οφείλεται στο φαινόμενο \emph{\en{race condition}} καθώς στη συγκεκριμένη υλοποίηση, σε νήματα διαφορετικών ομάδων λαμβάνονται ίδια \en{i}.
+
 \clearpage
-\subsection{Παραλλαγή με \emph{\en{target teams distribute map}}}
-\subparagraph{}
+\paragraph{Παραλλαγή με \emph{\en{target teams distribute map}}}
+\label{previous2}
+\mbox{}
 \selectlanguage{english}
 \begin{spacing}{0.9}
-\begin{lstlisting}[language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{target teams distribute map}}} , frame=tlrb]{Name}
+\begin{lstlisting}[language=C++, caption={SAXPY: \en{target teams distribute map}} , frame=tb]{Name}
 void saxpy(size_t n, float a, const float *x, float *y) {
-#pragma omp target teams distribute map(from: y[0:n]) map(to: x[0:n])
+#pragma omp target teams distribute map(tofrom: y[0:n]) map(to: x[0:n])
     for (size_t i = 0; i < n; ++i) {
         y[i] = a * x[i] + y[i];
     }
@@ -1339,72 +1411,117 @@ void saxpy(size_t n, float a, const float *x, float *y) {
 \end{lstlisting}
 \end{spacing}
 \selectlanguage{greek}
+
+\begin{spacing}{1.2}
 \begin{table}[h]
     \centering
-    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \caption{\en{SAXPY}: Επιλογές μεταγλώττισης \en{Alt32, Alt33}}
     \label{my-label}
-    \begin{tabular}{| >{\centering\arraybackslash}p{0.25\textwidth}| 
-    >{\centering\arraybackslash}p{0.25\textwidth}|
-    >{\centering\arraybackslash}p{0.25\textwidth}|}
+    \resizebox{0.8\textwidth}{!} {
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
     \hline
-    \multirow{2}{*}{\textbf{\shortstack{\\Μέγεθος \\ προβλήματος}}} & \multicolumn{2}{|c|}					{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
-        & \textbf{-Ο0}
-        & \textbf{-O3} 
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt32}} & \en{-fopt-info-vec=builds/alt32.log -O2 -fno-tree-vectorize -fno-inline -fno-stack-protector -foffload=nvptx-none="-O2 -fno-tree-vectorize -fno-inline" -fopenmp -o ./builds/Alt32} \\ \hline
+     \textbf{\en{Alt33}} & \en{-fopt-info-vec=builds/alt33.log -O2 -fno-inline -fno-stack-protector -ftree-vectorize -foffload=nvptx-none="-O2 -ftree-vectorize -fno-inline" -fopenmp -o ./builds/Alt33} \\ \hline
+    \end{tabular}}
+\end{table}
+\end{spacing}
 
-\\ \hline
-     100000    & 0.005 & 0.004 \\ \cline{1-3} 
-     1000000   & 0.015 & 0.006 \\ \cline{1-3} 
-     10000000  & 0.117 & 0.025 \\ \cline{1-3} 
-     100000000 & 1.142 & 0.214 \\ \cline{1-3} 
-     200000000 & 2.278 & 0.428 \\ \cline{1-3} 
-     300000000 & 3.433 & 0.625 \\ \cline{1-3} 
-     400000000 & 4.575 & 0.851 \\ \cline{1-3} 
-    \end{tabular}
+\begin{table}[h]
+    \centering
+    \caption{\en{SAXPY}: Αποτελέσματα \en{Alt32, Alt33}}
+    \label{my-label}
+    \resizebox{0.8\textwidth}{!} {
+    \begin{tabular}{|p{0.20\textwidth}
+    | >{\centering\arraybackslash}p{0.08\textwidth}
+    | >{\centering\arraybackslash}p{0.08\textwidth}
+    | >{\centering\arraybackslash}p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.1\textwidth}    
+|}
+    \hline
+    \multirow{2}{*}{\textbf{\shortstack{Μέγεθος \\προβλήματος}}} & \multicolumn{2}{|c|}{\textbf{\shortstack{Χρόνοι εκτέλεσης\\\en{(sec)}}}} & \multicolumn{3}{|c|}{\textbf{\shortstack{Ποσοστό συνολικού \\χρόνου (\%)}}} \\ \cline{2-6}
+      & \textbf{\en{Alt32}} & \textbf{\en{Alt33}} &  \textbf{\en{saxpy}} &  \textbf{\en{memcpy DtoH}} &  \textbf{\en{memcpy HtoD}}\\ \hline
+     100000    & 0.869 & 0.837 & 75.67 & 16.88 & 7.45  \\ \cline{1-6} 
+     1000000   & 0.830 & 0.835 & 64.30 & 24.58 & 11.12 \\ \cline{1-6} 
+     10000000  & 0.974 & 0.936 & 62.09 & 25.46 & 12.44 \\ \cline{1-6} 
+     100000000 & 1.838 & 1.857 & 57.08 & 28.79 & 14.12 \\ \cline{1-6} 
+     200000000 & 2.867 & 3.353 & 49.92 & 25.81 & 24.26 \\ \cline{1-6} 
+     300000000 & 3.911 & 3.723 & 54.28 & 30.60 & 15.11 \\ \cline{1-6} 
+     400000000 & 4.911 & 4.881 & 56.33 & 29.41 & 14.26 \\ \cline{1-6} 
+     500000000 & 5.873 & 5.948 & 55.45 & 30.14 & 14.41 \\ \cline{1-6} 
+    \end{tabular}}
 \end{table}
 
+\subparagraph{Παρατηρήσεις}\mbox{} \\
+Η οδηγία \en{\emph{distribute}} δεν αντιστοιχίζεται επακριβώς σε κάποια οδηγία του \en{\emph{OpenMP}} για εκτέλεση στη \en{\emph{CPU}}. Έτσι, δεν γίνεται κάποια σύγκριση της συγκεκριμένης παραλλαγής. Ο προηγούμενος πίνακας ωστόσο δείχνει τις χαμηλές επιδόσεις της συγκεκριμένης παραλλαγής συγκριτικά με εκτέλεση στη κεντρική μονάδα επεξεργασίας. Ακόμα, παρατηρείται ότι στις περισσότερες περιπτώσεις μεγεθών απαιτείται σχεδόν ο μισός χρόνος της συνολικής εκτέλεσης για τη μεταφορά των δεδομένων ανάμεσα στις δυο συσκευές.
+
 \clearpage
-\subsection{Παραλλαγή με \emph{\en{target teams distribute parallel for map}}}
-\subparagraph{}
+\paragraph{Παραλλαγή με \emph{\en{target teams distribute parallel for map}}}
+\mbox{}
 \selectlanguage{english}
 \begin{spacing}{0.9}
-\begin{lstlisting}[basicstyle=\footnotesize, language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{target teams distribute parallel for}}} , frame=tlrb]{Name}
+\begin{lstlisting}[basicstyle=\footnotesize, language=C++, caption={SAXPY: \en{target teams distribute parallel for}} , frame=tb]{Name}
 void saxpy(size_t n, float a, const float *x, float *y) {
-#pragma omp target teams distribute parallel for map(from: y[0:n]) map(to: x[0:n])
+#pragma omp target teams distribute parallel for map(tofrom: y[0:n]) map(to: x[0:n])
     for (size_t i = 0; i < n; ++i) {
         y[i] = a * x[i] + y[i];
     }
 }
 \end{lstlisting}
 \end{spacing}
+
 \selectlanguage{greek}
+
 \begin{table}[h]
     \centering
-    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \caption{\en{SAXPY}: Επιλογές μεταγλώττισης \en{Alt34, Alt35}}
     \label{my-label}
-    \begin{tabular}{| >{\centering\arraybackslash}p{0.25\textwidth}| 
-    >{\centering\arraybackslash}p{0.25\textwidth}|
-    >{\centering\arraybackslash}p{0.25\textwidth}|}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
     \hline
-    \multirow{2}{*}{\textbf{\shortstack{\\Μέγεθος \\ προβλήματος}}} & \multicolumn{2}{|c|}					{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
-        & \textbf{-Ο0}
-        & \textbf{-O3} 
-
-\\ \hline
-     100000    & 0.010 & 0.011 \\ \cline{1-3} 
-     1000000   & 0.016 & 0.011 \\ \cline{1-3} 
-     10000000  & 0.023 & 0.020 \\ \cline{1-3} 
-     100000000 & 0.139 & 0.127 \\ \cline{1-3} 
-     200000000 & 0.257 & 0.250 \\ \cline{1-3} 
-     300000000 & 0.389 & 0.369 \\ \cline{1-3} 
-     400000000 & 0.511 & 0.490 \\ \cline{1-3} 
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt34}} & \en{-fopt-info-vec=builds/alt34.log -O2 -fno-tree-vectorize -fno-inline -fno-stack-protector -foffload=nvptx-none="-O2 -fno-tree-vectorize -fno-inline" -fopenmp -o ./builds/Alt34} \\ \hline
+     \textbf{\en{Alt35}} & \en{-fopt-info-vec=builds/alt35.log -O2 -fno-inline -fno-stack-protector -ftree-vectorize -foffload=nvptx-none="-O2 -ftree-vectorize -fno-inline" -fopenmp -o ./builds/Alt35} \\ \hline
     \end{tabular}
 \end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{SAXPY}: Αποτελέσματα \en{Alt34, Alt35}}
+    \label{my-label}
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+|}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+      & \textbf{\en{Alt34}} & \textbf{\en{Alt35}}  \\ \hline
+     100000    & 0.818 & 0.858 \\ \cline{1-3} 
+     1000000   & 0.819 & 0.857 \\ \cline{1-3} 
+     10000000  & 0.917 & 0.874 \\ \cline{1-3} 
+     100000000 & 1.455 & 1.489 \\ \cline{1-3} 
+     200000000 & 2.279 & 2.612 \\ \cline{1-3} 
+     300000000 & 3.187 & 2.803\\ \cline{1-3} 
+     400000000 & 3.458 & 3.459\\ \cline{1-3} 
+     500000000 & 4.598 & 4.629\\ \cline{1-3} 
+
+    \end{tabular}
+\end{table}
+\subparagraph{Παρατηρήσεις}\mbox{} \\
+Ο ταυτόχρονος διαμοιρασμός των εργασιών βρόχου σε ομάδες νημάτων και παραλληλισμός των εργασιών μεταξύ των νημάτων αυτών, οδηγεί σε μια βελτιωμένη έκδοση της επίλυσης του προβλήματος με χρήση της μονάδας επεξεργασίας γραφικών. Ωστόσο, είναι χρήσιμη η δημιουργία παρόμοιας παραλλαγής, άλλα με εφαρμογή διανυσματικοποίησης και ο συνδυασμός των δυο.
+
 \clearpage
-\subsection{Παραλλαγή με \emph{\en{target teams distribute simd map}}}
-\subparagraph{}
+\paragraph{Παραλλαγή με \emph{\en{target teams distribute simd map}}}
+\mbox{}
 \selectlanguage{english}
-\begin{spacing}{0.9}
-\begin{lstlisting}[basicstyle=\small, language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{target teams distribute simd map}}} , frame=tlrb]{Name}
+\begin{spacing}{1.2}
+\begin{lstlisting}[basicstyle=\small, language=C++, caption={SAXPY \en{target teams distribute simd map}} , frame=tb]{Name}
 void saxpy(size_t n, float a, const float *x, float *y) {
 #pragma omp target teams distribute simd map(from: y[0:n]) map(to: x[0:n])
     for (size_t i = 0; i < n; ++i) {
@@ -1416,43 +1533,131 @@ void saxpy(size_t n, float a, const float *x, float *y) {
 \end{spacing}
 \selectlanguage{greek}
 
+
 \begin{table}[h]
     \centering
-    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \caption{\en{SAXPY}: Επιλογές μεταγλώττισης \en{Alt36, Alt37, Alt38}}
     \label{my-label}
-    \begin{tabular}{| >{\centering\arraybackslash}p{0.15\textwidth}| 
-    >{\centering\arraybackslash}p{0.15\textwidth}|
-	>{\centering\arraybackslash}p{0.20\textwidth}|
-	>{\centering\arraybackslash}p{0.15\textwidth}|
-    >{\centering\arraybackslash}p{0.20\textwidth}|}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
     \hline
-    \multirow{4}{*}{\textbf{\shortstack{\\Μέγεθος \\ προβλήματος}}} & \multicolumn{2}{|c|}					{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
-        & \textbf{-Ο0}
-        & \textbf{\en{-O0 -fopenmp-simd}}
-        & \textbf{-O3} 
-        & \textbf{\en{-O3 -fopenmp-simd}}
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt36}} & \en{-fopt-info-vec=builds/alt36.log -O2 -fno-tree-vectorize -fno-inline -fno-stack-protector -foffload=nvptx-none="-O2 -fno-tree-vectorize -fno-inline" -fopenmp -o ./builds/Alt36} \\ \hline
+     \textbf{\en{Alt37}} & \en{-fopt-info-vec=builds/alt37.log -O2 -ftree-vectorize -fno-inline -fno-stack-protector -foffload=nvptx-none="-O2 -ftree-vectorize -fno-inline" -fopenmp -o ./builds/Alt37} \\ \hline
+     \textbf{\en{Alt38}} & \en{-fopt-info-vec=builds/alt38.log -O2 -fno-inline -fno-stack-protector -foffload=nvptx-none="-O2 -fno-inline" -fopenmp -o ./builds/Alt38} \\ \hline
+    \end{tabular}
+\end{table}
 
-\\ \hline
-     100000    & 0.005 & 0.050 & 0.004 & 0.004 \\ \cline{1-5} 
-     1000000   & 0.015 & 0.015 & 0.006 & 0.006 \\ \cline{1-5} 
-     10000000  & 0.120 & 0.119 & 0.021 & 0.021 \\ \cline{1-5} 
-     100000000 & 1.159 & 1.153 & 0.159 & 0.168 \\ \cline{1-5} 
-     200000000 & 2.311 & 2.305 & 0.326 & 0.327 \\ \cline{1-5} 
-     300000000 & 3.487 & 3.472 & 0.482 & 0.495 \\ \cline{1-5} 
-     400000000 & 4.620 & 4.610 & 0.647 & 0.644 \\ \cline{1-5} 
+\begin{table}[h]
+    \centering
+    \caption{\en{SAXPY}: Αποτελέσματα \en{Alt36, Alt37} και \en{Alt38}}
+    \label{my-label}
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+|}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{3}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-4} 
+      & \textbf{\en{Alt36}} & \textbf{\en{Alt37}} & \textbf{\en{Alt38}} \\ \hline
+     100000    & 0.842 & 0.865 & 0.849 \\ \cline{1-4} 
+     1000000   & 0.843 & 0.883 & 0.830 \\ \cline{1-4} 
+     10000000  & 0.890 & 0.876 & 0.899 \\ \cline{1-4} 
+     100000000 & 1.283 & 1.360 & 1.295 \\ \cline{1-4} 
+     200000000 & 1.790 & 1.842 & 1.794 \\ \cline{1-4} 
+     300000000 & 2.365 & 2.366 & 2.239 \\ \cline{1-4} 
+     400000000 & 2.753 & 2.806 & 2.773 \\ \cline{1-4} 
+     500000000 & 3.210 & 3.244 & 3.225 \\ \cline{1-4} 
+     600000000 & 3.689 & 3.553 & 3.770 \\ \cline{1-4} 
+
     \end{tabular}
 \end{table}
 
 \clearpage
-\subsection{Παραλλαγή με \emph{\en{target teams distribute parallel for simd map}}}
-\subparagraph{}
+
+\subparagraph{Παρατηρήσεις}\mbox{} \\
+Η εισαγωγή διανυσματικοποίησης επιφέρει βελτίωση σε σύγκριση \hyperref[previous2]{\emph{με την αντίστοιχη υλοποίηση}} χωρίς αυτήν.
+%\sygkrisi na kano me tun parallagi
+
+\begin{figure}[h]
+\begin{tabular}{*{2}{>{\centering\arraybackslash}b{\dimexpr0.5\linewidth-2\tabcolsep\relax}}}
+\resizebox{0.5\textwidth}{!} {
+\begin{tikzpicture}[state/.append style={minimum size=7mm}]
+     \begin{axis}[
+         xlabel={Μέγεθος πίνακα},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=100000, xmax=500000000,
+         ymin=0, ymax=6,
+         xtick={ 100000000, 200000000, 300000000, 400000000, 5e8},
+         ytick={ 0, 1, 2, 3, 4, 5, 6},
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ]   
+ 	
+ 	\addplot[ color=green, mark=square,]
+      coordinates {
+          (100000,0.869)(1000000,0.830)(10000000,0.974 )
+          (100000000,1.838)(200000000,2.867)(300000000,3.91)(400000000,4.911)	
+          (5e8, 5.873)
+ 	};
+ 	\addlegendentry{\en{Alt32}}
+ 	
+ 	 	\addplot[ color=red, mark=square,]
+      coordinates {
+          (100000, 0.842)(1000000,0.843)(10000000,0.89)
+          (1e8,1.283)(2e8,1.79)(3e8,2.365)(4e8, 2.753)
+			(5e8,3.21) 	
+ 	};
+ 	\addlegendentry{\en{Alt36}}
+     \end{axis}
+ \end{tikzpicture}}
+
+\caption{\en{SAXPY}: Σύγκριση \en{Alt36, Alt32}}
+    &
+\renewcommand{\arraystretch}{1.1}
+\resizebox{0.4\textwidth}{!} {
+\begin{tabular}{c|c}
+Μέγεθος & Επιτάχυνση (\%)  \\
+\hline
+100000    & -- \\
+1000000   & -- \\
+10000000  & 8.6 \\
+100000000 & 30.2 \\
+200000000 & 37.6 \\
+300000000 & 39.5\\
+400000000 & 43.9 \\
+500000000 & 45.3 \\
+\end{tabular}}
+\captionof{table}{\en{SAXPY}: Ποσοστιαία σύγκριση \en{Alt36}, \en{Alt32}}
+\end{tabular}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\clearpage
+\paragraph{Παραλλαγή με \emph{\en{target teams distribute parallel for simd map}}}
+\ \\
+Στην τελευταία παραλλαγή του προβλήματος, εφαρμόζονται όλες οι διαθέσιμες οδηγίες παραλληλοποίησης στην μονάδα επεξεργασίας γραφικών μέσω του \en{\emph{OpenMP}}. Τα αποτελέσματα της εκτέλεσης για διάφορα μεγέθη ακολουθούν.
 \selectlanguage{english}
 \begin{spacing}{0.9}
-\begin{lstlisting}[basicstyle=\footnotesize, language=C++, caption={\el{Υλοποίηση παραλλαγής με \en{teams distribute parallel for simd\
-			map}}} , frame=tlrb]{Name}
+\begin{lstlisting}[basicstyle=\footnotesize, language=C++, caption={SAXPY \en{teams distribute parallel for simd\
+			map}} , frame=tb]{Name}
 void saxpy(size_t n, float a, const float *x, float *y) {
 #pragma omp target teams distribute parallel for simd\
-			map(from: y[0:n]) map(to: x[0:n])
+			map(tofrom: y[0:n]) map(to: x[0:n])
     for (size_t i = 0; i < n; ++i) {
         y[i] = a * x[i] + y[i];
     }
@@ -1463,23 +1668,316 @@ void saxpy(size_t n, float a, const float *x, float *y) {
 
 \begin{table}[h]
     \centering
-    \caption{Καταγραφή χρόνων εκτέλεσης}
+    \caption{\en{SAXPY}: Επιλογές μεταγλώττισης \en{Alt39, Alt40, Alt41}}
     \label{my-label}
-    \begin{tabular}{| >{\centering\arraybackslash}p{0.15\textwidth}| 
-    >{\centering\arraybackslash}p{0.15\textwidth}|
-	>{\centering\arraybackslash}p{0.20\textwidth}|}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
     \hline
-    \multirow{2}{*}{\textbf{\shortstack{\\Μέγεθος \\ προβλήματος}}} & \multicolumn{2}{|c|}					{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
-        & \textbf{-Ο0}
-        & \textbf{-O3} 
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt39}} & \en{-fopt-info-vec=builds/alt39.log -O2 -fno-tree-vectorize -fno-inline -fno-stack-protector -foffload=nvptx-none="-O2 -fno-tree-vectorize -fno-inline" -fopenmp -o ./builds/Alt39} \\ \hline
+     \textbf{\en{Alt40}} & \en{-fopt-info-vec=builds/alt40.log -O2 -ftree-vectorize -fno-inline -fno-stack-protector -foffload=nvptx-none="-O2 -ftree-vectorize -fno-inline" -fopenmp -o ./builds/Alt40} \\ \hline
+	 \textbf{\en{Alt41}} & \en{-fopt-info-vec=builds/alt41.log -O2 -fno-inline -fno-stack-protector -foffload=nvptx-none="-O2 -fno-inline" -fopenmp -o ./builds/Alt41} \\ \hline
+    \end{tabular}
+\end{table}
 
-\\ \hline
-     100000    & 0.010 & 0.010 \\ \cline{1-3} 
-     1000000   & 0.012 & 0.010 \\ \cline{1-3} 
-     10000000  & 0.025 & 0.021 \\ \cline{1-3} 
-     100000000 & 0.146 & 0.127 \\ \cline{1-3} 
-     200000000 & 0.263 & 0.246 \\ \cline{1-3} 
-     300000000 & 0.389 & 0.371 \\ \cline{1-3} 
-     400000000 & 0.519 & 0.489 \\ \cline{1-3} 
+\begin{table}[h]
+\centering
+    \caption{\en{SAXPY}: Αποτελέσματα \en{Alt39, Alt40} και \en{Alt41}}
+    \label{my-label}
+    \begin{tabular}{|p{0.20\textwidth}
+    | >{\centering\arraybackslash}p{0.08\textwidth}
+    | >{\centering\arraybackslash}p{0.08\textwidth}
+    | >{\centering\arraybackslash}p{0.08\textwidth}
+    | >{\centering\arraybackslash}p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.1\textwidth}    
+|}
+    \hline
+    \multirow{2}{*}{\textbf{\shortstack{Μέγεθος \\προβλήματος}}} & \multicolumn{3}{|c|}{\textbf{\shortstack{Χρόνοι εκτέλεσης\\\en{(sec)}}}} & \multicolumn{3}{|c|}{\textbf{\shortstack{Ποσοστό συνολικού \\χρόνου (\%)}}} \\ \cline{2-7}
+      & \textbf{\en{Alt39}} & \textbf{\en{Alt40}} & \textbf{\en{Alt41}} & \textbf{\en{saxpy}} &  \textbf{\en{memcpy HtoD}} &  \textbf{\en{memcpy DtoH }}\\ \hline
+     100000    & 0.908 & 0.828 & 0.844  & 14.29 & 59.19 & 26.51\\ \cline{1-7} 
+     1000000   & 0.829 & 0.848 & 0.861  & 11.65& 61.26 & 27.09\\ \cline{1-7} 
+     10000000  & 0.885 & 0.862 & 0.864  & 3.74 & 64.13 & 32.14\\ \cline{1-7} 
+     100000000 & 1.268 & 1.269 & 1.310  & 2.83 & 65.14 & 32.03\\ \cline{1-7} 
+     200000000 & 1.747 & 1.737 & 1.776  & 2.69 & 65.38 & 31.93\\ \cline{1-7} 
+     300000000 & 2.313 & 2.259 & 2.183  & 2.67 & 66.60 & 30.73\\ \cline{1-7} 
+     400000000 & 2.585 & 2.644 & 2.856  & 2.66 & 66.50 & 30.83 \\ \cline{1-7} 
+     500000000 & 3.169 & 3.128 & 3.060  & 2.68 & 65.55 & 31.78\\ \cline{1-7} 
+     600000000 & 3.592 & 3.848 & 3.580  & 2.69 & 65.45 & 31.85 \\ \cline{1-7} 
+
+    \end{tabular}
+\end{table}
+\clearpage
+\subparagraph{Παρατηρήσεις}\mbox{} \\
+Σύμφωνα με το συνοπτικό πίνακα καταγραφής χρόνου εκτέλεσης του προβλήματος για διαφορετικά μεγέθη, προκύπτει ότι ο χρόνος εκτέλεσης του προβλήματος είναι ο καλύτερος σε σχέση με όλες της προηγούμενες προσπάθειες εκτέλεσης στη μονάδα επεξεργασίας γραφικών. Παρόλα αυτά, η απόδοση είναι πολύ χαμηλότερη σε σχέση με οποιαδήποτε προσπάθεια επίλυσης του προβλήματος στην \en{\emph{CPU}}. Ωστόσο, με τη χρήση του \en{\textbf{nvprof}}, προκύπτει ότι το σημαντικότερο ποσοστό του συνολικού χρόνου εκτέλεσης, αποτελεί η μετακίνηση των μεταβλητών από το περιβάλλον δεδομένων της κεντρικής μονάδας, σε αυτό της κάρτας γραφικών. Συγκεκριμένα, το 97\% του χρόνου καταναλώνεται από την οδηγία \emph{\en{map}}. Με άλλα λόγια, αν θεωρητικά δεν απαιτείται η μεταφορά του διανύσματος μεγέθους 6\en{e}8 στο περιβάλλον της συσκευής στόχου, τότε ο χρόνος εκτέλεσης του προβλήματος θα ήταν \textbf{$3.06 * 0.0269 = 0.082$} δευτερόλεπτα
+
+\clearpage
+\paragraph{Παραλλαγή με \emph{\en{target teams distribute parallel for simd \\
+is\_device\_ptr}}}
+\ \\
+Για την επίλυση του προβλήματος της χρονοβόρας διαδικασίας μεταφοράς δεδομένων ανάμεσα στις δυο συσκευές (\en{\emph{host and device}}) το \en{OpenMP} προσφέρει τη δυνατότητα στο χρήση της απευθείας δημιουργίας και διαχείρισης της μνήμης σε περιβάλλον εργασίας της κάρτας γραφικών. Έτσι, ο αλγόριθμος θεωρητικά θα πρέπει να εκτελείται σε πολύ μικρότερο χρονικό διάστημα συγκριτικά με την παρατήρηση της προηγούμενης παραγράφου.
+
+\selectlanguage{english}
+\begin{spacing}{0.9}
+\begin{lstlisting}[basicstyle=\footnotesize, language=C++, caption={\en{SAXPY}: \en{teams distribute parallel for simd is\_device\_ptr}} , frame=tb]{Name}
+void saxpy(size_t n, float a, const float *x, float *y) {
+    #pragma omp target teams distribute parallel for simd is_device_ptr(y, x)
+        for (size_t i = 0; i < n; ++i) {
+            y[i] = a * x[i] + y[i];
+        }
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+
+\begin{table}[h]
+    \centering
+    \caption{\en{SAXPY}: Επιλογές μεταγλώττισης \en{Alt42, Alt43, Alt44}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt42}} & \en{-fopt-info-vec=builds/alt39.log -O2 -fno-tree-vectorize -fno-inline -fno-stack-protector -foffload=nvptx-none="-O2 -fno-tree-vectorize -fno-inline" -fopenmp -o ./builds/Alt39} \\ \hline
+     \textbf{\en{Alt43}} & \en{-fopt-info-vec=builds/alt40.log -O2 -ftree-vectorize -fno-inline -fno-stack-protector -foffload=nvptx-none="-O2 -ftree-vectorize -fno-inline" -fopenmp -o ./builds/Alt40} \\ \hline
+	 \textbf{\en{Alt44}} & \en{-fopt-info-vec=builds/alt41.log -O2 -fno-inline -fno-stack-protector -foffload=nvptx-none="-O2 -fno-inline" -fopenmp -o ./builds/Alt41} \\ \hline
+    \end{tabular}
+\end{table}
+
+\subparagraph{Παρατηρήσεις}\mbox{} \\
+Όπως ήταν αναμενόμενο, η εκτέλεση του προβλήματος με δέσμευση μνήμης απευθείας στο περιβάλλον δεδομένων της κάρτας γραφικών, οδήγησε στην κατακόρυφη πτώση του χρόνου εκτέλεσης του προβλήματος. Ο χρόνος είναι συγκρίσιμος με τη θεωρητική προσέγγιση των παρατηρήσεων της προηγούμενης παραγράφου. Ακόμα, η συγκεκριμένη παραλλαγή αποτελεί την καλύτερη λύση σε ότι αφορά τις χρονικές επιδόσεις επίλυσης του προβλήματος.
+	
+\clearpage
+\begin{table}[h]
+    \centering
+    \caption{\en{SAXPY}: Αποτελέσματα \en{Alt42, Alt43} και \en{Alt44}}
+    \label{my-label}
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+|}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{3}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-4} 
+      & \textbf{\en{Alt42}} & \textbf{\en{Alt43}} & \textbf{\en{Alt44}} \\ \hline
+     100000    & 0.006 & 0.006 & 0.006 \\ \cline{1-4} 
+     1000000   & 0.006 & 0.006 & 0.006 \\ \cline{1-4} 
+     10000000  & 0.007 & 0.007 & 0.007 \\ \cline{1-4} 
+     100000000 & 0.018 & 0.019 & 0.019 \\ \cline{1-4} 
+     200000000 & 0.031 & 0.031 & 0.031 \\ \cline{1-4} 
+     300000000 & 0.042 & 0.043 & 0.043 \\ \cline{1-4} 
+     400000000 & 0.054 & 0.054 & 0.054 \\ \cline{1-4} 
+     500000000 & 0.067 & 0.067 & 0.067 \\ \cline{1-4} 
+     600000000 & 0.078 & 0.079 & 0.078 \\ \cline{1-4} 
+
+    \end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+    \centering
+    \caption{\en{SAXPY: nvprof} - 100000}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.2\textwidth}
+|}
+    \hline
+     \textbf{\en{Time(\%)}} & \textbf{\en{Time}} & \textbf{\en{Calls}} & \textbf{\en{Avg}} & \textbf{\en{Min}} & \textbf{\en{Max}} & \textbf{\en{Name}}\\ \cline{1-7} 
+     65.85\% & 814.6\en{us} & 2 & 407.3\en{us} & 392.4\en{us} & 422.1\en{us} & \en{fill\_random\_arr}\\ \cline{1-7}
+     33.49\% & 414.3\en{us} & 1 & 414.3\en{us} & 414.3\en{us} & 414.3\en{us} & \en{saxpy}\\ \cline{1-7} 
+     0.42\% & 5.22\en{us} & 3 & 1.74\en{us} & 1.6\en{us} & 1.85\en{us} & \en{CUDA memcpy HtoD}\\ \cline{1-7}
+ 	0.24\% & 2.9\en{us} & 1 & 2.91\en{us} & 2.91\en{us} & 2.91en{us} & \en{CUDA memcpy DtoH}\\ \cline{1-7}
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{SAXPY: nvprof} - 1000000}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.2\textwidth}
+|}
+    \hline
+     \textbf{\en{Time(\%)}} & \textbf{\en{Time}} & \textbf{\en{Calls}} & \textbf{\en{Avg}} & \textbf{\en{Min}} & \textbf{\en{Max}} & \textbf{\en{Name}}\\ \cline{1-7} 
+     77.8\% & 1.9\en{ms} & 2 & 947.6\en{us} & 943.6\en{us} & 951.9\en{us} & \en{fill\_random\_arr}\\ \cline{1-7}
+     21.9\% & 533.0\en{us} & 1 & 533\en{us}   & 532.99\en{us} & 533\en{us} & \en{saxpy}\\ \cline{1-7} 
+     0.21\% & 5.1\en{us} & 3 & 1.69\en{us}  & 1.44\en{us} & 1.92\en{us} & \en{CUDA memcpy HtoD}\\ \cline{1-7}
+ 	 0.13\% & 3.1\en{us} & 1 & 3.07\en{us}  & 3.07\en{us} & 3.07\en{us} & \en{CUDA memcpy DtoH}\\ \cline{1-7}
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{SAXPY: nvprof} - 10000000}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.2\textwidth}
+|}
+    \hline
+     \textbf{\en{Time(\%)}} & \textbf{\en{Time}} & \textbf{\en{Calls}} & \textbf{\en{Avg}} & \textbf{\en{Min}} & \textbf{\en{Max}} & \textbf{\en{Name}}\\ \cline{1-7} 
+     87.1\% & 11.6\en{ms} & 2 & 5.8\en{us} & 5.8\en{us} & 5.8\en{us} & \en{fill\_random\_arr}\\ \cline{1-7}
+     12.9\% & 1.7\en{ms} & 1  & 1.7\en{ms} & 1.7\en{ms} & 1.7\en{ms} & \en{saxpy}\\ \cline{1-7} 
+     0.04\% & 4.9\en{us} & 3  & 1.6\en{us} & 1.5\en{us} & 1.7\en{us} & \en{CUDA memcpy HtoD}\\ \cline{1-7}
+ 	 0.02\% & 3.0\en{us} & 1  & 3.0\en{us} & 3.0\en{us} & 3.0\en{us} & \en{CUDA memcpy DtoH}\\ \cline{1-7}
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{SAXPY: nvprof} - 100000000}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.2\textwidth}
+|}
+    \hline
+     \textbf{\en{Time(\%)}} & \textbf{\en{Time}} & \textbf{\en{Calls}} & \textbf{\en{Avg}} & \textbf{\en{Min}} & \textbf{\en{Max}} & \textbf{\en{Name}}\\ \cline{1-7} 
+     89.23\% & 108.3\en{ms} & 2 & 54.1\en{ms} & 54.11\en{ms} & 54.1\en{ms} & \en{fill\_random\_arr}\\ \cline{1-7}
+     10.76\% & 13.1\en{ms} & 1  & 13.1\en{ms} & 13.1\en{ms} & 13.1\en{ms} & \en{saxpy}\\ \cline{1-7} 
+     0.00\%  & 5.1\en{us} & 3   & 1.9\en{us}  & 1.6\en{us} & 1.7\en{us} & \en{CUDA memcpy HtoD}\\ \cline{1-7}
+ 	 0.00\%  & 2.8\en{us} & 1   & 2.8\en{us}  & 2.8\en{us} & 2.8\en{us} & \en{CUDA memcpy DtoH}\\ \cline{1-7}
+    \end{tabular}
+\end{table}
+
+
+
+
+
+\begin{table}[h]
+    \centering
+    \caption{\en{SAXPY: nvprof} - 200000000}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.2\textwidth}
+|}
+    \hline
+     \textbf{\en{Time(\%)}} & \textbf{\en{Time}} & \textbf{\en{Calls}} & \textbf{\en{Avg}} & \textbf{\en{Min}} & \textbf{\en{Max}} & \textbf{\en{Name}}\\ \cline{1-7} 
+     88.7\% & 204.6\en{ms} & 2 & 102.3\en{ms} & 97.9\en{ms} & 106.7\en{us} & \en{fill\_random\_arr}\\ \cline{1-7}
+     11.3\% & 26.0\en{ms}  & 1 & 26.0\en{ms}  & 26.0\en{ms} & 26.0\en{ms} & \en{saxpy}\\ \cline{1-7} 
+     0.00\% & 4.8\en{us}   & 3 & 1.6\en{us}   & 1.57\en{us} & 1.6\en{us} & \en{CUDA memcpy HtoD}\\ \cline{1-7}
+ 	 0/00\% & 2.8\en{us}   & 1 & 2.8\en{us}   & 2.8\en{us}  & 2.8\en{us} & \en{CUDA memcpy DtoH}\\ \cline{1-7}
+    \end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+    \centering
+    \caption{\en{SAXPY: nvprof} - 300000000}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.2\textwidth}
+|}
+    \hline
+     \textbf{\en{Time(\%)}} & \textbf{\en{Time}} & \textbf{\en{Calls}} & \textbf{\en{Avg}} & \textbf{\en{Min}} & \textbf{\en{Max}} & \textbf{\en{Name}}\\ \cline{1-7} 
+     88.84\% & 299.2\en{ms} & 2 & 149.12\en{ms} & 143.12\en{ms} & 156.1\en{ms} & \en{fill\_random\_arr}\\ \cline{1-7}	
+     11.15\% & 37.6\en{ms}  & 1 & 37.6\en{ms} & 37.6\en{ms} & 37.6\en{ms} & \en{saxpy}\\ \cline{1-7} 
+     0.00\%  & 4.8\en{us}   & 3 & 1.6\en{us}  & 1.59\en{us} & 1.63\en{us} & \en{CUDA memcpy HtoD}\\ \cline{1-7}
+ 	 0.00\%  & 2.7\en{us}   & 1 & 2.65\en{us} & 2.66\en{us} & 2.66\en{us} & \en{CUDA memcpy DtoH}\\ \cline{1-7}
+    \end{tabular}
+\end{table}
+
+
+
+\begin{table}[h]
+    \centering
+    \caption{\en{SAXPY: nvprof} - 400000000}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.2\textwidth}
+|}
+    \hline
+     \textbf{\en{Time(\%)}} & \textbf{\en{Time}} & \textbf{\en{Calls}} & \textbf{\en{Avg}} & \textbf{\en{Min}} & \textbf{\en{Max}} & \textbf{\en{Name}}\\ \cline{1-7} 
+     88.7\% & 386.3\en{ms} & 2 & 193.2\en{ms} & 182.0\en{ms} & 204.3\en{ms} & \en{fill\_random\_arr}\\ \cline{1-7}
+     11.3\% & 49.2\en{ms}  & 1 & 49.2\en{ms}  & 49.2\en{ms}  & 49.2\en{ms} & \en{saxpy}\\ \cline{1-7} 
+     0.00\% & 4.8\en{us}   & 3 & 1.6\en{us}   & 1.5\en{us}   & 1.7\en{us} & \en{CUDA memcpy HtoD}\\ \cline{1-7}
+ 	 0.00\% & 2.5\en{us}   & 1 & 2.5\en{us}   & 2.5\en{us}   & 2.5\en{us} & \en{CUDA memcpy DtoH}\\ \cline{1-7}
+    \end{tabular}
+\end{table}
+\begin{table}[h]
+    \centering
+    \caption{\en{SAXPY: nvprof} - 500000000}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.2\textwidth}
+|}
+    \hline
+     \textbf{\en{Time(\%)}} & \textbf{\en{Time}} & \textbf{\en{Calls}} & \textbf{\en{Avg}} & \textbf{\en{Min}} & \textbf{\en{Max}} & \textbf{\en{Name}}\\ \cline{1-7} 
+     88.4\% & 473.0\en{ms} & 2 & 236.5\en{ms} & 219.3\en{ms} & 253.7\en{ms} & \en{fill\_random\_arr}\\ \cline{1-7}
+     11.6\% & 62.1\en{ms}  & 1 & 62.1\en{ms}  & 62.1\en{ms}  & 62.1\en{ms} & \en{saxpy}\\ \cline{1-7} 
+     0.00\% & 4.7\en{us}   & 3 & 1.6\en{us}   & 1.5\en{us}   & 1.6\en{us} & \en{CUDA memcpy HtoD}\\ \cline{1-7}
+ 	 0.00\% & 2.6\en{us}   & 1 & 2.6\en{us}   & 2.6\en{us}   & 2.6\en{us} & \en{CUDA memcpy DtoH}\\ \cline{1-7}
+    \end{tabular}
+\end{table}
+\begin{table}[h]
+    \centering
+    \caption{\en{SAXPY: nvprof} - 600000000}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.11\textwidth}
+    | >{\centering\arraybackslash}p{0.2\textwidth}
+|}
+    \hline
+     \textbf{\en{Time(\%)}} & \textbf{\en{Time}} & \textbf{\en{Calls}} & \textbf{\en{Avg}} & \textbf{\en{Min}} & \textbf{\en{Max}} & \textbf{\en{Name}}\\ \cline{1-7} 
+     88.3\% & 552.9\en{ms} & 2 & 276.5\en{ms} & 255.4\en{ms} & 297.5\en{ms} & \en{fill\_random\_arr}\\ \cline{1-7}
+     11.7\% & 73.2\en{ms}  & 1 & 73.2\en{ms} & 73.2\en{ms} & 73.2\en{ms} & \en{saxpy}\\ \cline{1-7} 
+     0.00\% & 4.5\en{us}   & 3 & 1.5\en{us} &  1.4\en{us} & 1.5\en{us} & \en{CUDA memcpy HtoD}\\ \cline{1-7}
+ 	 0.00\% & 2.4\en{us}   & 1 & 2.4\en{us} & 2.4\en{us} & 2.4\en{us} & \en{CUDA memcpy DtoH}\\ \cline{1-7}
     \end{tabular}
 \end{table}

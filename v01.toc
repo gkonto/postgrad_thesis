@@ -1,0 +1,1445 @@
+\babel@toc {greek}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {greek}{}
+\babel@toc {greek}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {greek}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {greek}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {greek}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {greek}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {greek}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {greek}{}
+\babel@toc {greek}{}
+\contentsline {section}{\numberline {1}Εισαγωγή}{1}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Συνοπτικά για το \foreignlanguage {english}{OpenMP}}{1}{subsection.1.1}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsection}{\numberline {1.2}Σκοπός – Στόχοι}{2}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Διάρθρωση της μελέτης}{3}{subsection.1.3}%
+\contentsline {section}{\numberline {2}Θεωρητικό Υπόβαθρο}{4}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Το μοντέλο Προγραμματισμού \foreignlanguage {english}{OpenMP}}{4}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Αλληλεπίδραση νημάτων και περιβάλλοντος δεδομένων}{5}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Ιδιωτική μνήμη}{5}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Κοινόχρηστη μνήμη}{6}{subsubsection.2.2.2}%
+\contentsline {paragraph}{\numberline {2.2.2.1}Συνθήκη συναγωνισμού (\foreignlanguage {english}{Race Condition})}{6}{paragraph.2.2.2.1}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {english}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {2.2.2.2}Ψευδής διαμοιρασμός (\foreignlanguage {english}{False Sharing})}{7}{paragraph.2.2.2.2}%
+\contentsline {subsection}{\numberline {2.3}Ανασκόπηση σε βασικά χαρακτηριστικά του \emph {\foreignlanguage {english}{OpenMP}}}{9}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Μοντέλο συνέπειας μνήμης}{9}{subsubsection.2.3.1}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {2.3.2}Οδηγίες διαμοιρασμού εργασίας}{9}{subsubsection.2.3.2}%
+\contentsline {paragraph}{\numberline {2.3.2.1}Οδηγία διαμοιρασμού εργασίας βρόγχου - \emph {\foreignlanguage {english}{for}}}{10}{paragraph.2.3.2.1}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {2.3.2.2}Οδηγία \emph {\foreignlanguage {english}{sections}}}{11}{paragraph.2.3.2.2}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {2.3.2.3}Οδηγία \emph {\foreignlanguage {english}{master}}}{11}{paragraph.2.3.2.3}%
+\contentsline {paragraph}{\numberline {2.3.2.4}Οδηγία \emph {\foreignlanguage {english}{single}}}{12}{paragraph.2.3.2.4}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {2.3.2.5}Οδηγία \emph {\foreignlanguage {english}{flush}}}{12}{paragraph.2.3.2.5}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {2.3.3}Φράσεις - \foreignlanguage {english}{Clauses}}{13}{subsubsection.2.3.3}%
+\contentsline {paragraph}{\numberline {2.3.3.1}Φράσεις διαμοιρασμού δεδομένων - \foreignlanguage {english}{Data sharing attribute clauses}}{13}{paragraph.2.3.3.1}%
+\contentsline {subparagraph}{\numberline {2.3.3.1.1}\underline {Φράση \foreignlanguage {english}{shared}}}{13}{subparagraph.2.3.3.1.1}%
+\contentsline {subparagraph}{\numberline {2.3.3.1.2}\underline {Φράση \foreignlanguage {english}{private}}}{13}{subparagraph.2.3.3.1.2}%
+\contentsline {subparagraph}{\numberline {2.3.3.1.3}\underline {Φράση \foreignlanguage {english}{default}}}{14}{subparagraph.2.3.3.1.3}%
+\contentsline {subparagraph}{\numberline {2.3.3.1.4}\underline {Φράση \foreignlanguage {english}{firstprivate}}}{14}{subparagraph.2.3.3.1.4}%
+\contentsline {subparagraph}{\numberline {2.3.3.1.5}\underline {Φράση \foreignlanguage {english}{lastprivate}}}{14}{subparagraph.2.3.3.1.5}%
+\contentsline {subparagraph}{\numberline {2.3.3.1.6}\underline {Φράση \foreignlanguage {english}{threadprivate}}}{14}{subparagraph.2.3.3.1.6}%
+\contentsline {subparagraph}{\numberline {2.3.3.1.7}\underline {Φράση \foreignlanguage {english}{ordered}}}{15}{subparagraph.2.3.3.1.7}%
+\contentsline {subparagraph}{\numberline {2.3.3.1.8}\underline {Φράση \foreignlanguage {english}{reduction}}}{15}{subparagraph.2.3.3.1.8}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {2.3.3.2}Φράσεις συγχρονισμού - \emph {\foreignlanguage {english}{Data sharing attribute clauses}}}{15}{paragraph.2.3.3.2}%
+\contentsline {subparagraph}{\numberline {2.3.3.2.1}\underline {Φράση \foreignlanguage {english}{critical}}}{15}{subparagraph.2.3.3.2.1}%
+\contentsline {subparagraph}{\numberline {2.3.3.2.2}\underline {Φράση \foreignlanguage {english}{atomic}}}{15}{subparagraph.2.3.3.2.2}%
+\contentsline {subparagraph}{\numberline {2.3.3.2.3}\underline {Φράση \foreignlanguage {english}{barrier}}}{16}{subparagraph.2.3.3.2.3}%
+\contentsline {subparagraph}{\numberline {2.3.3.2.4}\underline {Φράση \foreignlanguage {english}{nowait}}}{16}{subparagraph.2.3.3.2.4}%
+\contentsline {subparagraph}{\numberline {2.3.3.2.5}\underline {Γραμματική φράσης \foreignlanguage {english}{schedule}}}{16}{subparagraph.2.3.3.2.5}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {2.3.4}Μεταβλητές Περιβάλλοντος}{20}{subsubsection.2.3.4}%
+\contentsline {subsubsection}{\numberline {2.3.5}\emph {\foreignlanguage {english}{Runtime Functions}}}{22}{subsubsection.2.3.5}%
+\contentsline {section}{\numberline {3}Χαρακτηριστικά εκδόσεων \foreignlanguage {english}{OpenMP} 3.0 - 4.5}{24}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Διανυσματικοποίηση μέσω \emph {\foreignlanguage {english}{SIMD}}}{26}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}Η οδηγία \emph {\foreignlanguage {english}{simd}}}{27}{subsubsection.3.1.1}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {3.1.2}Φράσεις οδηγίας \emph {\foreignlanguage {english}{simd}}}{28}{subsubsection.3.1.2}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {3.1.2.1}\underline {Φράση \foreignlanguage {english}{simdlen}}}{28}{paragraph.3.1.2.1}%
+\contentsline {paragraph}{\numberline {3.1.2.2}\underline {Φράση \foreignlanguage {english}{safelen}}}{29}{paragraph.3.1.2.2}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {3.1.2.3}\underline {Φράση \foreignlanguage {english}{linear}}}{29}{paragraph.3.1.2.3}%
+\contentsline {paragraph}{\numberline {3.1.2.4}\underline {Φράση \foreignlanguage {english}{aligned}}}{30}{paragraph.3.1.2.4}%
+\contentsline {subsubsection}{\numberline {3.1.3}Η σύνθετη οδηγία βρόγχου \emph {\foreignlanguage {english}{SIMD}}}{30}{subsubsection.3.1.3}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {3.1.4}Συναρτήσεις \emph {\foreignlanguage {english}{SIMD}}}{32}{subsubsection.3.1.4}%
+\contentsline {paragraph}{\numberline {3.1.4.1}H οδηγία \emph {\foreignlanguage {english}{declare simd}}}{32}{paragraph.3.1.4.1}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {3.1.5}Χαρακτηριστικά παραμέτρων \emph {\foreignlanguage {english}{SIMD}} συναρτήσεων}{33}{subsubsection.3.1.5}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsection}{\numberline {3.2}\foreignlanguage {english}{Thread Affinity}}{35}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}\emph {\foreignlanguage {english}{Thread affinity}} στο \emph {\foreignlanguage {english}{OpenMP 4.0}}}{36}{subsubsection.3.2.1}%
+\contentsline {paragraph}{\numberline {3.2.1.1}\emph {\foreignlanguage {english}{Thread Binding}}}{37}{paragraph.3.2.1.1}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {3.2.2}Το \emph {\foreignlanguage {english}{thread affinity}} στην πράξη}{42}{subsubsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.3}\foreignlanguage {english}{Tasking}}{43}{subsection.3.3}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {3.3.1}Η οδηγία \emph {\foreignlanguage {english}{task}}}{44}{subsubsection.3.3.1}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {3.3.1.1}Φράση \foreignlanguage {english}{if}}{45}{paragraph.3.3.1.1}%
+\contentsline {paragraph}{\numberline {3.3.1.2}Φράση \foreignlanguage {english}{final}}{45}{paragraph.3.3.1.2}%
+\contentsline {paragraph}{\numberline {3.3.1.3}Φράση \foreignlanguage {english}{mergeable}}{46}{paragraph.3.3.1.3}%
+\contentsline {paragraph}{\numberline {3.3.1.4}Φράση \foreignlanguage {english}{depend}}{46}{paragraph.3.3.1.4}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {3.3.1.5}Φράση \foreignlanguage {english}{untied}}{48}{paragraph.3.3.1.5}%
+\contentsline {subsubsection}{\numberline {3.3.2}Συγχρονισμός εργασιών}{48}{subsubsection.3.3.2}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsection}{\numberline {3.4}Ετερογενής Αρχιτεκτονική}{49}{subsection.3.4}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {3.4.1}Το αρχικό νήμα της συσκευής στόχου}{50}{subsubsection.3.4.1}%
+\contentsline {subsubsection}{\numberline {3.4.2}Μοντέλο μνήμης ετερογενούς αρχιτεκτονικής}{51}{subsubsection.3.4.2}%
+\contentsline {paragraph}{\numberline {3.4.2.1}Η οδηγία \emph {\foreignlanguage {english}{map}}}{52}{paragraph.3.4.2.1}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {3.4.2.2}Περιβάλλον δεδομένων συσκευής}{54}{paragraph.3.4.2.2}%
+\contentsline {paragraph}{\numberline {3.4.2.3}Δείκτες μεταβλητών συσκευής}{55}{paragraph.3.4.2.3}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {3.4.3}Η οδηγία \foreignlanguage {english}{target}}{56}{subsubsection.3.4.3}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {3.4.4}Η οδηγία \foreignlanguage {english}{target teams}}{57}{subsubsection.3.4.4}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {3.4.5}Η οδηγία \foreignlanguage {english}{distribute}}{57}{subsubsection.3.4.5}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {3.4.6}Σύνθετες οδηγίες επιταχυντών}{58}{subsubsection.3.4.6}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {3.4.7}Οδηγία \emph {\foreignlanguage {english}{declare target}}}{59}{subsubsection.3.4.7}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {section}{\numberline {4}Υλοποιημένα παραδείγματα}{60}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Μεθοδολογία σύνταξης προβλημάτων}{61}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Αρχιτεκτονική μηχανήματος και επιλογές μεταγλώττισης}{62}{subsection.4.2}%
+\babel@toc {greek}{}
+\contentsline {subsection}{\numberline {4.3}Πρόσθεση πινάκων αριθμών μικρής ακρίβειας - \emph {\foreignlanguage {english}{SAXPY}}}{63}{subsection.4.3}%
+\contentsline {subsubsection}{\numberline {4.3.1}Περιγραφή προβλήματος}{63}{subsubsection.4.3.1}%
+\contentsline {subsubsection}{\numberline {4.3.2}Περιγραφή κοινού τμήματος αλγορίθμου \foreignlanguage {english}{SAXPY}}{64}{subsubsection.4.3.2}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {4.3.3}Σειριακή εκτέλεση}{66}{subsubsection.4.3.3}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.3.3.1}Παρατηρήσεις}{67}{paragraph.4.3.3.1}%
+\contentsline {subsubsection}{\numberline {4.3.4}Παραλλαγή με οδηγία \foreignlanguage {english}{parallel for}}{68}{subsubsection.4.3.4}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.3.4.1}Παρατηρήσεις}{69}{paragraph.4.3.4.1}%
+\contentsline {subsubsection}{\numberline {4.3.5}Παραλλαγές με χρήση οδηγίας \emph {\foreignlanguage {english}{SIMD}}}{69}{subsubsection.4.3.5}%
+\contentsline {paragraph}{\numberline {4.3.5.1}Παραλλαγή με \emph {\foreignlanguage {english}{omp simd}}}{70}{paragraph.4.3.5.1}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {greek}{}
+\contentsline {subparagraph}{\numberline {4.3.5.1.1}Παρατηρήσεις}{71}{subparagraph.4.3.5.1.1}%
+\contentsline {paragraph}{\numberline {4.3.5.2}Παραλλαγή με \emph {\foreignlanguage {english}{omp parallel for simd}}}{72}{paragraph.4.3.5.2}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subparagraph}{\numberline {4.3.5.2.1}Παρατηρήσεις}{73}{subparagraph.4.3.5.2.1}%
+\contentsline {paragraph}{\numberline {4.3.5.3}Παραλλαγή με \emph {\foreignlanguage {english}{omp declare simd uniform}}}{74}{paragraph.4.3.5.3}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subparagraph}{\numberline {4.3.5.3.1}Παρατηρήσεις}{75}{subparagraph.4.3.5.3.1}%
+\contentsline {paragraph}{\numberline {4.3.5.4}Παραλλαγή με \emph {\foreignlanguage {english}{omp declare simd uniform notinbranch}}}{76}{paragraph.4.3.5.4}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {4.3.6}Παραλλαγές με \emph {\foreignlanguage {english}{offloading}}}{77}{subsubsection.4.3.6}%
+\contentsline {paragraph}{\numberline {4.3.6.1}Παραλλαγή με \emph {\foreignlanguage {english}{target map}}}{78}{paragraph.4.3.6.1}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subparagraph}{\numberline {4.3.6.1.1}Παρατηρήσεις}{78}{subparagraph.4.3.6.1.1}%
+\contentsline {paragraph}{\numberline {4.3.6.2}Παραλλαγή με \emph {\foreignlanguage {english}{target simd map}}}{79}{paragraph.4.3.6.2}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subparagraph}{\numberline {4.3.6.2.1}Παρατηρήσεις}{79}{subparagraph.4.3.6.2.1}%
+\contentsline {paragraph}{\numberline {4.3.6.3}Παραλλαγή με \emph {\foreignlanguage {english}{target parallel for}}}{81}{paragraph.4.3.6.3}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {greek}{}
+\contentsline {subparagraph}{\numberline {4.3.6.3.1}Παρατηρήσεις}{81}{subparagraph.4.3.6.3.1}%
+\contentsline {paragraph}{\numberline {4.3.6.4}Παραλλαγή με \emph {\foreignlanguage {english}{target parallel for simd}}}{82}{paragraph.4.3.6.4}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subparagraph}{\numberline {4.3.6.4.1}Παρατηρήσεις}{82}{subparagraph.4.3.6.4.1}%
+\contentsline {paragraph}{\numberline {4.3.6.5}Παραλλαγή με \emph {\foreignlanguage {english}{target teams map}}}{83}{paragraph.4.3.6.5}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subparagraph}{\numberline {4.3.6.5.1}Παρατηρήσεις}{83}{subparagraph.4.3.6.5.1}%
+\contentsline {paragraph}{\numberline {4.3.6.6}Παραλλαγή με \emph {\foreignlanguage {english}{target teams distribute map}}}{84}{paragraph.4.3.6.6}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subparagraph}{\numberline {4.3.6.6.1}Παρατηρήσεις}{84}{subparagraph.4.3.6.6.1}%
+\contentsline {paragraph}{\numberline {4.3.6.7}Παραλλαγή με \emph {\foreignlanguage {english}{target teams distribute parallel for map}}}{85}{paragraph.4.3.6.7}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subparagraph}{\numberline {4.3.6.7.1}Παρατηρήσεις}{85}{subparagraph.4.3.6.7.1}%
+\contentsline {paragraph}{\numberline {4.3.6.8}Παραλλαγή με \emph {\foreignlanguage {english}{target teams distribute simd map}}}{86}{paragraph.4.3.6.8}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subparagraph}{\numberline {4.3.6.8.1}Παρατηρήσεις}{87}{subparagraph.4.3.6.8.1}%
+\contentsline {paragraph}{\numberline {4.3.6.9}Παραλλαγή με \emph {\foreignlanguage {english}{target teams distribute parallel for simd map}}}{88}{paragraph.4.3.6.9}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subparagraph}{\numberline {4.3.6.9.1}Παρατηρήσεις}{89}{subparagraph.4.3.6.9.1}%
+\contentsline {paragraph}{\numberline {4.3.6.10}Παραλλαγή με \emph {\foreignlanguage {english}{target teams distribute parallel for simd \\ is\_device\_ptr}}}{90}{paragraph.4.3.6.10}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subparagraph}{\numberline {4.3.6.10.1}Παρατηρήσεις}{90}{subparagraph.4.3.6.10.1}%
+\contentsline {subsection}{\numberline {4.4}Αριθμητικός υπολογισμός σταθεράς \foreignlanguage {english}{$\pi $}}{94}{subsection.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.1}Περιγραφή κοινού ρουτίνας \foreignlanguage {english}{main} του προβλήματος υπολογισμού $\pi $}{94}{subsubsection.4.4.1}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {4.4.2}Σειριακή εκτέλεση}{95}{subsubsection.4.4.2}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.4.2.1}Παρατηρήσεις}{95}{paragraph.4.4.2.1}%
+\contentsline {subsubsection}{\numberline {4.4.3}Παραλλαγή με \foreignlanguage {english}{omp parallel}}{96}{subsubsection.4.4.3}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.4.3.1}Παρατηρήσεις}{97}{paragraph.4.4.3.1}%
+\contentsline {subsubsection}{\numberline {4.4.4}Παραλλαγή με χρήση κυκλίκής κατανομής - \foreignlanguage {english}{omp atomic}}{98}{subsubsection.4.4.4}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.4.4.1}Παρατηρήσεις}{98}{paragraph.4.4.4.1}%
+\contentsline {subsubsection}{\numberline {4.4.5}Παραλλαγή με χρήση \foreignlanguage {english}{omp for - reduction}}{99}{subsubsection.4.4.5}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.4.5.1}Παρατηρήσεις}{100}{paragraph.4.4.5.1}%
+\contentsline {subsubsection}{\numberline {4.4.6}Παραλλαγή με χρήση \foreignlanguage {english}{parallel for simd reduction}}{101}{subsubsection.4.4.6}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.4.6.1}Παρατηρήσεις}{102}{paragraph.4.4.6.1}%
+\contentsline {subsubsection}{\numberline {4.4.7}Παραλλαγή με χρήση \foreignlanguage {english}{offloading}}{103}{subsubsection.4.4.7}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.4.7.1}Παρατηρήσεις}{103}{paragraph.4.4.7.1}%
+\contentsline {subsubsection}{\numberline {4.4.8}Σύγκριση \foreignlanguage {english}{atomic - critical}}{105}{subsubsection.4.4.8}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.4.8.1}Παρατηρήσεις}{105}{paragraph.4.4.8.1}%
+\contentsline {subsubsection}{\numberline {4.4.9}Σύγκριση \foreignlanguage {english}{atomic - critical} (2)}{106}{subsubsection.4.4.9}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.4.9.1}Παρατηρήσεις}{107}{paragraph.4.4.9.1}%
+\contentsline {subsection}{\numberline {4.5}Υπολογισμός Εσωτερικού Γινομένου - \emph {\foreignlanguage {english}{Dot Product}}}{108}{subsection.4.5}%
+\contentsline {subsubsection}{\numberline {4.5.1}Περιγραφή κοινού τμήματος αλγορίθμου \foreignlanguage {english}{DotProd}}{109}{subsubsection.4.5.1}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {4.5.2}Σειριακή εκτέλεση}{110}{subsubsection.4.5.2}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.5.2.1}Παρατηρήσεις}{110}{paragraph.4.5.2.1}%
+\contentsline {subsubsection}{\numberline {4.5.3}Παραλλαγές με \foreignlanguage {english}{pragma omp parallel for}}{111}{subsubsection.4.5.3}%
+\contentsline {paragraph}{\numberline {4.5.3.1}Χρήση φράσης \foreignlanguage {english}{critical}}{111}{paragraph.4.5.3.1}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subparagraph}{\numberline {4.5.3.1.1}Παρατηρήσεις}{111}{subparagraph.4.5.3.1.1}%
+\contentsline {paragraph}{\numberline {4.5.3.2}Χρήση \foreignlanguage {english}{private} μεταβλητών για κάθε νήμα}{112}{paragraph.4.5.3.2}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subparagraph}{\numberline {4.5.3.2.1}Παρατηρήσεις}{112}{subparagraph.4.5.3.2.1}%
+\contentsline {subsubsection}{\numberline {4.5.4}Παραλλαγές με εφαρμογή διανυσματικοποίησης}{114}{subsubsection.4.5.4}%
+\contentsline {paragraph}{\numberline {4.5.4.1}Χρήσης οδηγίας \foreignlanguage {english}{simd}}{114}{paragraph.4.5.4.1}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subparagraph}{\numberline {4.5.4.1.1}Παρατηρήσεις}{114}{subparagraph.4.5.4.1.1}%
+\contentsline {paragraph}{\numberline {4.5.4.2}Χρήση φράσης \foreignlanguage {english}{reduction}}{115}{paragraph.4.5.4.2}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subparagraph}{\numberline {4.5.4.2.1}Παρατηρήσεις}{115}{subparagraph.4.5.4.2.1}%
+\contentsline {paragraph}{\numberline {4.5.4.3}Χρήσης φράσης \foreignlanguage {english}{reduction}}{117}{paragraph.4.5.4.3}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subparagraph}{\numberline {4.5.4.3.1}Παρατηρήσεις}{117}{subparagraph.4.5.4.3.1}%
+\contentsline {paragraph}{\numberline {4.5.4.4}Χρήσης φράσης \foreignlanguage {english}{declare simd notinbranch}}{118}{paragraph.4.5.4.4}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subparagraph}{\numberline {4.5.4.4.1}Παρατηρήσεις}{118}{subparagraph.4.5.4.4.1}%
+\contentsline {paragraph}{\numberline {4.5.4.5}Χρήση οδηγίας \foreignlanguage {english}{simd parallel for reduction}}{119}{paragraph.4.5.4.5}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subparagraph}{\numberline {4.5.4.5.1}Παρατηρήσεις}{119}{subparagraph.4.5.4.5.1}%
+\contentsline {subsubsection}{\numberline {4.5.5}Παραλλαγές με \foreignlanguage {english}{offloading}}{120}{subsubsection.4.5.5}%
+\contentsline {paragraph}{\numberline {4.5.5.1}Χρήση οδηγίας \foreignlanguage {english}{parallel for reduction}}{120}{paragraph.4.5.5.1}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subparagraph}{\numberline {4.5.5.1.1}Παρατηρήσεις}{121}{subparagraph.4.5.5.1.1}%
+\contentsline {paragraph}{\numberline {4.5.5.2}Χρήση οδηγίας \foreignlanguage {english}{target simd reduction(+ : res)}}{122}{paragraph.4.5.5.2}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subparagraph}{\numberline {4.5.5.2.1}Παρατηρήσεις}{122}{subparagraph.4.5.5.2.1}%
+\contentsline {paragraph}{\numberline {4.5.5.3}Χρήση οδηγίας \foreignlanguage {english}{target parallel for simd reduction(+ : res)}}{123}{paragraph.4.5.5.3}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subparagraph}{\numberline {4.5.5.3.1}Παρατηρήσεις}{123}{subparagraph.4.5.5.3.1}%
+\contentsline {paragraph}{\numberline {4.5.5.4}Χρήση οδηγίας \foreignlanguage {english}{target teams parallel for simd reduction(+ : res)}}{125}{paragraph.4.5.5.4}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.5.5.5}Χρήση οδηγίας \foreignlanguage {english}{teams distribute parallel for}}{126}{paragraph.4.5.5.5}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.5.5.6}Χρήση οδηγίας \foreignlanguage {english}{teams distribute parallel for simd reduction}}{127}{paragraph.4.5.5.6}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subparagraph}{\numberline {4.5.5.6.1}Παρατηρήσεις}{128}{subparagraph.4.5.5.6.1}%
+\contentsline {subsection}{\numberline {4.6}Υπολογισμός πρώτων αριθμών}{129}{subsection.4.6}%
+\contentsline {subsubsection}{\numberline {4.6.1}Περιγραφή κοινού τμήματος αλγορίθμου πρώτων αριθμών}{129}{subsubsection.4.6.1}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {4.6.2}Σειριακή εκτέλεση}{130}{subsubsection.4.6.2}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {4.6.3}Παραλλαγή με \foreignlanguage {english}{parallel for reduction}}{131}{subsubsection.4.6.3}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.6.3.1}Παρατηρήσεις}{132}{paragraph.4.6.3.1}%
+\contentsline {subsubsection}{\numberline {4.6.4}Παραλλαγή με \foreignlanguage {english}{parallel for} και \foreignlanguage {english}{critical}}{133}{subsubsection.4.6.4}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.6.4.1}Παρατηρήσεις}{133}{paragraph.4.6.4.1}%
+\contentsline {subsubsection}{\numberline {4.6.5}Παραλλαγή με \foreignlanguage {english}{simd reduction}}{134}{subsubsection.4.6.5}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {4.6.6}Παραλλαγή με \foreignlanguage {english}{ordered simd - critical}}{135}{subsubsection.4.6.6}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {4.6.7}Παραλλαγή \foreignlanguage {english}{ordered simd reduction}}{136}{subsubsection.4.6.7}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.6.7.1}Παρατηρήσεις}{137}{paragraph.4.6.7.1}%
+\contentsline {subsubsection}{\numberline {4.6.8}Παραλλαγή με \foreignlanguage {english}{offloading (1)}}{138}{subsubsection.4.6.8}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {4.6.9}Παραλλαγή με \foreignlanguage {english}{offloading (2)}}{139}{subsubsection.4.6.9}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.6.9.1}Παρατηρήσεις}{139}{paragraph.4.6.9.1}%
+\contentsline {subsubsection}{\numberline {4.6.10}Παραλλαγή με \foreignlanguage {english}{offloading (3)}}{140}{subsubsection.4.6.10}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {4.6.11}Παραλλαγή με \foreignlanguage {english}{offloading (4)}}{141}{subsubsection.4.6.11}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.6.11.1}Παρατηρήσεις}{142}{paragraph.4.6.11.1}%
+\contentsline {subsection}{\numberline {4.7}Διάσχιση συνδεδεμένης λίστας}{143}{subsection.4.7}%
+\contentsline {subsubsection}{\numberline {4.7.1}Περιγραφή κοινού τμήματος διάσχισης συνδεδεμένης λίστας}{143}{subsubsection.4.7.1}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {4.7.2}Σειριακή εκτέλεση}{146}{subsubsection.4.7.2}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.7.2.1}Παρατηρήσεις}{147}{paragraph.4.7.2.1}%
+\contentsline {subsubsection}{\numberline {4.7.3}Παραλλαγή με \foreignlanguage {english}{parallel for}}{147}{subsubsection.4.7.3}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.7.3.1}Παρατηρήσεις}{148}{paragraph.4.7.3.1}%
+\contentsline {subsubsection}{\numberline {4.7.4}Παραλλαγή με \foreignlanguage {english}{parallel for (2)}}{149}{subsubsection.4.7.4}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.7.4.1}Παρατηρήσεις}{149}{paragraph.4.7.4.1}%
+\contentsline {subsubsection}{\numberline {4.7.5}Παραλλαγή με \foreignlanguage {english}{tasks}}{150}{subsubsection.4.7.5}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.7.5.1}Παρατηρήσεις}{151}{paragraph.4.7.5.1}%
+\contentsline {subsection}{\numberline {4.8}Παράδειγμα \foreignlanguage {english}{Producer-Consumer}}{152}{subsection.4.8}%
+\contentsline {subsubsection}{\numberline {4.8.1}Περιγραφή κοινού τμήματος αλγορίθμου \foreignlanguage {english}{Producer-Consumer}}{152}{subsubsection.4.8.1}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {4.8.2}Σειριακή εκτέλεση}{153}{subsubsection.4.8.2}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.8.2.1}Παρατηρήσεις}{154}{paragraph.4.8.2.1}%
+\contentsline {subsubsection}{\numberline {4.8.3}Παραλλαγή με \foreignlanguage {english}{parallel for reduction}}{155}{subsubsection.4.8.3}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.8.3.1}Παρατηρήσεις}{156}{paragraph.4.8.3.1}%
+\contentsline {subsubsection}{\numberline {4.8.4}Παραλλαγή με \foreignlanguage {english}{parallel for (2)}}{158}{subsubsection.4.8.4}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.8.4.1}Παρατηρήσεις}{159}{paragraph.4.8.4.1}%
+\contentsline {subsubsection}{\numberline {4.8.5}Παραλλαγή με \foreignlanguage {english}{tasks (depend)}}{161}{subsubsection.4.8.5}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.8.5.1}Παρατηρήσεις}{162}{paragraph.4.8.5.1}%
+\contentsline {subsubsection}{\numberline {4.8.6}Παραλλαγή με \foreignlanguage {english}{taskloop}}{163}{subsubsection.4.8.6}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.8.6.1}Παρατηρήσεις}{164}{paragraph.4.8.6.1}%
+\contentsline {subsection}{\numberline {4.9}Παράδειγμα ταξινόμησης \foreignlanguage {english}{mergesort}}{165}{subsection.4.9}%
+\contentsline {subsubsection}{\numberline {4.9.1}Περιγραφή κοινού τμήματος αλγορίθμου ταξινόμησης \foreignlanguage {english}{mergesort}}{165}{subsubsection.4.9.1}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {4.9.2}Σειριακή εκτέλεση}{168}{subsubsection.4.9.2}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {4.9.3}Παραλλαγή με \foreignlanguage {english}{task}}{169}{subsubsection.4.9.3}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {4.9.4}Παραλλαγή με \foreignlanguage {english}{task} (2)}{170}{subsubsection.4.9.4}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {4.9.5}Παραλλαγή με \foreignlanguage {english}{task} (3)}{171}{subsubsection.4.9.5}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {4.9.6}Παραλλαγή με \foreignlanguage {english}{task} (4)}{173}{subsubsection.4.9.6}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.9.6.1}Παρατηρήσεις}{174}{paragraph.4.9.6.1}%
+\contentsline {subsection}{\numberline {4.10}Παράδειγμα ταξινόμησης \foreignlanguage {english}{Quicksort}}{175}{subsection.4.10}%
+\contentsline {subsubsection}{\numberline {4.10.1}Περιγραφή κοινού τμήματος αλγορίθμου \foreignlanguage {english}{Quicksort}}{175}{subsubsection.4.10.1}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {4.10.2}Σειριακή εκτέλεση}{176}{subsubsection.4.10.2}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {4.10.3}Παράλληλη εκτέλεση με \foreignlanguage {english}{tasks} (1)}{178}{subsubsection.4.10.3}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.10.3.1}Παρατηρήσεις}{179}{paragraph.4.10.3.1}%
+\contentsline {subsubsection}{\numberline {4.10.4}Παράλληλη εκτέλεση με \foreignlanguage {english}{tasks} (2)}{180}{subsubsection.4.10.4}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.10.4.1}Παρατηρήσεις}{181}{paragraph.4.10.4.1}%
+\contentsline {subsubsection}{\numberline {4.10.5}Παράλληλη εκτέλεση με \foreignlanguage {english}{tasks} (3)}{182}{subsubsection.4.10.5}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.10.5.1}Παρατηρήσεις}{183}{paragraph.4.10.5.1}%
+\contentsline {subsection}{\numberline {4.11}Παράδειγμα πολλαπλασιασμού μητρώων}{184}{subsection.4.11}%
+\contentsline {subsubsection}{\numberline {4.11.1}Περιγραφή κοινού τμήματος πολλαπλασιασμού μητρώων}{184}{subsubsection.4.11.1}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {4.11.2}Σειριακή εκτέλεση}{185}{subsubsection.4.11.2}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.11.2.1}Παρατηρήσεις}{186}{paragraph.4.11.2.1}%
+\contentsline {subsubsection}{\numberline {4.11.3}Παραλλαγή \foreignlanguage {english}{parallel for} (1)}{187}{subsubsection.4.11.3}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.11.3.1}Παρατηρήσεις}{188}{paragraph.4.11.3.1}%
+\contentsline {subsubsection}{\numberline {4.11.4}Παραλλαγή \foreignlanguage {english}{parallel for simd}}{188}{subsubsection.4.11.4}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.11.4.1}Παρατηρήσεις}{189}{paragraph.4.11.4.1}%
+\contentsline {subsubsection}{\numberline {4.11.5}Παραλλαγή \foreignlanguage {english}{target (1)}}{190}{subsubsection.4.11.5}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.11.5.1}Παρατηρήσεις}{191}{paragraph.4.11.5.1}%
+\contentsline {subsubsection}{\numberline {4.11.6}Παραλλαγή \foreignlanguage {english}{target (2)}}{192}{subsubsection.4.11.6}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.11.6.1}Παρατηρήσεις}{193}{paragraph.4.11.6.1}%
+\contentsline {subsubsection}{\numberline {4.11.7}Παραλλαγή \foreignlanguage {english}{target (3)}}{194}{subsubsection.4.11.7}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {4.11.8}Παραλλαγή \foreignlanguage {english}{target (4)}}{195}{subsubsection.4.11.8}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {4.11.9}Παραλλαγή \foreignlanguage {english}{target (5)}}{196}{subsubsection.4.11.9}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.11.9.1}Παρατηρήσεις}{197}{paragraph.4.11.9.1}%
+\contentsline {subsection}{\numberline {4.12}Παράδειγμα μετασχηματισμού \foreignlanguage {english}{Fourier}}{198}{subsection.4.12}%
+\contentsline {subsubsection}{\numberline {4.12.1}Περιγραφή κοινού τμήματος αλγορίθμου μετασχηματισμού \foreignlanguage {english}{Fourier}}{199}{subsubsection.4.12.1}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {4.12.2}Σειριακή εκτέλεση}{200}{subsubsection.4.12.2}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {4.12.3}Παραλλαγή με \foreignlanguage {english}{parallel for} (1)}{202}{subsubsection.4.12.3}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.12.3.1}Παρατηρήσεις}{203}{paragraph.4.12.3.1}%
+\contentsline {subsubsection}{\numberline {4.12.4}Παραλλαγή με \foreignlanguage {english}{parallel for} (2)}{204}{subsubsection.4.12.4}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.12.4.1}Παρατηρήσεις}{205}{paragraph.4.12.4.1}%
+\contentsline {subsubsection}{\numberline {4.12.5}Παραλλαγή με \foreignlanguage {english}{simd}}{205}{subsubsection.4.12.5}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {subsubsection}{\numberline {4.12.6}Παραλλαγή με \foreignlanguage {english}{parallel for simd}}{206}{subsubsection.4.12.6}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\contentsline {paragraph}{\numberline {4.12.6.1}Παρατηρήσεις}{207}{paragraph.4.12.6.1}%
+\contentsline {section}{\numberline {5}Επίλογος}{208}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Σύνοψη και συμπεράσματα}{208}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Όρια και περιορισμοί της έρευνας}{209}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Μελλοντικές Επεκτάσεις}{210}{subsection.5.3}%
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}
+\babel@toc {greek}{}
+\babel@toc {english}{}

@@ -1,0 +1,857 @@
+\setstretch{1.5}
+\clearpage
+\subsection{Παράδειγμα πολλαπλασιασμού μητρώων}
+Ο πολλαπλασιασμός μητρώων αποτελεί μια πράξη της γραμμικής άλγεβρας, που δημιουργήθηκε από το Γάλλο μαθηματικό \en{Jacrues Philippe Marie Binet} το 1812 για να περιγράψει τη σύνθεση δυο μητρώων. Αποτελεί ένα από τα βασικότερα εργαλεία της γραμμικής άλγεβρας και χρησιμοποιείται από ένα ευρύ φάσμα των μαθηματικών, της στατιστικής της φυσικής των οικονομικών και της μηχανικής.\cite{wiki_mat_mul}
+
+\subsubsection{Περιγραφή κοινού τμήματος πολλαπλασιασμού μητρώων}
+\selectlanguage{english}
+\begin{spacing}{0.7}
+\begin{lstlisting}[showstringspaces=false, language=C++, caption={\en{Matrix Multiplication: main()}} , frame=tb]{Name}
+int main(int argc, char **argv) {
+    Opts o;
+    parseArgs(argc, argv, o);
+
+    srand(time(nullptr));
+    int *A = new int [o.dim1 * o.dim2];
+    int *B = new int [o.dim2 * o.dim3];
+
+    fill_random_1d(A, o.dim1, o.dim2);
+    fill_random_1d(B, o.dim2, o.dim3);
+
+    int r3 = o.dim1;
+    int c3 = o.dim3;
+
+    int *C = new int [r3 * c3];
+
+    //Count time
+    double start = omp_get_wtime();
+    matmul(A, o.dim1, o.dim2, B, o.dim2, o.dim3, C, r3, c3);
+    double end = omp_get_wtime();
+
+    // Calculating total time taken by the program.
+    double time_passed = end - start;
+    std::cout << "Multiplication Time : " << std::fixed
+         << time_passed << std::setprecision(5);
+    std::cout << " sec " << std::endl;
+
+    // Verification
+    if (o.verify) {
+        verify_1d(A, B, C, o.dim1, o.dim2, o.dim3);
+    }
+
+    delete[] A;
+    delete[] B;
+    delete[] C;
+
+    return 0;
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+\clearpage
+
+\subsubsection{Σειριακή εκτέλεση}
+Το πρόβλημα στη σειριακή του εκτέλεση περιλαμβάνει τρεις βρόγχους επανάληψης. Ο πρώτος βρόγχος διατρέχει της σειρές του μητρώου Α ενώ ο δεύτερος διατρέχει τις στήλες του μητρώου Β. Ο τρίτος βρόγχος αθροίζει τα στοιχεία της εκάστοτε γραμμής και στήλης των δυο αρχικών μητρώων και εισάγει το αποτέλεσμα στην τελική του θέση στο νέο μητρώο. Η υλοποίηση της περιγραφής δίνεται στο πίνακα που ακολουθεί:
+
+\selectlanguage{english}
+\begin{spacing}{1.2}
+\begin{lstlisting}[showstringspaces=false, language=C++, caption={\en{Matrix Multiplication:} \el{Σειριακή εκτέλεση}} , frame=tb]{Name}
+void matmul(int *a, int r1, int c1,
+        int *b, int r2, int c2,
+        int *c, int r3, int c3)
+{
+    if (c1 != r2) {
+        std::cout << "Wrong matrix dimensions!" << std::endl;
+        return;
+    }
+    for (int i = 0; i < r1; ++i) {
+        for (int j = 0; j < c2; ++j) {
+            int temp = 0;
+            for (int k = 0; k < c1; ++k) {
+                temp += a[k + i*c1] * b[j + k*c2];
+            }
+
+            c[j + i * c3] = temp;
+        }
+    }
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Matrix Multiplication}: Επιλογές μεταγλώττισης \en{Alt1, Alt2}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt1}} & \en{-fopt-info-vec=builds/alt1.log -O2 -fno-inline -fno-tree-vectorize -fopenmp -o ./builds/Alt1} \\ \hline
+      \textbf{\en{Alt2}} & \en{-fopt-info-vec=builds/alt2.log -O2 -fno-inline -ftree-vectorize -fopenmp -o ./builds/Alt2} \\ \hline
+    \end{tabular}
+\end{table}
+\clearpage
+
+\begin{table}[h]
+    \centering
+	\captionof{table}{\en{Matrix Multiplication:} Αποτελέσματα \en{Alt1}, \en{Alt2}}
+    \label{my-label}
+    \resizebox{0.7\textwidth}{!} {
+    \begin{tabular}{|p{0.20\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{\shortstack{Μέγεθος\\προβλήματος}}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+               & \textbf{\en{Alt1}} & \textbf{\en{Alt2}}\\ \hline
+     \en{100x100x100} & 0.003 & 0.003 \\ \cline{1-3} 
+     \en{200x200x200} & 0.019 & 0.016 \\ \cline{1-3} 
+     \en{300x300x300} & 0.051 & 0.039 \\ \cline{1-3} 
+     \en{400x400x400} & 0.219 & 0.107 \\ \cline{1-3} 
+     \en{500x500x500} & 0.337 & 0.313 \\ \cline{1-3} 
+     \en{600x600x600} & 0.571 & 0.439 \\ \cline{1-3} 
+     \en{700x700x700} & 0.830 & 0.781 \\ \cline{1-3} 
+     \en{800x800x800} & 3.977 & 3.806 \\ \cline{1-3} 
+
+    \end{tabular}}
+\end{table}
+\paragraph{Παρατηρήσεις}
+\ \\
+
+\begin{figure}[h]
+\centering 
+\resizebox{0.55\textwidth}{!} {
+\begin{tikzpicture}[state/.append style={minimum size=7mm}]
+     \begin{axis}[
+         xlabel={Μέγεθος διανυσμάτων},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=100, xmax=800,
+         ymin=0, ymax=4,
+         xtick={ 100, 200, 300, 400, 500, 600, 700, 800},
+         ytick={ 0, 1, 2, 3, 4},
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ] 
+ 	
+
+ 	
+ 	\addplot[ color=red, mark=square,]
+      coordinates {
+          (100, 0.003)(200, 0.019)(300, 0.051)
+          (400, 0.219)(500, 0.337)(600, 0.571)
+          (700, 0.830)(800, 3.977)
+ 	};
+ 	\addlegendentry{\en{Alt1}}
+ 	
+ 	\addplot[ color=blue, mark=triangle,]
+      coordinates {
+          (100, 0.003)(200, 0.016)(300, 0.039)
+          (400, 0.107)(500, 0.313)(600, 0.439)
+          (700, 0.781)(800, 3.806)
+ 	};
+ 	\addlegendentry{\en{Alt2}}
+ 	 	
+     \end{axis}
+ \end{tikzpicture}}
+ \caption{\en{Matrix Multiplication:} Σύγκριση \en{Alt1, Alt2}}
+
+\end{figure}
+
+\clearpage
+
+
+\subsubsection{Παραλλαγή \en{parallel for} (1)}
+\selectlanguage{english}
+\begin{spacing}{0.6}
+\begin{lstlisting}[showstringspaces=false, language=C++, caption={\en{Matrix Multiplication: parallel for}} , frame=tb]{Name}
+ void matmul(int *a, int r1, int c1,
+         int *b, int r2, int c2,
+         int *c, int r3, int c3)
+ {
+     if (c1 != r2) {
+         std::cout << "Wrong matrix dimensions!" << std::endl;
+         return;
+     }
+
+ #pragma omp parallel for
+     for (int i = 0; i < r1; ++i) {
+         for (int j = 0; j < c2; ++j) {
+             int temp = 0;
+             for (int k = 0; k < c1; ++k) {
+                 temp += a[k + i*c1] * b[j + k*c2];
+             }
+
+             c[j + i * c3] = temp;
+         }
+     }
+ }
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Matrix Multiplication}: Επιλογές μεταγλώττισης \en{Alt3, Alt4}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt3}} & \en{-fopt-info-vec=builds/alt3.log -O2 -fno-inline -fno-tree-vectorize -fopenmp -o ./builds/Alt3} \\ \hline
+      \textbf{\en{Alt4}} & \en{-fopt-info-vec=builds/alt4.log -O2 -fno-inline -ftree-vectorize -fopenmp -o ./builds/Alt4} \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+	\captionof{table}{\en{Matrix Multiplication:} Αποτελέσματα \en{Alt3}, \en{Alt4}}
+    \label{my-label}
+    \resizebox{0.6\textwidth}{!} {
+    \begin{tabular}{|p{0.20\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{\shortstack{Μέγεθος\\προβλήματος}}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+               & \textbf{\en{Alt3}} & \textbf{\en{Alt4}}\\ \hline
+     \en{100x100x100} & 0.001 & 0.002 \\ \cline{1-3} 
+     \en{200x200x200} & 0.009 & 0.006 \\ \cline{1-3} 
+     \en{300x300x300} & 0.011 & 0.013 \\ \cline{1-3} 
+     \en{400x400x400} & 0.026 & 0.021 \\ \cline{1-3} 
+     \en{500x500x500} & 0.054 & 0.030 \\ \cline{1-3} 
+     \en{600x600x600} & 0.070 & 0.042 \\ \cline{1-3} 
+     \en{700x700x700} & 0.066 & 0.061 \\ \cline{1-3} 
+     \en{800x800x800} & 0.263 & 0.250 \\ \cline{1-3} 
+
+    \end{tabular}}
+\end{table}
+\clearpage
+
+\paragraph{Παρατηρήσεις}
+\ \\
+\begin{figure}[h]
+\begin{tabular}{*{2}{>{\centering\arraybackslash}b{\dimexpr0.5\linewidth-2\tabcolsep\relax}}}
+\resizebox{0.45\textwidth}{!} {
+\begin{tikzpicture}[state/.append style={minimum size=7mm}]
+     \begin{axis}[
+         xlabel={Μέγεθος διανυσμάτων},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=10, xmax=800,
+         ymin=0, ymax=4,
+         xtick={ 100, 200, 300, 400, 500, 600, 700, 800},
+         ytick={ 0, 1, 2, 3, 4},
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ] 
+ 	
+
+ 	\addplot[ color=red, mark=square,]
+      coordinates {
+          (100, 0.003)(200, 0.019)(300, 0.051)
+          (400, 0.219)(500, 0.337)(600, 0.571)
+          (700, 0.830)(800, 3.977)
+ 	};
+ 	\addlegendentry{\en{Alt1}}
+ 	
+ 	\addplot[ color=blue, mark=triangle,]
+      coordinates {
+          (100, 0.001)(200, 0.009)(300, 0.011)
+          (400, 0.026)(500, 0.054)(600, 0.07)
+          (700, 0.066)(800, 0.263)
+ 	};
+ 	\addlegendentry{\en{Alt3}}
+ 	 	
+     \end{axis}
+ \end{tikzpicture}}
+
+ \caption{\en{Matrix Multiplication:} Σύγκριση \en{Alt1, Alt3}}
+     &
+\renewcommand{\arraystretch}{1.1}
+\resizebox{0.45\textwidth}{!} {
+\begin{tabular}{c|c}
+Μέγεθος & Ποσοστό μείωσης χρόνου (\%)  \\
+\hline
+\en{100} & 66.6 \\
+\en{200} & 52.6 \\
+\en{300} & 78.4 \\
+\en{400} & 88.12 \\
+\en{500} & 83.9 \\
+\en{600} & 87.7 \\
+\en{700} & 92.05 \\
+\en{800} & 93.39 \\
+
+\end{tabular}}
+\captionof{table}{\en{Matrix Multiplication: }Ποσοστιαία σύγκριση μεταξύ \en{Alt1} και \en{Alt3}}
+\end{tabular}
+\end{figure}
+
+
+\subsubsection{Παραλλαγή \en{parallel for simd}}
+\selectlanguage{english}
+\begin{spacing}{0.7}
+\begin{lstlisting}[showstringspaces=false, language=C++, caption={\en{Matrix Multiplication: parallel for simd}} , frame=tb]{Name}
+void matmul(int *a, int r1, int c1,
+        int *b, int r2, int c2,
+        int *c, int r3, int c3)
+{
+    if (c1 != r2) {
+        std::cout << "Wrong matrix dimensions!" << std::endl;
+        return;
+    }
+#pragma omp parallel for simd
+    for (int i = 0; i < r1; ++i) {
+        for (int j = 0; j < c2; ++j) {
+            int temp = 0;
+            for (int k = 0; k < c1; ++k) {
+                temp += a[k + i*c1] * b[j + k*c2];
+            }
+
+            c[j + i * c3] = temp;
+        }
+    }
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+\clearpage
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Matrix Multiplication}: Επιλογές μεταγλώττισης \en{Alt7, Alt8, Alt9}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt7}} & \en{-fopt-info-vec=builds/alt7.log -O2 -fno-inline -fno-tree-vectorize -fopenmp -o ./builds/Alt7} \\ \hline
+      \textbf{\en{Alt8}} & \en{-fopt-info-vec=builds/alt8.log -O2 -fno-inline -ftree-vectorize -fopenmp -o ./builds/Alt8} \\ \hline
+    \textbf{\en{Alt9}} & \en{-fopt-info-vec=builds/alt9.log -O2 -fno-inline -fopenmp -o ./builds/Alt9} \\ \hline
+	\end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+	\captionof{table}{\en{Matrix Multiplication:} Αποτελέσματα \en{Alt7}, \en{Alt8}, \en{Alt9}}
+    \label{my-label}
+    \resizebox{0.7\textwidth}{!} {
+    \begin{tabular}{|p{0.20\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{\shortstack{Μέγεθος\\προβλήματος}}} & \multicolumn{3}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-4} 
+               & \textbf{\en{Alt7}} & \textbf{\en{Alt8}} & \textbf{\en{Alt9}}\\ \hline
+     \en{100x100x100} & 0.005 & 0.006 & 0.007\\ \cline{1-4} 
+     \en{200x200x200} & 0.009 & 0.008 & 0.008\\ \cline{1-4} 
+     \en{300x300x300} & 0.013 & 0.008 & 0.016\\ \cline{1-4} 
+     \en{400x400x400} & 0.030 & 0.022 & 0.025\\ \cline{1-4} 
+     \en{500x500x500} & 0.043 & 0.048 & 0.043\\ \cline{1-4} 
+     \en{600x600x600} & 0.044 & 0.045 & 0.057\\ \cline{1-4} 
+     \en{700x700x700} & 0.065 & 0.070 & 0.065\\ \cline{1-4} 
+     \en{800x800x800} & 0.260 & 0.286 & 0.280\\ \cline{1-4} 
+
+    \end{tabular}}
+\end{table}
+\paragraph{Παρατηρήσεις}
+\ \\
+Από τον πίνακα που προηγήθηκε, παρατηρείται ότι η εισαγωγή της οδηγίας \en{simd} δεν επιφέρει διανυσματικοποίηση στον αλγόριθμο. Οι χρόνοι εκτέλεσης είναι οι ίδιοι. Αυτό επιβεβαιώνεται και από τα αρχεία που εξάγονται κατά τη μεταγλώττιση λόγο της οδηγίας \en{-fopt-info-vec}.
+
+\clearpage
+\subsubsection{Παραλλαγή \en{target (1)}}
+\selectlanguage{english}
+\begin{spacing}{1}
+\begin{lstlisting}[showstringspaces=false, language=C++, caption={\en{Matrix Multiplication: target parallel for collapse}} , frame=tb]{Name}
+ void matmul(int *a, int r1, int c1,
+         int *b, int r2, int c2,
+         int *c, int r3, int c3)
+ {
+     if (c1 != r2) {
+         std::cout << "Wrong matrix dimensions!" << std::endl;
+         return;
+     }
+
+     int a_size = r1 * c1;
+     int b_size = r2 * c2;
+     int c_size = r3 * c3;
+
+ #pragma omp target map(to: a[0:a_size], b[0: b_size])\
+ 			 map(from: c[0:c_size])
+ #pragma omp parallel for collapse(2)
+     for (int i = 0; i < r1; ++i) {
+         for (int j = 0; j < c2; ++j) {
+             int temp = 0;
+             for (int k = 0; k < c1; ++k) {
+                 temp += a[k + i*c1] * b[j + k*c2];
+             }
+
+             c[j + i * c3] = temp;
+         }
+     }
+ }
+
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Matrix Multiplication}: Επιλογές μεταγλώττισης \en{Alt10, Alt11}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt10}} & \en{-fopt-info-vec=builds/alt10.log -O2 -foffload=nvptx-none="-O2" -fno-stack-protector -fno-inline -ftree-vectorize -fopenmp -o ./builds/Alt10} \\ \hline
+      \textbf{\en{Alt11}} & \en{ -fopt-info-vec=builds/alt11.log -O2 -foffload=nvptx-none="-O2" -fno-stack-protector -fno-tree-vectorize -fopenmp -fno-inline -o ./builds/Alt11} \\ \hline
+    \end{tabular}
+\end{table}
+\clearpage
+
+\begin{table}[h]
+    \centering
+	\captionof{table}{\en{Matrix Multiplication:} Αποτελέσματα \en{Alt10}, \en{Alt11}}
+    \label{my-label}
+    \resizebox{0.7\textwidth}{!} {
+    \begin{tabular}{|p{0.20\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{\shortstack{Μέγεθος\\προβλήματος}}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+               & \textbf{\en{Alt10}} & \textbf{\en{Alt11}}\\ \hline
+     \en{100x100x100} & 0.864 & 0.994 \\ \cline{1-3} 
+     \en{200x200x200} & 1.172 & 1.138 \\ \cline{1-3} 
+     \en{300x300x300} & 1.744 & 1.743 \\ \cline{1-3} 
+     \en{400x400x400} & 2.838 & 2.844 \\ \cline{1-3} 
+     \en{500x500x500} & 4.706 & 4.693 \\ \cline{1-3} 
+     \en{600x600x600} & 7.444 & 7.478 \\ \cline{1-3} 
+     \en{700x700x700} & 11.484 & 11.447 \\ \cline{1-3} 
+    \end{tabular}}
+\end{table}
+
+\paragraph{Παρατηρήσεις}
+\ \\
+Η μεταφορά του προβλήματος στο περιβάλλον της κάρτας γραφικών και η εκτέλεση του σε αυτή με χρήση της οδηγίας \en{parallel for collapse(2)}, είχε ως αποτέλεσμα την αύξηση του χρόνου εκτέλεσης του προβλήματος σε σχέση με τις υπόλοιπες παραλλαγές στη κεντρική μονάδα επεξεργασίας. Ακολουθούν προσπάθειες υλοποίησης με \en{offloading} και στόχο τη μείωση του χρόνου εκτέλεσης.
+\clearpage
+
+\subsubsection{Παραλλαγή \en{target (2)}}
+\selectlanguage{english}
+\begin{spacing}{1.0}
+\begin{lstlisting}[showstringspaces=false, language=C++, caption={\en{Matrix Multiplication: target parallel for collapse simd reduction}} , frame=tb]{Name}
+ void matmul(int *a, int r1, int c1,
+         int *b, int r2, int c2,
+         int *c, int r3, int c3)
+ {
+     if (c1 != r2) {
+         std::cout << "Wrong matrix dimensions!" << std::endl;
+         return;
+     }
+
+     int a_size = r1 * c1;
+     int b_size = r2 * c2;
+     int c_size = r3 * c3;
+
+ #pragma omp target map(to: a[0:a_size], b[0: b_size]) \
+ 					map(from: c[0:c_size])
+ #pragma omp parallel for collapse(2)
+     for (int i = 0; i < r1; ++i) {
+         for (int j = 0; j < c2; ++j) {
+             int temp = 0;
+ #pragma omp simd reduction(+ : temp)
+             for (int k = 0; k < c1; ++k) {
+                 temp += a[k + i*c1] * b[j + k*c2];
+             }
+
+             c[j + i * c3] = temp;
+         }
+     }
+ }
+
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Matrix Multiplication}: Επιλογές μεταγλώττισης \en{Alt12, Alt13, Alt14}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt12}} & \en{-fopt-info-vec=builds/alt12.log -O2 -foffload=nvptx-none="-O2" -fno-stack-protector -fno-inline -ftree-vectorize -fopenmp -o ./builds/Alt12} \\ \hline
+      \textbf{\en{Alt13}} & \en{ -fopt-info-vec=builds/alt13.log -O2 -foffload=nvptx-none="-O2" -fno-stack-protector -fno-tree-vectorize -fopenmp -fno-inline -o ./builds/Alt13} \\ \hline
+      \textbf{\en{Alt14}} & \en{ -fopt-info-vec=builds/alt14.log -O2 -foffload=nvptx-none="-O2" -fno-stack-protector -fno-tree-vectorize -fopenmp -fno-inline -o ./builds/Alt14} \\ \hline
+    \end{tabular}
+\end{table}
+\clearpage
+
+\begin{table}[h]
+    \centering
+	\captionof{table}{\en{Matrix Multiplication:} Αποτελέσματα \en{Alt12}, \en{Alt13}, \en{Alt14}}
+    \label{my-label}
+    \resizebox{0.7\textwidth}{!} {
+    \begin{tabular}{|p{0.20\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{\shortstack{Μέγεθος\\προβλήματος}}} & \multicolumn{3}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-4} 
+               & \textbf{\en{Alt12}} & \textbf{\en{Alt13}}& \textbf{\en{Alt14}}\\ \hline
+     \en{100x100x100} & 0.936 & 0.950 & 0.973 \\ \cline{1-4} 
+     \en{200x200x200} & 0.891 & 0.860 & 0.859 \\ \cline{1-4} 
+     \en{300x300x300} & 0.882 & 0.857 & 0.889 \\ \cline{1-4} 
+     \en{400x400x400} & 0.927 & 0.931 & 0.932 \\ \cline{1-4} 
+     \en{500x500x500} & 0.966 & 0.981 & 0.992 \\ \cline{1-4} 
+     \en{600x600x600} & 1.113 & 1.073 & 1.120 \\ \cline{1-4} 
+     \en{700x700x700} & 1.224 & 1.265 & 1.235 \\ \cline{1-4} 
+	 \en{800x800x800} & 1.416 & 1.408 & 1.391 \\ \cline{1-4} 
+    \end{tabular}}
+\end{table}
+
+\paragraph{Παρατηρήσεις}
+\ \\
+Η υλοποίηση του προβλήματος είναι ίδια με αυτή της προηγούμενης παραγράφου με τη μόνη διαφορά να είναι η εισαγωγή της οδηγίας \en{omp reduction}. Η προσθήκη αυτή όχι απλώς ώθησε σε χρόνο καλύτερο από τη προηγούμενη παράγραφο, αλλά και σε χρόνους συγκρίσιμους με τη σειριακή εκτέλεση. Αξίζει να σημειωθεί ότι καθώς αυξάνεται το μέγεθος του προβλήματος, ο χρόνος εκτέλεσης για υλοποίηση σε \en{GPU} μεταβάλλεται με χαμηλό ρυθμό. Ως αποτέλεσμα, για μέγεθος προβλήματος μεγαλύτερο από \en{700x700x700}, η εκτέλεση σε \en{GPU} έχει καλύτερες επιδόσεις, ενώ για μικρότερα όχι.
+
+\begin{figure}[h]
+\centering 
+\resizebox{0.55\textwidth}{!} {
+\begin{tikzpicture}[state/.append style={minimum size=7mm}]
+     \begin{axis}[
+         xlabel={Μέγεθος διανυσμάτων},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=100, xmax=800,
+         ymin=0, ymax=4,
+         xtick={ 100, 200, 300, 400, 500, 600, 700, 800},
+         ytick={ 0, 1, 2, 3, 4},
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ] 
+ 	
+	\addplot[ color=red, mark=square,]
+      coordinates {
+          (100, 0.003)(200, 0.019)(300, 0.051)
+          (400, 0.219)(500, 0.337)(600, 0.571)
+          (700, 0.830)(800, 3.977)
+ 	};
+ 	\addlegendentry{\en{Alt1}}
+ 	
+ 	\addplot[ color=blue, mark=triangle,]
+      coordinates {
+          (100, 0.936)(200, 0.891)(300, 0.882)
+          (400, 0.927)(500, 0.966)(600, 1.113)
+          (700, 1.224)(800, 1.416)
+ 	};
+ 	\addlegendentry{\en{Alt12}}
+ 	
+
+ 	 	
+     \end{axis}
+ \end{tikzpicture}}
+  \caption{\en{Matrix Multiplication:} Σύγκριση \en{Alt1, Alt12}}
+
+\end{figure}
+
+\clearpage
+
+\subsubsection{Παραλλαγή \en{target (3)}}
+\selectlanguage{english}
+\begin{spacing}{0.6}
+\begin{lstlisting}[showstringspaces=false, language=C++, caption={\en{Matrix Multiplication: target teams parallel for collapse}} , frame=tb]{Name}
+ void matmul(int *a, int r1, int c1,
+         int *b, int r2, int c2,
+         int *c, int r3, int c3)
+ {
+     if (c1 != r2) {
+         std::cout << "Wrong matrix dimensions!" << std::endl;
+         return;
+     }
+
+     int a_size = r1 * c1;
+     int b_size = r2 * c2;
+     int c_size = r3 * c3;
+
+ #pragma omp target map(to: a[0:a_size], b[0: b_size])\
+ 			 map(from: c[0:c_size])
+ #pragma omp teams
+ #pragma omp parallel for collapse(2)
+     for (int i = 0; i < r1; ++i) {
+         for (int j = 0; j < c2; ++j) {
+             int temp = 0;
+             for (int k = 0; k < c1; ++k) {
+                 temp += a[k + i*c1] * b[j + k*c2];
+             }
+
+             c[j + i * c3] = temp;
+         }
+     }
+ }
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Matrix Multiplication}: Επιλογές μεταγλώττισης \en{Alt15, Alt16}}
+    \label{my-label}
+    \resizebox{0.7\textwidth}{!} {
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt15}} & \en{-fopt-info-vec=builds/alt15.log -O2 -foffload=nvptx-none="-O2" -fno-stack-protector -fno-inline -ftree-vectorize -fopenmp -o ./builds/Alt15} \\ \hline
+      \textbf{\en{Alt16}} & \en{ -fopt-info-vec=builds/alt16.log -O2 -foffload=nvptx-none="-O2" -fno-stack-protector -fno-tree-vectorize -fopenmp -fno-inline -o ./builds/Alt16} \\ \hline
+    \end{tabular}}
+\end{table}
+
+\begin{table}[h]
+    \centering
+	\captionof{table}{\en{Matrix Multiplication:} Αποτελέσματα \en{Alt15}, \en{Alt16}}
+    \label{my-label}
+    \resizebox{0.6\textwidth}{!} {
+    \begin{tabular}{|p{0.20\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{\shortstack{Μέγεθος\\προβλήματος}}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+               & \textbf{\en{Alt15}} & \textbf{\en{Alt16}}\\ \hline
+     \en{100x100x100} & 0.990 & 0.954 \\ \cline{1-3} 
+     \en{200x200x200} & 1.150 & 1.139 \\ \cline{1-3} 
+     \en{300x300x300} & 1.795 & 1.766 \\ \cline{1-3} 
+     \en{400x400x400} & 2.931 & 2.918 \\ \cline{1-3} 
+     \en{500x500x500} & 4.884 & 4.884 \\ \cline{1-3} 
+     \en{600x600x600} & 7.924 & 7.932 \\ \cline{1-3} 
+     \en{700x700x700} & 12.283 & 12.535 \\ \cline{1-3} 
+    \end{tabular}}
+\end{table}
+
+\clearpage
+
+\subsubsection{Παραλλαγή \en{target (4)}}
+\selectlanguage{english}
+\begin{spacing}{0.6}
+\begin{lstlisting}[showstringspaces=false, language=C++, caption={\en{Matrix Multiplication: target teams distribute parallel for simd collapse}} , frame=tb]{Name}
+ void matmul(int *a, int r1, int c1,
+         int *b, int r2, int c2,
+         int *c, int r3, int c3)
+ {
+     if (c1 != r2) {
+         std::cout << "Wrong matrix dimensions!" << std::endl;
+         return;
+     }
+
+     int a_size = r1 * c1;
+     int b_size = r2 * c2;
+     int c_size = r3 * c3;
+
+ #pragma omp target map(to: a[0:a_size], b[0: b_size])\
+ 	 map(from: c[0:c_size])
+ #pragma omp teams
+ #pragma omp distribute parallel for simd collapse(2)
+     for (int i = 0; i < r1; ++i) {
+         for (int j = 0; j < c2; ++j) {
+             int temp = 0;
+             for (int k = 0; k < c1; ++k) {
+                 temp += a[k + i*c1] * b[j + k*c2];
+             }
+
+             c[j + i * c3] = temp;
+         }
+     }
+ }
+
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Matrix Multiplication}: Επιλογές μεταγλώττισης \en{Alt17, Alt18}}
+    \label{my-label}
+        \resizebox{0.8\textwidth}{!} {
+
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.65\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt17}} & \en{-fopt-info-vec=builds/alt17.log -O2 -foffload=nvptx-none="-O2" -fno-stack-protector -fno-inline -ftree-vectorize -fopenmp -o ./builds/Alt17} \\ \hline
+      \textbf{\en{Alt18}} & \en{ -fopt-info-vec=builds/alt18.log -O2 -foffload=nvptx-none="-O2" -fno-stack-protector -fno-tree-vectorize -fopenmp -fno-inline -o ./builds/Alt18} \\ \hline
+    \end{tabular}}
+\end{table}
+
+\begin{table}[h]
+    \centering
+	\captionof{table}{\en{Matrix Multiplication:} Αποτελέσματα \en{Alt17}, \en{Alt18}}
+    \label{my-label}
+    \resizebox{0.9\textwidth}{!} {
+    \begin{tabular}{|p{0.20\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.17\textwidth}
+    | >{\centering\arraybackslash}p{0.17\textwidth}
+    | >{\centering\arraybackslash}p{0.17\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{\shortstack{Μέγεθος\\προβλήματος}}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} & 
+    \multicolumn{3}{|c|}{\textbf{Ποσοστά εργασιών (\%)}}\\ \cline{2-6} 
+               & \textbf{\en{Alt17}} & \textbf{\en{Alt18}} & \textbf{\en{matmul}} & \textbf{\en{memcpyHtoD}} & \textbf{\en{memcpyDtoH}}\\ \hline
+     \en{100x100x100} & 0.962 & 0.928 & 98.08 & 1.24 & 0.68\\ \cline{1-6} 
+     \en{200x200x200} & 0.857 & 0.838 & 98.45 & 1.02 & 0.54\\ \cline{1-6} 
+     \en{300x300x300} & 0.863 & 0.862 & 99.10 & 0.60 & 0.30\\ \cline{1-6} 
+     \en{400x400x400} & 0.896 & 0.892 & 99.33 & 0.45 & 0.22\\ \cline{1-6} 
+     \en{500x500x500} & 0.972 & 0.967 & 99.55 & 0.31 & 0.14\\ \cline{1-6} 
+     \en{600x600x600} & 1.097 & 1.096 & 99.61 & 0.27 & 0.12\\ \cline{1-6} 
+     \en{700x700x700} & 1.231 & 1.214 & 99.62 & 0.28 & 0.10\\ \cline{1-6} 
+     \en{800x800x800} & 1.379 & 1.391 & 99.40 & 0.31 & 0.30\\ \cline{1-6} 
+
+    \end{tabular}}
+\end{table}
+
+\clearpage
+
+\subsubsection{Παραλλαγή \en{target (5)}}
+\selectlanguage{english}
+\begin{spacing}{1.0}
+\begin{lstlisting}[showstringspaces=false, language=C++, caption={\en{Matrix Multiplication: target teams distribute parallel for simd}} , frame=tb]{Name}
+void matmul(int *a, int r1, int c1,
+         int *b, int r2, int c2,
+         int *c, int r3, int c3)
+ {
+     if (c1 != r2) {
+         std::cout << "Wrong matrix dimensions!" << std::endl;
+         return;
+     }
+
+     int a_size = r1 * c1;
+     int b_size = r2 * c2;
+     int c_size = r3 * c3;
+
+ #pragma omp target teams distribute parallel for simd\
+             map(to:a[:a_size], b[:b_size])\
+                 map(from:c[:c_size])
+     for (int i = 0; i < r1; ++i) {
+         for (int j = 0; j < c2; ++j) {
+             int temp = 0;
+             for (int k = 0; k < c1; ++k) {
+                 temp += a[k + i*c1] * b[j + k*c2];
+             }
+
+             c[j + i * c3] = temp;
+         }
+     }
+ }
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Matrix Multiplication}: Επιλογές μεταγλώττισης \en{Alt19, Alt20, Alt21}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt19}} & \en{-fopt-info-vec=builds/alt19.log -O2 -foffload=nvptx-none="-O2" -fno-stack-protector -fno-inline -ftree-vectorize -fopenmp -o ./builds/Alt19} \\ \hline
+      \textbf{\en{Alt20}} & \en{ -fopt-info-vec=builds/alt20.log -O2 -foffload=nvptx-none="-O2" -fno-stack-protector -fno-tree-vectorize -fopenmp -fno-inline -o ./builds/Alt20} \\ \hline
+      \textbf{\en{Alt21}} & \en{ -fopt-info-vec=builds/alt21.log -O2 -foffload=nvptx-none="-O2" -fno-stack-protector -fno-tree-vectorize -fopenmp -fno-inline -o ./builds/Alt21} \\ \hline
+    \end{tabular}
+\end{table}
+\clearpage
+
+\begin{table}[h]
+    \centering
+	\captionof{table}{\en{Matrix Multiplication:} Αποτελέσματα \en{Alt19}, \en{Alt20}, \en{Alt21}}
+    \label{my-label}
+    \resizebox{1\textwidth}{!} {
+    \begin{tabular}{|p{0.20\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+	| >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.17\textwidth}
+    | >{\centering\arraybackslash}p{0.17\textwidth}
+    | >{\centering\arraybackslash}p{0.17\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{\shortstack{Μέγεθος\\προβλήματος}}} & \multicolumn{3}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} & 
+    \multicolumn{3}{|c|}{\textbf{Ποσοστά εργασιών (\%)}}\\ \cline{2-7} 
+               & \textbf{\en{Alt19}} & \textbf{\en{Alt20}} & \textbf{\en{Alt21}} & \textbf{\en{matmul}} & \textbf{\en{memcpyHtoD}} & \textbf{\en{memcpyDtoH}}\\ \hline
+     \en{100x100x100} & 0.925 & 0.874 & 0.836 & 99.29 & 0.45 & 0.27\\ \cline{1-7} 
+     \en{200x200x200} & 0.854 & 0.836 & 0.847 & 99.22 & 0.53 & 0.26\\ \cline{1-7} 
+     \en{300x300x300} & 0.856 & 0.853 & 0.863 & 99.38 & 0.43 & 0.19\\ \cline{1-7} 
+     \en{400x400x400} & 0.886 & 0.875 & 0.880 & 99.27 & 0.49 & 0.24\\ \cline{1-7} 
+     \en{500x500x500} & 0.959 & 0.895 & 0.934 & 99.27 & 0.48 & 0.24\\ \cline{1-7} 
+     \en{600x600x600} & 0.946 & 0.947 & 0.951 & 99.36 & 0.46 & 0.19\\ \cline{1-7} 
+     \en{700x700x700} & 1.032 & 1.015 & 1.009 & 99.21 & 0.58 & 0.21\\ \cline{1-7} 
+     \en{800x800x800} & 1.138 & 1.086 & 1.114 & 98.77 & 0.64 & 0.58\\ \cline{1-7} 
+
+    \end{tabular}}
+\end{table}
+
+\paragraph{Παρατηρήσεις}
+\ \\
+Από τη μεταφορά των δεδομένων στη μονάδα επεξεργασίας της κάρτας γραφικών και την εκτέλεση του προέκυψαν τα αποτελέσματα του προηγούμενου πίνακα, τα οποία συγκρίνονται με τη σειριακή εκτέλεση αλλά και με την \en{Alt12}.
+
+\begin{figure}[h]
+\centering 
+\resizebox{0.55\textwidth}{!} {
+\begin{tikzpicture}[state/.append style={minimum size=7mm}]
+     \begin{axis}[
+         xlabel={Μέγεθος διανυσμάτων},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=100, xmax=800,
+         ymin=0, ymax=4,
+         xtick={ 100, 200, 300, 400, 500, 600, 700, 800},
+         ytick={ 0, 1, 2, 3, 4},
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ] 
+ 	
+ 	\addplot[ color=blue, mark=triangle,]
+      coordinates {
+          (100, 0.936)(200, 0.891)(300, 0.882)
+          (400, 0.927)(500, 0.966)(600, 1.113)
+          (700, 1.224)(800, 1.416)
+ 	};
+ 	\addlegendentry{\en{Alt12}}
+ 	
+ 	\addplot[ color=red, mark=triangle,]
+      coordinates {
+          (100, 0.925)(200, 0.854)(300, 0.856)
+          (400, 0.886)(500, 0.959)(600, 0.946)
+          (700, 1.032)(800, 1.138)
+ 	};
+ 	\addlegendentry{\en{Alt19}}
+ 	
+
+ 	 	
+     \end{axis}
+ \end{tikzpicture}}
+   \caption{\en{Matrix Multiplication:} Σύγκριση \en{Alt9, Alt12}}
+
+\end{figure}
+\clearpage

@@ -1,0 +1,1216 @@
+\clearpage
+\setstretch{1.5}
+
+\subsection{Υπολογισμός Εσωτερικού Γινομένου - \emph{\en{Dot Product}}}
+Δοθέντων δυο μονοδιάστατων πινάκων \textbf{\en{a}} και \textbf{\en{b}}, όπου το καθένα αποτελείται από \textbf{\en{n}} στοιχεία, το εσωτερικό γινόμενο $α * β$ ορίζεται ως ένας αριθμός $x$ που υπολογίζεται ως εξής:
+$$x = \sum a_i * b_i$$
+όπου  $a_i$ και $b_i$ δηλώνουν το $i$ στοιχείο του διανύσματος \textbf{\en{a}} και \textbf{\en{b}}.
+
+Κατά την παραλληλοποίηση του προγράμματος, η αναλογική επιτάχυνση είναι σχεδόν απίθανη λόγω του μικρού μεγέθους υπολογισμών. Όπως και με το πρόβλημα \en{\emph{SAXPY}} είναι πιθανό πως ο χρόνος υπολογισμού θα είναι μικρότερος από τον χρόνο προσπέλασης της μνήμης μέσω βρόγχου επανάληψης.
+
+Ωστόσο, το πρόβλημα εσωτερικού γινομένου κατατάσσεται στην κατηγορία του συνδυασμού μοτίβων που ονομάζεται \en{\emph{map - reduce}}, που είναι ευρέως χρήσιμο και γιαυτό μελετάται.
+\clearpage
+
+\subsubsection{Περιγραφή κοινού τμήματος αλγορίθμου \en{DotProd}}
+Το πρόβλημα ξεκινάει δημιουργώντας δυο διανύσματα ίσου μεγέθους και βάζοντας τυχαίους αριθμούς σε κάθε θέση τους. Στη συνέχεια καλείται η ρουτίνα υπολογισμού εσωτερικού γινομένου και όταν τελειώσει επαληθεύεται το αποτέλεσμα.
+\selectlanguage{english}
+\begin{spacing}{0.8}
+\begin{lstlisting}[showstringspaces=false, language=C++, caption={\en{DotProd: verify()}}, frame=tb]{Name}
+void verify(size_t size, float *a, float *b, float got) {
+    float temp = 0.0;
+    for (size_t i = 0; i < size; ++i) {
+        temp += a[i] * b[i];
+    }
+
+    std::cout << "Verification result: " << temp << std::endl;
+    std::cout << "In verification Gor: " << got << std::endl;
+
+    if (!(fabs(got - temp) < 1e-6)) {
+        std::cout << "FAILED! Not correct result. -> Expected: " <<
+        		temp << ". Got: " << got << std::endl;
+        exit(1);
+    }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[showstringspaces=false, language=C++, caption={\en{DotProd: main()}}, frame=tb]{Name}
+int main(int argc, char **argv)
+{
+    Opts o;
+    parseArgs(argc, argv, o);
+    srand(time(nullptr));
+    float *a = new float[o.size];
+    float *b = new float[o.size];
+    fill_random_arr(a, o.size);
+    fill_random_arr(b, o.size);    
+    auto start = omp_get_wtime();
+    float got = dprod(o.size, a, b);
+    auto end = omp_get_wtime();
+    if (o.verify) {
+       verify(o.size, a, b, got);
+    }
+    std::cout << std::endl << "Execution time: " << std::fixed <<
+    		end - start << std::setprecision(5) << std::endl;
+    std::cout << "Result: " << got << std::endl;
+
+    delete []a;
+    delete []b;
+
+    return 0;
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+\clearpage
+\subsubsection{Σειριακή εκτέλεση}
+Ξεκινώντας την δημιουργία παραλλαγών για τον υπολογισμό του εσωτερικού γινομένου, η πρώτη 
+αναφέρεται στη σειριακή εκτέλεση του προβλήματος με επιλογές -O2 με διανυσματικοποίηση και χωρίς.
+
+\selectlanguage{english}
+\begin{spacing}{1.0}
+\begin{lstlisting}[language=C++, caption={DotProd: \el{Σειριακή εκτέλεση}} , frame=tb]{Name}
+double dprod(size_t num, double *a, double *b) {
+    double res = 0.0;
+    for (size_t i = 0; i < num; ++i) {
+        res += a[i] * b[i];
+    }
+    return res;
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{DotProd}: Επιλογές μεταγλώττισης \en{Alt1, Alt2}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt1}} & \en{ -fopt-info-vec=info.log -fno-inline -fno-tree-vectorize -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+      \textbf{\en{Alt2}} & \en{ -fopt-info-vec=info.log -fno-inline -ftree-vectorize -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{DotProd}: Αποτελέσματα \en{Alt1, Alt2}}
+    \label{my-label}
+    \resizebox{0.7\textwidth}{!} {
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+               & \textbf{\en{Alt1}} & \textbf{\en{Alt2}}\\ \hline
+     100000000 & 0.298 & 0.298 \\ \cline{1-3} 
+     200000000 & 0.918 & 0.936 \\ \cline{1-3} 
+     300000000 & 1.546 & 1.642\\ \cline{1-3} 
+     400000000 & 2.254 & 1.847\\ \cline{1-3} 
+     500000000 & 3.507 & 3.214\\ \cline{1-3} 
+
+    \end{tabular}}
+\end{table}
+
+\paragraph{Παρατηρήσεις}
+\ \\
+Όπως ήταν αναμενόμενο, η εφαρμογή διανυσματικοποίησης στο συγκεκριμένο παράδειγμα δεν είναι εφικτή λόγω της φύσης του προβλήματος. Η διανυσματικοποίηση δε μπορεί να εφαρμοστεί καθώς το γινόμενο των στοιχείων των δύο ανυσμάτων αθροίζεται στα υπόλοιπα. Η αδυναμία διανυσματικοποίησης επιβεβαιώνεται από το αρχείο \en{\emph{info.log}} που εξάγεται κατά τη διάρκεια της μεταγλώττισης -λόγω της επιλογής \en{-fopt-info-vec}-, καθώς είναι άδειο.
+
+\clearpage
+\subsubsection{Παραλλαγές με \en{pragma omp parallel for}}
+Οι παραλλαγές που ακολουθούν, έχουν ως κύριο χαρακτηριστικό την χρήση της οδηγίας \en{\emph{parallel for}}
+συνδυαζόμενη με διαφορετικές φράσεις.
+
+\paragraph{Χρήση φράσης \en{critical}}\mbox{} \\
+Η οδηγία \en{\emph{parallel for}} συνδυάζεται με τη φράση \en{\emph{pragma omp critical}} με σκοπό την αποφυγή του προβλήματος \en{\emph{race condition}}. Είναι προφανές, ότι η χρήση της φράσης \en{\emph{critical}} και της παραλληλοποίησης γενικότερα οδηγεί σε μεγαλύτερα προβλήματα σε ότι αφορά τις επιδόσεις, καθώς η χρήση της πρακτικά μετατρέπει την παραλληλοποίηση σε σειριακή εκτέλεση, εισάγοντας ακόμη μια επιπλέον καθυστέρηση λόγω των εργασιών που απαιτούνται για αποκλειστικό διάβασμα/εγγραφή  από/στη τη μνήμη.
+\selectlanguage{english}
+\begin{spacing}{1.0}
+\begin{lstlisting}[language=C++, caption={DotProd: omp parallel for - critical} , frame=tb]{Name}
+double dprod(size_t num, double *a, double *b) {
+    double res = 0.0;
+#pragma omp parallel for
+    for (size_t i = 0; i < num; ++i) {
+#pragma omp critical
+        res += a[i] * b[i];
+    }
+    return res;
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+
+\begin{table}[h]
+    \centering
+    \caption{\en{DotProd}: Επιλογές μεταγλώττισης \en{Alt3, Alt4}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.9\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt3}} & \en{ -fopt-info-vec=info.log -fno-inline -fno-tree-vectorize -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+      \textbf{\en{Alt4}} & \en{ -fopt-info-vec=info.log -fno-inline -ftree-vectorize -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+    \end{tabular}
+\end{table}
+
+\subparagraph{Παρατηρήσεις}\mbox{} \\
+Πράγματι, κατά την προσπάθεια εκτέλεσης του προβλήματος με μέγεθος διανύσματος 1\en{e}8, παρατηρήθηκε πολύ μεγάλος χρόνος εκτέλεσης. Για τον ίδιο λόγο με την υπόθεση, δεν καταγράφεται η παραλλαγή με αντικατάσταση της \en{critical} με \en{atomic}. Έπειτα απόπειραματική υλοποίηση, τα συμπεράσματα είναι τα ίδια.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\clearpage
+\paragraph{Χρήση \en{private} μεταβλητών για κάθε νήμα}
+\ \\
+Στην παραλλαγή χρησιμοποιείται σε μειωμένη έκταση σε σχέση με την προηγούμενη, η φράση \en{\emph{critical}}. Εδώ, το άθροισμα των επιμέρους παραλλαγών εισάγεται σε τοπική μεταβλητή του νήματος. Με την ολοκλήρωση του βρόγχου επανάληψης οι τοπικές μεταβλητές αθροίζονται σε μία κοινόχρηστη, μέσω της φράσης \en{\emph{critical}}.
+\selectlanguage{english}
+\begin{spacing}{0.8}
+\begin{lstlisting}[language=C++, caption={\en{DotProd: parallel for critical}} , frame=tb]{Name}
+double dprod(size_t num, double *a, double *b) {
+    double res = 0.0;
+#pragma omp parallel shared(res)
+    {
+        double temp = 0.0;
+#pragma omp for
+        for (size_t i = 0; i < num; ++i) {
+            temp += a[i] * b[i];
+        }
+#pragma omp critical
+        res += temp;
+
+    }
+    return res;
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{DotProd}: Επιλογές μεταγλώττισης \en{Alt7, Alt8}}
+    \label{my-label}
+    \resizebox{0.8\textwidth}{!} {
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt7}} & \en{ -fopt-info-vec=info.log -fno-inline -fno-tree-vectorize -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+      \textbf{\en{Alt8}} & \en{ -fopt-info-vec=info.log -fno-inline -ftree-vectorize -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+    \end{tabular}}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{DotProd}: Αποτελέσματα \en{Alt7, Alt8}}
+    \label{my-label}
+    \resizebox{0.6\textwidth}{!} {
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+               & \textbf{\en{Alt7}} & \textbf{\en{Alt8}}\\ \hline
+     100000000 & 0.215 & 0.217 \\ \cline{1-3} 
+     200000000 & 0.293 & 0.292 \\ \cline{1-3} 
+     300000000 & 0.448 & 0.524\\ \cline{1-3} 
+     400000000 & 0.641 & 0.622\\ \cline{1-3} 
+     500000000 & 1.113 & 1.191\\ \cline{1-3} 
+
+    \end{tabular}}
+\end{table}
+
+\subparagraph{Παρατηρήσεις}\mbox{} \\
+Συγκρινόμενη με την προηγούμενη παράγραφο, ο χρόνος εκτέλεσης είναι πεπερασμένος και μικρός. Μάλιστα είναι μικρότερος σε σύγκριση με τη σειριακή εκτέλεση, όπως φαίνεται στο διάγραμμα που ακολουθεί. Ωστόσο είναι εμφανής η μεγαλύτερη πολυπλοκότητα της υλοποίησης. Λόγο του μικρού αριθμού κλήσεων της εντολής \emph{\en{res += temp;}}, η υλοποίηση με \en{atomic} δεν οδηγεί σε καλύτερες χρονικές επιδόσεις.
+
+
+\begin{figure}[h]
+\begin{tabular}{*{2}{>{\centering\arraybackslash}b{\dimexpr0.5\linewidth-2\tabcolsep\relax}}}
+\resizebox{0.4\textwidth}{!} {
+\begin{tikzpicture}[state/.append style={minimum size=7mm}]
+     \begin{axis}[
+         xlabel={Μέγεθος πίνακα},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=1e8, xmax=5e8,
+         ymin=0, ymax=3.6,
+         xtick={ 1e8, 2e8, 3e8, 4e8, 5e8},
+         ytick={ 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4},
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ] 
+ 	
+ 	\addplot[ color=blue, mark=triangle,]
+      coordinates {
+          (1e8,0.215)(2e8,0.293)(3e8,0.448)
+          (4e8,0.641)(5e8,1.113)
+ 	};
+ 	\addlegendentry{\en{Alt7}}
+ 	
+ 	\addplot[ color=red, mark=square,]
+      coordinates {
+          (1e8,0.298)(2e8,0.918)(3e8,1.546)
+          (4e8,2.254)(5e8,3.507)
+ 	};
+ 	\addlegendentry{\en{Alt1}}
+ 	
+     \end{axis}
+ \end{tikzpicture}}
+
+\caption{\en{DotProd}: Σύγκριση \en{Alt7, Alt1}}
+    &
+\renewcommand{\arraystretch}{1.1}
+\resizebox{0.4\textwidth}{!} {
+\begin{tabular}{c|c}
+Μέγεθος & Ποσοστό μείωσης χρόνου (\%)  \\
+\hline
+\en{1e8} & 27.8 \\
+\en{2e8} & 68.1 \\
+\en{3e8} & 71.0 \\
+\en{4e8} & 71.6 \\
+\en{5e8} & 68.2 \\
+
+\end{tabular}}
+\captionof{table}{\en{DotProd: }Ποσοστιαία σύγκριση \en{Alt7} και \en{Alt1}}
+\end{tabular}
+\end{figure}
+
+\clearpage
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\setstretch{1.5}
+\clearpage
+\subsubsection{Παραλλαγές με εφαρμογή διανυσματικοποίησης}
+Η ομάδα παραλλαγών που ακολουθεί έχει ως επίκεντρο την εφαρμογή διανυσματικοποίησης μέσω \en{simd}. Οπως προαναφέρθηκε, δεν αναμένονται ιδιαίτερα αποτελέσματα, καθώς η φύση του προβλήματος δεν επιτρέπει την εφαρμογή διανυσματικοποίησης. 
+
+\paragraph{Χρήσης οδηγίας \en{simd}}
+\ \\
+\selectlanguage{english}
+\begin{spacing}{1.0}
+\begin{lstlisting}[language=C++, caption={\en{DotProd: omp simd}} , frame=tb]{Name}
+double dprod(size_t num, double *a, double *b) {
+    double res = 0.0;
+#pragma omp simd
+    for (size_t i = 0; i < num; ++i) {
+        res += a[i] * b[i];
+    }
+    return res;
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+
+\begin{table}[h]
+    \centering
+    \caption{\en{DotProd}: Επιλογές μεταγλώττισης \en{Alt9}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt9}} & \en{ -fopt-info-vec=info.log -fno-inline -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{DotProd}: Αποτελέσματα \en{Alt9}}
+    \label{my-label} {
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.30\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & {\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-2} 
+               & \textbf{\en{Alt9}} \\ \hline
+     100000000 & 0.275 \\ \cline{1-2} 
+     200000000 & 0.859 \\ \cline{1-2} 
+     300000000 & 1.356 \\ \cline{1-2} 
+     400000000 & 2.452 \\ \cline{1-2} 
+     500000000 & 2.909 \\ \cline{1-2} 
+
+    \end{tabular}}
+\end{table}
+\subparagraph{Παρατηρήσεις}\mbox{} \\
+Οι χρονικές καταγραφές της εκτέλεσης είναι συγκρίσιμες με τη σειριακή. Δεν εφαρμόζεται διανυσματικοποίηση και αυτό επιβεβαιώνεται και από το αρχείο \en{\emph{info.log}}
+
+\clearpage
+\paragraph{Χρήση φράσης \en{reduction}}
+\ \\
+\selectlanguage{english}
+\begin{spacing}{1.0}
+\begin{lstlisting}[language=C++, caption={\en{DotProd: parallel for reduction}} , frame=tb]{Name}
+ double dprod(size_t num, double *a, double *b) {
+     double res = 0.0;
+ #pragma omp parallel for reduction(+ : res)
+     for (size_t i = 0; i < num; ++i) {
+         res += a[i] * b[i];
+     }
+     return res;
+ }
+
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{DotProd}: Επιλογές μεταγλώττισης \en{Alt5, Alt6}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.9\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt5}} & \en{ -fopt-info-vec=info.log -fno-inline -fno-tree-vectorize -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+      \textbf{\en{Alt6}} & \en{ -fopt-info-vec=info.log -fno-inline -ftree-vectorize -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{DotProd}: Αποτελέσματα \en{Alt5, Alt6}}
+    \label{my-label}
+    \resizebox{0.7\textwidth}{!} {
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+               & \textbf{\en{Alt5}} & \textbf{\en{Alt6}}\\ \hline
+     100000000 & 0.219 & 0.216 \\ \cline{1-3} 
+     200000000 & 0.367 & 0.309 \\ \cline{1-3} 
+     300000000 & 0.461 & 0.576\\ \cline{1-3} 
+     400000000 & 0.630 & 0.654\\ \cline{1-3} 
+     500000000 & 1.151 & 1.266\\ \cline{1-3} 
+
+    \end{tabular}}
+\end{table}
+
+\subparagraph{Παρατηρήσεις}\mbox{} \\
+Είναι εμφανής η βελτίωση των επιδόσεων και η επίτευξη της διανυσματικοποίησης λόγω της αντικατάστασης της φράσης \en{\emph{critical}} με την \en{\emph{reduction}}.
+Η διανυσματικοποίηση δεν είναι εφικτή ούτε μέσω \en{\emph{OpenMP}}. Τα ποσοστά
+μείωσης του χρόνου εκτέλεσης σε σχέση με τη σειριακή εκτέλεση είναι περίπου 60 - 70\% όπως φαίνεται και στο διάγραμμα που ακολουθεί.
+
+\clearpage
+
+\begin{figure}[h]
+\begin{tabular}{*{2}{>{\centering\arraybackslash}b{\dimexpr0.5\linewidth-2\tabcolsep\relax}}}
+\resizebox{0.4\textwidth}{!} {
+\begin{tikzpicture}[state/.append style={minimum size=7mm}]
+     \begin{axis}[
+         xlabel={Μέγεθος πίνακα},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=1e8, xmax=5e8,
+         ymin=0, ymax=3.6,
+         xtick={ 1e8, 2e8, 3e8, 4e8, 5e8},
+         ytick={ 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4},
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ] 
+ 	
+ 	\addplot[ color=blue, mark=triangle,]
+      coordinates {
+          (1e8,0.298)(2e8,0.918)(3e8,1.546)
+          (4e8,2.254)(5e8,3.507)
+ 	};
+ 	\addlegendentry{\en{Alt1}}
+ 	
+ 	\addplot[ color=red, mark=square,]
+      coordinates {
+          (1e8,0.219)(2e8,0.367)(3e8,0.461)
+          (4e8,0.630)(5e8, 1.151)
+ 	};
+ 	\addlegendentry{\en{Alt5}}
+ 	
+     \end{axis}
+ \end{tikzpicture}}
+
+\caption{\en{DotProd}: Σύγκριση \en{Alt1, Alt5}}
+    &
+\renewcommand{\arraystretch}{1.1}
+\resizebox{0.4\textwidth}{!} {
+\begin{tabular}{c|c}
+Μέγεθος & Ποσοστό μείωσης χρόνου (\%)  \\
+\hline
+\en{1e8} & 26.5 \\
+\en{2e8} & 60 \\
+\en{3e8} & 70 \\
+\en{4e8} & 72 \\
+\en{5e8} & 67 \\
+
+\end{tabular}}
+\captionof{table}{\en{DotProd: }Ποσοστιαία σύγκριση \en{Alt1} και \en{Alt5}}
+\end{tabular}
+\end{figure}
+\clearpage
+
+\paragraph{Χρήσης φράσης \en{reduction}}
+\ \\
+\selectlanguage{english}
+\begin{spacing}{1.0}
+\begin{lstlisting}[language=C++, caption={\en{DotProd: simd reduction}} , frame=tb]{Name}
+double dprod(size_t num, double *a, double *b) {
+    double res = 0.0;
+#pragma omp simd reduction(+ : res)
+    for (size_t i = 0; i < num; ++i) {
+        res += a[i] * b[i];
+    }
+    return res;
+}
+
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{DotProd}: Επιλογές μεταγλώττισης \en{Alt10}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt10}} & \en{ -fopt-info-vec=info.log -fno-inline -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{DotProd}: Αποτελέσματα \en{Alt10}}
+    \label{my-label} {
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.30\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & {\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-2} 
+               & \textbf{\en{Alt10}} \\ \hline
+     100000000 & 0.251 \\ \cline{1-2} 
+     200000000 & 0.949 \\ \cline{1-2} 
+     300000000 & 1.395 \\ \cline{1-2} 
+     400000000 & 1.856 \\ \cline{1-2} 
+     500000000 & 2.798 \\ \cline{1-2} 
+
+    \end{tabular}}
+\end{table}
+\subparagraph{Παρατηρήσεις}
+\ \\
+Οπως ήταν αναμενόμενο, η εισαγωγή της φράσης \emph{\en{reduction}} δε προσέδωσε κανένα 
+κέρδος στην επίλυση του προβλήματος καθώς δεν έχει εφαρμοστεί διανυσματικοποίηση. Ακόμη, δε εκτελέστηκε καμία εργασία παράλληλα, καθώς για να γίνει αυτό απαιτείται η οδηγία \en{\emph{parallel for}}.
+\clearpage
+\paragraph{Χρήσης φράσης \en{declare simd notinbranch}}
+\ \\
+Η μεταφορά του υπολογισμού του εσωτερικού γινομένου εντός συνάρτησης, και η κλήση της με χρήση διανυσματικοποίησης γίνεται με την οδηγία \en{\emph{omp declare simd notinbranch}}.
+
+\selectlanguage{english}
+\begin{spacing}{1.0}
+\begin{lstlisting}[language=C++, caption={\en{DotProd: parallel for reduction}} , frame=tb]{Name}
+ #pragma omp declare simd notinbranch
+ double mult(double *a, double *b) {
+     return *a * *b;
+ }
+
+ double dprod(size_t num, double *a, double *b) {
+     double res = 0.0;
+ #pragma omp simd reduction(+ : res)
+     for (size_t i = 0; i < num; ++i) {
+         res += mult(&a[i], &b[i]);
+     }
+     return res;
+ }
+
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{DotProd}: Επιλογές μεταγλώττισης \en{Alt11}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.9\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt11}} & \en{ -fopt-info-vec=info.log -fno-inline -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{DotProd}: Αποτελέσματα \en{Alt11}}
+    \label{my-label} {
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.30\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & {\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-2} 
+               & \textbf{\en{Alt11}} \\ \hline
+     100000000 & 1.150 \\ \cline{1-2} 
+     200000000 & 2.344 \\ \cline{1-2} 
+     300000000 & 3.911 \\ \cline{1-2} 
+     400000000 & 5.512 \\ \cline{1-2} 
+     500000000 & 6.633 \\ \cline{1-2} 
+
+    \end{tabular}}
+\end{table}
+
+\subparagraph{Παρατηρήσεις}
+\ \\
+Η χρήση της οδηγίας \en{\emph{declare simd notinbranch}} συντελεί στην πτώση της απόδοσης του αλγορίθμου. Ο χρόνος εκτέλεσης αυξάνεται δύο φορές περισσότερο σε σύγκριση με τη σειριακή εκτέλεση.
+\clearpage
+\paragraph{Χρήση οδηγίας \en{simd parallel for reduction}}
+\ \\
+\selectlanguage{english}
+\begin{spacing}{0.8}
+\begin{lstlisting}[language=C++, caption={\en{DotProd: parallel for simd reduction}} , frame=tb]{Name}
+double dprod(size_t num, double *a, double *b) {
+    double res = 0.0;
+#pragma omp parallel for simd reduction(+ : res)
+    for (size_t i = 0; i < num; ++i) {
+        res += a[i] * b[i];
+    }
+    return res;
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{DotProd}: Επιλογές μεταγλώττισης \en{Alt12}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt12}} & \en{ -fopt-info-vec=info.log -fno-inline -fopenmp -Wall  -Wextra -std=c++14 -O2} \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{spacing}{0.9}
+\begin{table}[h]
+    \centering
+    \caption{\en{DotProd}: Αποτελέσματα \en{Alt12}}
+    \label{my-label} {
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.30\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & {\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-2} 
+               & \textbf{\en{Alt12}} \\ \hline
+     100000000 & 0.216 \\ \cline{1-2} 
+     200000000 & 0.313 \\ \cline{1-2} 
+     300000000 & 0.361 \\ \cline{1-2} 
+     400000000 & 0.845 \\ \cline{1-2} 
+     500000000 & 0.851 \\ \cline{1-2} 
+
+    \end{tabular}}
+\end{table}
+\end{spacing}
+\subparagraph{Παρατηρήσεις}
+\ \\
+Από το διάγραμμα σύγκρισης των παραλλαγών \en{Alt5 - Alt12}, 
+προκύπτει διακύμανση της καλύτερης παραλλαγής αναμεσά τους.
+Δυστυχώς δε μπόρεσαν να εξαχθούν ασφαλή συμπεράσματα για τα αίτια της διακύμανσης αυτής.
+
+\clearpage
+\begin{figure}[h]
+\begin{center}
+\resizebox{0.5\textwidth}{!} {
+\begin{tikzpicture}   
+    \begin{axis}[
+         xlabel={Μέγεθος πίνακα},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=1e8, xmax=5e8,
+         ymin=0, ymax=1.2,
+         xtick={ 1e8, 2e8, 3e8, 4e8, 5e8},
+         ytick={0, 0.2, 0.4, 0.6, 0.8, 1, 1.2},
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ]
+     \addplot[ color=red, mark=square,]
+      coordinates {
+          (100000000, 0.216)(200000000,0.313)
+          (300000000,0.361)(400000000, 0.845)
+          (5e8, 0.851)
+ 	}; 	
+     \addlegendentry{\en{Alt12}}
+     
+     \addplot[ color=blue, mark=square,]
+      coordinates {
+          (1e8, 0.219)(2e8,0.367)(3e8, 0.461)
+          (4e8, 0.630)(5e8, 1.151)
+ 	};
+  	\addlegendentry{\en{Alt5}}
+
+    \end{axis}
+\end{tikzpicture}}% NO EMPTY LINE HERE!!!! 
+\end{center}
+\caption{\en{DotProd}: Σύγκριση \en{Alt12, Alt5}}
+\end{figure}
+
+\subsubsection{Παραλλαγές με \en{offloading}}
+Οι παραλλαγές που ακολουθούν, αφορούν παραλλαγές υλοποιημένες στη κάρτα γραφικών. 
+
+\paragraph{Χρήση οδηγίας \en{parallel for reduction}}
+\ \\
+\selectlanguage{english}
+\begin{spacing}{1.1}
+\begin{lstlisting}[language=C++, caption={\en{DotProd: target parallel for reduction}} , frame=tb]{Name}
+double dprod(size_t num, double *a, double *b) {
+    double res = 0.0;
+#pragma omp target map(tofrom: res) map(to: a[0:num], b[0:num])
+#pragma omp parallel for reduction(+ : res)
+        for (size_t i = 0; i < num; ++i) {
+            res += a[i] * b[i];
+        }
+    return res;
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{DotProd}: Επιλογές μεταγλώττισης \en{Alt13}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt13}} & \en{-fopt-info-vec=builds/alt13.log -O2  -fno-inline -fno-stack-protector -foffload=nvptx-none="-O2 -fno-inline" -fopenmp -o ./builds/Alt13} \\ \hline
+    \end{tabular}
+\end{table}
+
+\clearpage
+\begin{table}[h]
+    \centering
+    \caption{\en{DotProd}: Αποτελέσματα \en{Alt13}}
+    \resizebox{0.8\textwidth}{!} {
+    \label{my-label} {
+    \begin{tabular}{|p{0.2\textwidth}
+    | >{\centering\arraybackslash}p{0.15\textwidth}
+    | >{\centering\arraybackslash}p{0.15\textwidth}
+    | >{\centering\arraybackslash}p{0.15\textwidth}
+    | >{\centering\arraybackslash}p{0.15\textwidth}    
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{\shortstack{Μέγεθος \\προβλήματος}}} & {\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} & \multicolumn{3}{|c|}{\textbf{\shortstack{Ποσοστό συνολικού \\χρόνου (\%)}}} \\ \cline{2-5}
+               & \textbf{\en{Alt13}} &  \textbf{\en{DotProd}} &  \textbf{\en{memcpy DtoH}} &  \textbf{\en{memcpy HtoD}}\\ \hline
+     100000000 & 3.201  & 77.99 & 22.01 & 0\\ \cline{1-5} 
+     200000000 & 5.871  & 78.91 & 21.09 & 0\\ \cline{1-5} 
+     300000000 & 8.683  & 78.11 & 21.89 & 0\\ \cline{1-5} 
+     400000000 & 11.861 & 75.32 & 24.68 & 0\\ \cline{1-5} 
+     500000000 & 14.788 & 75.07 & 24.93 & 0\\ \cline{1-5} 
+
+    \end{tabular}}}
+\end{table}
+
+
+\subparagraph{Παρατηρήσεις}
+\ \\
+Παρατηρείται ότι ο χρόνος εκτέλεσης του προβλήματος είναι μεγάλος συγκριτικά με όλες τις προηγούμενες παραλλαγές. Η καθυστέρηση δεν οφείλεται στη μεταφορά των μεταβλητών ανάμεσα στις δυο συσκευές καθώς αποτελεί μόνο το 22\% του συνολικού χρόνου που καταναλώνεται στην κάρτα γραφικών. Ωστόσο, δε περιμένουμε καλύτερες επιδόσεις καθώς οι εργασίες δε μοιράζονται σε ομάδες νημάτων της συσκευής στόχου μέσω τον σχετικών οδηγιών.
+\clearpage
+
+\paragraph{Χρήση οδηγίας \en{target simd reduction(+ : res)}}
+\ \\
+Στο παράδειγμα της παραγράφου γίνεται αντικατάσταση της οδηγίας \en{parallel for} με την \en{simd}.
+\selectlanguage{english}
+\begin{spacing}{1.0}
+\begin{lstlisting}[language=C++, caption={\en{DotProd: target simd reduction}} , frame=tb]{Name}
+double dprod(size_t num, double *a, double *b) {
+    double res = 0.0;
+#pragma omp target map(tofrom: res) map(to: a[0:num], b[0:num])
+#pragma omp simd reduction(+ : res)
+        for (size_t i = 0; i < num; ++i) {
+            res += a[i] * b[i];
+        }
+    return res;
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{DotProd}: Επιλογές μεταγλώττισης \en{Alt14}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt14}} & \en{-fopt-info-vec=builds/alt14.log -O2  -fno-inline -fno-stack-protector -foffload=nvptx-none="-O2 -fno-inline" -fopenmp -o ./builds/Alt14} \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{DotProd}: Αποτελέσματα \en{Alt14}}
+    \label{my-label} {
+    \begin{tabular}{|p{0.2\textwidth}
+    | >{\centering\arraybackslash}p{0.15\textwidth}
+    | >{\centering\arraybackslash}p{0.15\textwidth}
+    | >{\centering\arraybackslash}p{0.15\textwidth}
+    | >{\centering\arraybackslash}p{0.15\textwidth}    
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{\shortstack{Μέγεθος \\προβλήματος}}} & {\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} & \multicolumn{3}{|c|}{\textbf{\shortstack{Ποσοστό συνολικού \\χρόνου (\%)}}} \\ \cline{2-5}
+               & \textbf{\en{Alt14}} &  \textbf{\en{DotProd}} &  \textbf{\en{memcpy DtoH}} &  \textbf{\en{memcpy HtoD}}\\ \hline
+     100000000 & 1.581 & 52.98 & 47.02 & 0.00 \\ \cline{1-5} 
+     200000000 & 3.10  & 48.02 & 51.98 & 0.00\\ \cline{1-5} 
+     300000000 & 4.203 & 51.52 & 48.48 & 0.00\\ \cline{1-5} 
+     400000000 & 5.833 & 48.17 & 51.83 & 0.00\\ \cline{1-5} 
+     500000000 & 7.182 & 48.02 & 51.98 & 0.00\\ \cline{1-5} 
+
+    \end{tabular}}
+\end{table}
+
+
+\subparagraph{Παρατηρήσεις}
+\ \\
+Η αντικατάσταση της οδηγίας \en{simd} οδήγησε στη μείωση των χρονικών επιδόσεων. Η συμπεριφορά είναι αντίστροφη των αντίστοιχων παραλλαγών, εκτελεσμένων μέσω \en{CPU}. Επίσης, ο απαιτούμενος χρόνος μεταφοράς των δεδομένων στη στο περιβάλλον της μονάδας επεξεργασίας της κάρτας γραφικών αποτελεί το 50\% του συνολικού χρόνου εκτέλεσης του προβλήματος.
+
+\clearpage
+\paragraph{Χρήση οδηγίας \en{target parallel for simd reduction(+ : res)}}
+\ \\
+\selectlanguage{english}
+\begin{spacing}{1.0}
+\begin{lstlisting}[language=C++, caption={\en{DotProd: parallel for simd reduction}} , frame=tb]{Name}
+double dprod(size_t num, double *a, double *b) {
+    double res = 0.0;
+#pragma omp target map(tofrom: res) map(to: a[0:num], b[0:num])
+#pragma omp parallel for simd  reduction(+ : res)
+        for (size_t i = 0; i < num; ++i) {
+            res += a[i] * b[i];
+        }
+    return res;
+}
+
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{DotProd}: Επιλογές μεταγλώττισης \en{Alt15}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt15}} & \en{-fopt-info-vec=builds/alt15.log -O2  -fno-inline -fno-stack-protector -foffload=nvptx-none="-O2 -fno-inline" -fopenmp -o ./builds/Alt15} \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{DotProd}: Αποτελέσματα \en{Alt15}}
+    \label{my-label} {
+    \begin{tabular}{|p{0.2\textwidth}
+    | >{\centering\arraybackslash}p{0.15\textwidth}
+    | >{\centering\arraybackslash}p{0.15\textwidth}
+    | >{\centering\arraybackslash}p{0.15\textwidth}
+    | >{\centering\arraybackslash}p{0.15\textwidth}    
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{\shortstack{Μέγεθος \\προβλήματος}}} & {\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} & \multicolumn{3}{|c|}{\textbf{\shortstack{Ποσοστό συνολικού \\χρόνου (\%)}}} \\ \cline{2-5}
+               & \textbf{\en{Alt15}} &  \textbf{\en{DotProd}} &  \textbf{\en{memcpy DtoH}} &  \textbf{\en{memcpy HtoD}}\\ \hline
+     100000000 & 1.160 & 16.90 & 83.09 & 0.00\\ \cline{1-5} 
+     200000000 & 2.056 & 14.20 & 85.80 & 0.00\\ \cline{1-5} 
+     300000000 & 2.415 & 17.69 & 82.31 & 0.00\\ \cline{1-5} 
+     400000000 & 3.693 & 14.51 & 85.49 & 0.00\\ \cline{1-5} 
+     500000000 & 4.641 & 14.00 & 86.00 & 0.00\\ \cline{1-5} 
+
+    \end{tabular}}
+\end{table}
+
+\subparagraph{Παρατηρήσεις}
+\ \\
+Η εισαγωγή ταυτόχρονα των οδηγιών \en{parallel for} και \en{simd} μείωσε τους χρόνους εκτέλεσης σε σύγκριση με τις προηγούμενες παραλλαγές με \en{offloading}. Απο το συνολικό χρόνο εκτέλεσης του προβλήματος, το 85\% αφιερώνεται στην αντιστοίχιση μνήμης ανάμεσα στις δυο συσκευές.
+
+\clearpage
+\begin{figure}[h]
+\begin{center}
+\resizebox{0.5\textwidth}{!} {
+\begin{tikzpicture}   
+    \begin{axis}[
+         xlabel={Μέγεθος πίνακα},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=1e8, xmax=5e8,
+         ymin=0, ymax=16,
+         xtick={ 1e8, 2e8, 3e8, 4e8, 5e8},
+         ytick={0, 2, 4, 6, 8, 10, 12, 14, 16},
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ]
+     \addplot[ color=green, mark=square,]
+      coordinates {
+          (100000000,3.201)(200000000,5.871)
+          (300000000,8.683)(400000000,11.861)
+          (5e8,14.788)
+ 	}; 	     
+          \addlegendentry{\en{Alt13}}
+
+     \addplot[ color=red, mark=square,]
+      coordinates {
+          (100000000,1.581)(200000000,3.10)
+          (300000000,4.203)(400000000,5.833)
+          (5e8,7.182)
+ 	}; 	
+     \addlegendentry{\en{Alt14}}
+     
+     \addplot[ color=blue, mark=square,]
+      coordinates {
+          (1e8, 1.16)(2e8,2.056)(3e8,2.415)
+          (4e8, 3.693)(5e8,4.641)
+ 	};
+  	\addlegendentry{\en{Alt15}}
+
+    \end{axis}
+\end{tikzpicture}}% NO EMPTY LINE HERE!!!! 
+\end{center}
+\caption{\en{DotProd}: Σύγκριση \en{Alt13, Alt14, Alt15}}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\clearpage
+\paragraph{Χρήση οδηγίας \en{target teams parallel for simd reduction(+ : res)}}
+\ \\
+\selectlanguage{english}
+\begin{spacing}{1.0}
+\begin{lstlisting}[language=C++, caption={\en{DotProd: target teams parallel for reduction}} , frame=tb]{Name}
+double dprod(size_t num, double *a, double *b) {
+    double res = 0.0;
+#pragma omp target map(tofrom: res) map(to: a[0:num], b[0:num])
+#pragma omp teams
+#pragma omp parallel for reduction(+ : res)
+        for (size_t i = 0; i < num; ++i) {
+            res += a[i] * b[i];
+        }
+    return res;
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{DotProd}: Επιλογές μεταγλώττισης \en{Alt16}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt16}} & \en{-fopt-info-vec=builds/alt16.log -O2  -fno-inline -fno-stack-protector -foffload=nvptx-none="-O2 -fno-inline" -fopenmp -o ./builds/Alt16} \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{DotProd}: Αποτελέσματα \en{Alt16}}
+    \label{my-label} {
+    \begin{tabular}{|p{0.2\textwidth}
+    | >{\centering\arraybackslash}p{0.15\textwidth}
+    | >{\centering\arraybackslash}p{0.15\textwidth}
+    | >{\centering\arraybackslash}p{0.15\textwidth}
+    | >{\centering\arraybackslash}p{0.15\textwidth}    
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{\shortstack{Μέγεθος \\προβλήματος\\(\%)}}} & {\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} & \multicolumn{3}{|c|}{\textbf{\shortstack{Ποσοστό συνολικού \\χρόνου (\%)}}} \\ \cline{2-5}
+               & \textbf{\en{Alt16}} &  \textbf{\en{DotProd}} &  \textbf{\en{memcpy DtoH}} &  \textbf{\en{memcpy HtoD}}\\ \hline
+     100000000 & 3.878 & 80.87 & 19.13 & 0.00\\ \cline{1-5} 
+     200000000 & 3.394 & 80.83 & 19.17 & 0.00\\ \cline{1-5} 
+     300000000 & 6.524 & 79.00 & 21.00 & 0.00\\ \cline{1-5} 
+     400000000 & 9.731 & 75.21 & 24.79 & 0.00\\ \cline{1-5} 
+     500000000 & 16.500 & 76.43 & 23.57 & 0.00\\ \cline{1-5} 
+
+    \end{tabular}}
+\end{table}
+
+\clearpage
+\paragraph{Χρήση οδηγίας \en{teams distribute parallel for}}
+\ \\
+Σε σχέση με την προηγούμενη υλοποίηση, εισάγεται η οδηγία \en{distribute}.
+\selectlanguage{english}
+\begin{spacing}{1.0}
+\begin{lstlisting}[language=C++, caption={\en{DotProd: target teams reduction distribute parallel for reduction}} , frame=tb]{Name}
+double dprod(size_t num, double *a, double *b) {
+    double res = 0.0;
+#pragma omp target defaultmap(tofrom: scalar)\
+ 				(to: a[0:num], b[0:num])
+#pragma omp teams reduction(+ : res)
+#pragma omp distribute parallel for reduction(+ : res)
+        for (size_t i = 0; i < num; ++i) {
+            res += a[i] * b[i];
+        }
+    return res;
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{DotProd}: Επιλογές μεταγλώττισης \en{Alt17}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt17}} & \en{-fopt-info-vec=builds/alt17.log -O2  -fno-inline -fno-stack-protector -foffload=nvptx-none="-O2 -fno-inline" -fopenmp -o ./builds/Alt17} \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{DotProd}: Αποτελέσματα \en{Alt17}}
+    \label{my-label} {
+    \begin{tabular}{|p{0.2\textwidth}
+    | >{\centering\arraybackslash}p{0.15\textwidth}
+    | >{\centering\arraybackslash}p{0.15\textwidth}
+    | >{\centering\arraybackslash}p{0.15\textwidth}
+    | >{\centering\arraybackslash}p{0.15\textwidth}    
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{\shortstack{Μέγεθος \\προβλήματος\\(\%)}}} & {\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} & \multicolumn{3}{|c|}{\textbf{\shortstack{Ποσοστό συνολικού \\χρόνου (\%)}}} \\ \cline{2-5}
+               & \textbf{\en{Alt17}} &  \textbf{\en{DotProd}} &  \textbf{\en{memcpy DtoH}} &  \textbf{\en{memcpy HtoD}}\\ \hline
+     100000000 & 1.133 & 12.05 & 87.95 & 0.00\\ \cline{1-5} 
+     200000000 & 1.728 & 11.62 & 88.38 & 0.00\\ \cline{1-5} 
+     300000000 & 2.540 & 11.00 & 89.00 & 0.00\\ \cline{1-5} 
+     400000000 & 3.434 & 17.90 & 82.10 & 0.00\\ \cline{1-5} 
+     500000000 & 4.739 & 12.30 & 87.70 & 0.00\\ \cline{1-5} 
+
+    \end{tabular}}
+\end{table}
+
+\clearpage
+\paragraph{Χρήση οδηγίας \en{teams distribute parallel for simd reduction}}
+\ \\
+Οι οδηγίες και φράσεις που χρησιμοποιούνται στην παραλλαγή αυτής της ενότητας, χρησιμοποιήθηκαν και στη παραλλαγή του προβλήματος \en{\emph{saxpy}} στην οποία καταγράφηκαν οι καλύτεροι χρόνοι εκτέλεσης σε σύγκριση με τις υπόλοιπες παραλλαγές με \en{\emph{offloading}}.
+\selectlanguage{english}
+\begin{spacing}{0.9}
+\begin{lstlisting}[language=C++, caption={\en{DotProd: target teams distribute parallel for simd reduction}} , frame=tb]{Name}
+double dprod(size_t num, double *a, double *b) {
+    double res = 0.0;
+#pragma omp target teams defaultmap(tofrom: scalar)\
+	  map(to: a[0:num], b[0:num]) reduction(+ : res)
+#pragma omp distribute parallel for simd reduction(+ : res)
+        for (size_t i = 0; i < num; ++i) {
+            res += a[i] * b[i];
+        }
+    return res;
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{DotProd}: Επιλογές μεταγλώττισης \en{Alt18}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt18}} & \en{-fopt-info-vec=builds/alt18.log -O2  -fno-inline -fno-stack-protector -foffload=nvptx-none="-O2 -fno-inline" -fopenmp -o ./builds/Alt18} \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{DotProd}: Αποτελέσματα \en{Alt18}}
+    \label{my-label} {
+    \begin{tabular}{|p{0.2\textwidth}
+    | >{\centering\arraybackslash}p{0.15\textwidth}
+    | >{\centering\arraybackslash}p{0.15\textwidth}
+    | >{\centering\arraybackslash}p{0.15\textwidth}
+    | >{\centering\arraybackslash}p{0.15\textwidth}    
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{\shortstack{Μέγεθος \\προβλήματος}}} & {\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} & \multicolumn{3}{|c|}{\textbf{\shortstack{Ποσοστό συνολικού \\χρόνου\\(\%)}}} \\ \cline{2-5}
+               & \textbf{\en{Alt18}} &  \textbf{\en{DotProd}} &  \textbf{\en{memcpy DtoH}} &  \textbf{\en{memcpy HtoD}}\\ \hline
+     100000000 & 0.993 & 1.49 & 98.51 & 0.00\\ \cline{1-5} 
+     200000000 & 1.815 & 1.27 & 98.72 & 0.00\\ \cline{1-5} 
+     300000000 & 2.355 & 1.40 & 98.60 & 0.00\\ \cline{1-5} 
+     400000000 & 3.184 & 1.90 & 98.10 & 0.00\\ \cline{1-5} 
+     500000000 & 3.404 & 1.69 & 98.31 & 0.00\\ \cline{1-5} 
+
+    \end{tabular}}
+\end{table}
+\clearpage
+\subparagraph{Παρατηρήσεις}\mbox{} \\
+Οπως ήταν αναμενόμενο, η συγκεκριμένη παραλλαγή εμφανίζει τις καλύτερες επιδόσεις συγκριτικά με τις υπόλοιπες παραλλαγές σε \en{GPU}. Το 92\% του χρόνου που απαιτείται, περιλαμβάνει τη μεταφορά των δεδομένων ανάμεσα στις δυο συσκευές. Αξίζει να σημειωθεί η αξία της φράσης \en{to} έναντι της \en{tofrom} στην οδηγία \en{map} σε περίπτωση που δε χρειάζεται, όπως είναι στο παράδειγμα του εσωτερικού γινομένου. Με τη χρήση της, δεν απαιτείται αντιγραφή των δεδομένων από τη συσκευή στόχου πίσω στην κύρια συσκευή. Τέλος, οι χρόνοι εκτέλεσης αν δεν απαιτείται αντιγραφή των δεδομένων θα ήταν οι εξής:
+
+\begin{table}[h]
+    \centering
+    \caption{\en{DotProd}: Χρόνοι εκτέλεσης χωρίς μεταφορά δεδομένων στη \en{GPU - Alt18}}
+    \label{my-label} {
+    \begin{tabular}{|p{0.2\textwidth}
+    | >{\centering\arraybackslash}p{0.15\textwidth}
+    | >{\centering\arraybackslash}p{0.15\textwidth}
+    |}
+    \hline
+    {\textbf{\shortstack{Μέγεθος \\προβλήματος}}} & {\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \hline
+     100000000 & 0.015 \\ \cline{1-2} 
+     200000000 & 0.024 \\ \cline{1-2} 
+     300000000 & 0.033 \\ \cline{1-2} 
+     400000000 & 0.06 \\ \cline{1-2} 
+     500000000 & 0.06 \\ \cline{1-2} 
+
+    \end{tabular}}
+\end{table}
+
+
+\begin{figure}[h]
+\begin{center}
+\resizebox{0.6\textwidth}{!} {
+\begin{tikzpicture}   
+    \begin{axis}[
+         xlabel={Μέγεθος πίνακα},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=1e8, xmax=5e8,
+         ymin=0, ymax=16,
+         xtick={ 1e8, 2e8, 3e8, 4e8, 5e8},
+         ytick={0, 2, 4, 6, 8, 10, 12, 14, 16},
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ]
+     \addplot[ color=green, mark=triangle,]
+      coordinates {
+          (100000000,0.993)(200000000,1.815)
+          (300000000,2.355)(400000000,3.184)
+          (5e8,3.404)
+ 	}; 	     
+          \addlegendentry{\en{Alt18}}
+
+     \addplot[ color=red, mark=square,]
+      coordinates {
+          (100000000,1.113)(200000000,1.728)
+          (300000000,2.54)(400000000,3.434)
+          (5e8,4.739)
+ 	}; 	
+     \addlegendentry{\en{Alt17}}
+     
+     \addplot[ color=blue,]
+      coordinates {
+          (1e8, 3.878)(2e8,3.394)(3e8,6.524)
+          (4e8, 9.731)(5e8,16.5)
+ 	};
+  	\addlegendentry{\en{Alt16}}
+
+    \end{axis}
+\end{tikzpicture}}% NO EMPTY LINE HERE!!!! 
+\end{center}
+\caption{\en{DotProd}: Σύγκριση \en{Alt16, Alt17, Alt18}}
+\end{figure}

@@ -1,17 +1,17 @@
 \begin{center}
 \selectlanguage{greek}
 
-\textsc{ ΠΑΝΕΠΙΣΤΗΜΙΟ ΜΑΚΕΔΟΝΙΑΣ\\[0.3 cm]
-ΠΡΟΓΡΑΜΜΑ ΜΕΤΑΠΤΥΧΙΑΚΩΝ ΣΠΟΥΔΩΝ\\[0.3 cm]
-ΤΜΗΜΑΤΟΣ ΕΦΑΡΜΟΣΜΕΝΗΣ ΠΛΗΡΟΦΟΡΙΚΗΣ}\\[2.5 cm]
-{ \large ΠΑΡΑΛΛΗΛΟΣ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΣ ΜΕ ΧΡΗΣΗ \en{OpenMP}\\[0.4 cm] } Διπλωματική Εργασία\\[1 cm]
+\textsc{ ΠΑΝΕΠΙΣΤΉΜΙΟ ΜΑΚΕΔΟΝΊΑΣ\\[0.3 cm]
+ΠΡΌΓΡΑΜΜΑ ΜΕΤΑΠΤΥΧΙΑΚΏΝ ΣΠΟΥΔΏΝ\\[0.3 cm]
+ΤΜΉΜΑΤΟΣ ΕΦΑΡΜΟΣΜΈΝΗΣ ΠΛΗΡΟΦΟΡΙΚΉΣ}\\[2.5 cm]
+{ \large ΠΑΡΆΛΛΗΛΟΣ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΣ ΜΕ ΧΡΉΣΗ \en{OpenMP}\\[0.4 cm] } Διπλωματική Εργασία\\[1 cm]
 του\\[0.5 cm]
 \large
 Κοντογιάννη Γεώργιου
 \begin{minipage}{0.4\textwidth}
 \end{minipage}
 \vfill
-{\large Θεσσαλονίκη, Φεβρουάριος 2021}
+{\large Θεσσαλονίκη, Ιούνιος 2021}
 
  \end{center}
  
@@ -25,17 +25,17 @@
 \setcounter{page}{3} 
 
  \begin{center}
-{\large {ΠΑΡΑΛΛΗΛΟΣ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΣ ΜΕ ΧΡΗΣΗ \en{OpenMP}}}\\[2 cm]
+{\large {ΠΑΡΆΛΛΗΛΟΣ ΠΡΟΓΡΑΜΜΑΤΙΣΜΟΣ ΜΕ ΧΡΉΣΗ \en{OpenMP}}}\\[2 cm]
 Κοντογιάννης Γεώργιος\\[0.5 cm]
 Δίπλωμα Πολιτικού Μηχανικού, ΑΠΘ, 2016\\[2 cm]
 Διπλωματική Εργασία\\[0.5 cm]
 υποβαλλόμενη για τη μερική εκπλήρωση των απαιτήσεων του\\[0.5 cm]
-ΜΕΤΑΠΤΥΧΙΑΚΟΥ ΤΙΤΛΟΥ ΣΠΟΥΔΩΝ ΣΤΗΝ ΕΦΑΡΜΟΣΜΕΝΗ ΠΛΗΡΟΦΟΡΙΚΗ\\[2 cm]
+ΜΕΤΑΠΤΥΧΙΑΚΟΎ ΤΊΤΛΟΥ ΣΠΟΥΔΏΝ ΣΤΗΝ ΕΦΑΡΜΟΣΜΈΝΗ ΠΛΗΡΟΦΟΡΙΚΉ\\[2 cm]
 \begin{flushleft}
 Επιβλέπων Καθηγητής\\
 Μαργαρίτης Κωνσταντίνος
 \vfill
-Εγκρίθηκε από την τριμελή εξεταστική επιτροπή την ηη/μμ/εεεε\\[0.5 cm]
+Εγκρίθηκε από την τριμελή εξεταστική επιτροπή την η/μ/ΕΕΕΑ\\[0.5 cm]
 \begin{tabular}{  p{\dimexpr 0.3333\linewidth-2\tabcolsep} 
                    p{\dimexpr 0.3333\linewidth-2\tabcolsep} p{\dimexpr 0.3333\linewidth-2\tabcolsep}
                    } Ονοματεπώνυμο 1 & Ονοματεπώνυμο 2  & Ονοματεπώνυμο 3 \\[1 cm]
@@ -67,25 +67,19 @@
 \begin{flushleft}
 {\large \textbf{Περίληψη}}\\[0.5 cm]
 \end{flushleft}
-
-\subparagraph{}
 Αντικείμενο της διπλωματικής εργασίας είναι η μελέτη του \en{OpenMP}, ενός προτύπου
-παράλληλου προγραμματισμού, που δίνει στο χρήστη τη δυνατότητα αναπτύξης παράλληλων προγραμμάτων για
-συστήματα μοιραζόμενης μνήμης, τα οποία  είναι ανεξάρτητα από τη αρχιτεκτονική του συστήματος και
+παράλληλου προγραμματισμού, που δίνει στο χρήστη τη δυνατότητα ανάπτυξης παράλληλων προγραμμάτων για
+συστήματα διαμοιραζόμενης μνήμης, τα οποία  είναι ανεξάρτητα από τη αρχιτεκτονική του συστήματος και
 έχουν μεγάλη ικανότητα κλιμάκωσης\cite{pdplab}.
 
 Σκοπός της εργασίας είναι η συνοπτική ανακεφαλαίωση των βασικών χαρακτηριστικών των παλαιών εκδόσεων
 (\en{OpenMP 2.5}), η μελέτη και περιγραφή των κύριων χαρακτηριστικών των νεότερων (3.0 και 4.5)
 καθώς και η υλοποίηση αλγορίθμων σειριακά και παράλληλα εκτελέσιμων, με σκοπό τη συγκριτική μελέτη
-των παραλλαγών του κάθε προβλήματος για την εξαγωγή συμπερασμάτων. Για την παράλληλη υλοποίηση θα
-γίνει χρήση της Διεπαφής Προγραμματισμού Εφαρμογών \en{(Application Programming Interface {-} API)
-OpenMP}, με χαρακτηριστικά που εισήχθησαν στις εκδόσεις \en{OpenMP} 3.0 που δημοσιεύθηκε το 2008 και
-\en{OpenMP} 4.5 που δημοσιεύθηκε 2015 καθώς και χαρακτηριστικά παλαιότερων
-εκδόσεων\cite{thenextstep59}.
+των παραλλαγών του κάθε προβλήματος για την εξαγωγή συμπερασμάτων. Για την παράλληλη υλοποίηση των προβλημάτων χρησιμοποιούνται χαρακτηριστικά όλων των εκδόσεων του \en{OpenMP}, συμπεριλαμβανομένων των \en{Tasks}, \en{SIMD} και \en{Offloading}\cite{thenextstep59}.
 
 Τον Μάιο του 2008 κυκλοφόρησε η έκδοση του \en{OpenMP} 3.0. Στην κυκλοφορία συμπεριλήφθηκε για
-πρώτη φορά η έννοια των διεργασιών \en{(Tasking)} αλλά και βελτιώσεις στην υποστήριξη της διεπαφής
-μέσω της \en{C++}. Αποτελεί την πρώτη ενημέρωση μετά την έκδοση 2.5 με σημαντικές βελτιώσεις. Το
+πρώτη φορά η έννοια των εργασιών\en{(Tasking)} αλλά και βελτιώσεις στην υποστήριξη της διεπαφής
+μέσω της \en{C++}. Αποτελεί την πρώτη ενημέρωση μετά την έκδοση 2.5 με σημαντικές αλλαγές. Το
 2011 κυκλοφόρησε η \en{OpenMP} 3.1 χωρίς αξιοσημείωτες νέες προσθήκες. Νέα χαρακτηριστικά ωστόσο,
 εισήχθησαν στο \en{OpenMP} 4.0 που κυκλοφόρησε τον Ιούλιο του 2013, όπου έγινε υποστήριξη της
 αρχιτεκτονικής \en{cc-NUMA}, του ετερογενούς προγραμματισμού, της διαχείρισης σφαλμάτων στην περιοχή
@@ -93,35 +87,37 @@ OpenMP}, με χαρακτηριστικά που εισήχθησαν στις 
 έγινε στα παραπάνω χαρακτηριστικά με την έκδοση \en{OpenMP} 4.5\cite{thenextstep20}.
 
 Τα προαναφερθέντα χαρακτηριστικά χρησιμοποιήθηκαν για την υλοποίηση αλγορίθμων σε διάφορες
-παραλλαγές, με σκοπό τη συγκριτική μελέτη τους για την εξαγωγή συμπερασμάτων αναφορικά με τη
-βελτίωση της απόδοσης σε σχέση με τη σειριακή υλοποίηση, τη μεταξύ τους σύγκριση καθώς επίσης, την
+παραλλαγές, με σκοπό τη συγκριτική μελέτη τους για την εξαγωγή 
+συμπερασμάτων αναφορικά με τη
+βελτίωση της απόδοσης σε σχέση με τη σειριακή υλοποίηση, καθώς επίσης την
 αξιολόγηση της ευχρηστίας της υλοποίησής τους. Στόχος της έρευνας είναι η συλλογή και καταγραφή
 παρατηρήσεων που προκύπτουν σε κάθε υλοποίηση, για την καλύτερη κατανόηση των εννοιών του παράλληλου
-προγραμματισμου.
+προγραμματισμού.
 
-Για την ικανότητα παραλληλοποίησης του κώδικα, απαιτούνται αλγόριθμοι που αποτελούνται απο διεργασίες
+Για την ικανότητα παραλληλοποίησης του κώδικα, απαιτούνται αλγόριθμοι που αποτελούνται από εργασίες
 ανεξάρτητες μεταξύ τους και ικανές να εκτελεστούν ταυτόχρονα, σε διαφορετικούς επεξεργαστές. Τέτοιοι
 αλγόριθμοι είναι οι εξής:
 
 \begin{itemize}
-    \item μετασχηματισμός \textbf{\en{Fourier - (Discrete Fourier Transform)}}, 
-    \item ταξινόμηση \textbf{\en{Mergesort}},
-    \item ταξινόμηση \textbf{\en{Quicksort}},
-    \item διεργασία \textbf{\en{Producer-Consumer}},
+\setlength\itemsep{-0.8em}
+    \item μετασχηματισμός \emph{\en{Fourier - (Discrete Fourier Transform)}}, 
+    \item ταξινόμηση \emph{\en{Mergesort}},
+    \item ταξινόμηση \emph{\en{Quicksort}},
+    \item \emph{\en{Producer-Consumer}},
     \item υπολογισμός $\pi$, 
     \item υπολογισμός πρώτων αριθμών,
     \item υπολογισμός εσωτερικού γινομένου,
-    \item πολλαπλασιασμός πινάκων,
-    \item \en{Single precision A X plus Y - \textbf{SAXPY}},
-    \item \en{\textbf{Linked list} traversal}
+    \item πολλαπλασιασμός μητρώων,
+    \item \en{Single precision A X plus Y - \emph{SAXPY}},
+    \item \en{\emph{Linked list} traversal}
 \end{itemize}
 
 Υλοποιήσεις των παραπάνω προβλημάτων χρησιμοποιούνται στα πλαίσια της παρούσας εργασίας.
 Δημιουργήθηκαν παραλλαγές του κάθε προβλήματος που χρησιμοποιούν την κεντρική μονάδα επεξεργασίας
-(\textbf{\en{CPU}}) για σειριακή και παράλληλη εκτέλεση. 'Οπου είναι εφικτό υλοποιείται παραλλαγή
-για εκτελεσή μέσω της μονάδας επεξεργασίας της κάρτας γραφικών (\textbf{\en{GPU}}). Οι χρονικές
+(\textbf{\en{CPU}}) για σειριακή και παράλληλη εκτέλεση. 'Όπου είναι εφικτό υλοποιείται παραλλαγή
+για εκτέλεση μέσω της μονάδας επεξεργασίας της κάρτας γραφικών(\textbf{\en{GPU}}). Οι χρονικές
 καταγραφές συγκρίνονται μεταξύ τους. Ακόμη, γίνεται αξιολόγηση της ευχρηστίας για την υλοποίηση της
-κάθε παραλλαγής καθώς και καταγραφή παρατηρήσεων που τυχόν προέκυψαν.\\[1 cm]
+κάθε παραλλαγής καθώς και καταγραφή παρατηρήσεων που προκύπτουν.\\[1 cm]
 
 \indent \textbf{Λέξεις Κλειδιά:} Παράλληλος Προγραμματισμός, Παραλληλοποίηση, \en{OpenMP,
 accelerators, offloading, vectorization, SIMD, OpenMP4.5, UDRs}
@@ -132,14 +128,36 @@ accelerators, offloading, vectorization, SIMD, OpenMP4.5, UDRs}
 
 {\large \textbf{\en{Abstract}}}\\[0.5 cm]
 \end{flushleft}
+This study examines the OpenMP, a cross-platform parallel programming Application Programmers Interface (API) built into all modern C and C++ compilers. The API makes it relatively easy to add parallelism to sequentially implemented programs, as well as created new from scratch.
+
+The purpose of this study is to briefly summarize the main features of the older OpenMP versions (until version 2.5), the description of the main features of newer versions such as 3.0 and 4.5, as well as the implementation of algorithms both sequentially and in parallel alternatives, in order to compare them with each other.
+
+Tasking is the main feature introduced in OpenMP version 3.0(May, 2008). In 2011, version 3.1 contained mainly bug fixes. More features were introduced in version 4.0, which was released in July 2013. Some of them are: cc-NUMA, heterogenous computing, error-handling and vectorization using SIMD. Enhancements in the aforementioned are included in version 4.5.
+
+The features described above are used for the implementation of some algorithms in multiple variations, in order to compare them and draw conclusions regarding their efficiency, simplicity and ease of implementation. The chosen algorithms contain independent tasks, are amenable to parallelism and capable of running by different threads. Those algorithms are:
+
+\begin{itemize}
+\setlength\itemsep{-1em}
+    \item \en{Fourier - (Discrete Fourier Transform)}, 
+    \item \en{Mergesort},
+    \item \en{Quicksort},
+    \item \en{Producer-Consumer},
+    \item $\pi$ calculation, 
+    \item Prime numbers calculation,
+    \item Dot product calculation,
+    \item Matrix Multiplication,
+    \item \en{Single precision A X plus Y - \textbf{SAXPY}},
+    \item \en{Linked list traversal}
+\end{itemize}
+
 \indent \textbf{\en{Keywords:}}
+OpenMP, parallel programming, threads, examples, SIMD, vectorization, GPU, offloading, heterogeneous computing, tasks, cc-NUMA
 
 \clearpage
 \selectlanguage{greek}
 \begin{flushleft}
 {\large \textbf{Ευχαριστίες}}\\[0.5 cm]
 \end{flushleft}
-\subparagraph{}
 Εκφράζω τις θερμές μου ευχαριστίες στον επιβλέποντα καθηγητή κ. Κωνσταντίνο Μαργαρίτη, για την
 ουσιαστική του συνεισφορά στην εκπόνηση της παρούσας εργασίας.
 
@@ -149,12 +167,12 @@ accelerators, offloading, vectorization, SIMD, OpenMP4.5, UDRs}
 %\setstretch{1.5}
 
 \selectlanguage{greek}
-\renewcommand{\listfigurename}{Κατάλογος Εικόνων (αν υπάρχουν)}
+\renewcommand{\listfigurename}{Κατάλογος Εικόνων}
 \clearpage
 \listoffigures
 
 \selectlanguage{greek}
-\renewcommand{\listtablename}{Κατάλογος Πινάκων (αν υπάρχουν)}
+\renewcommand{\listtablename}{Κατάλογος Πινάκων}
 \clearpage
 \listoftables
 

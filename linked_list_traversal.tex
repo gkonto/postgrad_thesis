@@ -1,0 +1,521 @@
+\setstretch{1.5}
+\clearpage
+\subsection{Διάσχιση συνδεδεμένης λίστας}
+Η διάσχιση συνδεδεμένης λίστας αποτελεί μια από τις πιο βασικές εργασίες σε κάθε σενάριο προβλήματος που εμπεριέχει συνδεδεμένες λίστες. Με το όρο διάσχιση, ορίζεται η επίσκεψη σε κάθε κόμβο της λίστας τουλάχιστον μια φορά, με σκοπό να εκτελεστεί κάποια λειτουργία σε αυτόν. Στο πρόβλημα που ακολουθεί, οι κόμβοι της λίστας αποτελούνται από έναν ακέραιο ο κάθε ένας. 
+
+Ως εργασία της σε κάθε κόμβο, εφαρμόζεται αδρανοποίηση στο συγκεκριμένο νήμα που διατρέχει τον κόμβο, για τυχαίο χρόνο εύρους (1, 5) νανοδευτερολέπτων. Για επαλήθευση της σωστής εκτέλεσης της κάθε παραλλαγής, θα πρέπει το άθροισμα των ακεραίων κάθε κόμβου  να ισούται με $\sum_{k=0}^{N-2}k$  
+
+\subsubsection{Περιγραφή κοινού τμήματος διάσχισης συνδεδεμένης λίστας}
+\selectlanguage{english}
+\begin{spacing}{0.6}
+\begin{lstlisting}[showstringspaces=false, language=C++, caption={\en{Linked List Traversal: main()}} , frame=tb]{Name}
+ int main(int argc, char **argv) {
+     Opts o;
+     parseArgs(argc, argv, o);
+     srand(time(nullptr));
+
+     Llist<int> l(0);
+     int verify_val = fillList(l, o);
+
+     auto start = omp_get_wtime();
+     int ret = calculate(l);
+     auto end = omp_get_wtime();
+
+     if (verify_val != ret) {
+         std::cout << "Error: Expected : " << verify_val <<
+          " Got: " << ret << std::endl;
+         exit(1);
+     }
+
+     std::cout << "Execution Time : " << std::fixed
+         << std::setprecision(3) << end - start;
+     std::cout << " sec " << std::endl;
+
+
+     return 0;
+ }
+
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+Στο βασικό κορμό του προβλήματος, δημιουργείται η συνδεδεμένη λίστα μέσω της ρουτίνας \emph{\en{fillList}} που δέχεται ως όρισμα ένα αντικείμενο τύπου \en{\emph{Llist<int>}} και το μέγεθος των κόμβων από τους οποίους θα αποτελείται. Στη συνέχεια καλείται η \en{\emph{calculate}} που διαφοροποιείται σε κάθε παραλλαγή. Τέλος, γίνεται επαλήθευση του αποτελέσματος και η καταγραφή του χρόνου εκτέλεσης.
+
+\clearpage
+\selectlanguage{english}
+\begin{spacing}{1.1}
+\begin{lstlisting}[language=C++, caption={\en{Linked List Traversal: fillList()}}, frame=tb]{Name}
+ int fillList(Llist<int> &list, Opts &o) {
+     Lnode<int> *head = list.head();
+     Lnode<int> *temp = head;
+     int verify_val = 0;
+     for (size_t i = 0; i < o.size - 1; ++i) {
+         temp = temp->addNode(i);
+         verify_val += i;
+     }
+     return verify_val;
+ }
+
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\selectlanguage{english}
+
+\begin{spacing}{0.9}
+\begin{lstlisting}[language=C++, caption={\en{Linked List Traversal: Llist}}, frame=tb]{Name}
+template<typename T>
+class Llist {
+public:
+    Llist(T val) {
+        head_ = new Lnode<T>(val);
+    }
+    Lnode<T> *head() { return head_; }
+
+    ~Llist() {
+        delete head_;
+    }
+
+    size_t size() const {
+        Lnode<T> *node = head_;
+        size_t size = 0;
+        for (; node;) {
+            ++size;
+            node = node->next();
+        }
+        return size;
+    }
+
+    void forEveryNode(FOR_EVERY_FUN fn, void *args) {
+        head_->forNext(fn, args);
+    }
+
+private:
+        Lnode<T> *head_ = nullptr;
+};
+
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+\clearpage
+\selectlanguage{english}
+\begin{spacing}{1}
+\begin{lstlisting}[language=C++, caption={\en{Linked List Traversal: Lnode}}, frame=tb]{Name}
+template<typename T>
+class Lnode {
+public:
+    explicit Lnode(T val) : val_(val) {}
+    Lnode<T> *addNode(T val) {
+        next_ = new Lnode<T>(val);
+        return next_;
+    }
+
+    ~Lnode() {
+        if (!next_) {
+            delete next_;
+        }
+    }
+
+    const T &data() const { return val_;}
+    Lnode<T> *next() const { return next_; }
+
+    void forNext(FOR_EVERY_FUN fn, void *args) {
+        fn(*this, args);
+        if (next_) {
+            next_->forNext(fn, args);
+        }
+    }
+
+private:
+        T val_;
+        Lnode<T> *next_ = nullptr;
+ };
+
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\clearpage
+
+\subsubsection{Σειριακή εκτέλεση}
+Η πρώτη παραλλαγή του προβλήματος αφορά την σειριακή εκτέλεσή του. Στη ρουτίνα \en{\emph{calculate}} εισάγεται ως όρισμα η αρχή της συνδεδεμένης λίστας και στη συνέχεια για κάθε κόμβο της σειριακά, εφαρμόζεται αδράνεια για ένα μικρό χρονικό διάστημα. Η παραλλαγή αυτή θα χρησιμοποιηθεί ως σημείο αναφοράς για την εξαγωγή συμπερασμάτων σχετικά με τις παράλληλες εκτελέσεις.
+
+\selectlanguage{english}
+\begin{spacing}{0.8}
+\begin{lstlisting}[language=C++, caption={\en{Linked List Traversal: } \el{Σειριακή εκτέλεση}} , frame=tb]{Name}
+using namespace std;
+void dowork(Lnode<int> &node, void *args) {
+     int *num_nodes = static_cast<int *>(args);
+     this_thread::sleep_for(
+     	chrono::nanoseconds(rand() % 5 + 1));
+     *num_nodes += node.data();
+ }
+
+ int calculate(Llist<int> &l) {
+
+     int number_of_nodes = 0;
+     l.forEveryNode(dowork, &number_of_nodes);
+
+     return number_of_nodes;
+ }
+
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Linked List Traversal}: Επιλογές μεταγλώττισης \en{Alt1}}
+    \label{my-label}
+    \resizebox{0.8\textwidth}{!} {
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt1}} & \en{-fopt-info-vec=builds/alt1.log -O2 -fno-inline -fopenmp -o ./builds/Alt1} \\ \hline
+    \end{tabular}}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Linked List Traversal: } Αποτελέσματα \en{Alt1}}
+    \label{my-label}
+    \resizebox{0.7\textwidth}{!} {
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{1}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-2} 
+               & \textbf{\en{Alt1}}\\ \hline
+     10000 & 0.762 \\ \cline{1-2} 
+     20000 & 1.508 \\ \cline{1-2} 
+     30000 & 2.243 \\ \cline{1-2} 
+     40000 & 2.973 \\ \cline{1-2} 
+     50000 & 3.770 \\ \cline{1-2} 
+     60000 & 4.516 \\ \cline{1-2} 
+     70000 & 5.275 \\ \cline{1-2} 
+    \end{tabular}}
+\end{table}
+\clearpage
+\paragraph{Παρατηρήσεις}
+\ \\
+Η βασικότερη παρατήρηση που μπορεί να γίνει σχετικά με την εκτέλεση του προβλήματος για διαφορετικά μεγέθη, είναι η γραμμική πολυπλοκότητα. Με άλλα λόγια, 
+αν διπλασιαστεί το μέγεθος της συνδεδεμένης λίστας, διπλασιάζεται και ο χρόνος εκτέλεσης.
+
+
+\subsubsection{Παραλλαγή με \en{parallel for}}
+Η παράλληλη διαχείριση των κόμβων της συνδεδεμένης λίστας είναι ένα δύσκολο πρόβλημα προς επίλυση, καθώς η προσπέλαση του κάθε κόμβου εξαρτάται από τον αμέσως προηγούμενο. Στην παραλλαγή που ακολουθεί, γίνεται προσπάθεια παραλληλοποίησης του προβλήματος με τη χρήση της κλασικής οδηγίας \en{\emph{parallel for}}. Τα δεδομένα του προβλήματος μεταφέρονται σε ένα \en{\emph{std::vector}} πάνω στο οποίο εφαρμόζεται η οδηγία.
+\selectlanguage{english}
+\begin{spacing}{0.9}
+\begin{lstlisting}[language=C++, caption={\en{Linked List Traversal: parallel for()}} , frame=tb]{Name}
+using namespace std;
+ 
+int calculate(Llist<int> &l) {
+
+    Lnode<int> *node = l.head();
+    size_t nodes_num = l.size();
+    std::vector<int> nodes(nodes_num);
+
+    for (size_t i = 0; i < nodes_num; ++i) {
+        nodes[i] = node->data();
+        node = node->next();
+    }
+
+
+    int num_nodes = 0;
+#pragma omp parallel for shared(num_nodes)
+    for (size_t i = 0; i < nodes_num; ++i) {
+        this_thread::sleep_for(
+        		chrono::milliseconds(randI()));
+#pragma omp atomic
+        num_nodes += nodes[i];
+    }
+
+    return num_nodes;
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+\clearpage
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Linked List Traversal}: Επιλογές μεταγλώττισης \en{Alt2, Alt3}}
+    \label{my-label}
+    \resizebox{0.8\textwidth}{!} {
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt2}} & \en{-fopt-info-vec=builds/alt2.log -O2 -fno-tree-vectorize -fno-inline -fopenmp -o ./builds/Alt2} \\ \hline
+	 \textbf{\en{Alt3}} & \en{-fopt-info-vec=builds/alt3.log -O2 -ftree-vectorize -fno-inline -fopenmp -o ./builds/Alt3} \\ \hline
+    \end{tabular}}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Linked List Traversal: } Αποτελέσματα \en{Alt2, Alt3}}
+    \label{my-label}
+    \resizebox{0.5\textwidth}{!} {
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+               & \textbf{\en{Alt2}} & \textbf{\en{Alt3}}\\ \hline
+     10000 & 0.051 & 0.051 \\ \cline{1-3} 
+     20000 & 0.097 & 0.099 \\ \cline{1-3} 
+     30000 & 0.146 & 0.146 \\ \cline{1-3} 
+     40000 & 0.197 & 0.192 \\ \cline{1-3} 
+     50000 & 0.241 & 0.243 \\ \cline{1-3} 
+     60000 & 0.283 & 0.291 \\ \cline{1-3} 
+     70000 & 0.337 & 0.334 \\ \cline{1-3} 
+
+    \end{tabular}}
+\end{table}
+
+\paragraph{Παρατηρήσεις}
+\ \\
+Παρατηρείται εμφανής μείωση του χρόνου εκτέλεσης σε σύγκριση με τη σειριακή εκτέλεση του προβλήματος. Παρόλα αυτά, υπάρχουν αρνητικές επιπτώσεις με τη βασικότερη να είναι η ανάγκη μεταφοράς των κόμβων της συνδεδεμένης λίστας σε σειριακή διάταξη. Κάτι τέτοιο, όχι μόνο ακυρώνει την έννοια της συνδεδεμένης λίστας, αλλά μπορεί και να μην είναι εφικτό καθώς για μεγάλα μεγέθη προβλήματος είναι πιθανό να μην υπάρχει ο απαιτούμενος χώρος για μια τέτοια ενέργεια.
+\begin{figure}[h]
+\begin{tabular}{*{2}{>{\centering\arraybackslash}b{\dimexpr0.5\linewidth-2\tabcolsep\relax}}}
+\resizebox{0.4\textwidth}{!} {
+\begin{tikzpicture}[state/.append style={minimum size=7mm}]
+     \begin{axis}[
+         xlabel={Μέγεθος πίνακα},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=10000, xmax=70000,
+         ymin=0, ymax=9,
+         xtick={ 10000, 20000, 30000, 40000, 50000, 60000, 70000},
+         ytick={ 0, 1, 2, 3, 4, 5, 6, 7},
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ] 
+ 	
+ 	\addplot[ color=blue, mark=triangle,]
+      coordinates {
+          (10000,0.762)(20000,1.508)(30000,2.243)
+          (40000,2.973)(50000, 3.770)(60000,4.516)(70000,5.275)
+ 	};
+ 	\addlegendentry{\en{Alt1}}
+ 	
+	\addplot[ color=red, mark=square,]
+      coordinates {
+         (10000, 0.051)(20000, 0.097)(30000,0.146)
+         (40000,0.197)(50000,0.241)(60000,0.283)(70000,0.337)
+ 	};
+ 	\addlegendentry{\en{Alt2}}
+     \end{axis}
+ \end{tikzpicture}}
+
+\caption{\en{Linked List Traversal}: Σύγκριση \en{Alt1, Alt2}}
+    &
+\renewcommand{\arraystretch}{1.1}
+\resizebox{0.4\textwidth}{!} {
+\begin{tabular}{c|c}
+Μέγεθος & Ποσοστό μείωσης χρόνου (\%)  \\
+\hline
+10000 & 93.6 \\
+20000 & 93.4 \\
+30000 & 93.5 \\
+40000 & 93.8 \\
+50000 & 93.6 \\
+60000 & 93.7 \\
+70000 & 93.7 \\
+\end{tabular}}
+\captionof{table}{\en{Linked List Traversal: }Ποσοστιαία σύγκριση μεταξύ \en{Alt1} και \en{Alt2}}
+\end{tabular}
+\end{figure}
+\clearpage
+
+\subsubsection{Παραλλαγή με \en{parallel for (2)}}
+
+\selectlanguage{english}
+\begin{spacing}{0.8}
+\begin{lstlisting}[language=C++, caption={\en{Linked List Traversal: parallel for schedule(static)}} , frame=tb]{Name}
+int calculate(Llist<int> &l) {
+    Lnode<int> *node = l.head();
+    size_t nodes_num = l.size();
+    std::vector<int> nodes(nodes_num);
+
+    for (size_t i = 0; i < nodes_num; ++i) {
+        nodes[i] = node->data();
+        node = node->next();
+    }
+    int num_nodes = 0;
+
+#pragma omp parallel for schedule(static, 10) shared(num_nodes)
+    for (size_t i = 0; i < nodes_num; ++i) {
+        this_thread::sleep_for(chrono::nanoseconds(randI()));
+#pragma omp atomic
+        num_nodes += nodes[i];
+    }
+
+    return num_nodes;
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Linked List Traversal}: Επιλογές μεταγλώττισης \en{Alt4, Alt5}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt4}} & \en{-fopt-info-vec=builds/alt4.log -O2 -fno-tree-vectorize -fno-inline -fopenmp -o ./builds/Alt4} \\ \hline
+	 \textbf{\en{Alt5}} & \en{-fopt-info-vec=builds/alt5.log -O2 -ftree-vectorize -fno-inline -fopenmp -o ./builds/Alt5} \\ \hline
+
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Linked List Traversal: } Αποτελέσματα \en{Alt4, Alt5}}
+    \label{my-label}
+    \resizebox{0.55\textwidth}{!} {
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+               & \textbf{\en{Alt4}} & \textbf{\en{Alt5}}\\ \hline
+     10000 & 0.052 & 0.052 \\ \cline{1-3} 
+     20000 & 0.100 & 0.099 \\ \cline{1-3} 
+     30000 & 0.148 & 0.147 \\ \cline{1-3} 
+     40000 & 0.197 & 0.193 \\ \cline{1-3} 
+     50000 & 0.241 & 0.242 \\ \cline{1-3} 
+     60000 & 0.284 & 0.283 \\ \cline{1-3} 
+     70000 & 0.339 & 0.336 \\ \cline{1-3} 
+
+    \end{tabular}}
+\end{table}
+
+\paragraph{Παρατηρήσεις}
+\ \\Συγκριτικά με τις εκτελέσεις \en{Alt2} και \en{Alt3} οι χρόνοι εκτέλεσης παραμένουν αμετάβλητοι. Η εισαγωγή της φράσης \en{schedule} δεν επηρεάζει στο συγκεκριμένο παράδειγμα. Ο λόγος είναι ότι ο μέσος όρος εκτέλεσης της εργασίας σε κάθε κόμβο είναι σταθερός.
+
+\subsubsection{Παραλλαγή με \en{tasks}}
+Στη παραλλαγή αυτής της παραγράφου γίνεται χρήση της οδηγίας \en{\emph{task}}.
+Συγκεκριμένα, ο αλγόριθμος εισέρχεται σε ένα παράλληλο τμήμα όπου δημιουργείται μια ομάδα
+νημάτων. Ένα από αυτά τα νήματα είναι υπεύθυνο για την δημιουργία των ξεχωριστών εργασιών ενώ τα υπόλοιπα αναμένουν στο υποκείμενο φράγμα που βρίσκεται στο τέλος της παράλληλης περιοχής για την δημιουργία τους. Η φράση \en{nowait} επιτρέπει την ταυτόχρονη δημιουργία εργασιών και εκτέλεση τους από τα νήματα που έχουν παραβλέψει το υποκείμενο φράγμα της \en{pragma omp single}.
+Το πλεονέκτημα της διαδικασίας είναι ότι δεν απαιτείται επιπλέον χρόνος και μνήμη για την αποθήκευση των κόμβων ή των δεδομένων σε σειριακή ακολουθία.
+
+
+\selectlanguage{english}
+\begin{spacing}{0.8}
+\begin{lstlisting}[language=C++, caption={\en{Linked List Traversal: task - atomic}} , frame=tb]{Name}
+using namespace std;
+  
+int calculate(Llist<int> &l) {
+    Lnode<int> *node = l.head();
+
+    int num_nodes = 0;
+#pragma omp parallel shared(num_nodes)
+    {
+#pragma omp single nowait
+        {
+            while (node) {
+#pragma omp task shared(node) mergeable
+                {
+                    this_thread::sleep_for(
+                    	chrono::nanoseconds(randI()));
+#pragma omp atomic
+                    num_nodes += node->data();
+                }
+                node = node->next();
+            }
+        }
+    }
+    return num_nodes;
+}
+
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+\begin{table}[h]
+    \centering
+    \caption{\en{Linked List Traversal}: Επιλογές μεταγλώττισης \en{Alt6, Alt7}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt6}} & \en{-fopt-info-vec=builds/alt6.log -O2 -fno-tree-vectorize -fno-inline -fopenmp -o ./builds/Alt6} \\ \hline
+	 \textbf{\en{Alt7}} & \en{-fopt-info-vec=builds/alt7.log -O2 -ftree-vectorize -fno-inline -fopenmp -o ./builds/Alt7} \\ \hline
+
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Linked List Traversal: } Αποτελέσματα \en{Alt6, Alt7}}
+    \label{my-label}
+    \resizebox{0.7\textwidth}{!} {
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+               & \textbf{\en{Alt6}} & \textbf{\en{Alt7}}\\ \hline
+     10000 & 0.055 & 0.051 \\ \cline{1-3} 
+     20000 & 0.099 & 0.099 \\ \cline{1-3} 
+     30000 & 0.147 & 0.147 \\ \cline{1-3} 
+     40000 & 0.194 & 0.195 \\ \cline{1-3} 
+     50000 & 0.241 & 0.241 \\ \cline{1-3} 
+     60000 & 0.287 & 0.288 \\ \cline{1-3} 
+     70000 & 0.337 & 0.339 \\ \cline{1-3} 
+
+    \end{tabular}}
+\end{table}
+
+\paragraph{Παρατηρήσεις}
+\ \\
+Η χρήση των εργασιών αποτελεί την καλύτερη λύση για τέτοιου είδους προβλήματα. Οι εργασίες εκτελούνται τυχαία άλλα μπορεί να εκτελεστούν και με τη σειρά με την οποία δημιουργήθηκαν με την εισαγωγή της φράσης \en{\emph{ordered}}. Πρέπει ωστόσο να δοθεί ιδιαίτερη προσοχή στον αριθμό των εργασιών που δημιουργούνται σε συνάρτηση με το χρόνο που απαιτείται για την εκτέλεση της κάθε εργασίας. Αν ο χρόνος εκτέλεσης των εργασιών είναι μικρότερος από το χρόνο που απαιτείται για την δημιουργία της εργασίας, τότε ο χρόνος εκτέλεσης θα μεγαλώσει. Όπως φαίνεται και στο παρακάτω παράδειγμα, ο χρόνος εκτέλεσης είναι συγκρίσιμος με την παραλλαγή \en{Alt2}. Η απώλεια ανάγκης για δέσμευση επιπλέον μνήμης καθιστά την υλοποίηση αυτής της παραγράφου καλύτερη.
+\begin{figure}[h]
+\centering 
+\resizebox{0.5\textwidth}{!} {
+\begin{tikzpicture}[state/.append style={minimum size=7mm}]
+     \begin{axis}[
+         xlabel={Μέγεθος πίνακα},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=10000, xmax=70000,
+         ymin=0, ymax=0.5,
+         xtick={ 10000, 20000, 30000, 40000, 50000, 60000, 70000},
+         ytick={ 0, 0.25, 0.5},
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ] 
+ 	\addplot[ color=red, mark=square,]
+      coordinates {
+         (10000, 0.051)(20000, 0.097)(30000,0.146)
+         (40000,0.197)(50000,0.241)(60000,0.283)(70000,0.337)
+ 	};
+ 	\addlegendentry{\en{Alt2}}
+ 	
+ 	\addplot[ color=blue, mark=triangle,]
+      coordinates {
+          (10000,0.055)(20000,0.099)(30000,0.147)
+          (40000,0.194)(50000,0.241)(60000,0.287)(70000,0.337)
+ 	};
+ 	\addlegendentry{\en{Alt6}}
+ 	
+     \end{axis}
+ \end{tikzpicture}}% NO EMPTY LINE HERE!!!!
+ \caption{\en{Linked List Traversal}: Σύγκριση \en{Alt2, Alt6}}
+\end{figure}
+

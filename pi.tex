@@ -1,0 +1,818 @@
+\clearpage
+\setstretch{1.5}
+
+\subsection{Αριθμητικός υπολογισμός σταθεράς \en{$\pi$}}
+Στο παράδειγμα που ακολουθεί εφαρμόζεται 	η μέθοδος της αριθμητικής ολοκλήρωσης για τον υπολογισμό της σταθεράς $\pi$. Ο αλγόριθμος αποτελείται από έναν βρόγχο επανάληψης που εκτελεί ένα προκαθορισμένο αριθμό επαναλήψεων. Σε κάθε επανάληψη υπολογίζεται μία τιμή \en{x} που αποτελεί το μερικό αποτέλεσμα του τελικού υπολογισμού και λειτουργεί ανεξάρτητα από τις υπόλοιπες επαναλήψεις. Στο τέλος του βρόγχου το άθροισμα των επιμέρους τιμών αποτελεί το τελικό αποτέλεσμα. Όσο πιο μεγάλος είναι ο αριθμός των επαναλήψεων, τόσο πιο ακριβής είναι και ο υπολογισμός του $\pi$.
+
+
+\[ \pi   =   \int_{0}^{1} \frac{4}{1 + x ^2} \,dx    \cong   \sum_{n=1}^{\infty} \frac{4}{1 + x ^2}\Delta \]
+
+\[ \Delta = \frac{1}{N} \]
+
+\[ x_i = \frac{i - 0.5}{\Delta} \] 
+
+
+\subsubsection{Περιγραφή κοινού ρουτίνας \en{main} του προβλήματος υπολογισμού $\pi$}
+\mbox{}
+
+\selectlanguage{english}
+\begin{spacing}{1.0}
+
+\begin{lstlisting}[showstringspaces=false, language=C++, caption={\en{PI: main}} , frame=tb]{Name}
+int main(int argc, char **argv) {
+    Opts o;
+    parseArgs(argc, argv, o);
+    auto seconds = omp_get_wtime();
+    double p = pi(o.num_steps);
+    std::cout << "Elapsed Time: " << 
+    			omp_get_wtime() - seconds << std::endl;
+    std::cout << "pi Value: " << p << std::endl;
+    return 0;
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+\clearpage
+\subsubsection{Σειριακή εκτέλεση}
+Η σειριακή εκτέλεση του προβλήματος είναι απλή και τα αποτελέσματα της θα χρησιμοποιηθούν ως μέτρο σύγκρισης για τις παραλλαγές που θα ακολουθήσουν και θα εμπεριέχουν παραλληλισμό.
+
+\selectlanguage{english}
+\begin{spacing}{0.8}
+\begin{lstlisting}[language=C++, caption={PI: \el{Σειριακή υλοποίηση}} , frame=tb]{Name}
+double pi(long num_steps) {
+    int upper_limit = 1;
+    double step = upper_limit/(double)num_steps;
+    double sum = .0, pi = 0.0;
+    
+    for (int i = 0; i < num_steps; ++i){
+        double x = (i + 0.5) * step;
+        sum += 4.0 / (1.0 + x*x);
+    }
+    pi = step * sum;
+    return pi;
+}
+
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{PI}: Επιλογές μεταγλώττισης \en{Alt1, Alt2}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt1}} & \en{-fopt-info-vec=builds/alt1.log -O2 -fno-inline -fno-tree-vectorize -fopenmp -o ./builds/Alt1} \\ \hline
+      \textbf{\en{Alt2}} & \en{-fopt-info-vec=builds/alt2.log -O2 -fno-inline -ftree-vectorize -fopenmp -o ./builds/Alt2} \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{PI}: Αποτελέσματα \en{Alt1, Alt2}}
+    \label{my-label}
+    \resizebox{0.7\textwidth}{!} {
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+               & \textbf{\en{Alt1}} & \textbf{\en{Alt2}}\\ \hline
+     100000000 & 1.076 & 1.098 \\ \cline{1-3} 
+     200000000 & 2.132 & 2.123 \\ \cline{1-3} 
+     300000000 & 3.188 & 3.185\\ \cline{1-3} 
+     400000000 & 4.321 & 4.295\\ \cline{1-3} 
+     500000000 & 5.393 & 5.371\\ \cline{1-3} 
+     600000000 & 6.394 & 6.370\\ \cline{1-3} 
+
+    \end{tabular}}
+\end{table}
+
+\paragraph{Παρατηρήσεις}
+\ \\
+Όπως φαίνεται από τα παραπάνω αποτελέσματα, δεν επιτυγχάνεται διανυσματικοποίηση μέσω της δοθείσης εντολής στο μεταγλωττιστή. Η αδυναμία οφείλεται στην μεταβλητή \emph{\en{sum}} και στο άθροισμα των επιμέρους υπολογισμών.
+
+\clearpage
+\subsubsection{Παραλλαγή με \en{omp parallel}}
+Η παραλλαγή αυτής της παραγράφου αποτελεί πολύπλοκη λύση για ένα απλό πρόβλημα παραλληλοποίησης. Πριν την έναρξη του βρόγχου επανάληψης, υπολογίζεται ο συνολικός αριθμός των νημάτων που τρέχουν σε μια παράλληλη περιοχή. Για κάθε νήμα, δημιουργείται μια μεταβλητή \en{sum} στην οποία θα γίνεται το άθροισμα των επιμέρους τμημάτων του βρόγχου επανάληψης. Το άθροισμα των μεταβλητών αυτών αποτελεί και το τελικό αποτέλεσμα. Στη συνέχεια, ο κώδικας εισέρχεται στην παράλληλη περιοχή όπου σε κάθε νήμα ανατίθεται ένας αριθμός επαναλήψεων που θα εκτελέσει. Αφού τα νήματα ολοκληρώσουν τους υπολογισμούς, το τελικό αποτέλεσμα αθροίζεται στην μεταβλητή \en{pi}.
+
+\selectlanguage{english}
+\begin{spacing}{0.6}
+\begin{lstlisting}[language=C++, caption={PI: omp parallel} , frame=tb]{Name}
+double pi(long num_steps) {
+    double pi = .0;
+    int num_threads = 0;
+#pragma omp parallel shared(num_threads)
+    {
+        int id = omp_get_thread_num();
+        if (id == 0) {
+            num_threads = omp_get_num_threads();
+        }
+    }
+	
+    particle *sum = new particle[num_threads];
+    for (int i = 0; i < num_threads; ++i) {
+        sum[i].val = 0.0;
+    }
+    double step= 1.0/(double)num_steps;
+
+#pragma omp parallel
+    {
+        int thread_num = omp_get_thread_num();
+        int numthreads = omp_get_num_threads();
+        int low = num_steps * thread_num / numthreads;
+        int high = num_steps * (thread_num + 1)/ numthreads;
+
+        for (int i = low; i < high; ++i) {
+            double x = (i + 0.5)*step;
+            sum[thread_num].val += 4.0/(1.0 + x*x);
+        }
+    }
+  
+    for (int i = 0; i < num_threads; ++i) {
+        pi += sum[i].val * step;
+    }
+
+    delete []sum;
+    return pi;
+}
+
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+
+
+\selectlanguage{english}
+\begin{spacing}{0.6}
+\begin{lstlisting}[language=C++, caption={Particle} , frame=tb]{Name}
+struct particle {
+       double val;
+};
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\clearpage
+\begin{table}[h]
+    \centering
+    \caption{\en{PI}: Επιλογές μεταγλώττισης \en{Alt3, Alt4}}
+    \label{my-label}
+    \resizebox{0.9\textwidth}{!} {
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt3}} & \en{-fopt-info-vec=builds/alt3.log -O2 -fno-inline -fno-tree-vectorize -fopenmp -o ./builds/Alt3} \\ \hline
+      \textbf{\en{Alt4}} & \en{-fopt-info-vec=builds/alt4.log -O2 -fno-inline -ftree-vectorize -fopenmp -o ./builds/Alt4} \\ \hline
+    \end{tabular}}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{PI}: Αποτελέσματα \en{Alt3, Alt4}}
+    \label{my-label}
+    \resizebox{0.7\textwidth}{!} {
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+               & \textbf{\en{Alt3}} & \textbf{\en{Alt4}}\\ \hline
+     100000000 & 0.081 & 0.093 \\ \cline{1-3} 
+     200000000 & 0.152 & 0.154 \\ \cline{1-3} 
+     300000000 & 0.217 & 0.220 \\ \cline{1-3} 
+     400000000 & 0.313 & 0.285 \\ \cline{1-3} 
+     500000000 & 0.349 & 0.373 \\ \cline{1-3} 
+     600000000 & 0.449 & 0.420 \\ \cline{1-3} 
+
+    \end{tabular}}
+\end{table}
+
+\paragraph{Παρατηρήσεις}
+\ \\
+Παρά τη μεγάλη πολυπλοκότητα της υλοποίησης του προβλήματος με παραλληλοποίηση, ο χρόνος εκτέλεσης του προβλήματος είναι πολύ μικρότερος σε σύγκριση με τη σειριακή εκτέλεση.
+\begin{figure}[h]
+\begin{tabular}{*{2}{>{\centering\arraybackslash}b{\dimexpr0.5\linewidth-2\tabcolsep\relax}}}
+\resizebox{0.4\textwidth}{!} {
+\begin{tikzpicture}[state/.append style={minimum size=7mm}]
+     \begin{axis}[
+         xlabel={Μέγεθος},
+         ylabel={Χρόνος},
+         xmin=1e8, xmax=6e8,
+         ymin=0, ymax=6.5,
+         xtick={ 1e8, 2e8, 3e8, 4e8, 5e8, 6e8},
+         ytick={ 0, 1, 2, 3, 4, 5, 6, 7 },
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ]
+     	
+ 	\addplot[ color=red, mark=square,]
+ 	 	      coordinates {
+          (1e8,0.081)(2e8,0.152)(3e8,0.217)(4e8,0.313)
+			(5e8,0.349) 	(6e8, 0.449)
+ 	};
+ 	\addlegendentry{\en{Alt3}}
+ 	
+ 	\addplot[ color=blue, mark=triangle,]
+      coordinates {
+          (1e8, 1.076)(2e8,2.132)(3e8,3.188)(4e8,4.321 )
+			(5e8,5.393)(6e8, 6.394) 	
+ 	};
+ 	\addlegendentry{\en{Alt1}}
+     \end{axis}
+ \end{tikzpicture}}
+\caption{\en{PI}: Σύγκριση \en{Alt1, Alt3}}
+    &
+\renewcommand{\arraystretch}{1.1}
+\resizebox{0.4\textwidth}{!} {
+\begin{tabular}{c|c}
+Μέγεθος & Επιτάχυνση (\%)  \\
+\hline
+100000000 & 92.4\\
+200000000 & 92.9\\
+300000000 & 93.2\\
+400000000 & 92.8\\
+500000000 & 93.5\\
+600000000 & 92.9\\
+\end{tabular}}
+\captionof{table}{\en{PI}: Ποσοστιαία σύγκριση \en{Alt1} και \en{Alt3}}
+\end{tabular}
+\end{figure}
+\clearpage
+\subsubsection{Παραλλαγή με χρήση κυκλίκής κατανομής - \en{omp atomic}}
+Σε αυτή την ενότητα γίνεται αντικατάσταση του πίνακα \en{sum} της προηγούμενης παραγράφου με ιδιωτικές μεταβλητές σε κάθε νήμα και ενοποίηση των δυο επιμέρους παράλληλων τμημάτων κώδικα σε μια. Επίσης ο διαμοιρασμός της εργασίας ανάμεσα στα νήματα γίνεται με κυκλική κατανομή.
+
+\selectlanguage{english}
+\begin{spacing}{0.5}
+\begin{lstlisting}[language=C++, caption={PI: omp parallel - atomic} , frame=tb]{Name}
+double pi(long num_steps) {
+    int nthreads = 0;
+    double pi = .0;
+    double step= 1.0/(double)num_steps;
+#pragma omp parallel
+    {
+        int id = omp_get_thread_num();
+        int nthrds = omp_get_num_threads();
+        double sum = 0.0, x = 0.0;
+
+        if (id == 0) {
+            nthreads = nthrds;
+        }
+
+        for (int i = id; i < num_steps; i += nthreads) {
+            x = (i + 0.5)*step;
+            sum += 4.0/(1.0 + x*x);
+        }
+        sum *= step;
+#pragma omp atomic
+        pi += sum;
+    }
+
+    return pi;
+}
+
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{PI}: Επιλογές μεταγλώττισης \en{Alt5, Alt6}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt5}} & \en{-fopt-info-vec=builds/alt5.log -O2 -fno-inline -fno-tree-vectorize -fopenmp -o ./builds/Alt5} \\ \hline
+      \textbf{\en{Alt6}} & \en{-fopt-info-vec=builds/alt6.log -O2 -fno-inline -ftree-vectorize -fopenmp -o ./builds/Alt6} \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{PI}: Αποτελέσματα \en{Alt5, Alt6}}
+    \label{my-label}
+    \resizebox{0.7\textwidth}{!} {
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+               & \textbf{\en{Alt5}} & \textbf{\en{Alt6}}\\ \hline
+     100000000 & 0.103 & 0.098 \\ \cline{1-3} 
+     200000000 & 0.160 & 0.149 \\ \cline{1-3} 
+     300000000 & 0.219 & 0.215\\ \cline{1-3} 
+     400000000 & 0.287 & 0.283\\ \cline{1-3} 
+     500000000 & 0.353 & 0.343\\ \cline{1-3} 
+     600000000 & 0.422 & 0.418\\ \cline{1-3} 
+
+    \end{tabular}}
+\end{table}
+
+\paragraph{Παρατηρήσεις}
+\ \\
+Συγκριτικά με την παραλλαγή \en{Alt3}, ο χρόνος εκτέλεσης της \en{Alt5} δε μεταβάλλεται. Είναι εμφανές ωστόσο, ότι σε αυτή την παράγραφο η υλοποίηση είναι πιο κατανοητή και εύκολη. Θα ήταν ακόμα πιο εύχρηστο, αντί για χρήση κυκλικής κατανομής, να γίνει χρήση της οδηγίας \en{pragma omp parallel for}.
+
+\ \\
+\subsubsection{Παραλλαγή με χρήση \en{omp for - reduction}}
+Στο παράδειγμα της παραγράφου, έγινε αντικατάσταση της κυκλικής κατανομής με την οδηγίας \en{pragma omp parallel for}. Επιπλέον όφελος σε αυτή τη μεταβολή είναι η δυνατότητα χρήσης της φράσης \en{reduction}.
+
+\selectlanguage{english}
+\begin{spacing}{0.6}
+\begin{lstlisting}[language=C++, caption={PI: omp parallel for reduction} , frame=tb]{Name}
+double pi(long num_steps) {
+    double pi = .0;
+    double step= 1.0/(double)num_steps;
+    double sum = 0.0;
+
+#pragma omp parallel
+    {
+        double x = 0.0;
+
+#pragma omp for reduction(+:sum)
+        for (int i = 0; i < num_steps; i++) {
+            x = (i + 0.5)*step;
+            sum += 4.0/(1.0 + x*x);
+        }
+    }
+    pi = step * sum;
+    return pi;
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{PI}: Επιλογές μεταγλώττισης \en{Alt7, Alt8}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt7}} & \en{-fopt-info-vec=builds/alt7.log -O2 -fno-inline -fno-tree-vectorize -fopenmp -o ./builds/Alt7} \\ \hline
+      \textbf{\en{Alt8}} & \en{-fopt-info-vec=builds/alt8.log -O2 -fno-inline -ftree-vectorize -fopenmp -o ./builds/Alt8} \\ \hline
+    \end{tabular}
+\end{table}
+\clearpage
+\begin{table}[h]
+    \centering
+    \caption{\en{PI}: Αποτελέσματα \en{Alt7, Alt8}}
+    \label{my-label}
+    \resizebox{0.7\textwidth}{!} {
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+               & \textbf{\en{Alt7}} & \textbf{\en{Alt8}}\\ \hline
+     100000000 & 0.080 & 0.087 \\ \cline{1-3} 
+     200000000 & 0.154 & 0.166 \\ \cline{1-3} 
+     300000000 & 0.216 & 0.230\\ \cline{1-3} 
+     400000000 & 0.294 & 0.293\\ \cline{1-3} 
+     500000000 & 0.371 & 0.369\\ \cline{1-3} 
+     600000000 & 0.421 & 0.415\\ \cline{1-3} 
+
+    \end{tabular}}
+\end{table}
+
+
+\paragraph{Παρατηρήσεις}
+\ \\
+Ως συνέπεια της αντικατάσης της κυκλικής κατανομής, η οδηγία \en{omp parallel for} οδήγησε σε πιο ευανάγνωστη υλοποίηση. Ωστόσο, οι χρόνοι εκτέλεσης παρέμειναν σταθεροί σε σύγκριση με την προηγούμενη εκτέλεση.
+
+\clearpage
+\subsubsection{Παραλλαγή με χρήση \en{parallel for simd reduction}}
+Σε αυτή την ενότητα γίνεται χρήση της οδηγίας \en{omp parallel for} σε συνδυασμό με τις φράσεις \en{reduction} και \en{simd} με σκοπό να ελεγχθεί η δυνατότητα του \en{OpenMP} να εφαρμόσει διανυσματικοποίηση, παρόλο που ο μεταγλωττιστής δε μπορεί.
+
+\selectlanguage{english}
+\begin{spacing}{1.0}
+\begin{lstlisting}[language=C++, caption={PI: omp parallel for simd} , frame=tb]{Name}
+double pi(long num_steps) {
+    double dH = 1.0/(double)num_steps;
+    double dX, dSum = 0.0;
+
+#pragma omp parallel for simd private(dX) \
+    reduction(+:dSum) schedule(simd:static)
+    for (int i = 0; i < num_steps; i++) {
+        dX = dH * ((double) i  + 0.5);
+        dSum += (4.0 / (1.0 + dX * dX));
+    } // End parallel for simd region
+
+    return dH * dSum;
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{PI}: Επιλογές μεταγλώττισης \en{Alt9, Alt10, Alt11}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+    \textbf{\en{Alt9}} & \en{-fopt-info-vec=builds/alt9.log -O2 -fno-inline -fno-tree-vectorize -fopenmp -o ./builds/Alt9} \\ \hline
+    \textbf{\en{Alt10}} & \en{-fopt-info-vec=builds/alt10.log -O2 -fno-inline -ftree-vectorize -fopenmp -o ./builds/Alt10} \\ \hline
+	\textbf{\en{Alt11}} & \en{-fopt-info-vec=builds/alt11.log -O2 -fno-inline -fopenmp -o ./builds/Alt11} \\ \hline
+
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{PI}: Αποτελέσματα \en{Alt9, Alt10, Alt11}}
+    \label{my-label}
+%    \resizebox{1\textwidth}{!} {
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+ 	| >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-4} 
+               & \textbf{\en{Alt9}} & \textbf{\en{Alt10}}& \textbf{\en{Alt11}}\\ \hline
+     100000000 & 0.089 & 0.057 & 0.049 \\ \cline{1-4} 
+     200000000 & 0.159 & 0.090 & 0.067 \\ \cline{1-4} 
+     300000000 & 0.229 & 0.113 & 0.134 \\ \cline{1-4} 
+     400000000 & 0.293 & 0.137 & 0.137 \\ \cline{1-4} 
+     500000000 & 0.349 & 0.216 & 0.175 \\ \cline{1-4} 
+     600000000 & 0.419 & 0.193 & 0.179 \\ \cline{1-4} 
+
+    \end{tabular}
+    %}
+\end{table}
+\clearpage
+\paragraph{Παρατηρήσεις}
+\ \\
+Όπως είναι εμφανές, η διανυσματικοποίηση στις παραλλαγές \en{Alt10} και \en{Alt11} ήταν επιτυχής, σε αντίθεση με την παραλλαγή \en{Alt9}. Αυτό επιβεβαιώνεται και από τα παραγόμενα αρχείο \en{*.log} κατά τη μεταγλώττιση του προγράμματος. Το όφελος από την διανυσματικοποίηση φαίνεται στο διάγραμμα που ακολουθεί.
+
+
+
+\begin{figure}[h]
+\begin{tabular}{*{2}{>{\centering\arraybackslash}b{\dimexpr0.5\linewidth-2\tabcolsep\relax}}}
+\resizebox{0.5\textwidth}{!} {
+\begin{tikzpicture}[state/.append style={minimum size=7mm}]
+     \begin{axis}[
+         xlabel={Μέγεθος},
+         ylabel={Χρόνος},
+         xmin=1e8, xmax=6e8,
+         ymin=0, ymax=1,
+         xtick={ 1e8, 2e8, 3e8, 4e8, 5e8, 6e8},
+         ytick={ 0, 0.2, 0.4, 0.6, 0.8, 1 },
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ]
+     	
+ 	\addplot[ color=blue, mark=triangle,]
+		coordinates {
+          (1e8,0.089)(2e8,0.159)(3e8,0.229)(4e8,0.293)
+			(5e8,0.349)(6e8,0.419) 	
+ 	};
+ 	\addlegendentry{\en{Alt9}}
+ 	
+	\addplot[ color=red, mark=square,]
+ 		coordinates {
+          (1e8,0.057)(2e8,0.09)(3e8,0.113)(4e8,0.137)
+			(5e8,0.216) 	(6e8,0.193)
+ 	};
+ 	\addlegendentry{\en{Alt10}}
+ 	
+	\addplot[ color=black, mark=circle,]
+		coordinates {
+          (1e8,0.049)(2e8,0.067)(3e8,0.134)(4e8,0.137)
+			(5e8,0.175) 	(6e8,0.179)
+ 	};
+ 	\addlegendentry{\en{Alt11}}
+     \end{axis}
+ \end{tikzpicture}}
+
+\caption{\en{PI}: Σύγκριση \en{Alt9, Alt10, Alt11}}
+    &
+\renewcommand{\arraystretch}{1.1}
+\resizebox{0.5\textwidth}{!} {
+\begin{tabular}{c|c}
+Μέγεθος & Επιτάχυνση (\%)  \\
+\hline
+100000000 & 44.9\\
+200000000 & 57.8\\
+300000000 & 41.5\\
+400000000 & 53.2\\
+500000000 & 49.9\\
+600000000 & 57.3\\
+
+\end{tabular}}
+\captionof{table}{\en{PI}: Ποσοστιαία σύγκριση \en{Alt9} και \en{Alt11}}
+\end{tabular}
+\end{figure}
+\clearpage
+\subsubsection{Παραλλαγή με χρήση \en{offloading}}
+
+\selectlanguage{english}
+\begin{spacing}{1.0}
+\begin{lstlisting}[language=C++, caption={PI: omp target teams distribute parallel} , frame=tb]{Name}
+double pi(long num_steps) {
+    double dH = 1.0/(double)num_steps;
+    double dX = 0.0, dSum = 0.0;
+
+#pragma omp target teams distribute parallel for simd\
+ 		map(tofrom: dSum), map(to:dX,  dH, num_steps)\
+ 		reduction(+:dSum)
+    for (int i = 0; i < num_steps; i++) {
+        dX = dH * ((double) i  + 0.5);
+        dSum += (4.0 / (1.0 + dX * dX));
+    } // End parallel for simd region
+
+    return dH * dSum;
+}
+
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{PI}: Επιλογές μεταγλώττισης \en{Alt12}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt12}} & \en{-fopt-info-vec=builds/alt12.log -O2 -fno-inline -fno-tree-vectorize -fno-stack-protector\
+     -fopenmp -foffload=nvptx-none="-O2 -fno-inline" -o ./builds/Alt12} \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{PI}: Αποτελέσματα \en{Alt12}}
+    \label{my-label}
+    \resizebox{0.7\textwidth}{!} {
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{1}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-2} 
+               & \textbf{\en{Alt12}} \\ \hline
+     100000000 & 0.881   \\ \cline{1-2} 
+     200000000 & 0.966   \\ \cline{1-2} 
+     300000000 & 1.026 \\ \cline{1-2} 
+     400000000 & 1.081 \\ \cline{1-2} 
+     500000000 & 1.111  \\ \cline{1-2} 
+     600000000 & 1.154  \\ \cline{1-2} 
+
+    \end{tabular}}
+\end{table}
+
+\paragraph{Παρατηρήσεις}
+\ \\
+Οι χρόνοι εκτέλεσης του προγράμματος μεταφερόμενου στην μονάδα επεξεργασίας της κάρτας γραφικών δε δίνει τα αναμενόμενα αποτελέσματα. Οι επιδόσεις είναι αρκετά χαμηλότερες σε σύγκριση με την παραλλαγή \en{Alt11} που αποτελεί την καλύτερη λύση. Η καθυστέρηση δεν οφείλεται στη μεταφορά των δεδομένων ανάμεσα στις δυο συσκευές. Το μέγεθος των δεδομένων που απαιτείται για να μεταφερθεί στο περιβάλλον της κάρτας γραφικών είναι πολύ μικρότερο σε σχέση με το παράδειγμα \en{SAXPY}.
+
+
+\begin{figure}[h]
+\centering 
+\resizebox{0.6\textwidth}{!} {
+\begin{tikzpicture}   
+    \begin{axis}[
+         xlabel={Μέγεθος πίνακα},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=1e8, xmax=4e8,
+         ymin=0, ymax=10,
+         xtick={ 1e8, 2e8, 3e8, 4e8},
+         ytick={0, 2, 3, 6, 8, 10},
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ]
+    
+    \addplot[ color=red, mark=square,]
+      coordinates {
+          (1e8,0.881)(2e8,0.966)
+          (3e8,1.026)(4e8,1.081)
+          (5e8,1.111)(6e8,1.154)
+ 	};
+  	\addlegendentry{\en{Alt12}}
+
+    \addplot[ color=blue, mark=square,]
+      coordinates {
+          (1e8,0.089)(2e8,0.159)
+          (3e8,0.229)(4e8,0.293)
+          (5e8,0.349)(6e8,0.419)
+ 	};
+     \addlegendentry{\en{Alt9}}
+
+    \addplot[ color=green, mark=square,]
+      coordinates {
+          (1e8,1.076)(2e8,2.132)
+          (3e8,3.188)(4e8,4.321)
+          (5e8,5.393)(6e8,6.394)
+ 	};
+     \addlegendentry{\en{Alt1}}
+     
+    \end{axis}
+\end{tikzpicture}}% NO EMPTY LINE HERE!!!!
+\caption{\en{SAXPY}: Σύγκριση αποτελεσμάτων \en{Alt12-Alt9-Alt1}}
+\end{figure}
+
+
+\clearpage
+\subsubsection{Σύγκριση \en{atomic - critical}}
+Στο παράδειγμα της παραγράφου, γίνεται μια προσπάθεια σύγκρισης της οδηγίας \en{critical} και της \en{atomic}. Στη γενική εικόνα, η οδηγία \en{atomic} επιτρέπει στο μεταγλωττιστή να έχει περισσότερες ευκαιρίες για βελτιστοποίηση. Για μονοδιάστατους πίνακες επίσης, η \en{atomic} επιτρέπει την ταυτόχρονη τροποποίηση μεταβλητών σε διαφορετικές θέσεις του πίνακα από διαφορετικά νήματα ενώ η \en{critical} όχι.
+
+\selectlanguage{english}
+\begin{spacing}{0.8}
+\begin{lstlisting}[language=C++, caption={PI: \el{Σύγκριση} atomic - critical} , frame=tb]{Name}
+double pi(long num_steps) {
+    double pi = .0;
+    double step= 1.0/(double)num_steps;
+    double sum = 0.0;
+
+#pragma omp parallel firstprivate(sum) shared(pi)
+    {
+        double x = 0.0;
+
+#pragma omp for
+        for (int i = 0; i < num_steps; i++) {
+            x = (i + 0.5)*step;
+            sum += 4.0/(1.0 + x*x);
+        }
+
+#pragma omp critical //atomic
+        pi += step * sum;
+    }
+
+    return pi;
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{PI}: Επιλογές μεταγλώττισης \en{Alt12}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+    \textbf{\en{Alt13}} & \en{-fopt-info-vec=builds/alt13.log -O2 -fno-inline -fno-tree-vectorize -fopenmp -o ./builds/Alt13} \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{PI}: Αποτελέσματα \en{Atomic - Critical}}
+    \label{my-label}
+    \resizebox{0.7\textwidth}{!} {
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}    
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+               & \textbf{\en{Atomic}} & \textbf{\en{Critical}}\\ \hline
+     100000000 & 0.088 & 0.095\\ \cline{1-3} 
+     200000000 & 0.167 & 0.172\\ \cline{1-3} 
+     300000000 & 0.231 & 0.215\\ \cline{1-3} 
+     400000000 & 0.296 & 0.290\\ \cline{1-3} 
+     500000000 & 0.348 & 0.367\\ \cline{1-3} 
+     600000000 & 0.424 & 0.438\\ \cline{1-3} 
+
+    \end{tabular}}
+\end{table}
+
+\paragraph{Παρατηρήσεις}
+\ \\
+Τα αποτελέσματα του πίνακα δε δείχνουν κάποια ιδιαίτερη βελτιστοποίηση στο χρόνο εκτέλεσης του προβλήματος. Παρόλα αυτά, τα αποτελέσματα δικαιολογούνται, καθώς στη συγκεκριμένη υλοποίηση, η μεταβλητή \en{pi} μεταβάλλεται λίγες φορές και συγκεκριμένα, όσα είναι και τα νήματα του παράλληλου τμήματος κώδικα.
+
+\ \\
+\subsubsection{Σύγκριση \en{atomic - critical} (2)}
+Στο συγκεκριμένο παράδειγμα, ο στόχος δε είναι η σωστή υλοποίηση του προβλήματος, αλλά η η σύγκριση των οδηγιών \en{critical} και \en{atomic}, όταν αυτές είναι τοποθετημένες σε σημείο που θα κληθούν πολλές φορές. Για το λόγο αυτό, το συνολικό μέγεθος του προβλήματος μειώνεται σε σχέση με τα προηγούμενα, καθώς η εισάγωγή της \en{atomic/critical} εντός του βρόγχου επανάληψης, μετατρέπει το πρόβλημα σε σειριακό και μάλιστα με επιπλέον χρονική επιβάρυνση, λόγω του κλειδώματος που απαιτείται όταν καλούνται αυτές οι οδηγίες.
+
+\selectlanguage{english}
+\begin{spacing}{0.9}
+\begin{lstlisting}[language=C++, caption={PI: \el{Σύγκριση} atomic - critical(2)} , frame=tb]{Name}
+double pi(long num_steps) {
+    double pi = .0;
+    double step= 1.0/(double)num_steps;
+
+#pragma omp parallel shared(pi)
+    {
+        double x = 0.0;
+
+#pragma omp for
+        for (int i = 0; i < num_steps; i++) {
+            x = (i + 0.5)*step;
+#pragma omp atomic //critical
+            pi += step * 4.0/(1.0 + x*x);
+        }
+    }
+
+    return pi;
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+\clearpage
+\begin{table}[h]
+    \centering
+    \caption{\en{PI}: Επιλογές μεταγλώττισης \en{Alt13}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+    \textbf{\en{Alt14}} & \en{-fopt-info-vec=builds/alt14.log -O2 -fno-inline -fno-tree-vectorize -fopenmp -o ./builds/Alt14} \\ \hline
+    \end{tabular}
+\end{table}
+
+
+\begin{table}[h]
+    \centering
+    \caption{\en{PI}: Αποτελέσματα \en{Atomic - Critical}}
+    \label{my-label}
+    \resizebox{0.7\textwidth}{!} {
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}    
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+               & \textbf{\en{Atomic}} & \textbf{\en{Critical}}\\ \hline
+     100000 & 0.023 & 0.253\\ \cline{1-3} 
+     200000 & 0.040 & 0.511 \\ \cline{1-3} 
+     300000 & 0.051 & 0.778\\ \cline{1-3} 
+     400000 & 0.063 & 0.987\\ \cline{1-3} 
+     500000 & 0.074 & 1.244\\ \cline{1-3} 
+     600000 & 0.088 & 1.483\\ \cline{1-3} 
+
+    \end{tabular}}
+\end{table}
+
+\paragraph{Παρατηρήσεις}
+\ \\
+Από τον παραπάνω πίνακα, είναι προφανές ότι η οδηγία \en{atomic} πρέπει να αντικαταστήσει την \en{critical} όπου είναι εφικτό, καθώς ο όφελος σε σύγκριση με τη χρήση της \en{critical} είναι μεγαλύτερο.
+
+
+\begin{figure}[h]
+\begin{center}
+\resizebox{0.5\textwidth}{!} {
+\begin{tikzpicture}[state/.append style={minimum size=7mm}]
+     \begin{axis}[
+         xlabel={Μέγεθος},
+         ylabel={Χρόνος},
+         xmin=1e5, xmax=6e5,
+         ymin=0, ymax=1.5,
+         xtick={ 1e5, 2e5, 3e5, 4e5, 5e5, 6e5},
+         ytick={ 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.5 },
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ]
+     	
+	\addplot[ color=red, mark=square,]
+ 		coordinates {
+          (1e5,0.253)(2e5,0.511)(3e5,0.778)(4e5,0.987)
+			(5e5,1.244) 	(6e5,1.483)
+ 	};
+ 	\addlegendentry{\en{critical}}
+ 	
+	\addplot[ color=black, mark=circle,]
+		coordinates {
+          (1e5,0.023)(2e5,0.040)(3e5,0.051)(4e5,0.063)
+			(5e5,0.074) 	(6e5,0.088)
+ 	};
+ 	\addlegendentry{\en{atomic}}
+     \end{axis}
+ \end{tikzpicture}}
+ \caption{\en{PI}: Σύγκριση \en{atomic - critical}}
+
+\end{center}
+\end{figure}
+

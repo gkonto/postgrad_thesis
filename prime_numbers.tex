@@ -1,0 +1,854 @@
+\setstretch{1.5}
+\subsection{Υπολογισμός πρώτων αριθμών}
+Ο αλγόριθμος αυτής της ενότητας περιγράφει τον υπολογισμό του πλήθους των πρώτων αριθμών που υπάρχουν στο εύρος αριθμών (0, \en{n}). Ο αλγόριθμος ακολουθεί μια απλοϊκή μέθοδο υπολογισμού στην οποία διατρέχονται όλοι οι αριθμοί από 2 έως \en{n-1} και ελέγχεται αν υπάρχει τουλάχιστον ένας ακέραιος που τον διαιρεί με μηδενικό υπόλοιπο.
+
+Ο αλγόριθμος υπολογισμού πρώτων αριθμών δεν έχει ιδιαίτερη χρηστικότητα, αλλά εξετάζεται καθώς εμπεριέχει διπλό βρόγχο επανάληψης και δεν απαιτείται δέσμευση μνήμης.
+\subsubsection{Περιγραφή κοινού τμήματος αλγορίθμου πρώτων αριθμών}
+\selectlanguage{english}
+\begin{spacing}{1.0}
+\begin{lstlisting}[showstringspaces=false, language=C++, caption={\en{Prime Numbers: main()}} , frame=tb]{Name}
+static int prime_number_sweep(int n_hi) {
+    return prime_number(n_hi);
+}
+
+int main(int argc, char **argv) {
+    Opts o;
+    parseArgs(argc, argv, o);
+    double start = omp_get_wtime();
+    int primes = prime_number_sweep(o.max);
+    std::cout << "Execution Time: " << 
+    			omp_get_wtime() - start << 
+    			" seconds"<< std::endl;
+    std::cout << "Prime numbers: " << primes << std::endl;
+    return 0;
+}
+
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+\clearpage
+\subsubsection{Σειριακή εκτέλεση}
+Η σειριακή εκτέλεση του προγράμματος αποτελείται από δύο επαναληπτικούς βρόγχους. Ο πρώτος διατρέχει το σύνολο του εύρους των ακεραίων, από το 2 έως τον δοσμένο μέγιστο ακέραιο. Για κάθε έναν από τους ακέραιους \emph{\en{i}} ελέγχεται αν υπάρχει τουλάχιστον ένας ακέραιος στο εύρος [2, \en{i}) που να διαιρείται με τον i με μηδενικό υπόλοιπο.
+
+\selectlanguage{english}
+\begin{spacing}{0.8}
+\begin{lstlisting}[language=C++, caption={\en{Prime Numbers: } \el{Σειριακή εκτέλεση}}  , frame=tb]{Name}
+int prime_number(int n) {
+    int prime = 0;
+    int total = 0;
+
+    for (int i = 2; i <= n; i++) {
+        prime = 1;
+        for (int j = 2; j < i; j++) {
+            if ((i % j) == 0) {
+                prime = 0;
+                break;
+            }
+        }
+        total += prime;
+    }
+    return total;
+}
+
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Prime Numbers}: Επιλογές μεταγλώττισης \en{Alt1, Alt2}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt1}} & \en{-fopt-info-vec=builds/alt1.log -O2 -fno-inline -fno-tree-vectorize -fopenmp -o ./builds/Alt1} \\ \hline
+      \textbf{\en{Alt2}} & \en{-fopt-info-vec=builds/alt2.log -O2 -fno-inline -ftree-vectorize -fopenmp -o ./builds/Alt2} \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Prime Numbers: } Αποτελέσματα \en{Alt1, Alt2}}
+    \label{my-label}
+    \resizebox{0.7\textwidth}{!} {
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+               & \textbf{\en{Alt1}} & \textbf{\en{Alt2}}\\ \hline
+     10000 & 0.113 & 0.114 \\ \cline{1-3} 
+     20000 & 0.411 & 0.413 \\ \cline{1-3} 
+     30000 & 0.890 & 0.891 \\ \cline{1-3} 
+     40000 & 1.557 & 1.560 \\ \cline{1-3} 
+     50000 & 2.397 & 2.399 \\ \cline{1-3} 
+     60000 & 3.414 & 3.419 \\ \cline{1-3} 
+
+    \end{tabular}}
+\end{table}
+
+\clearpage
+
+
+\subsubsection{Παραλλαγή με \en{parallel for reduction}}
+\selectlanguage{english}
+\begin{spacing}{0.8}
+\begin{lstlisting}[language=C++, caption={\en{Prime Numbers: parallel for reduction}}  , frame=tb]{Name}
+int prime_number(int n) {
+    int total = 0, prime = 1;
+#pragma omp parallel for firstprivate(prime) reduction(+ : total)
+    for (int i = 2; i <= n; i++) {
+        for (int j = 2; j < i; j++) {
+            if (i % j == 0) {
+                prime = 0;
+                break;
+            }
+       	    prime = 1;
+        }
+        total += prime;
+    }
+
+    return total;
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Prime Numbers}: Επιλογές μεταγλώττισης \en{Alt3, Alt4}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt3}} & \en{-fopt-info-vec=builds/alt3.log -O2 -fno-inline -fno-tree-vectorize -fopenmp -o ./builds/Alt3} \\ \hline
+      \textbf{\en{Alt4}} & \en{-fopt-info-vec=builds/alt4.log -O2 -fno-inline -ftree-vectorize -fopenmp -o ./builds/Alt4} \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Prime Numbers: } Αποτελέσματα \en{Alt3, Alt4}}
+    \label{my-label}
+    \resizebox{0.7\textwidth}{!} {
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+               & \textbf{\en{Alt3}} & \textbf{\en{Alt4}}\\ \hline
+     10000 & 0.024 & 0.025 \\ \cline{1-3} 
+     20000 & 0.059 & 0.061 \\ \cline{1-3} 
+     30000 & 0.115 & 0.117 \\ \cline{1-3} 
+     40000 & 0.203 & 0.205	 \\ \cline{1-3} 
+     50000 & 0.308 & 0.306 \\ \cline{1-3} 
+     60000 & 0.450 & 0.450 \\ \cline{1-3} 
+     100000 & 1.148 & 1.149 \\ \cline{1-3} 
+     130000 & 2.901 & 2.879 \\ \cline{1-3} 
+	 160000 & 2.860 & 2.879 \\ \cline{1-3} 
+     200000 & 4.376 & 4.388 \\ \cline{1-3} 
+     250000 & 6.774 & 6.785 \\ \cline{1-3} 
+
+    \end{tabular}}
+\end{table}
+\clearpage
+\paragraph{Παρατηρήσεις}
+\ \\
+Όπως και στα προηγούμενα προβλήματα, η οδηγία \en{pragma omp parallel for} σε συνδυασμό με τη φράση \en{reduction} συμβάλλει σημαντικά την βελτίωση των επιδόσεων.
+
+
+\begin{figure}[h]
+\begin{tabular}{*{2}{>{\centering\arraybackslash}b{\dimexpr0.5\linewidth-2\tabcolsep\relax}}}
+\resizebox{0.5\textwidth}{!} {
+\begin{tikzpicture}[state/.append style={minimum size=7mm}]
+     \begin{axis}[
+         xlabel={Μέγεθος διανυσμάτων},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=1e4, xmax=5e4,
+         ymin=0, ymax=3.6,
+         xtick={ 1e4, 2e4, 3e4, 4e4, 5e4, 6e4},
+         ytick={ 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4},
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ] 
+ 	
+ 	\addplot[ color=blue, mark=triangle,]
+      coordinates {
+          (1e4,0.024)(2e4,0.059)(3e4,0.115)
+          (4e4,0.203)(5e4,0.308)(6e4,0.450)
+ 	};
+ 	\addlegendentry{\en{Alt1}}
+ 	
+ 	\addplot[ color=red, mark=square,]
+      coordinates {
+          (1e4,0.113)(2e4,0.411)(3e4,0.89)
+          (4e4,1.557)(5e4, 2.397)(6e4,3.414)
+ 	};
+ 	\addlegendentry{\en{Alt4}}
+ 	
+     \end{axis}
+ \end{tikzpicture}}
+
+\caption{\en{Prime Numbers}: Σύγκριση \en{Alt1, Alt4}}
+    &
+\renewcommand{\arraystretch}{1.1}
+\resizebox{0.5\textwidth}{!} {
+\begin{tabular}{c|c}
+Μέγεθος & Ποσοστό μείωσης χρόνου (\%)  \\
+\hline
+\en{1e4} & 78.6 \\
+\en{2e4} & 85.6 \\
+\en{3e4} & 87.1 \\
+\en{4e4} & 86.9 \\
+\en{5e4} & 87.1 \\
+\en{6e4} & 86.8 \\
+
+\end{tabular}}
+\captionof{table}{\en{Prime Numbers}: Ποσοστιαία σύγκριση \en{Alt1} και \en{Alt4}}
+\end{tabular}
+\end{figure}
+
+\clearpage
+
+\subsubsection{Παραλλαγή με \en{parallel for} και \en{critical}}
+\selectlanguage{english}
+\begin{spacing}{0.8}
+\begin{lstlisting}[language=C++, caption={\en{Prime Numbers: parallel for - critical}}  , frame=tb]{Name}
+int prime_number(int n) {
+    int total = 0, prime = 1;
+#pragma omp parallel for firstprivate(prime)
+    for (int i = 2; i <= n; i++) {
+        for (int j = 2; j < i; j++) {
+            if (i % j == 0) {
+                prime = 0;
+                break;
+            }
+            prime = 1;
+        }
+#pragma omp critical
+        total += prime;
+    }
+
+    return total;
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Prime Numbers}: Επιλογές μεταγλώττισης \en{Alt5, Alt6}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt5}} & \en{-fopt-info-vec=builds/alt5.log -O2 -fno-inline -fno-tree-vectorize -fopenmp -o ./builds/Alt5} \\ \hline
+      \textbf{\en{Alt6}} & \en{-fopt-info-vec=builds/alt6.log -O2 -fno-inline -ftree-vectorize -fopenmp -o ./builds/Alt6} \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Prime Numbers: } Αποτελέσματα \en{Alt5, Alt6}}
+    \label{my-label}
+    \resizebox{0.7\textwidth}{!} {
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-3} 
+               & \textbf{\en{Alt5}} & \textbf{\en{Alt6}}\\ \hline
+     10000 & 0.022 & 0.023 \\ \cline{1-3} 
+     20000 & 0.054 & 0.059 \\ \cline{1-3} 
+     30000 & 0.113 & 0.109 \\ \cline{1-3} 
+     40000 & 0.203 & 0.194 \\ \cline{1-3} 
+     50000 & 0.297 & 0.299 \\ \cline{1-3} 
+     60000 & 0.420 & 0.423 \\ \cline{1-3} 
+
+    \end{tabular}}
+\end{table}
+\paragraph{Παρατηρήσεις}
+\ \\
+Παρατηρείται ότι η αντικατάσταση της οδηγίας \en{reduction} με την \en{critical} αποδίδει το ίδιο στο συγκεκριμένο πρόβλημα. 
+\clearpage
+
+
+\subsubsection{Παραλλαγή με \en{simd reduction}}
+Σε αυτή την ενότητα, υλοποιείται μια σειριακή εκτέλεση με τη
+προσπάθεια εισαγωγής διανυσματικοποίησης μέσω του \en{OpenMP} και 
+της φράσης \en{simd reduction}. Η αδυναμία εφαρμογής διανυσματικοποίησης από το μεταγλωττιστή αλλά και από τη διεπαφή επιβεβαιώνεται τόσο από τον πινάκα των αποτελεσμάτων αλλά και από τα αρχεία που εξάγονται κατά τη μεταγλώττιση.
+\selectlanguage{english}
+\begin{spacing}{0.7}
+\begin{lstlisting}[language=C++, caption={\en{Prime Numbers: simd reduction}} , frame=tb]{Name}
+int prime_number(int n) {
+    int total = 0;
+#pragma omp simd reduction(+ : total)
+    for (int i = 2; i <= n; i++) {
+        int prime = 1;
+        for (int j = 2; j < i; j++) {
+            if (i % j == 0) {
+                prime = 0;
+                break;
+            }
+        }
+        total += prime;
+    }
+
+    return total;
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Prime Numbers}: Επιλογές μεταγλώττισης \en{Alt7, Alt8, Alt9}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt7}} & \en{-fopt-info-vec=builds/alt7.log -O2 -fno-inline -fno-tree-vectorize -fopenmp -o ./builds/Alt7} \\ \hline
+      \textbf{\en{Alt8}} & \en{-fopt-info-vec=builds/alt8.log -O2 -fno-inline -ftree-vectorize -fopenmp -o ./builds/Alt8} \\ \hline
+      \textbf{\en{Alt9}} & \en{-fopt-info-vec=builds/alt9.log -O2 -fno-inline  -fopenmp -o ./builds/Alt9} \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Prime Numbers: } Αποτελέσματα \en{Alt7, Alt8, Alt9}}
+    \label{my-label}
+    \resizebox{0.7\textwidth}{!} {
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{3}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-4} 
+               & \textbf{\en{Alt7}} & \textbf{\en{Alt8}} & \textbf{\en{Alt9}}\\ \hline
+     10000 & 0.115 & 0.114 & 0.113\\ \cline{1-4} 
+     20000 & 0.412 & 0.411 & 0.406\\ \cline{1-4} 
+     30000 & 0.893 & 0.889 & 0.886\\ \cline{1-4} 
+     40000 & 1.557 & 1.560 & 1.554\\ \cline{1-4} 
+     50000 & 2.396 & 2.398 & 2.397\\ \cline{1-4} 
+     60000 & 3.417 & 3.417 & 3.414\\ \cline{1-4} 
+
+    \end{tabular}}
+\end{table}
+
+
+\clearpage
+\subsubsection{Παραλλαγή με \en{ordered simd - critical}}
+\selectlanguage{english}
+\begin{spacing}{1.0}
+\begin{lstlisting}[language=C++, caption={\en{Prime Numbers: ordered simd - critical}} , frame=tb]{Name}
+int prime_number(int n) {
+    int total = 0;
+#pragma omp ordered simd
+    for (int i = 2; i <= n; i++) {
+        int prime = 1;
+        for (int j = 2; j < i; j++) {
+            if (i % j == 0) {
+                prime = 0;
+                break;
+            }
+        }
+#pragma omp critical
+        total += prime;
+    }
+
+    return total;
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Prime Numbers}: Επιλογές μεταγλώττισης \en{Alt10, Alt11, Alt12}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt10}} & \en{-fopt-info-vec=builds/alt10.log -O2 -fno-inline -fno-tree-vectorize -fopenmp -o ./builds/Alt10} \\ \hline
+      \textbf{\en{Alt11}} & \en{-fopt-info-vec=builds/alt11.log -O2 -fno-inline -ftree-vectorize -fopenmp -o ./builds/Alt11} \\ \hline
+      \textbf{\en{Alt12}} & \en{-fopt-info-vec=builds/alt12.log -O2 -fno-inline -fopenmp -o ./builds/Alt12} \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Prime Numbers: } Αποτελέσματα \en{Alt10, Alt11, Alt12}}
+    \label{my-label}
+    \resizebox{0.7\textwidth}{!} {
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{2}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-4} 
+               & \textbf{\en{Alt10}} & \textbf{\en{Alt11}} & \textbf{\en{Alt12}}\\ \hline
+     10000 & 0.113 & 0.113 & 0.112\\ \cline{1-4} 
+     20000 & 0.414 & 0.411 & 0.411\\ \cline{1-4} 
+     30000 & 0.890 & 0.891 & 0.890\\ \cline{1-4} 
+     40000 & 1.557 & 1.558 & 1.560\\ \cline{1-4} 
+     50000 & 2.399 & 2.400 & 2.397\\ \cline{1-4} 
+     60000 & 3.414 & 3.417 & 3.416\\ \cline{1-4} 
+    \end{tabular}}
+\end{table}
+
+\clearpage
+\subsubsection{Παραλλαγή \en{ordered simd reduction}}
+\selectlanguage{english}
+\begin{spacing}{1.0}
+\begin{lstlisting}[language=C++, caption={\en{Prime Numbers: ordered simd - reduction}} , frame=tb]{Name}
+int prime_number(int n) {
+    int total = 0;
+#pragma omp parallel for simd ordered reduction(+ : total)
+    for (int i = 2; i <= n; i++) {
+        int prime = 1;
+        for (int j = 2; j < i; j++) {
+            if (i % j == 0) {
+                prime = 0;
+                break;
+            }
+        }
+        total += prime;
+    }
+    return total;
+}
+
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Prime Numbers}: Επιλογές μεταγλώττισης \en{Alt13, Alt14, Alt15}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt13}} & \en{-fopt-info-vec=builds/alt13.log -O2 -fno-inline -fno-tree-vectorize -fopenmp -o ./builds/Alt13} \\ \hline
+     \textbf{\en{Alt14}} & \en{-fopt-info-vec=builds/alt14.log -O2 -fno-inline -ftree-vectorize -fopenmp -o ./builds/Alt14} \\ \hline
+     \textbf{\en{Alt15}} & \en{ -fopt-info-vec=builds/alt15.log -O2 -fno-inline -fopenmp -o ./builds/Alt15} \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Prime Numbers: } Αποτελέσματα \en{Alt13, Alt14, Alt15}}
+    \label{my-label}
+    \resizebox{0.7\textwidth}{!} {
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{3}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-4} 
+               & \textbf{\en{Alt13}} & \textbf{\en{Alt14}} & \textbf{\en{Alt15}}\\ \hline
+     10000 & 0.024 & 0.022 & 0.023\\ \cline{1-4} 
+     20000 & 0.066 & 0.059 & 0.058\\ \cline{1-4} 
+     30000 & 0.108 & 0.113 & 0.128\\ \cline{1-4} 
+     40000 & 0.189 & 0.203 & 0.207\\ \cline{1-4} 
+     50000 & 0.298 & 0.292 & 0.311\\ \cline{1-4} 
+     60000 & 0.415 & 0.423 & 0.445\\ \cline{1-4} 
+    \end{tabular}}
+\end{table}
+
+\clearpage
+\paragraph{Παρατηρήσεις}
+\ \\
+Τα αποτελέσματα του παραπάνω πίνακα είναι τα ίδια με τις παραλλαγές \en{Alt5}. Είναι αναμενόμενο καθώς με την οδηγία \en{simd} δεν εφαρμόζεται διανυσματικοποίηση σε καμία παραλλαγή.
+\begin{figure}[h]
+\begin{center}
+\resizebox{0.6\textwidth}{!} {
+\begin{tikzpicture}   
+    \begin{axis}[
+         xlabel={Μέγεθος πίνακα},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=1e4, xmax=5e4,
+         ymin=0, ymax=4,
+         xtick={ 1e4, 2e4, 3e4, 4e4, 5e4, 6e4},
+         ytick={0, 1, 2, 3, 4},
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ]
+     \addplot[ color=green, mark=triangle,]
+      coordinates {
+          (1e4, 0.024)(2e4,0.066)(3e4,0.106)
+          (4e4, 0.189)(5e4,0.298)(6e4,0.415)
+ 	}; 	     
+          \addlegendentry{\en{Alt13}}
+
+     \addplot[ color=red, mark=square,]
+      coordinates {
+          (1e4, 0.113)(2e4,0.414)(3e4,0.890)
+          (4e4, 1.557)(5e4,2.399)(6e4,3.414)
+ 	}; 	
+     \addlegendentry{\en{Alt10}}
+     
+     \addplot[ color=blue,]
+      coordinates {
+          (1e4, 0.113)(2e4,0.411)(3e4,0.89)
+          (4e4, 1.557)(5e4,2.397)(6e4,3.414)
+ 	};
+  	\addlegendentry{\en{Alt1}}
+
+    \end{axis}
+\end{tikzpicture}}% NO EMPTY LINE HERE!!!! 
+\end{center}
+\caption{\en{Prime Numbers}: Σύγκριση \en{Alt13, Alt10, Alt1}}
+\end{figure}
+
+\clearpage
+
+\clearpage
+\subsubsection{Παραλλαγή με \en{offloading (1)}}
+Στη πρώτη υλοποίηση του προβλήματος με μεταφορά του αλγορίθμου στη συσκευή στόχου, χρησιμοποιείται η οδηγία \en{parallel for}. Οι χρόνοι εκτέλεσης που καταγράφηκαν είναι υψηλοί σε σύγκριση με προηγούμενες εκτελέσεις, συμπεριλαμβανομένης της σειριακής.
+\selectlanguage{english}
+\begin{spacing}{1.0}
+\begin{lstlisting}[language=C++, caption={\en{Prime Numbers: target parallel for - reduction}} , frame=tb]{Name}
+int prime_number(int n) {
+    int total = 0;
+#pragma omp target map(tofrom: total)
+#pragma omp parallel for reduction(+ : total)
+    for (int i = 2; i <= n; i++) {
+        int prime = 1;
+        for (int j = 2; j < i; j++) {
+            if (i % j == 0) {
+                prime = 0;
+                break;
+            }
+        }
+        total += prime;
+    }
+    return total;
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Prime Numbers}: Επιλογές μεταγλώττισης \en{Alt16}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt16}} & \en{-fopt-info-vec=builds/alt16.log -O2  -fno-inline -fno-stack-protector -foffload=nvptx-none="-O2 -fno-inline" -fopenmp -o ./builds/Alt16} \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Prime Numbers: } Αποτελέσματα \en{Alt16}}
+    \label{my-label}
+    \resizebox{0.7\textwidth}{!} {
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{1}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-2} 
+               & \textbf{\en{Alt16}} \\ \hline
+     10000 & 1.144 \\ \cline{1-2} 
+     20000 & 1.875 \\ \cline{1-2} 
+     30000 & 2.976 \\ \cline{1-2} 
+     40000 & 4.463 \\ \cline{1-2} 
+     50000 & 6.377 \\ \cline{1-2} 
+     60000 & 8.840 \\ \cline{1-2} 
+
+    \end{tabular}}
+\end{table}
+
+\clearpage
+\subsubsection{Παραλλαγή με \en{offloading (2)}}
+\selectlanguage{english}
+\begin{spacing}{0.8}
+\begin{lstlisting}[language=C++, caption={\en{Prime Numbers: target parallel for - critical}} , frame=tb]{Name}
+int prime_number(int n) {
+    int total = 0;
+#pragma omp target map(tofrom: total)
+#pragma omp parallel for
+    for (int i = 2; i <= n; i++) {
+        int prime = 1;
+        for (int j = 2; j < i; j++) {
+            if (i % j == 0) {
+                prime = 0;
+                break;
+            }
+        }
+#pragma omp critical
+        total += prime;
+    }
+
+    return total;
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Prime Numbers}: Επιλογές μεταγλώττισης \en{Alt17}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt17}} & \en{-fopt-info-vec=builds/alt17.log -O2  -fno-inline -fno-stack-protector -foffload=nvptx-none="-O2 -fno-inline" -fopenmp -o ./builds/Alt17} \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Prime Numbers: } Αποτελέσματα \en{Alt17}}
+    \label{my-label}
+    \resizebox{0.7\textwidth}{!} {
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{1}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-2} 
+               & \textbf{\en{Alt17}} \\ \hline
+     10000 & 1.165 \\ \cline{1-2} 
+     20000 & 1.888 \\ \cline{1-2} 
+     30000 & 3.005 \\ \cline{1-2} 
+     40000 & 4.516 \\ \cline{1-2} 
+     50000 & 6.441 \\ \cline{1-2} 
+     60000 & 8.847 \\ \cline{1-2} 
+
+    \end{tabular}}
+\end{table}
+
+\paragraph{Παρατηρήσεις}
+\ \\
+Όπως και στις αντίστοιχες υλοποιήσεις στη \en{CPU}, οι υλοποιήσεις \en{Alt17 - Alt16} εμφανίζουν ίδια συμπεριφορά μεταξύ τους. Τα αποτελέσματα ωστόσο είναι χειρότερα από αυτά της \en{CPU}.
+
+
+
+
+\clearpage
+
+
+\subsubsection{Παραλλαγή με \en{offloading (3)}}
+Στη παραλλαγή αυτής της παραγράφου, εφαρμόζονται υπολογισμοί στη \en{GPU} και συγκεκριμένα οι οδηγίες \en{teams, distribute parallel for}. Ακόμη, χρησιμοποιήθηκε η οδηγία \en{omp cancel for} η χρησιμότητα της είναι ίδια με την εντολή \en{break} στη σειριακή εκτέλεση.
+\selectlanguage{english}
+\begin{spacing}{0.6}
+\begin{lstlisting}[language=C++, caption={\en{target teams reduction distribute parallel for}} , frame=tb]{Name}
+int prime_number(int n) {
+    int total = 0;
+#pragma omp target map(tofrom: total)
+#pragma omp teams reduction (+:total)
+#pragma omp distribute
+    for (int i = 2; i <= n; i++) {
+    int prime = 1;
+#pragma omp parallel
+    {
+#pragma omp for
+        for (int j = 2; j < i; j++) {
+            if (i % j == 0) {
+            prime = 0;
+#pragma omp cancel for
+            }
+        }
+    }
+        total += prime;
+    }
+     return total;
+}
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Prime Numbers}: Επιλογές μεταγλώττισης \en{Alt21}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt21}} & \en{-fopt-info-vec=builds/alt21.log -O2  -fno-inline -fno-stack-protector -foffload=nvptx-none="-O2 -fno-inline" -fopenmp -o ./builds/Alt21} \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Prime Numbers: } Αποτελέσματα \en{Alt21}}
+    \label{my-label}
+    \resizebox{0.7\textwidth}{!} {
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{1}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-2} 
+               & \textbf{\en{Alt21}} \\ \hline
+     10000 & 0.946 \\ \cline{1-2} 
+     20000 & 1.173 \\ \cline{1-2} 
+     30000 & 1.507 \\ \cline{1-2} 
+     40000 & 1.944 \\ \cline{1-2} 
+     50000 & 2.535 \\ \cline{1-2} 
+     60000 & 3.205 \\ \cline{1-2} 
+
+    \end{tabular}}
+\end{table}
+
+\clearpage
+
+\subsubsection{Παραλλαγή με \en{offloading (4)}}
+\selectlanguage{english}
+\begin{spacing}{0.8}
+\begin{lstlisting}[language=C++, caption={\en{Prime Numbers: target teams distribute parallel for - reduction}} , frame=tb]{Name}
+int prime_number(int n) {
+     int total = 0;
+
+#pragma omp target teams 
+	distribute parallel for map(tofrom: total) \
+ 	reduction(+ : total)
+     for (int i = 2; i <= n; i++) {
+     int prime = 1;
+         for (int j = 2; j < i; j++) {
+             if (i % j == 0) {
+                 prime = 0;
+                 break;
+             }
+         }
+         total += prime;
+     }
+
+     return total;
+ }
+
+\end{lstlisting}
+\end{spacing}
+\selectlanguage{greek}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Prime Numbers}: Επιλογές μεταγλώττισης \en{Alt22}}
+    \label{my-label}
+    \begin{tabular}{
+    |p{0.1\textwidth}
+    | >{\centering\arraybackslash}p{0.8\textwidth}
+    |}
+    \hline
+ {\textbf{\en{Label}}} & \textbf{\en{Options}} \\ \hline
+     \textbf{\en{Alt22}} & \en{-fopt-info-vec=builds/alt22.log -O2  -fno-inline -fno-stack-protector -foffload=nvptx-none="-O2 -fno-inline" -fopenmp -o ./builds/Alt22} \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \caption{\en{Prime Numbers: } Αποτελέσματα \en{Alt22}}
+    \label{my-label}
+    \resizebox{0.7\textwidth}{!} {
+    \begin{tabular}{|p{0.30\textwidth}
+    | >{\centering\arraybackslash}p{0.12\textwidth}
+    |}
+    \hline
+    \multirow{2}{*}{\textbf{Μέγεθος προβλήματος}} & \multicolumn{1}{|c|}{\textbf{Χρόνοι εκτέλεσης \en{(sec)}}} \\ \cline{2-2} 
+               & \textbf{\en{Alt22}} \\ \hline
+     10000 & 0.836 \\ \cline{1-2} 
+     20000 & 0.885 \\ \cline{1-2} 
+     30000 & 0.940 \\ \cline{1-2} 
+     40000 & 1.017 \\ \cline{1-2} 
+     50000 & 1.071 \\ \cline{1-2} 
+     60000 & 1.160 \\ \cline{1-2} 
+     100000 & 1.585 \\ \cline{1-2} 
+     130000 & 1.832 \\ \cline{1-2} 
+	 160000 & 2.359 \\ \cline{1-2} 
+     200000 & 3.009 \\ \cline{1-2} 
+     250000 & 4.173 \\ \cline{1-2}
+    \end{tabular}}
+\end{table}
+\clearpage
+\paragraph{Παρατηρήσεις}
+\ \\
+Στη παραλλαγή της παραγράφου χρησιμοποιήθηκε ένας συνδυασμός οδηγιών που απέδωσε καλύτερα σε προηγούμενα παραδείγματα. Αξιοσημείωτη παρατήρηση είναι ότι το παράδειγμα δεν αποδίδει για μικρά μεγέθη, καθώς συγκρινόμενο με την καλύτερη υλοποίηση (\en{Alt3}) εκτελείται σε μεγαλύτερο χρόνο. Ωστόσο κατά την αύξηση του μεγέθους στο πρόβλημα, παρατηρείται καλύτερη συμπεριφορά σε σχέση με τις υπόλοιπες παραλλαγές, όπως φαίνεται στο διάγραμμα που ακολουθεί. Η παρατήρηση δικαιολογείται, καθώς φαίνεται στα προηγούμενα προβλήματα η αντιστοίχιση μεταβλητών προς και από τη συσκευή έχει σημαντικό χρονικό αντίκτυπο. Στον υπολογισμό πρώτων αριθμών αντιστοιχίζεται μια μεταβλητή και όχι πίνακας με δεδομένα). Επομένως είναι αναμενόμενο ότι όσο αυξάνεται το μέγεθος προβλήματος θα υπάρχουν περισσότεροι υπολογισμοί, στους οποίους η \en{GPU} έχει πλεονέκτημα έναντι της \en{CPU}. 
+
+
+\begin{figure}[h]
+\begin{center}
+\resizebox{0.6\textwidth}{!} {
+\begin{tikzpicture}  
+     \begin{axis}[
+         xlabel={Μέγεθος διανυσμάτων},
+         ylabel={Χρόνος εκτέλεσης},
+         xmin=1e4, xmax=250000,
+         ymin=0, ymax=7,
+         xtick={ 1e4, 3e4, 6e4, 1e5, 130000, 160000, 200000, 250000},
+         ytick={ 0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7},
+         legend pos=north west,
+        % ymajorgrids=true,
+        % grid style=dashed,
+     ] 
+ 	
+ 	\addplot[ color=blue, mark=triangle,]
+      coordinates {
+          (1e4,0.024)(2e4,0.059)(3e4,0.115)
+          (4e4,0.203)(5e4,0.308)(6e4,0.450)
+          (100000,1.148)(130000,2.901)(160000,2.860)(200000,4.376)
+          (250000, 6.774)
+
+ 	};
+ 	\addlegendentry{\en{Alt3}}
+ 	
+ 	 	\addplot[ color=green, mark=square,]
+      coordinates {
+          (1e4, 0.946)(2e4,1.173)(3e4,1.507)
+          (4e4,1.944)(5e4,2.535)(6e4,3.205)
+
+ 	};
+ 	\addlegendentry{\en{Alt21}}
+ 	
+ 	\addplot[ color=red, mark=square,]
+      coordinates {
+          (1e4, 0.836)(2e4,0.885)(3e4,0.94)
+          (4e4,1.017)(5e4,1.071)(6e4,1.16)
+          (100000, 1.585)(130000, 1.832)(160000, 2.359)(200000, 3.009)
+		 (250000, 4.173)
+
+ 	};
+ 	\addlegendentry{\en{Alt22}}
+ 	
+     \end{axis}
+\end{tikzpicture}}% NO EMPTY LINE HERE!!!! 
+\end{center}
+\caption{\en{Prime Numbers}: Σύγκριση \en{Alt22, Alt21, Alt3}}
+\end{figure}
+\clearpage
+
+

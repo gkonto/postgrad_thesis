@@ -1,22 +1,40 @@
 \documentclass[12pt]{article}
 \usepackage{custom_package}
-
+\usepackage{makecell}
+%\usepackage{indentfirst}
 \begin{document}
-%\include{intro}
-%\include{ch1}
-%\include{ch2}
-%\include{ch3_1}
-%\include{ch3_2}
-%\include{ch3_3}
-%\include{ch3_4}
-%\include{ch4_1}
-\include{ch4_2}
-%\include{ch4_3}
-%\include{ch4_4}
-%\include{ch4_5}
-%\include{ch4_6}
-%\include{ch4}
-%\include{outro}
+\sloppy
+\hyphenchar\font=-1
+\setstretch{1.5}
+
+\include{intro}
+%THEORIA
+\include{ch1}
+\include{ch2}
+\include{ch3_1}  % SIMD
+\include{ch3_2} % Affinity
+\include{ch3_3} % Tasking
+\include{ch3_4} % offloading, target, 
+\include{ch4_1} % Perigrafes domis provlimaton
+
+
+%PARADEIGMATA
+\include{ch4_2} % SAXPY
+\include{pi}    
+\include{dprod}             
+\include{prime_numbers}	     
+\include{linked_list_traversal} 
+\include{producer_consumer}      
+\include{mergesort}			
+\include{quicksort}         
+\include{matrix_multiplication}
+\include{dft}
+
+
+%EPILOGOS
+\include{outro}
+
+%VIVLIOGRAFIA
 \include{biblio}
 
 \end{document}

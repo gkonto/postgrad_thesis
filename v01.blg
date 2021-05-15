@@ -1,48 +1,79 @@
 This is BibTeX, Version 0.99d (TeX Live 2020/W32TeX)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: v01.aux
+A level-1 auxiliary file: intro.aux
+A level-1 auxiliary file: ch1.aux
+A level-1 auxiliary file: ch2.aux
+A level-1 auxiliary file: ch3_1.aux
+A level-1 auxiliary file: ch3_2.aux
+A level-1 auxiliary file: ch3_3.aux
+A level-1 auxiliary file: ch3_4.aux
+A level-1 auxiliary file: ch4_1.aux
 A level-1 auxiliary file: ch4_2.aux
+A level-1 auxiliary file: pi.aux
+A level-1 auxiliary file: dprod.aux
+A level-1 auxiliary file: prime_numbers.aux
+A level-1 auxiliary file: linked_list_traversal.aux
+A level-1 auxiliary file: producer_consumer.aux
+A level-1 auxiliary file: mergesort.aux
+A level-1 auxiliary file: quicksort.aux
+A level-1 auxiliary file: matrix_multiplication.aux
+A level-1 auxiliary file: dft.aux
+A level-1 auxiliary file: outro.aux
 A level-1 auxiliary file: biblio.aux
 The style file: abbrv.bst
 Database file #1: bibliogr.bib
-You've used 1 entry,
+Warning--I didn't find a database entry for "pdblab"
+Warning--to sort, need author or key in openmpse16
+Warning--to sort, need author or key in threadprivate
+Warning--to sort, need author or key in runtime_functions
+Warning--to sort, need author or key in simd_linear
+Warning--to sort, need editor, organization, or key in thread_affinity
+Warning--to sort, need author or key in klencockwood
+Warning--to sort, need author or key in if_clause
+Warning--to sort, need editor, organization, or key in tasking1
+Warning--to sort, need author or key in wiki_prod_cons
+Warning--to sort, need author or key in merge
+Warning--to sort, need author or key in offloading_compilers
+You've used 39 entries,
             2118 wiz_defined-function locations,
-            505 strings with 3836 characters,
-and the built_in function-call counts, 413 in all, are:
-= -- 40
-> -- 7
-< -- 1
-+ -- 3
-- -- 2
-* -- 20
-:= -- 63
-add.period$ -- 3
-call.type$ -- 1
-change.case$ -- 3
+            664 strings with 8258 characters,
+and the built_in function-call counts, 8697 in all, are:
+= -- 817
+> -- 213
+< -- 12
++ -- 100
+- -- 58
+* -- 309
+:= -- 1299
+add.period$ -- 106
+call.type$ -- 39
+change.case$ -- 133
 chr.to.int$ -- 0
-cite$ -- 1
-duplicate$ -- 22
-empty$ -- 39
-format.name$ -- 2
-if$ -- 97
+cite$ -- 50
+duplicate$ -- 408
+empty$ -- 959
+format.name$ -- 58
+if$ -- 2018
 int.to.chr$ -- 0
-int.to.str$ -- 1
-missing$ -- 2
-newline$ -- 8
-num.names$ -- 2
-pop$ -- 9
+int.to.str$ -- 39
+missing$ -- 22
+newline$ -- 185
+num.names$ -- 56
+pop$ -- 322
 preamble$ -- 1
-purify$ -- 3
+purify$ -- 107
 quote$ -- 0
-skip$ -- 18
+skip$ -- 354
 stack$ -- 0
-substring$ -- 33
-swap$ -- 10
-text.length$ -- 1
+substring$ -- 308
+swap$ -- 103
+text.length$ -- 12
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 2
-warning$ -- 0
-while$ -- 4
-width$ -- 2
-write$ -- 13
+type$ -- 132
+warning$ -- 11
+while$ -- 69
+width$ -- 41
+write$ -- 356
+(There were 12 warnings)

@@ -1,0 +1,246 @@
+\BOOKMARK [1][-]{section.1}{}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{ \040 OpenMP}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{ \205 }{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.3}{ \040\265}{section.1}% 4
+\BOOKMARK [1][-]{section.2}{ \337}{}% 5
+\BOOKMARK [2][-]{subsection.2.1}{ \265 \265\265\265 OpenMP}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.2}{ \265 \040\337 \265}{section.2}% 7
+\BOOKMARK [3][-]{subsubsection.2.2.1}{ \265\265}{subsection.2.2}% 8
+\BOOKMARK [3][-]{subsubsection.2.2.2}{ \265\265}{subsection.2.2}% 9
+\BOOKMARK [4][-]{paragraph.2.2.2.1}{ \265 \(Race Condition\)}{subsubsection.2.2.2}% 10
+\BOOKMARK [4][-]{paragraph.2.2.2.2}{ \265\265 \(False Sharing\)}{subsubsection.2.2.2}% 11
+\BOOKMARK [2][-]{subsection.2.3}{ \040\337 \040 OpenMP}{section.2}% 12
+\BOOKMARK [3][-]{subsubsection.2.3.1}{ \040\265\265}{subsection.2.3}% 13
+\BOOKMARK [3][-]{subsubsection.2.3.2}{ \265\265 }{subsection.2.3}% 14
+\BOOKMARK [4][-]{paragraph.2.3.2.1}{ \265\265 \040\337 - for}{subsubsection.2.3.2}% 15
+\BOOKMARK [4][-]{paragraph.2.3.2.2}{ sections}{subsubsection.2.3.2}% 16
+\BOOKMARK [4][-]{paragraph.2.3.2.3}{ master}{subsubsection.2.3.2}% 17
+\BOOKMARK [4][-]{paragraph.2.3.2.4}{ single}{subsubsection.2.3.2}% 18
+\BOOKMARK [4][-]{paragraph.2.3.2.5}{ flush}{subsubsection.2.3.2}% 19
+\BOOKMARK [3][-]{subsubsection.2.3.3}{ - Clauses}{subsection.2.3}% 20
+\BOOKMARK [4][-]{paragraph.2.3.3.1}{ \265\265 \265 - Data sharing attribute clauses}{subsubsection.2.3.3}% 21
+\BOOKMARK [5][-]{subparagraph.2.3.3.1.1}{ shared}{paragraph.2.3.3.1}% 22
+\BOOKMARK [5][-]{subparagraph.2.3.3.1.2}{ private}{paragraph.2.3.3.1}% 23
+\BOOKMARK [5][-]{subparagraph.2.3.3.1.3}{ default}{paragraph.2.3.3.1}% 24
+\BOOKMARK [5][-]{subparagraph.2.3.3.1.4}{ firstprivate}{paragraph.2.3.3.1}% 25
+\BOOKMARK [5][-]{subparagraph.2.3.3.1.5}{ lastprivate}{paragraph.2.3.3.1}% 26
+\BOOKMARK [5][-]{subparagraph.2.3.3.1.6}{ threadprivate}{paragraph.2.3.3.1}% 27
+\BOOKMARK [5][-]{subparagraph.2.3.3.1.7}{ ordered}{paragraph.2.3.3.1}% 28
+\BOOKMARK [5][-]{subparagraph.2.3.3.1.8}{ reduction}{paragraph.2.3.3.1}% 29
+\BOOKMARK [4][-]{paragraph.2.3.3.2}{ \265 - Data sharing attribute clauses}{subsubsection.2.3.3}% 30
+\BOOKMARK [5][-]{subparagraph.2.3.3.2.1}{ critical}{paragraph.2.3.3.2}% 31
+\BOOKMARK [5][-]{subparagraph.2.3.3.2.2}{ atomic}{paragraph.2.3.3.2}% 32
+\BOOKMARK [5][-]{subparagraph.2.3.3.2.3}{ barrier}{paragraph.2.3.3.2}% 33
+\BOOKMARK [5][-]{subparagraph.2.3.3.2.4}{ nowait}{paragraph.2.3.3.2}% 34
+\BOOKMARK [5][-]{subparagraph.2.3.3.2.5}{\265\265 \040schedule}{paragraph.2.3.3.2}% 35
+\BOOKMARK [3][-]{subsubsection.2.3.4}{\337 \337}{subsection.2.3}% 36
+\BOOKMARK [3][-]{subsubsection.2.3.5}{Runtime Functions}{subsection.2.3}% 37
+\BOOKMARK [1][-]{section.3}{ \040OpenMP 3.0 - 4.5}{}% 38
+\BOOKMARK [2][-]{subsection.3.1}{\265 \265 SIMD}{section.3}% 39
+\BOOKMARK [3][-]{subsubsection.3.1.1}{ \040simd}{subsection.3.1}% 40
+\BOOKMARK [3][-]{subsubsection.3.1.2}{ \040simd}{subsection.3.1}% 41
+\BOOKMARK [4][-]{paragraph.3.1.2.1}{ simdlen}{subsubsection.3.1.2}% 42
+\BOOKMARK [4][-]{paragraph.3.1.2.2}{ safelen}{subsubsection.3.1.2}% 43
+\BOOKMARK [4][-]{paragraph.3.1.2.3}{ linear}{subsubsection.3.1.2}% 44
+\BOOKMARK [4][-]{paragraph.3.1.2.4}{ aligned}{subsubsection.3.1.2}% 45
+\BOOKMARK [3][-]{subsubsection.3.1.3}{ \040 \337 SIMD}{subsection.3.1}% 46
+\BOOKMARK [3][-]{subsubsection.3.1.4}{ SIMD}{subsection.3.1}% 47
+\BOOKMARK [4][-]{paragraph.3.1.4.1}{H \040declare simd}{subsubsection.3.1.4}% 48
+\BOOKMARK [3][-]{subsubsection.3.1.5}{ \265 SIMD }{subsection.3.1}% 49
+\BOOKMARK [2][-]{subsection.3.2}{Thread Affinity}{section.3}% 50
+\BOOKMARK [3][-]{subsubsection.3.2.1}{Thread affinity \040OpenMP 4.0}{subsection.3.2}% 51
+\BOOKMARK [4][-]{paragraph.3.2.1.1}{Thread Binding}{subsubsection.3.2.1}% 52
+\BOOKMARK [3][-]{subsubsection.3.2.2}{ thread affinity \040}{subsection.3.2}% 53
+\BOOKMARK [2][-]{subsection.3.3}{Tasking}{section.3}% 54
+\BOOKMARK [3][-]{subsubsection.3.3.1}{ \040task}{subsection.3.3}% 55
+\BOOKMARK [4][-]{paragraph.3.3.1.1}{ if}{subsubsection.3.3.1}% 56
+\BOOKMARK [4][-]{paragraph.3.3.1.2}{ final}{subsubsection.3.3.1}% 57
+\BOOKMARK [4][-]{paragraph.3.3.1.3}{ mergeable}{subsubsection.3.3.1}% 58
+\BOOKMARK [4][-]{paragraph.3.3.1.4}{ depend}{subsubsection.3.3.1}% 59
+\BOOKMARK [4][-]{paragraph.3.3.1.5}{ untied}{subsubsection.3.3.1}% 60
+\BOOKMARK [3][-]{subsubsection.3.3.2}{\265 }{subsection.3.3}% 61
+\BOOKMARK [2][-]{subsection.3.4}{ }{section.3}% 62
+\BOOKMARK [3][-]{subsubsection.3.4.1}{ \040\265 \040 }{subsection.3.4}% 63
+\BOOKMARK [3][-]{subsubsection.3.4.2}{ \265\265 \040}{subsection.3.4}% 64
+\BOOKMARK [4][-]{paragraph.3.4.2.1}{ \040map}{subsubsection.3.4.2}% 65
+\BOOKMARK [4][-]{paragraph.3.4.2.2}{\337 \265 }{subsubsection.3.4.2}% 66
+\BOOKMARK [4][-]{paragraph.3.4.2.3}{ \265\337 }{subsubsection.3.4.2}% 67
+\BOOKMARK [3][-]{subsubsection.3.4.3}{ \040target}{subsection.3.4}% 68
+\BOOKMARK [3][-]{subsubsection.3.4.4}{ \040target teams}{subsection.3.4}% 69
+\BOOKMARK [3][-]{subsubsection.3.4.5}{ \040distribute}{subsection.3.4}% 70
+\BOOKMARK [3][-]{subsubsection.3.4.6}{ \040}{subsection.3.4}% 71
+\BOOKMARK [3][-]{subsubsection.3.4.7}{ declare target}{subsection.3.4}% 72
+\BOOKMARK [1][-]{section.4}{\265 \265}{}% 73
+\BOOKMARK [2][-]{subsection.4.1}{ \040\337\265}{section.4}% 74
+\BOOKMARK [2][-]{subsection.4.2}{ \265\265 \040 \265}{section.4}% 75
+\BOOKMARK [2][-]{subsection.4.3}{ \040\265 \265 \337 - SAXPY}{section.4}% 76
+\BOOKMARK [3][-]{subsubsection.4.3.1}{ \337\265}{subsection.4.3}% 77
+\BOOKMARK [3][-]{subsubsection.4.3.2}{ \040\265\265 \265 SAXPY}{subsection.4.3}% 78
+\BOOKMARK [3][-]{subsubsection.4.3.3}{ }{subsection.4.3}% 79
+\BOOKMARK [4][-]{paragraph.4.3.3.1}{}{subsubsection.4.3.3}% 80
+\BOOKMARK [3][-]{subsubsection.4.3.4}{ \265 \040parallel for}{subsection.4.3}% 81
+\BOOKMARK [4][-]{paragraph.4.3.4.1}{}{subsubsection.4.3.4}% 82
+\BOOKMARK [3][-]{subsubsection.4.3.5}{ \265 \040 SIMD}{subsection.4.3}% 83
+\BOOKMARK [4][-]{paragraph.4.3.5.1}{ \265 omp simd}{subsubsection.4.3.5}% 84
+\BOOKMARK [5][-]{subparagraph.4.3.5.1.1}{}{paragraph.4.3.5.1}% 85
+\BOOKMARK [4][-]{paragraph.4.3.5.2}{ \265 omp parallel for simd}{subsubsection.4.3.5}% 86
+\BOOKMARK [5][-]{subparagraph.4.3.5.2.1}{}{paragraph.4.3.5.2}% 87
+\BOOKMARK [4][-]{paragraph.4.3.5.3}{ \265 omp declare simd uniform}{subsubsection.4.3.5}% 88
+\BOOKMARK [5][-]{subparagraph.4.3.5.3.1}{}{paragraph.4.3.5.3}% 89
+\BOOKMARK [4][-]{paragraph.4.3.5.4}{ \265 omp declare simd uniform notinbranch}{subsubsection.4.3.5}% 90
+\BOOKMARK [3][-]{subsubsection.4.3.6}{ \265 offloading}{subsection.4.3}% 91
+\BOOKMARK [4][-]{paragraph.4.3.6.1}{ \265 target map}{subsubsection.4.3.6}% 92
+\BOOKMARK [5][-]{subparagraph.4.3.6.1.1}{}{paragraph.4.3.6.1}% 93
+\BOOKMARK [4][-]{paragraph.4.3.6.2}{ \265 target simd map}{subsubsection.4.3.6}% 94
+\BOOKMARK [5][-]{subparagraph.4.3.6.2.1}{}{paragraph.4.3.6.2}% 95
+\BOOKMARK [4][-]{paragraph.4.3.6.3}{ \265 target parallel for}{subsubsection.4.3.6}% 96
+\BOOKMARK [5][-]{subparagraph.4.3.6.3.1}{}{paragraph.4.3.6.3}% 97
+\BOOKMARK [4][-]{paragraph.4.3.6.4}{ \265 target parallel for simd}{subsubsection.4.3.6}% 98
+\BOOKMARK [5][-]{subparagraph.4.3.6.4.1}{}{paragraph.4.3.6.4}% 99
+\BOOKMARK [4][-]{paragraph.4.3.6.5}{ \265 target teams map}{subsubsection.4.3.6}% 100
+\BOOKMARK [5][-]{subparagraph.4.3.6.5.1}{}{paragraph.4.3.6.5}% 101
+\BOOKMARK [4][-]{paragraph.4.3.6.6}{ \265 target teams distribute map}{subsubsection.4.3.6}% 102
+\BOOKMARK [5][-]{subparagraph.4.3.6.6.1}{}{paragraph.4.3.6.6}% 103
+\BOOKMARK [4][-]{paragraph.4.3.6.7}{ \265 target teams distribute parallel for map}{subsubsection.4.3.6}% 104
+\BOOKMARK [5][-]{subparagraph.4.3.6.7.1}{}{paragraph.4.3.6.7}% 105
+\BOOKMARK [4][-]{paragraph.4.3.6.8}{ \265 target teams distribute simd map}{subsubsection.4.3.6}% 106
+\BOOKMARK [5][-]{subparagraph.4.3.6.8.1}{}{paragraph.4.3.6.8}% 107
+\BOOKMARK [4][-]{paragraph.4.3.6.9}{ \265 target teams distribute parallel for simd map}{subsubsection.4.3.6}% 108
+\BOOKMARK [5][-]{subparagraph.4.3.6.9.1}{}{paragraph.4.3.6.9}% 109
+\BOOKMARK [4][-]{paragraph.4.3.6.10}{ \265 target teams distribute parallel for simd \040is\137device\137ptr}{subsubsection.4.3.6}% 110
+\BOOKMARK [5][-]{subparagraph.4.3.6.10.1}{}{paragraph.4.3.6.10}% 111
+\BOOKMARK [2][-]{subsection.4.4}{\265 \265 \040}{section.4}% 112
+\BOOKMARK [3][-]{subsubsection.4.4.1}{ \040 main \040\337\265 \265 }{subsection.4.4}% 113
+\BOOKMARK [3][-]{subsubsection.4.4.2}{ }{subsection.4.4}% 114
+\BOOKMARK [4][-]{paragraph.4.4.2.1}{}{subsubsection.4.4.2}% 115
+\BOOKMARK [3][-]{subsubsection.4.4.3}{ \265 omp parallel}{subsection.4.4}% 116
+\BOOKMARK [4][-]{paragraph.4.4.3.1}{}{subsubsection.4.4.3}% 117
+\BOOKMARK [3][-]{subsubsection.4.4.4}{ \265 \040 \265 - omp atomic}{subsection.4.4}% 118
+\BOOKMARK [4][-]{paragraph.4.4.4.1}{}{subsubsection.4.4.4}% 119
+\BOOKMARK [3][-]{subsubsection.4.4.5}{ \265 \040omp for - reduction}{subsection.4.4}% 120
+\BOOKMARK [4][-]{paragraph.4.4.5.1}{}{subsubsection.4.4.5}% 121
+\BOOKMARK [3][-]{subsubsection.4.4.6}{ \265 \040parallel for simd reduction}{subsection.4.4}% 122
+\BOOKMARK [4][-]{paragraph.4.4.6.1}{}{subsubsection.4.4.6}% 123
+\BOOKMARK [3][-]{subsubsection.4.4.7}{ \265 \040offloading}{subsection.4.4}% 124
+\BOOKMARK [4][-]{paragraph.4.4.7.1}{}{subsubsection.4.4.7}% 125
+\BOOKMARK [3][-]{subsubsection.4.4.8}{ atomic - critical}{subsection.4.4}% 126
+\BOOKMARK [4][-]{paragraph.4.4.8.1}{}{subsubsection.4.4.8}% 127
+\BOOKMARK [3][-]{subsubsection.4.4.9}{ atomic - critical \(2\)}{subsection.4.4}% 128
+\BOOKMARK [4][-]{paragraph.4.4.9.1}{}{subsubsection.4.4.9}% 129
+\BOOKMARK [2][-]{subsection.4.5}{\265 \040\265 - Dot Product}{section.4}% 130
+\BOOKMARK [3][-]{subsubsection.4.5.1}{ \040\265\265 \265 DotProd}{subsection.4.5}% 131
+\BOOKMARK [3][-]{subsubsection.4.5.2}{ }{subsection.4.5}% 132
+\BOOKMARK [4][-]{paragraph.4.5.2.1}{}{subsubsection.4.5.2}% 133
+\BOOKMARK [3][-]{subsubsection.4.5.3}{ \265 pragma omp parallel for}{subsection.4.5}% 134
+\BOOKMARK [4][-]{paragraph.4.5.3.1}{ \040critical}{subsubsection.4.5.3}% 135
+\BOOKMARK [5][-]{subparagraph.4.5.3.1.1}{}{paragraph.4.5.3.1}% 136
+\BOOKMARK [4][-]{paragraph.4.5.3.2}{ private \265\337 \040 \265}{subsubsection.4.5.3}% 137
+\BOOKMARK [5][-]{subparagraph.4.5.3.2.1}{}{paragraph.4.5.3.2}% 138
+\BOOKMARK [3][-]{subsubsection.4.5.4}{ \265 \265 \265}{subsection.4.5}% 139
+\BOOKMARK [4][-]{paragraph.4.5.4.1}{ \040simd}{subsubsection.4.5.4}% 140
+\BOOKMARK [5][-]{subparagraph.4.5.4.1.1}{}{paragraph.4.5.4.1}% 141
+\BOOKMARK [4][-]{paragraph.4.5.4.2}{ \040reduction}{subsubsection.4.5.4}% 142
+\BOOKMARK [5][-]{subparagraph.4.5.4.2.1}{}{paragraph.4.5.4.2}% 143
+\BOOKMARK [4][-]{paragraph.4.5.4.3}{ \040reduction}{subsubsection.4.5.4}% 144
+\BOOKMARK [5][-]{subparagraph.4.5.4.3.1}{}{paragraph.4.5.4.3}% 145
+\BOOKMARK [4][-]{paragraph.4.5.4.4}{ \040declare simd notinbranch}{subsubsection.4.5.4}% 146
+\BOOKMARK [5][-]{subparagraph.4.5.4.4.1}{}{paragraph.4.5.4.4}% 147
+\BOOKMARK [4][-]{paragraph.4.5.4.5}{ \040simd parallel for reduction}{subsubsection.4.5.4}% 148
+\BOOKMARK [5][-]{subparagraph.4.5.4.5.1}{}{paragraph.4.5.4.5}% 149
+\BOOKMARK [3][-]{subsubsection.4.5.5}{ \265 offloading}{subsection.4.5}% 150
+\BOOKMARK [4][-]{paragraph.4.5.5.1}{ \040parallel for reduction}{subsubsection.4.5.5}% 151
+\BOOKMARK [5][-]{subparagraph.4.5.5.1.1}{}{paragraph.4.5.5.1}% 152
+\BOOKMARK [4][-]{paragraph.4.5.5.2}{ \040target simd reduction\(+ : res\)}{subsubsection.4.5.5}% 153
+\BOOKMARK [5][-]{subparagraph.4.5.5.2.1}{}{paragraph.4.5.5.2}% 154
+\BOOKMARK [4][-]{paragraph.4.5.5.3}{ \040target parallel for simd reduction\(+ : res\)}{subsubsection.4.5.5}% 155
+\BOOKMARK [5][-]{subparagraph.4.5.5.3.1}{}{paragraph.4.5.5.3}% 156
+\BOOKMARK [4][-]{paragraph.4.5.5.4}{ \040target teams parallel for simd reduction\(+ : res\)}{subsubsection.4.5.5}% 157
+\BOOKMARK [4][-]{paragraph.4.5.5.5}{ \040teams distribute parallel for}{subsubsection.4.5.5}% 158
+\BOOKMARK [4][-]{paragraph.4.5.5.6}{ \040teams distribute parallel for simd reduction}{subsubsection.4.5.5}% 159
+\BOOKMARK [5][-]{subparagraph.4.5.5.6.1}{}{paragraph.4.5.5.6}% 160
+\BOOKMARK [2][-]{subsection.4.6}{\265 \040\265}{section.4}% 161
+\BOOKMARK [3][-]{subsubsection.4.6.1}{ \040\265\265 \265 \040\265}{subsection.4.6}% 162
+\BOOKMARK [3][-]{subsubsection.4.6.2}{ }{subsection.4.6}% 163
+\BOOKMARK [3][-]{subsubsection.4.6.3}{ \265 parallel for reduction}{subsection.4.6}% 164
+\BOOKMARK [4][-]{paragraph.4.6.3.1}{}{subsubsection.4.6.3}% 165
+\BOOKMARK [3][-]{subsubsection.4.6.4}{ \265 parallel for \040critical}{subsection.4.6}% 166
+\BOOKMARK [4][-]{paragraph.4.6.4.1}{}{subsubsection.4.6.4}% 167
+\BOOKMARK [3][-]{subsubsection.4.6.5}{ \265 simd reduction}{subsection.4.6}% 168
+\BOOKMARK [3][-]{subsubsection.4.6.6}{ \265 ordered simd - critical}{subsection.4.6}% 169
+\BOOKMARK [3][-]{subsubsection.4.6.7}{ ordered simd reduction}{subsection.4.6}% 170
+\BOOKMARK [4][-]{paragraph.4.6.7.1}{}{subsubsection.4.6.7}% 171
+\BOOKMARK [3][-]{subsubsection.4.6.8}{ \265 offloading \(1\)}{subsection.4.6}% 172
+\BOOKMARK [3][-]{subsubsection.4.6.9}{ \265 offloading \(2\)}{subsection.4.6}% 173
+\BOOKMARK [4][-]{paragraph.4.6.9.1}{}{subsubsection.4.6.9}% 174
+\BOOKMARK [3][-]{subsubsection.4.6.10}{ \265 offloading \(3\)}{subsection.4.6}% 175
+\BOOKMARK [3][-]{subsubsection.4.6.11}{ \265 offloading \(4\)}{subsection.4.6}% 176
+\BOOKMARK [4][-]{paragraph.4.6.11.1}{}{subsubsection.4.6.11}% 177
+\BOOKMARK [2][-]{subsection.4.7}{ \265 }{section.4}% 178
+\BOOKMARK [3][-]{subsubsection.4.7.1}{ \040\265\265 \040\265 }{subsection.4.7}% 179
+\BOOKMARK [3][-]{subsubsection.4.7.2}{ }{subsection.4.7}% 180
+\BOOKMARK [4][-]{paragraph.4.7.2.1}{}{subsubsection.4.7.2}% 181
+\BOOKMARK [3][-]{subsubsection.4.7.3}{ \265 parallel for}{subsection.4.7}% 182
+\BOOKMARK [4][-]{paragraph.4.7.3.1}{}{subsubsection.4.7.3}% 183
+\BOOKMARK [3][-]{subsubsection.4.7.4}{ \265 parallel for \(2\)}{subsection.4.7}% 184
+\BOOKMARK [4][-]{paragraph.4.7.4.1}{}{subsubsection.4.7.4}% 185
+\BOOKMARK [3][-]{subsubsection.4.7.5}{ \265 tasks}{subsection.4.7}% 186
+\BOOKMARK [4][-]{paragraph.4.7.5.1}{}{subsubsection.4.7.5}% 187
+\BOOKMARK [2][-]{subsection.4.8}{\265 Producer-Consumer}{section.4}% 188
+\BOOKMARK [3][-]{subsubsection.4.8.1}{ \040\265\265 \265 Producer-Consumer}{subsection.4.8}% 189
+\BOOKMARK [3][-]{subsubsection.4.8.2}{ }{subsection.4.8}% 190
+\BOOKMARK [4][-]{paragraph.4.8.2.1}{}{subsubsection.4.8.2}% 191
+\BOOKMARK [3][-]{subsubsection.4.8.3}{ \265 parallel for reduction}{subsection.4.8}% 192
+\BOOKMARK [4][-]{paragraph.4.8.3.1}{}{subsubsection.4.8.3}% 193
+\BOOKMARK [3][-]{subsubsection.4.8.4}{ \265 parallel for \(2\)}{subsection.4.8}% 194
+\BOOKMARK [4][-]{paragraph.4.8.4.1}{}{subsubsection.4.8.4}% 195
+\BOOKMARK [3][-]{subsubsection.4.8.5}{ \265 tasks \(depend\)}{subsection.4.8}% 196
+\BOOKMARK [4][-]{paragraph.4.8.5.1}{}{subsubsection.4.8.5}% 197
+\BOOKMARK [3][-]{subsubsection.4.8.6}{ \265 taskloop}{subsection.4.8}% 198
+\BOOKMARK [4][-]{paragraph.4.8.6.1}{}{subsubsection.4.8.6}% 199
+\BOOKMARK [2][-]{subsection.4.9}{\265 \265 mergesort}{section.4}% 200
+\BOOKMARK [3][-]{subsubsection.4.9.1}{ \040\265\265 \265 \265 mergesort}{subsection.4.9}% 201
+\BOOKMARK [3][-]{subsubsection.4.9.2}{ }{subsection.4.9}% 202
+\BOOKMARK [3][-]{subsubsection.4.9.3}{ \265 task}{subsection.4.9}% 203
+\BOOKMARK [3][-]{subsubsection.4.9.4}{ \265 task \(2\)}{subsection.4.9}% 204
+\BOOKMARK [3][-]{subsubsection.4.9.5}{ \265 task \(3\)}{subsection.4.9}% 205
+\BOOKMARK [3][-]{subsubsection.4.9.6}{ \265 task \(4\)}{subsection.4.9}% 206
+\BOOKMARK [4][-]{paragraph.4.9.6.1}{}{subsubsection.4.9.6}% 207
+\BOOKMARK [2][-]{subsection.4.10}{\265 \265 Quicksort}{section.4}% 208
+\BOOKMARK [3][-]{subsubsection.4.10.1}{ \040\265\265 \265 Quicksort}{subsection.4.10}% 209
+\BOOKMARK [3][-]{subsubsection.4.10.2}{ }{subsection.4.10}% 210
+\BOOKMARK [3][-]{subsubsection.4.10.3}{ \040\265 tasks \(1\)}{subsection.4.10}% 211
+\BOOKMARK [4][-]{paragraph.4.10.3.1}{}{subsubsection.4.10.3}% 212
+\BOOKMARK [3][-]{subsubsection.4.10.4}{ \040\265 tasks \(2\)}{subsection.4.10}% 213
+\BOOKMARK [4][-]{paragraph.4.10.4.1}{}{subsubsection.4.10.4}% 214
+\BOOKMARK [3][-]{subsubsection.4.10.5}{ \040\265 tasks \(3\)}{subsection.4.10}% 215
+\BOOKMARK [4][-]{paragraph.4.10.5.1}{}{subsubsection.4.10.5}% 216
+\BOOKMARK [2][-]{subsection.4.11}{\265 \265 \265}{section.4}% 217
+\BOOKMARK [3][-]{subsubsection.4.11.1}{ \040\265\265 \265 \265}{subsection.4.11}% 218
+\BOOKMARK [3][-]{subsubsection.4.11.2}{ }{subsection.4.11}% 219
+\BOOKMARK [4][-]{paragraph.4.11.2.1}{}{subsubsection.4.11.2}% 220
+\BOOKMARK [3][-]{subsubsection.4.11.3}{ parallel for \(1\)}{subsection.4.11}% 221
+\BOOKMARK [4][-]{paragraph.4.11.3.1}{}{subsubsection.4.11.3}% 222
+\BOOKMARK [3][-]{subsubsection.4.11.4}{ parallel for simd}{subsection.4.11}% 223
+\BOOKMARK [4][-]{paragraph.4.11.4.1}{}{subsubsection.4.11.4}% 224
+\BOOKMARK [3][-]{subsubsection.4.11.5}{ target \(1\)}{subsection.4.11}% 225
+\BOOKMARK [4][-]{paragraph.4.11.5.1}{}{subsubsection.4.11.5}% 226
+\BOOKMARK [3][-]{subsubsection.4.11.6}{ target \(2\)}{subsection.4.11}% 227
+\BOOKMARK [4][-]{paragraph.4.11.6.1}{}{subsubsection.4.11.6}% 228
+\BOOKMARK [3][-]{subsubsection.4.11.7}{ target \(3\)}{subsection.4.11}% 229
+\BOOKMARK [3][-]{subsubsection.4.11.8}{ target \(4\)}{subsection.4.11}% 230
+\BOOKMARK [3][-]{subsubsection.4.11.9}{ target \(5\)}{subsection.4.11}% 231
+\BOOKMARK [4][-]{paragraph.4.11.9.1}{}{subsubsection.4.11.9}% 232
+\BOOKMARK [2][-]{subsection.4.12}{\265 \265\265\265 Fourier}{section.4}% 233
+\BOOKMARK [3][-]{subsubsection.4.12.1}{ \040\265\265 \265 \265\265\265 Fourier}{subsection.4.12}% 234
+\BOOKMARK [3][-]{subsubsection.4.12.2}{ }{subsection.4.12}% 235
+\BOOKMARK [3][-]{subsubsection.4.12.3}{ \265 parallel for \(1\)}{subsection.4.12}% 236
+\BOOKMARK [4][-]{paragraph.4.12.3.1}{}{subsubsection.4.12.3}% 237
+\BOOKMARK [3][-]{subsubsection.4.12.4}{ \265 parallel for \(2\)}{subsection.4.12}% 238
+\BOOKMARK [4][-]{paragraph.4.12.4.1}{}{subsubsection.4.12.4}% 239
+\BOOKMARK [3][-]{subsubsection.4.12.5}{ \265 simd}{subsection.4.12}% 240
+\BOOKMARK [3][-]{subsubsection.4.12.6}{ \265 parallel for simd}{subsection.4.12}% 241
+\BOOKMARK [4][-]{paragraph.4.12.6.1}{}{subsubsection.4.12.6}% 242
+\BOOKMARK [1][-]{section.5}{}{}% 243
+\BOOKMARK [2][-]{subsection.5.1}{ \040\265\265}{section.5}% 244
+\BOOKMARK [2][-]{subsection.5.2}{ \040\265 \040}{section.5}% 245
+\BOOKMARK [2][-]{subsection.5.3}{ }{section.5}% 246
